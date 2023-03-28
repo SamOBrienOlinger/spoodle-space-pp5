@@ -10,6 +10,7 @@ div {
   background-color: #7112ee;
 
   }
+
   * {
     box-sizing: border-box;
   }
@@ -17,11 +18,21 @@ div {
   body { 
     font-family: "Oswald", "sans-serif;"
   }
+
+  /* .navbar-text {
+    color: #e9ebf2;
+  } */
+
   a {
     color: #e9ebf2;
     transition: color ease-in-out 0.3s;
   }
   
+
+  /* a:i {
+    color: #e9ebf2;
+  } */
+
   a:hover {
     text-decoration: none;
   }
@@ -32,7 +43,7 @@ div {
   }
   
   i {
-    color: #cfced3;
+    color: #e9ebf2;
     font-size: 1.6rem;
     padding: 7px;
     vertical-align: middle;
