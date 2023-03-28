@@ -2,11 +2,26 @@
   text-align: center;
 }
 
+h1 {
+
+  font-family: Oswald, sans-serif;
+
+}
+
+/* #container-one {
+
+	height: 100%;
+	width: 100%;
+	padding: 1%
+
+} */
+
 #ss-logo {
   height: 40vmin;
   pointer-events: none;
 
-  background-image: url(https://res.cloudinary.com/dzhbg6go0/image/upload/v1670254218/CockapooClub/Dog-in-backseat-of-car_uhokml.webp);
+  /* background-image: url(https://res.cloudinary.com/dzhbg6go0/image/upload/v1670254218/CockapooClub/Dog-in-backseat-of-car_uhokml.webp); */
+  background-image: url(https://res.cloudinary.com/dzhbg6go0/image/upload/v1680003043/CockapooClub/LargerSpoodleSpaceImage_uy8jmw.jpg);
 	margin-left: auto;
 	margin-right: auto;
 	outline: solid;
