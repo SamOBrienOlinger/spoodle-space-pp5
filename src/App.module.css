@@ -1,0 +1,45 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Oswald&display=swap'); */
+.App {
+    font-family: "Lato", "DM Sans", "sans-serif";
+    background-color: #f8f8f8;
+    min-height: 100vh;
+  }
+  
+div {
+
+  background-color: #7112ee;
+
+  }
+  * {
+    box-sizing: border-box;
+  }
+
+  body { 
+    font-family: "Oswald", "sans-serif;"
+  }
+  a {
+    color: #e9ebf2;
+    transition: color ease-in-out 0.3s;
+  }
+  
+  a:hover {
+    text-decoration: none;
+  }
+  
+  a:hover i {
+    color: yellow;
+    transition: color ease-in-out 0.3s;
+  }
+  
+  i {
+    color: #cfced3;
+    font-size: 1.6rem;
+    padding: 7px;
+    vertical-align: middle;
+  }
+  
+  i:hover {
+    cursor: pointer;
+    transition: color ease-in-out 0.3s;
+    color: #2142b2;
+  }
