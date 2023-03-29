@@ -4,7 +4,7 @@ import styles from "./App.module.css";
 import NavBar from "./components/NavBar";
 import Container from "react-bootstrap/Container";
 import {Route, Switch} from "react-router-dom";
-import SignUpForm from "./components/pages/auth/SignUpForm";
+import SignUpForm from "./pages/auth/SignUpForm";
 
 function App() {
   return (
