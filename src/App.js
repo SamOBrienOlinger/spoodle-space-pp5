@@ -1,23 +1,40 @@
 // import { Button } from 'bootstrap';
 // import Button from "react-bootstrap/Button";
-import styles from './App.module.css';
+import styles from "./App.module.css";
 import NavBar from "./components/NavBar";
+import Container from "react-bootstrap/Container";
+import {Route, Switch} from "react-router-dom";
 
 function App() {
   return (
-    <div className="styles.App">
-      {/* <h1>Welcome to SpoodleSpace fellow Spoodles and Cockapoopers!</h1>
-      
-      <div id='container-one'>
-        <div id='ss-logo'></div>
-      </div> */}
+      <div className={styles.App}>
+          
+          <NavBar />
 
-      <NavBar />
+          <Container className={styles.Main}>
+            
+            <Switch>
+              <Route exact path="/" render={() => <h1>Home page</h1>} />
+              <Route exact path="/signin" render={() => <h1>Login</h1>} />
+              <Route exact path="/signup" render={() => <h1>Join</h1>} />
+              <Route render={() => <p>Page not found!</p>} />
+           
+            </Switch>
 
-      {/* <Button variant="primary">Click Me</Button> */}
-
-    </div>
+          </Container>
+        
+        </div>
   );
 }
+
+
+      // {/* <h1>Welcome to SpoodleSpace fellow Spoodles and Cockapoopers!</h1>
+      
+      // <div id='container-one'>
+      //   <div id='ss-logo'></div>
+      // </div> */}
+
+      // {/* <Button variant="primary">Click Me</Button> */}
+
 
 export default App;
