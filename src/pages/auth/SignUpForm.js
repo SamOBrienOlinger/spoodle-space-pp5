@@ -40,7 +40,7 @@ const SignUpForm = () => {
               <Form.Control
               className={styles.Input} 
               type="password" 
-              placeholder="Password"
+              placeholder="Confirm Password"
               name="password2" 
               />
             </Form.Group>
