@@ -108,7 +108,7 @@ function PostCreateForm() {
       >
         cancel
       </Button>
-      <Button className={`${btnStyles.Button} ${btnStyles.Purple}`} type="submit">
+      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
         create
       </Button>
     </div>
