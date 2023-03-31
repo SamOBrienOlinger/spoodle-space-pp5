@@ -18,10 +18,6 @@ import btnStyles from "../../styles/Button.module.css";
 
 import { useHistory } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
-
-import Asset from "../../components/Asset";
-import { Image } from "react-bootstrap";
-
 function PostCreateForm() {
   const [errors, setErrors] = useState({});
 
