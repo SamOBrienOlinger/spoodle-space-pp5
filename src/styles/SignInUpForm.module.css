@@ -44,3 +44,8 @@
   .SignUpCol {
     height: 375px;
   }
+
+  #home.image {
+
+    background-image: src="https://res.cloudinary.com/dzhbg6go0/image/upload/v1670254218/CockapooClub/Benjiline1_qrxkoe.webp;";
+  }
