@@ -11,7 +11,6 @@ import PostsPage from "./pages/posts/PostsPage";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 
 function App() {
-
   const currentUser = useCurrentUser();
   const profile_id = currentUser?.profile_id || "";
 
@@ -37,7 +36,6 @@ function App() {
               />
             )}
           />
-
           <Route
             exact
             path="/liked"
@@ -48,7 +46,6 @@ function App() {
               />
             )}
           />
-
           <Route exact path="/signin" render={() => <SignInForm />} />
           <Route exact path="/signup" render={() => <SignUpForm />} />
           <Route exact path="/posts/create" render={() => <PostCreateForm />} />
