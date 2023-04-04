@@ -9,10 +9,6 @@ import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import Post from "./Post";
 
-// import { fetchMoreData } from "../../utils/utils";
-
-// import { useCurrentUser } from "../../contexts/CurrentUserContext";
-
 function PostPage() {
   const { id } = useParams();
   const [post, setPost] = useState({ results: [] });
