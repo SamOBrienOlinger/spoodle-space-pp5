@@ -29,10 +29,11 @@ function App() {
             exact
             path="/"
             render={() => (
-              <PostsPage message="No results found. Adjust the search keyword." />
+              <PostsPage 
+              message="No results found. Adjust the search keyword." />
             )}
           />
-          {/* <Route
+          <Route
             exact
             path="/feed"
             render={() => (
@@ -57,8 +58,12 @@ function App() {
           <Route exact path="/posts/create" render={() => <PostCreateForm />} />
           <Route exact path="/posts/:id" render={() => <PostPage />} />
           <Route exact path="/posts/:id/edit" render={() => <PostEditForm />} />
-          <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
-          <Route
+
+
+
+          {/* <Route exact path="/profiles/:id" render={() => <ProfilePage />} /> */}
+
+          {/* <Route
             exact
             path="/profiles/:id/edit/username"
             render={() => <UsernameForm />}
@@ -72,9 +77,9 @@ function App() {
             exact
             path="/profiles/:id/edit"
             render={() => <ProfileEditForm />}
-          />
+          />*/
 
-          <Route render={() => <NotFound />} /> */}
+          // <Route render={() => <NotFound />}
         </Switch>
       </Container>
     </div>
