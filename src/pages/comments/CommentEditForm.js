@@ -5,14 +5,14 @@ import { axiosRes } from "../../api/axiosDefaults";
 
 import styles from "../../styles/CommentCreateEditForm.module.css";
 
-<CommentEditForm
+{/* <CommentEditForm
       id={id}
       profile_id={profile_id}
       content={content}
       profileImage={profile_image}
       setComments={setComments}
       setShowEditForm={setShowEditForm}
-    />
+    /> */}
 
 function CommentEditForm(props) {
   const { id, content, setShowEditForm, setComments } = props;

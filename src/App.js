@@ -58,12 +58,12 @@ function App() {
           <Route exact path="/posts/create" render={() => <PostCreateForm />} />
           <Route exact path="/posts/:id" render={() => <PostPage />} />
           <Route exact path="/posts/:id/edit" render={() => <PostEditForm />} />
+          <Route render={() => <p>Page not found!</p>} />
 
 
+          {/* <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
 
-          {/* <Route exact path="/profiles/:id" render={() => <ProfilePage />} /> */}
-
-          {/* <Route
+          <Route
             exact
             path="/profiles/:id/edit/username"
             render={() => <UsernameForm />}
@@ -77,9 +77,10 @@ function App() {
             exact
             path="/profiles/:id/edit"
             render={() => <ProfileEditForm />}
-          />*/
+          />
 
-          // <Route render={() => <NotFound />}
+        <Route render={() => <NotFound />}
+        /> */}
         </Switch>
       </Container>
     </div>
