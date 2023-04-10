@@ -59,6 +59,7 @@ div {
 
   a:hover {
     text-decoration: none;
+    color: gold;
   }
   
   a:hover i {
