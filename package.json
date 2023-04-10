@@ -44,13 +44,8 @@
   },
   "devDependencies": {
     "msw": "^0.35.0"
-  }
-},
-{
-  "name": "Spoodle-Space-PP5",
-  "description": "a really cool app",
-  "version": "1.0.0",
+  },
   "engines": {
     "node": "16.20.0"
-  },
+  }
 }
