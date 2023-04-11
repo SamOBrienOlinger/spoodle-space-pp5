@@ -34,8 +34,7 @@ function PostsPage({ message, filter = "" }) {
         const { data } = await axiosReq.get(`/posts/?${filter}search=${query}`);
         setPosts(data);
         setHasLoaded(true);
-      } catch (err) {
-        
+      } catch (err) {        
       }
     };
 
@@ -69,7 +68,7 @@ function PostsPage({ message, filter = "" }) {
 
         {hasLoaded ? (
           <>
-            {posts.results.length ? (
+            {posts?.results?.length ? (
               <InfiniteScroll
                 children={posts.results.map((post) => (
                   <Post key={post.id} {...post} setPosts={setPosts} />
