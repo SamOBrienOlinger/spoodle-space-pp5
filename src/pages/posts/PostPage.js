@@ -58,10 +58,11 @@ function PostPage() {
               setComments={setComments}
             />
           ) : comments.results.length ? (
+          // {comments.results.length ? ( 
             "Comments"
           ) : null}
-          {comments.results.length ? (
-          
+          {comments?.results?.length ? ( 
+          // {comments?.results?.length ? ( 
             <InfiniteScroll
               children={comments.results.map((comment) => (
                 <Comment
