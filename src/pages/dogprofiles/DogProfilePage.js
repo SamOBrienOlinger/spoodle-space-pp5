@@ -25,9 +25,10 @@
 // import NoResults from "../../assets/no-results.png";
 // import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
-function DogProfilePage() {
-    console.log('Hello, Doggy profile page!');
-    }
-    DogProfilePage();
+// function DogProfilePage() {
+//     console.log('Hello, Doggy profile page!');
+//     }
+//     DogProfilePage();
 
-export default DogProfilePage;
+// export default DogProfilePage;
+
