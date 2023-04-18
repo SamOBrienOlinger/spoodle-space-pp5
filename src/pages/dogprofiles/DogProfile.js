@@ -7,9 +7,9 @@
 // import { Button } from "react-bootstrap";
 // import { useSetProfileData } from "../../contexts/ProfileDataContext";
 
-function DogProfilePage() {
-    console.log('Hello, doggy profiles page!');
+function DogProfile() {
+    console.log('Hello, doggy profile!');
     }
-    DogProfilePage();
+    DogProfile();
 
-export default DogProfiles;
+export default DogProfile;
