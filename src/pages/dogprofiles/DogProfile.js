@@ -10,6 +10,7 @@
 function DogProfile() {
     console.log('Hello, doggy profile!');
     }
+    
     DogProfile();
 
 export default DogProfile;
