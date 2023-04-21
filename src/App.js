@@ -15,6 +15,9 @@ import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import DogProfile from "./pages/dogprofiles/DogProfile";
+// import DogProfile from "./pages/doghealth/DogProfile";
+// import DogProfile from "./pages/doggydanger/DogProfile";
+
 import NotFound from "./components/NotFound";
 
 function App() {
