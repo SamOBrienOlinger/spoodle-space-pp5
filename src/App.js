@@ -14,9 +14,9 @@ import ProfilePage from "./pages/profiles/ProfilePage";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
-import DogProfile from "./pages/dogprofiles/DogProfile";
-// import DogProfile from "./pages/doghealth/DogProfile";
-// import DogProfile from "./pages/doggydanger/DogProfile";
+// import DogProfile from "./pages/dogprofiles/DogProfile";
+// import DogProfile from "./pages/doghealth/DogHealth";
+// import DogProfile from "./pages/doggydanger/DoggyDanger";
 
 import NotFound from "./components/NotFound";
 
@@ -62,7 +62,9 @@ function App() {
           <Route exact path="/posts/:id" render={() => <PostPage />} />
           <Route exact path="/posts/:id/edit" render={() => <PostEditForm />} />
           <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
-          <Route exact path="/dogprofiles/:id" render={() => <DogProfile />} />
+          {/* <Route exact path="/dogprofiles/:id" render={() => <DogProfilePage />} /> */}
+          {/* <Route exact path="/dogprofiles/:id" render={() => <DogProfileCreateForm />} />
+          <Route exact path="/dogprofiles/:id" render={() => <DogProfileEditForm />} /> */}
           <Route
             exact
             path="/profiles/:id/edit/username"
