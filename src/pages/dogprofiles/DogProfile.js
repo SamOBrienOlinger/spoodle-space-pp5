@@ -8,12 +8,10 @@ import Media from "react-bootstrap/Media";
 import { MoreDropdown } from "../../components/MoreDropdown";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
-
+// import { MoreDropdown } from "../../components/MoreDropdown";
 import { axiosRes } from "../../api/axiosDefaults";
-
-import DogProfileEditForm from "./DogProfileEditForm"
 
 // import { useSetProfileData } from "../../contexts/ProfileDataContext";
 
@@ -25,7 +23,7 @@ const DogProfile = (props) => {
     profile_image,
     updated_at,
     dogprofile,
-    setDogProfile,
+    dogprofilePage
   } = props;
 
   const { dog_name, dog_age, dog_color, dog_bio, dog_profile_image,} = dogprofile;
@@ -33,23 +31,10 @@ const DogProfile = (props) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
+  const history = useHistory();
 
-  const handleDelete = async () => {
-    try {
-      await axiosRes.delete(`/dogprofile/${id}/`);
-      setDogProfile((prevDogprofile) => ({
-        results: [
-          {
-            ...prevDogprofile.results[0],
-          },
-        ],
-      }));
-
-      setDogProfile((prevDogprofile) => ({
-        ...prevDogprofile,
-        results: prevDogprofile.results.filter((dogprofile) => dogprofile.id !== id),
-      }));
-    } catch (err) {}
+  const handleEdit = () => {
+    history.push(`/dogprofiles/${id}/edit`);
   };
 
   return (
@@ -59,6 +44,15 @@ const DogProfile = (props) => {
         <Link to={`/profiles/${profile_id}`}>
           <Avatar src={profile_image} />
         </Link>
+        <div className="d-flex align-items-center">
+            <span>{updated_at}</span>
+            {is_owner && dogprofilePage && (
+              <MoreDropdown
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            )}
+        </div>
         <Media.Body className="align-self-center ml-2">
           <span className={styles.Owner}>{owner}</span>
           <span className={styles.Date}>{updated_at}</span>
