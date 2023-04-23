@@ -16,6 +16,7 @@ import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import DogProfilePage from "./pages/dogprofiles/DogProfilePage";
 import DogProfilesPage from "./pages/dogprofiles/DogProfilesPage";
+import DogProfileCreateForm from "./pages/dogprofiles/DogProfileCreateForm";
 
 
 // import DogHealth from "./pages/doghealth/DogHealth";
@@ -77,8 +78,8 @@ function App() {
           <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
           <Route exact path="/dogprofiles/:id" render={() => <DogProfilePage />} />
           <Route exact path="/dogprofiles/:id" render={() => <DogProfilesPage />} />
-          {/* <Route exact path="/dogprofiles/:id" render={() => <DogProfileCreateForm />} />
-          <Route exact path="/dogprofiles/:id" render={() => <DogProfileEditForm />} /> */}
+          <Route exact path="/dogprofiles/:id" render={() => <DogProfileCreateForm />} />
+          {/* <Route exact path="/dogprofiles/:id" render={() => <DogProfileEditForm />} /> */}
           <Route
             exact
             path="/profiles/:id/edit/username"
