@@ -12,7 +12,7 @@ import {
 import Avatar from "./Avatar";
 import axios from "axios";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle.js";
-import { removeTokenTimestamp } from "../utils/utils";
+// import { removeTokenTimestamp } from "../utils/utils";
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
@@ -120,7 +120,7 @@ const NavBar = () => {
             exact
             className={styles.NavLink}
             activeClassName={styles.Active}
-            to="/DogProfile"
+            to="/dogprofiles"
           >
           <i className="fas fa-dog"></i>Doggy Profiles
           </NavLink>
