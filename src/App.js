@@ -16,8 +16,10 @@ import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import DogProfilePage from "./pages/dogprofiles/DogProfilePage";
 import DogProfilesPage from "./pages/dogprofiles/DogProfilesPage";
-// import DogProfile from "./pages/doghealth/DogHealth";
-// import DogProfile from "./pages/doggydanger/DoggyDanger";
+
+
+// import DogHealth from "./pages/doghealth/DogHealth";
+// import DoggyDanger from "./pages/doggydanger/DoggyDanger";
 
 import NotFound from "./components/NotFound";
 
@@ -35,6 +37,16 @@ function App() {
             path="/"
             render={() => (
               <PostsPage message="No results found. Adjust the search keyword." />
+            )}
+          />
+           <Route
+            exact
+            path="/DogProfilesPage"
+            render={() => (
+              <DogProfilesPage
+                message="No results found. Adjust the search keyword or follow a user."
+                filter={`owner__followed__owner__profile=${profile_id}&`}
+              />
             )}
           />
           <Route
