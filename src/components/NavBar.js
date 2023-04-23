@@ -24,7 +24,7 @@ const NavBar = () => {
     try {
       await axios.post("dj-rest-auth/logout/");
       setCurrentUser(null);
-      removeTokenTimestamp();
+      // removeTokenTimestamp();
     } catch (err) {
     }
   };
@@ -40,6 +40,13 @@ const NavBar = () => {
   );
   const loggedInIcons = (
     <>
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/dogprofiles"
+      >
+      <i className="fas fa-dog"></i>Doggy rofiles
+      </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
@@ -115,15 +122,6 @@ const NavBar = () => {
             >
               <i className="fas fa-home"></i>Home
             </NavLink>
-
-            <NavLink
-            exact
-            className={styles.NavLink}
-            activeClassName={styles.Active}
-            to="/dogprofiles"
-          >
-          <i className="fas fa-dog"></i>Doggy Profiles
-          </NavLink>
 
             {currentUser ? loggedInIcons : loggedOutIcons}
           </Nav>
