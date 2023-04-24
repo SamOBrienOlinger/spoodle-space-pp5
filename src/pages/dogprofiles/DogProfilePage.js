@@ -29,7 +29,7 @@ function DogProfilePage() {
 
   return (
     <div>
-      <h1>Hi this is the DogProfilePage</h1>
+      <h1>Hi this is the DogProfile...(no S)...Page</h1>
 
         <p>I have reached the usage limit of my billing account, again, and can't continue using gitpod workspaces</p>
 

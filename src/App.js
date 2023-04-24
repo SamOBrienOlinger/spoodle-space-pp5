@@ -3,20 +3,25 @@ import NavBar from "./components/NavBar";
 import Container from "react-bootstrap/Container";
 import { Route, Switch } from "react-router-dom";
 import "./api/axiosDefaults";
+import { useCurrentUser } from "./contexts/CurrentUserContext";
+
 import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
+
 import PostCreateForm from "./pages/posts/PostCreateForm";
 import PostPage from "./pages/posts/PostPage";
 import PostsPage from "./pages/posts/PostsPage";
-import { useCurrentUser } from "./contexts/CurrentUserContext";
 import PostEditForm from "./pages/posts/PostEditForm";
+
 import ProfilePage from "./pages/profiles/ProfilePage";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
+
 import DogProfilePage from "./pages/dogprofiles/DogProfilePage";
 import DogProfilesPage from "./pages/dogprofiles/DogProfilesPage";
 import DogProfileCreateForm from "./pages/dogprofiles/DogProfileCreateForm";
+import DogProfileEditForm from "./pages/dogprofiles/DogProfileEditForm";
 
 
 // import DogHealth from "./pages/doghealth/DogHealth";
@@ -79,7 +84,7 @@ function App() {
           <Route exact path="/dogprofiles/:id" render={() => <DogProfilePage />} />
           <Route exact path="/dogprofiles/:id" render={() => <DogProfilesPage />} />
           <Route exact path="/dogprofiles/:id" render={() => <DogProfileCreateForm />} />
-          {/* <Route exact path="/dogprofiles/:id" render={() => <DogProfileEditForm />} /> */}
+          <Route exact path="/dogprofiles/:id" render={() => <DogProfileEditForm />} />
           <Route
             exact
             path="/profiles/:id/edit/username"

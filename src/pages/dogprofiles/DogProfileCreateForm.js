@@ -23,7 +23,7 @@
 
 function DogProfileCreateForm() {
  
-        <h1>Hi Dog World</h1>
+        <h1>Hi, I'm a doggy, create my profile please?</h1>
 
 };
 
