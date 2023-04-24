@@ -73,4 +73,109 @@
 //   );
 // };
 
+import React from "react";
+import styles from "../../styles/DogProfile.module.css";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
+import Card from "react-bootstrap/Card";
+import Media from "react-bootstrap/Media";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
+import { Link, useHistory } from "react-router-dom";
+import Avatar from "../../components/Avatar";
+import { axiosRes } from "../../api/axiosDefaults";
+import { MoreDropdown } from "../../components/MoreDropdown";
+
+const Post = (props) => {
+  const {
+    id,
+    owner,
+    profile_id,
+    profile_image,
+    dog_name,
+    dog_age,
+    dog_color,
+    dog_bio,
+    dog_profile_image,
+    
+    updated_at,
+    postPage,
+    setPosts,
+  } = props;
+  
+    const currentUser = useCurrentUser();
+    const is_owner = currentUser?.username === owner;
+    const history = useHistory();
+
+    const handleEdit = () => {
+        history.push(`/dogprofiles/${id}/edit`);
+    };
+
+    const handleDelete = async () => {
+        try {
+        await axiosRes.delete(`/dogprofiles/${id}/`);
+        history.goBack();
+        } catch (err) {
+        // console.log(err);
+        }
+    };
+
+    return (
+      <Card className={styles.DogProfile}>
+        <Card.Body>
+        <Media className="align-items-center justify-content-between">
+          <Link to={`/profiles/${profile_id}`}>
+            <Avatar src={profile_image} height={55} />
+            {owner}
+          </Link>
+          <div className="d-flex align-items-center">
+            <span>{updated_at}</span>
+            {is_owner && postPage && (
+              <MoreDropdown
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            )}
+          </div>
+        </Media>
+       </Card.Body>
+       <Link to={`/dogprofiles/${id}`}>
+        <Card.Img src={dog_name} alt={dog_name} />
+      </Link>
+      
+      <Card.Body>
+        {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
+        {dog_age && <Card.Text>{dog_age}</Card.Text>}
+        
+        
+        
+        
+        
+        <div className={styles.PostBar}>
+          {is_owner ? (
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Sign in to edit your Doggy Profile!</Tooltip>}
+            >
+            ( : dog_name? (
+              <span onClick={handleEdit}>
+                <i className={`far fa-dog ${styles.DogOutline}`} />
+              </span>
+            ) : currentUser ? (
+              <i className={`fas fa-dog ${styles.Dog}` }/>
+            </OverlayTrigger>
+          )}
+        <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Log in to edit Doggy profiles!</Tooltip>}
+        >
+            <i className="far fa-dog" />
+        </OverlayTrigger>
+        </div>
+      </Card.Body>
+    </Card>
+  );    
+};
+
 export default DogProfile;
