@@ -25,8 +25,9 @@ const DogProfile = (props) => {
     dog_profile_image,
     
     updated_at,
-    postPage,
-    setPosts,
+    dogProfilePage
+    // postPage,
+    // setPosts,
   } = props;
   
     const currentUser = useCurrentUser();
@@ -56,7 +57,7 @@ const DogProfile = (props) => {
           </Link>
           <div className="d-flex align-items-center">
             <span>{updated_at}</span>
-            {is_owner && postPage && (
+            {is_owner && dogProfilePage && (
               <MoreDropdown
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
@@ -66,12 +67,14 @@ const DogProfile = (props) => {
         </Media>
        </Card.Body>
        <Link to={`/dogprofiles/${id}`}>
-        <Card.Img src={dog_profile_image} alt={dog_name} />
+        <Card.Img src={dog_profile_image} alt={dog_profile_image} />
       </Link>
       
       <Card.Body>
         {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
         {dog_age && <Card.Text>{dog_age}</Card.Text>}
+        {dog_color && <Card.Text>{dog_color}</Card.Text>}
+        {dog_bio && <Card.Text>{dog_bio}</Card.Text>}
         
         
         
