@@ -113,62 +113,16 @@ function DogProfilePage() {
 
 export default DogProfilePage;
 
-{/* function DogProfilePage() {
-  const { id } = useParams();
-  const [dogProfile, setDogProfile] = useState({ results: [] });
+// Or
 
-  const currentUser = useCurrentUser();
-  const profile_image = currentUser?.profile_image;
+// function DogProfilePage() {
 
-  useEffect(() => {
-    const handleMount = async () => {
-      try {
-        const [{ data: dogprofile }] = await Promise.all([
-          axiosReq.get(`/dogprofiles/${id}`),
-        ]);
-        setDogProfile({ results: [dogprofile] });
-      } catch (err) {
-        // console.log(err);
-      }
-    };
+//   return (
+//     <div>
+//       <h1>Hi this is the DogProfile...(no S)...Page</h1>
 
-        handleMount();
-  }, [id]);
-  
-  return (
-    <Row className="h-100">
-      <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <DogProfile {...dogprofile.results[0]} setDogProfiles={setDogProfile} dogProfilePage />
-        <Container className={appStyles.Content}>
-          {currentUser ? (
-            <DogProfileCreateForm
-              profile_id={currentUser.profile_id}
-              profileImage={profile_image}
-              dogprofile={id}
-              setDogProfile={setDogProfile}
-            />
-            ) : (
-              <span>No Doggy Profiles yet!</span>
-          )}
-        </Container>
-      </Col>
-    </Row>  
-  );
-}
+//         <p>I have reached the usage limit of my billing account, again, and can't continue using gitpod workspaces</p>
 
-export default DogProfilePage;
-
-
-Or
-
-function DogProfilePage() {
-
-  return (
-    <div>
-      <h1>Hi this is the DogProfile...(no S)...Page</h1>
-
-        <p>I have reached the usage limit of my billing account, again, and can't continue using gitpod workspaces</p>
-
-    </div>
-  )
-}; */}
+//     </div>
+//   )
+// }; */}
