@@ -28,7 +28,8 @@ const DogProfile = (props) => {
         dog_bio,
         dog_profile_image,
         updated_at,
-        dogProfilePage
+        dogProfilePage,
+        setDogProfiles
       } = props;
 
   const currentUser = useCurrentUser();
@@ -122,7 +123,7 @@ const DogProfile = (props) => {
         );
       };
       
-      export default DogProfile;
+export default DogProfile;
             
                   
 

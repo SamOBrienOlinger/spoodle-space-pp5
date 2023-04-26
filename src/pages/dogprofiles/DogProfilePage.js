@@ -21,7 +21,7 @@ import {
 import { Button, Image } from "react-bootstrap";
 // import InfiniteScroll from "react-infinite-scroll-component";
 // import Post from "../posts/Post";
-// import DogProfile from "./DogProfile";
+// import DogProfile from "../dogprofiles/DogProfile";
 // import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
 // import reactRouterDom from "react-router-dom";
 // import { fetchMoreData } from "../../utils/utils";
