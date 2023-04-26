@@ -14,9 +14,6 @@ import Tooltip from "react-bootstrap/Tooltip";
 import { MoreDropdown } from "../../components/MoreDropdown";
 
 const DogProfile = (props) => {
-  // const { dogprofile, mobile, imageSize = 55 } = props;
-  // const { id, following_id, image, owner } = profile;
-
   const {
         id,
         owner,
@@ -36,7 +33,7 @@ const DogProfile = (props) => {
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
 
-  // const { handleEdit } = useSetProfileData();
+  // const { handleEdit, handleDelete } = setDogProfiles();
   
   const handleEdit = () => {
     history.push(`/dogprofiles/${id}/edit`);
