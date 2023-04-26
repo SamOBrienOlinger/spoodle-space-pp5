@@ -1,6 +1,8 @@
 import { rest } from "msw";
 
-const baseURL = "https://spoodlespace-backend.herokuapp.com/";
+// const baseURL = "https://spoodlespace-backend.herokuapp.com/";
+
+const baseURL = "https://spoodlespace.herokuapp.com/"
 
 export const handlers = [
   rest.get(`${baseURL}dj-rest-auth/user/`, (req, res, ctx) => {
