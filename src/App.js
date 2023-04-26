@@ -77,14 +77,17 @@ function App() {
           />
           <Route exact path="/signin" render={() => <SignInForm />} />
           <Route exact path="/signup" render={() => <SignUpForm />} />
+
           <Route exact path="/posts/create" render={() => <PostCreateForm />} />
           <Route exact path="/posts/:id" render={() => <PostPage />} />
           <Route exact path="/posts/:id/edit" render={() => <PostEditForm />} />
+
           <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
+
           <Route exact path="/dogprofiles/:id" render={() => <DogProfilePage />} />
-          <Route exact path="/dogprofiles/:id" render={() => <DogProfilesPage />} />
-          <Route exact path="/dogprofiles/:id" render={() => <DogProfileCreateForm />} />
-          <Route exact path="/dogprofiles/:id" render={() => <DogProfileEditForm />} />
+          {/* <Route exact path="/dogprofiles/:id" render={() => <DogProfilesPage />} /> */}
+          <Route exact path="/dogprofiles/:id/create" render={() => <DogProfileCreateForm />} />
+          <Route exact path="/dogprofiles/:id/edit" render={() => <DogProfileEditForm />} />
           <Route
             exact
             path="/profiles/:id/edit/username"
