@@ -26,7 +26,7 @@ const DogProfile = (props) => {
         dog_profile_image,
         updated_at,
         dogProfilePage,
-        setDogProfiles
+        // setDogProfiles,
       } = props;
 
   const currentUser = useCurrentUser();

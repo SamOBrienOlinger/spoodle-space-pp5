@@ -24,21 +24,22 @@ function DogProfileCreateForm() {
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
 
-  const [postData, setPostData] = useState({
+  // const [postData, setPostData] = useState({
+    const [dogProfileData, setDogProfileData] = useState({  
     dog_name: "",
     dog_age: "",
     dog_color: "",
     dog_bio: "",
     dog_profile_image: "",
   });
-  const { dog_name, dog_age, dog_color, dog_bio, dog_profile_image } = postData;
+  const { dog_name, dog_age, dog_color, dog_bio, dog_profile_image } = dogProfileData;
 
   const imageInput = useRef(null);
   const history = useHistory();
 
   const handleChange = (event) => {
-    setPostData({
-      ...postData,
+    setDogProfileData({
+      ...dogProfileData,
       [event.target.name]: event.target.value,
     });
   };
@@ -46,8 +47,8 @@ function DogProfileCreateForm() {
   const handleChangeImage = (event) => {
     if (event.target.files.length) {
       URL.revokeObjectURL(dog_profile_image);
-      setPostData({
-        ...postData,
+      setDogProfileData({
+        ...dogProfileData,
         image: URL.createObjectURL(event.target.files[0]),
       });
     }
