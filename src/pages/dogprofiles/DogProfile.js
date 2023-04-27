@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../styles/DogProfile.module.css";
-
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
 import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
@@ -16,8 +16,9 @@ const DogProfile = (props) => {
   const {
         id,
         owner,
-        dog_profile_id,
-        // profile_image,
+        profile_id,
+        profile_image,
+        // dog_profile_id,
         dog_name,
         dog_age,
         dog_color,
@@ -52,8 +53,10 @@ const DogProfile = (props) => {
     <Card className={styles.DogProfile}>
       <Card.Body>
         <Media className="align-items-center justify-content-between">
-        <Link to={`/dogprofiles/${dog_profile_id}`}>
-            <Avatar src={dog_profile_image} height={55} />
+        {/* <Link to={`/dogprofiles/${dog_profile_id}`}> */}
+        <Link to={`/profiles/${profile_id}`}>
+            {/* <Avatar src={dog_profile_image} height={55} /> */}
+            <Avatar src={profile_image} height={55} />
             {owner}
           </Link>
           <div className="my-3 d-flex align-items-center">
@@ -93,9 +96,9 @@ const DogProfile = (props) => {
               placement="top"
               overlay={<Tooltip>Edit doggy profile!</Tooltip>}
             >
-
-             <i className="far fa-dog" />
+              <i className="far fa-dog" />
             </OverlayTrigger> 
+             
 
           // ) : dogprofile_id ? (
           //   <span onClick={handleEdit}>

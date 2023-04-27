@@ -43,21 +43,21 @@ const NavBar = () => {
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
-        to="/DogProfilesPage"
+        to="dogprofiles/DogProfilesPage"
       >
       <i className="fas fa-dog"></i>Doggy profiles
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
-        to="/DogHealthPage"
+        to="dogprofiles/DogHealthPage"
       >
       <i className="fas fa-dog"></i>Doggy Health
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
-        to="/DoggyDangerPage"
+        to="dogprofiles/DoggyDangerPage"
       >
       <i className="fas fa-dog"></i>Doggy Danger
       </NavLink>
