@@ -20,6 +20,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 // } from "../../contexts/ProfileDataContext";
 // import { Button, Image } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
+
 // import Post from "../posts/Post";
 import DogProfile from "./DogProfile";
 import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
@@ -28,17 +29,15 @@ import { fetchMoreData } from "../../utils/utils";
 // import NoResults from "../../assets/no-results.png";
 // import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
-
-// Or from Profilepage.js: 
-
 function DogProfilePage() {
   const { id } = useParams();
   const [dogprofile, setDogProfile] = useState({ results: [] }); 
-  const [dogprofiles, setDogProfiles] = useState({ results: [] });
+  
 //  const { setProfileData, handleEdit } = useSetProfileData();
 //  const { pageProfile } = useProfileData();
   const currentUser = useCurrentUser();
   const profile_image = currentUser?.profile_image;
+  const [dogprofiles, setDogProfiles] = useState({ results: [] });
   // const is_owner = currentUser?.username === profile?.owner;
 
   useEffect(() => {
@@ -47,8 +46,10 @@ function DogProfilePage() {
         const [{ data: dogprofile }] =
           await Promise.all([
             axiosReq.get(`/dogprofiles/${id}/`),
+            // axiosReq.get(`/dogprofiles/?dogprofile=${id}`),
           ]);
         setDogProfile({ results: [dogprofile] });
+        // setDogProfile(dogprofiles);
       } catch (err) {
         // console.log(err);
       }
@@ -73,11 +74,12 @@ function DogProfilePage() {
             />
           ) : dogprofiles.results.length ? (
             <InfiniteScroll
-              children={dogprofiles.results.map((comment) => (
+              children={dogprofiles.results.map((dogprofiles) => (
                 <DogProfile
                   key={dogprofile.id}
                   {...dogprofile}
                   setDogProfile={setDogProfile}
+                  setDogProfiles={setDogProfiles}
                 />
               ))}
               dataLength={dogprofiles.results.length}
@@ -93,6 +95,8 @@ function DogProfilePage() {
         </Container>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
+        <DogProfile />
+      
       </Col>
     </Row>
   );

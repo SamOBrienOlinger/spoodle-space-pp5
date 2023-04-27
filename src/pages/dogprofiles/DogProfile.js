@@ -1,12 +1,11 @@
 import React from "react";
 import styles from "../../styles/DogProfile.module.css";
-// import btnStyles from "../../styles/Button.module.css";
+
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
-// import { Button } from "react-bootstrap";
-// import { useSetProfileData } from "../../contexts/ProfileDataContext";
+
 import Card from "react-bootstrap/Card";
 import Media from "react-bootstrap/Media";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -95,7 +94,7 @@ const DogProfile = (props) => {
               overlay={<Tooltip>Edit doggy profile!</Tooltip>}
             >
 
-             <i className="far fa-heart" />
+             <i className="far fa-dog" />
             </OverlayTrigger> 
 
           // ) : dogprofile_id ? (
@@ -116,7 +115,7 @@ const DogProfile = (props) => {
             )}
             </div>
       </Card.Body>
-          </Card>
+    </Card>
         );
       };
       
