@@ -108,7 +108,7 @@ function DogProfileCreateForm() {
         </Alert>
       ))}
 
-<Form.Group>
+      <Form.Group>
         <Form.Label>Dog Color</Form.Label>
         <Form.Control
           as="textarea"
@@ -124,7 +124,7 @@ function DogProfileCreateForm() {
         </Alert>
       ))}
 
-<Form.Group>
+      <Form.Group>
         <Form.Label>Dog Bio</Form.Label>
         <Form.Control
           as="textarea"

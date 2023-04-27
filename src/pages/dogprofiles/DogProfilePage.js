@@ -6,106 +6,92 @@ import Container from "react-bootstrap/Container";
 
 import Asset from "../../components/Asset";
 
-import styles from "../../styles/ProfilePage.module.css";
+// import styles from "../../styles/DogProfilePage.module.css";
 import appStyles from "../../App.module.css";
-import btnStyles from "../../styles/Button.module.css";
+// import btnStyles from "../../styles/Button.module.css";
 
 // import PopularProfiles from "./PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
-import {
-  useProfileData,
-  useSetProfileData,
-} from "../../contexts/ProfileDataContext";
-import { Button, Image } from "react-bootstrap";
-// import InfiniteScroll from "react-infinite-scroll-component";
+// import {
+//   useProfileData,
+//   useSetProfileData,
+// } from "../../contexts/ProfileDataContext";
+// import { Button, Image } from "react-bootstrap";
+import InfiniteScroll from "react-infinite-scroll-component";
 // import Post from "../posts/Post";
-// import DogProfile from "../dogprofiles/DogProfile";
-// import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
+import DogProfile from "./DogProfile";
+import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
 // import reactRouterDom from "react-router-dom";
-// import { fetchMoreData } from "../../utils/utils";
+import { fetchMoreData } from "../../utils/utils";
 // import NoResults from "../../assets/no-results.png";
-import { ProfileEditDropdown } from "../../components/MoreDropdown";
+// import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
 
 // Or from Profilepage.js: 
 
 function DogProfilePage() {
-  const [hasLoaded, setHasLoaded] = useState(false);
-  // const [profilePosts, setProfilePosts] = useState({ results: [] });
-
-  const currentUser = useCurrentUser();
   const { id } = useParams();
+  const [dogprofile, setDogProfile] = useState({ results: [] }); 
 
-  const { setProfileData, handleEdit } = useSetProfileData();
-  const { pageProfile } = useProfileData();
-
-  const [profile] = pageProfile.results;
-  const is_owner = currentUser?.username === profile?.owner;
+//  const { setProfileData, handleEdit } = useSetProfileData();
+//  const { pageProfile } = useProfileData();
+  const currentUser = useCurrentUser();
+  const profile_image = currentUser?.profile_image;
+  // const is_owner = currentUser?.username === profile?.owner;
 
   useEffect(() => {
-    const fetchData = async () => {
+    const handleMount = async () => {
       try {
-        // const [{ data: pageProfile }, { data: profilePosts }] =
-        const [{ data: pageProfile }] =
+        const [{ data: dogprofile }] =
           await Promise.all([
             axiosReq.get(`/dogprofiles/${id}/`),
           ]);
-        setProfileData((prevState) => ({
-          ...prevState,
-          pageProfile: { results: [pageProfile] },
-        }));
-        // setProfilePosts(profilePosts);
-        setHasLoaded(true);
+        setDogProfile({ results: [dogprofile] });
       } catch (err) {
         // console.log(err);
       }
     };
-    fetchData();
-  }, [id, setProfileData]);
 
-  const dogProfile = (
-    <>
-    {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
-      <Row noGutters className="px-3 text-center">
-        <Col lg={3} className="text-lg-left">
-          <Image
-            className={styles.ProfileImage}
-            roundedCircle
-            src={profile?.image}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-        {currentUser &&
-            !is_owner &&
-        <Button
-          className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
-          onClick={() => handleEdit(profile)}
-        >
-          edit
-        </Button>
-}
-        </Col>
-      </Row>
-    </>
-  )
-
+    handleMount();
+  }, [id]);
 
   return (
-    <Row>
+    <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
+
+        <DogProfile {...dogprofile.results[0]} setDogProfiles={setDogProfiles} DogProfilePage />
         <Container className={appStyles.Content}>
-          {hasLoaded ? (
-            <>
-              {dogProfile}
-            </>
+          {currentUser ? (
+            <DogProfileCreateForm
+              profile_id={currentUser.profile_id}
+              profileImage={profile_image}
+              dogprofile={id}
+              setDogProfile={setDogProfile}
+            />
+          ) : dogprofiles.results.length ? (
+            <InfiniteScroll
+              children={dogprofiles.results.map((comment) => (
+                <DogProfile
+                  key={dogprofile.id}
+                  {...dogprofile}
+                  setDogProfile={setDogProfile}
+                />
+              ))}
+              dataLength={dogprofiles.results.length}
+              loader={<Asset spinner />}
+              hasMore={!!dogprofiles.next}
+              next={() => fetchMoreData(dogprofiles, setDogProfiles)}
+            />
+          ) : currentUser ? (
+            <span>No dog profiles yet, be the first to create one!</span>
           ) : (
-            <Asset spinner />
+            <span>No dog profiles...yet</span>
           )}
         </Container>
+      </Col>
+      <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
       </Col>
     </Row>
   );
