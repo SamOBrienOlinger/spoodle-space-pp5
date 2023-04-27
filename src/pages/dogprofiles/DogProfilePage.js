@@ -34,7 +34,7 @@ import { fetchMoreData } from "../../utils/utils";
 function DogProfilePage() {
   const { id } = useParams();
   const [dogprofile, setDogProfile] = useState({ results: [] }); 
-
+  const [dogprofiles, setDogProfiles] = useState({ results: [] });
 //  const { setProfileData, handleEdit } = useSetProfileData();
 //  const { pageProfile } = useProfileData();
   const currentUser = useCurrentUser();
@@ -61,7 +61,7 @@ function DogProfilePage() {
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
 
-        <DogProfile {...dogprofile.results[0]} setDogProfiles={setDogProfiles} DogProfilePage />
+        <DogProfile {...dogprofile.results[0]} setDogProfiles={setDogProfile} dogProfilePage />
         <Container className={appStyles.Content}>
           {currentUser ? (
             <DogProfileCreateForm
@@ -69,6 +69,7 @@ function DogProfilePage() {
               profileImage={profile_image}
               dogprofile={id}
               setDogProfile={setDogProfile}
+              // setDogProfiles={setDogProfiles}
             />
           ) : dogprofiles.results.length ? (
             <InfiniteScroll
