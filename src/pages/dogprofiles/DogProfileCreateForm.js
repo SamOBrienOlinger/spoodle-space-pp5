@@ -78,7 +78,7 @@ function DogProfileCreateForm() {
   const textFields = (
     <div className="text-center">
       <Form.Group>
-        <Form.Label>Doggy Profile</Form.Label>
+        <Form.Label>Doggy Name</Form.Label>
         <Form.Control
           type="text"
           name="dog_name"
@@ -93,7 +93,7 @@ function DogProfileCreateForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Dog Age</Form.Label>
+        <Form.Label>Doggy Age</Form.Label>
         <Form.Control
           as="textarea"
           rows={6}
@@ -109,7 +109,7 @@ function DogProfileCreateForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Dog Color</Form.Label>
+        <Form.Label>Doggy Color</Form.Label>
         <Form.Control
           as="textarea"
           rows={6}
@@ -125,7 +125,7 @@ function DogProfileCreateForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Dog Bio</Form.Label>
+        <Form.Label>Doggy Bio</Form.Label>
         <Form.Control
           as="textarea"
           rows={6}
