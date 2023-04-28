@@ -16,9 +16,9 @@ const DogProfile = (props) => {
   const {
         id,
         owner,
-        profile_id,
+        // profile_id,
         profile_image,
-        // dog_profile_id,
+        dog_profile_id,
         dog_name,
         dog_age,
         dog_color,
@@ -53,8 +53,8 @@ const DogProfile = (props) => {
     <Card className={styles.DogProfile}>
       <Card.Body>
         <Media className="align-items-center justify-content-between">
-        {/* <Link to={`/dogprofiles/${dog_profile_id}`}> */}
-        <Link to={`/profiles/${profile_id}`}>
+        <Link to={`/dogprofiles/${dog_profile_id}`}>
+        {/* <Link to={`/profiles/${profile_id}`}> */}
             {/* <Avatar src={dog_profile_image} height={55} /> */}
             <Avatar src={profile_image} height={55} />
             {owner}
@@ -116,7 +116,11 @@ const DogProfile = (props) => {
                 <i className="far fa-dog" />
               </OverlayTrigger>
             )}
-            </div>
+            {/* {likes_count} */}
+            <Link to={`/dogprofiles/${id}`}>
+              <i className="far fa-dog" />
+            </Link>
+          </div>
       </Card.Body>
     </Card>
         );
