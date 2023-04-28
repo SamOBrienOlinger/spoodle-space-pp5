@@ -54,7 +54,7 @@ function App() {
           />
            <Route
             exact
-            path="/DogProfilesPage"
+            path="/dogprofilespage"
             render={() => (
               <DogProfilesPage
                 message="No results found. Adjust the search keyword or follow a user."
@@ -91,10 +91,11 @@ function App() {
 
           <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
 
+          <Route exact path="/dogprofiles/create" render={() => <DogProfileCreateForm />} />
           <Route exact path="/dogprofiles/:id" render={() => <DogProfilePage />} />
           {/* <Route exact path="/dogprofiles/:id" render={() => <DogProfilesPage />} /> */}
-          <Route exact path="/dogprofiles/:id/create" render={() => <DogProfileCreateForm />} />
           <Route exact path="/dogprofiles/:id/edit" render={() => <DogProfileEditForm />} />
+          
           <Route
             exact
             path="/profiles/:id/edit/username"

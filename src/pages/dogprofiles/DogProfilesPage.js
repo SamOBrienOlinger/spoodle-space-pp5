@@ -16,7 +16,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 import NoResults from "../../assets/no-results.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
-import DogProfiles from "../dogprofiles/DogProfilesPage";
+// import DogProfiles from "../dogprofiles/DogProfilesPage";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 function DogProfilesPage({ message, filter = "" }) {
@@ -52,7 +52,7 @@ function DogProfilesPage({ message, filter = "" }) {
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <DogProfiles mobile />
+        {/* <DogProfiles mobile /> */}
         <i className={`fas fa-search ${styles.SearchIcon}`} />
         <Form
           className={styles.SearchBar}
@@ -93,27 +93,10 @@ function DogProfilesPage({ message, filter = "" }) {
         )}
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
-        <DogProfiles />
+        {/* <DogProfiles /> */}
       </Col>
     </Row>
   );
 }
-
-
-
-
-
-// function DogProfilesPage() {
-
-//     return (
-//       <div>
-//         <h1>Hi this is the DogProfile..S..Page</h1>
-  
-//           <p>I have reached the usage limit of my billing account, again, and can't continue using gitpod workspaces</p>
-  
-//       </div>
-//     )
-//   };
-//   export default DogProfilesPage;
 
 export default DogProfilesPage;
