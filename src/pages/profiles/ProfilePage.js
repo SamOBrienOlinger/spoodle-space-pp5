@@ -21,6 +21,7 @@ import {
 import { Button, Image } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Post from "../posts/Post";
+// import DogProfile from "../dogprofiles/DogProfile";
 import { fetchMoreData } from "../../utils/utils";
 import NoResults from "../../assets/no-results.png";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
@@ -58,6 +59,27 @@ function ProfilePage() {
     };
     fetchData();
   }, [id, setProfileData]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const [{ data: pageProfile }, { data: dogProfiles }] =
+  //         await Promise.all([
+  //           axiosReq.get(`/profiles/${id}/`),
+  //           axiosReq.get(`/dogprofiles/?owner__profile=${id}`),
+  //         ]);
+  //       setProfileData((prevState) => ({
+  //         ...prevState,
+  //         pageProfile: { results: [pageProfile] },
+  //       }));
+  //       setDogProfiles(dogProfiles);
+  //       setHasLoaded(true);
+  //     } catch (err) {
+  //       // console.log(err);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [id, setProfileData]);
 
   const mainProfile = (
     <>
@@ -136,6 +158,31 @@ function ProfilePage() {
     </>
   );
 
+  // const createDogProfile = (
+  //   <>
+  //     <hr />
+  //     <p className="text-center">{profile?.owner}'s posts</p>
+  //     <hr />
+  //     {dogProfiles.results.length ? (
+  //     // {dogPProfiles?.results?.length ? ( 
+  //       <InfiniteScroll
+  //         children={dogProfiles.results.map((post) => (
+  //           <Post key={DogProfile.id} {...post} setPosts={setDogProfiles} />
+  //         ))}
+  //         dataLength={dogProfiles.results.length}
+  //         loader={<Asset spinner />}
+  //         hasMore={!!dogProfiles.next}
+  //         next={() => fetchMoreData(dogProfiles, setDogProfiles)}
+  //       />
+  //     ) : (
+  //       <Asset
+  //         src={NoResults}
+  //         message={`No results found, ${profile?.owner} hasn't created a doggy profile yet.`}
+  //       />
+  //     )}
+  //   </>
+  // );
+
   return (
     <Row>
       <Col className="py-2 p-0 p-lg-2" lg={8}>
@@ -145,6 +192,7 @@ function ProfilePage() {
             <>
               {mainProfile}
               {mainProfilePosts}
+              {/* {createDogProfile} */}
             </>
           ) : (
             <Asset spinner />

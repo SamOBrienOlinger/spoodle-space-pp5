@@ -49,7 +49,8 @@ function DogProfileCreateForm() {
       URL.revokeObjectURL(dog_profile_image);
       setDogProfileData({
         ...dogProfileData,
-        image: URL.createObjectURL(event.target.files[0]),
+        // image: URL.createObjectURL(event.target.files[0]),
+        dog_profile_image: URL.createObjectURL(event.target.files[0]),
       });
     }
   };
