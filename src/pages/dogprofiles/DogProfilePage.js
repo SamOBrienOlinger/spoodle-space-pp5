@@ -1,46 +1,46 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
+// import Col from "react-bootstrap/Col";
+// import Row from "react-bootstrap/Row";
+// import Container from "react-bootstrap/Container";
 
-import Asset from "../../components/Asset";
+// import Asset from "../../components/Asset";
 
 // import styles from "../../styles/DogProfilePage.module.css";
-import appStyles from "../../App.module.css";
+// import appStyles from "../../App.module.css";
 // import btnStyles from "../../styles/Button.module.css";
 
-import PopularProfiles from "./PopularProfiles";
+// import PopularProfiles from "..profiles/PopularProfiles";
 // import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { useParams } from "react-router";
-import { axiosReq } from "../../api/axiosDefaults";
-import {
-  useProfileData,
-  useSetProfileData,
-} from "../../contexts/ProfileDataContext";
+// import { useParams } from "react-router";
+// import { axiosReq } from "../../api/axiosDefaults";
+// import {
+//   useDogProfileData,
+//   useSetDogProfileData,
+// } from "../../contexts/DogProfileDataContext";
 // import { Button, Image } from "react-bootstrap";
-import InfiniteScroll from "react-infinite-scroll-component";
+// import InfiniteScroll from "react-infinite-scroll-component";
 
 // import Post from "../posts/Post";
-import DogProfile from ".dogprofiles/DogProfile";
+// import DogProfile from ".dogprofiles/DogProfile";
 // import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
 // import reactRouterDom from "react-router-dom";
-import { fetchMoreData } from "../../utils/utils";
-import NoResults from "../../assets/no-results.png";
-// import { ProfileEditDropdown } from "../../components/MoreDropdown";
+// import { fetchMoreData } from "../../utils/utils";
+// import NoResults from "../../assets/no-results.png";
+// import { DogProfileEditDropdown } from "../../components/MoreDropdown";
 
-function DogProfilePage() {
-  const [hasLoaded, setHasLoaded] = useState(false);
-  const [dogProfiles, setDogProfiles] = useState({ results: [] }); 
+// function DogProfilePage() {
+//   const [hasLoaded, setHasLoaded] = useState(false);
+  // const [dogProfiles, setDogProfiles] = useState({ results: [] }); 
 
   // const currentUser = useCurrentUser();
-  const { id } = useParams();
+  // const { id } = useParams();
 
-  const { setDogProfileData } = useSetProfileData();
-  const { pageProfile } = useProfileData();
+  // const { setDogProfileData, handleEdit, handleDelete } = useSetDogProfileData();
+  // // const { pageProfile } = useProfileData();
 
-  const [profile] = pageProfile.results;
-  // const is_owner = currentUser?.username === profile?.owner;
+  // const [dogProfile] = dogProfile.results;
+  // const is_owner = currentUser?.username === dogProfile?.owner;
 
 
   //   const handleMount = async () => {
@@ -62,74 +62,119 @@ function DogProfilePage() {
   //   handleMount();
   // }, [id]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [{ data: pageProfile }, { data: dogProfiles }] =
-          await Promise.all([
-            axiosReq.get(`/profiles/${id}/`),
-            axiosReq.get(`/dogprofiles/?owner__profile=${id}`),
-          ]);
-        setDogProfileData((prevState) => ({
-          ...prevState,
-          pageProfile: { results: [pageProfile] },
-        }));
-        setDogProfiles(dogProfiles);
-        setHasLoaded(true);
-      } catch (err) {
-        // console.log(err);
-      }
-    };
-    fetchData();
-  }, [id, setDogProfileData]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const [ { data: dogProfiles }] =
+  //         await Promise.all([
+  //           axiosReq.get(`/dogprofiles/?owner__profile=${id}`),
+  //         ]);
+  //       setDogProfileData((prevState) => ({
+  //         ...prevState,
+  //         dogProfile: { results: [dogProfile] },
+  //       }));
+  //       setDogProfiles(dogProfiles);
+  //       setHasLoaded(true);
+  //     } catch (err) {
+  //       // console.log(err);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [id, setDogProfileData]);
 
-  const createDogProfile = (
-    <>
-      <hr />
-      <p className="text-center">{profile?.owner}'s posts</p>
-      <hr />
-      {dogProfiles.results.length ? (
-      // {dogPProfiles?.results?.length ? ( 
-        <InfiniteScroll
-          children={dogProfiles.results.map((post) => (
-            <DogProfile key={DogProfile.id} {...post} setPosts={setDogProfiles} />
-          ))}
-          dataLength={dogProfiles.results.length}
-          loader={<Asset spinner />}
-          hasMore={!!dogProfiles.next}
-          next={() => fetchMoreData(dogProfiles, setDogProfiles)}
-        />
-      ) : (
-        <Asset
-          src={NoResults}
-          message={`No results found, ${profile?.owner} hasn't created a doggy profile yet.`}
-        />
-      )}
-    </>
-  );
+//   return (
+//         <Row>
+//           <Col className="py-2 p-0 p-lg-2" lg={8}>
+//             <PopularProfiles mobile />
+//             <Container className={appStyles.Content}>
+//               {hasLoaded ? (
+//                 <>
+//                   {/* {mainProfile}
+//                   {mainProfilePosts} */}
+//                   {/* {createDogProfile} */}
+//                   { DogProfilePage}
+//                 </>
+//               ) : (
+//                 <Asset spinner />
+//               )}
+//             </Container>
+//           </Col>
+//           <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
+//             <PopularProfiles />
+//           </Col>
+//         </Row>
+//       );
+// }
+  
 
-    return (
-      <Row>
-        <Col className="py-2 p-0 p-lg-2" lg={8}>
-          <PopularProfiles mobile />
-          <Container className={appStyles.Content}>
-            {hasLoaded ? (
-              <>
-                {/* {mainProfile}
-                {mainProfilePosts} */}
-                {createDogProfile}
-              </>
-            ) : (
-              <Asset spinner />
-            )}
-          </Container>
-        </Col>
-        <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-          <PopularProfiles />
-        </Col>
-      </Row>
-    );
-  }
+  // const createDogProfile = (
+  //   <>
+  //     {dogProfile?.is_owner && <DogProfileEditDropdown id={dogProfile?.id} />}
+  //     <Row noGutters className="px-3 text-center">
+  //       <Col lg={3} className="text-lg-left">
+  //         <Image
+  //           // className={styles.DogProfileImage}
+  //           className={styles.DogProfilePage}
+  //           roundedCircle
+  //           src={dogProfile?.image}
+  //         />
+  //       </Col>
+  //       <Col lg={6}>
+  //         <h3 className="m-2">{dogProfile?.owner}</h3>
+  //         <Row className="justify-content-center no-gutters">
+  //           <Col xs={3} className="my-2">
+  //             {/* <div>{dogProfile?.posts_count}</div> */}
+  //             <div>{dogProfile?.setDogProfiles}</div>
+  //             <div> dog profile</div>
+  //           </Col>
+  //         </Row>
+  //       </Col>
+  //       <Col lg={3} className="text-lg-right">
+  //         {currentUser &&
+  //           !is_owner &&
+  //           (dogProfile?.dogProfile_id ? (
+  //             <Button
+  //               className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
+  //               onClick={() => handleEdit(dogProfile)}
+  //             >
+  //               Edit dog profile 
+  //             </Button>
+  //           ) : (
+  //             <Button
+  //               className={`${btnStyles.Button} ${btnStyles.Black}`}
+  //               onClick={() => handleDelete(dogProfile)}
+  //             >
+  //               Delete dog profile
+  //             </Button>
+  //           ))}
+  //       </Col>
+  //       {dogProfile?.content && <Col className="p-3">{dogProfile.content}</Col>}
+  //     </Row>
+  //   </>
+  // );
+
+  //   return (
+  //     <Row>
+  //       <Col className="py-2 p-0 p-lg-2" lg={8}>
+  //         <PopularProfiles mobile />
+  //         <Container className={appStyles.Content}>
+  //           {hasLoaded ? (
+  //             <>
+  //               {/* {mainProfile}
+  //               {mainProfilePosts} */}
+  //               {createDogProfile}
+  //             </>
+  //           ) : (
+  //             <Asset spinner />
+  //           )}
+  //         </Container>
+  //       </Col>
+  //       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
+  //         <PopularProfiles />
+  //       </Col>
+  //     </Row>
+  //   );
+  // }
 
   // return (
   //   <Row className="h-100">
@@ -173,6 +218,5 @@ function DogProfilePage() {
   //     </Col>
   //   </Row>
   // );
-// }
 
-export default DogProfilePage;
+// export default DogProfilePage;
