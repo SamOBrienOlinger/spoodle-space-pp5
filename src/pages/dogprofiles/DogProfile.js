@@ -27,7 +27,9 @@ const DogProfile = (props) => {
         updated_at,
         dogProfilePage,
         // setDogProfiles,
-      } = props;
+    } = props;
+
+      // const { profile, mobile, imageSize = 55 } = props;
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;

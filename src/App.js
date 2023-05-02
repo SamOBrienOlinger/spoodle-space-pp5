@@ -18,9 +18,9 @@ import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 
+import DogProfileCreateForm from "./pages/dogprofiles/DogProfileCreateForm";
 import DogProfilePage from "./pages/dogprofiles/DogProfilePage";
 import DogProfilesPage from "./pages/dogprofiles/DogProfilesPage";
-import DogProfileCreateForm from "./pages/dogprofiles/DogProfileCreateForm";
 import DogProfileEditForm from "./pages/dogprofiles/DogProfileEditForm";
 
 
@@ -58,6 +58,7 @@ function App() {
             render={() => (
               <DogProfilesPage
                 message="No results found. Adjust the search keyword or follow a user."
+                // filter={`owner__profile=${profile_id}&`}
                 filter={`owner__followed__owner__profile=${profile_id}&`}
               />
             )}

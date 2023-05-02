@@ -189,7 +189,7 @@ function ProfilePage() {
       {dogProfiles?.results?.length ? ( 
         <InfiniteScroll
           children={dogProfiles.results.map((dogprofile) => (
-            <DogProfile key={DogProfile.id} {...dogprofile} setDogProfiles={setDogProfiles} />
+            <DogProfile key={dogprofile.id} {...dogprofile} setDogProfiles={setDogProfiles} />
           ))}
           dataLength={dogProfiles.results.length}
           loader={<Asset spinner />}
