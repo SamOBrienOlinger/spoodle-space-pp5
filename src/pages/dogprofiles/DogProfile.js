@@ -17,7 +17,7 @@ const DogProfile = (props) => {
         id,
         owner,
         // profile_id,
-        profile_image,
+        // profile_image,
         dog_profile_id,
         dog_name,
         dog_age,
@@ -58,7 +58,7 @@ const DogProfile = (props) => {
         <Link to={`/dogprofiles/${dog_profile_id}`}>
         {/* <Link to={`/profiles/${profile_id}`}> */}
             {/* <Avatar src={dog_profile_image} height={55} /> */}
-            <Avatar src={profile_image} height={55} />
+            <Avatar src={dog_profile_image} height={55} />
             {owner}
           </Link>
           <div className="my-3 d-flex align-items-center">
@@ -77,7 +77,17 @@ const DogProfile = (props) => {
         <Card.Img src={dog_profile_image} alt={dog_name} />
       </Link>
       <Card.Body>
-        {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
+       {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
+        
+       {dog_age && <Card.Text>{dog_age}</Card.Text>}
+        
+        
+       {dog_color && <Card.Text>{dog_color}</Card.Text>}
+       
+       
+       {dog_bio && <Card.Text>{dog_bio}</Card.Text>}
+
+        {/* {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
         {dog_name && <Card.Text>{dog_name}</Card.Text>}
         
         {dog_age && <Card.Title className="text-center">{dog_age}</Card.Title>}
@@ -90,7 +100,7 @@ const DogProfile = (props) => {
         {dog_bio && <Card.Text>{dog_bio}</Card.Text>}
 
         {dog_profile_image && <Card.Title className="text-center">{dog_profile_image}</Card.Title>}
-        {dog_profile_image && <Card.Text>{dog_profile_image}</Card.Text>}
+        {dog_profile_image && <Card.Text>{dog_profile_image}</Card.Text>} */}
         
         <div className={styles.PostBar}>
           {is_owner ? (

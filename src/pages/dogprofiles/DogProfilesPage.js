@@ -53,7 +53,6 @@ function DogProfilesPage({ message, filter = "" }) {
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
-        {/* <DogProfiles mobile /> */}
         <PopularProfiles mobile />
         <i className={`fas fa-search ${styles.SearchIcon}`} />
         <Form
@@ -95,7 +94,6 @@ function DogProfilesPage({ message, filter = "" }) {
         )}
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
-        {/* <DogProfiles /> */}
         <PopularProfiles />
       </Col>
     </Row>

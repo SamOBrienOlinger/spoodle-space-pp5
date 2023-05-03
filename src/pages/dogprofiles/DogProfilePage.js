@@ -223,9 +223,25 @@ function DogProfilePage() {
 
    return (
     
-    <div> 
+    <div>
+      <div img></div>
     
-      <h1>Testing DogProfilePage</h1>
+      <h1>Doggy Profile</h1>
+
+      <h2>Dog Name</h2>
+
+        <p>placeholder</p>
+
+      <h2>Dog Age</h2>
+        <p>placeholder</p>
+
+      <h2>Dog Color</h2>
+
+        <p>placeholder</p>
+
+      <h2>Dog Bio</h2>
+
+        <p>placeholder</p>
 
       <div>
 
