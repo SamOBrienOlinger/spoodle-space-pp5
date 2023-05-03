@@ -171,7 +171,7 @@ function DogProfileCreateForm() {
                       className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
                       htmlFor="image-upload"
                     >
-                      Change the image
+                      Change doggy image
                     </Form.Label>
                   </div>
                 </>

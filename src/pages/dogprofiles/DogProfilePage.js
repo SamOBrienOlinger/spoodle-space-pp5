@@ -219,4 +219,23 @@
   //   </Row>
   // );
 
-// export default DogProfilePage;
+function DogProfilePage() {
+
+   return (
+    
+    <div> 
+    
+      <h1>Testing DogProfilePage</h1>
+
+      <div>
+
+        <button a href='./dogprofiles/dogprofilescreateform'>
+          Add doggy profile
+        </button>
+
+      </div>
+    </div>
+  );
+}  
+
+export default DogProfilePage;
