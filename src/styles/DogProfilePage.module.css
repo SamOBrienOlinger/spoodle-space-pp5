@@ -1,4 +1,4 @@
-.ProfileImage {
+.DogProfileImage {
     object-fit: cover;
     height: 120px;
     width: 120px;
@@ -6,7 +6,7 @@
   }
   
   @media screen and (max-width: 991px) {
-    .ProfileImage {
+    .DogProfileImage {
       width: 250px;
       height: 250px;
     }
