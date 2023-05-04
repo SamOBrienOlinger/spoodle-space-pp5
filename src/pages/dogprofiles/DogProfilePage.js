@@ -4,9 +4,9 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
-// import Asset from "../../components/Asset";
+import Asset from "../../components/Asset";
 
-// import styles from "../../styles/DogProfilePage.module.css";
+import styles from "../../styles/DogProfilePage.module.css";
 import appStyles from "../../App.module.css";
 // import btnStyles from "../../styles/Button.module.css";
 
@@ -27,7 +27,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 // import DogProfile from ".dogprofiles/DogProfile";
 // import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
 // import reactRouterDom from "react-router-dom";
-// import { fetchMoreData } from "../../utils/utils";
+import { fetchMoreData } from "../../utils/utils";
 // import NoResults from "../../assets/no-results.png";
 // import { DogProfileEditDropdown } from "../../components/MoreDropdown";
 
@@ -228,19 +228,19 @@ function DogProfilePage() {
 
   const currentUser = useCurrentUser();
   const dog_profile_image = currentUser?.dog_profile_image;
-  // const [comments, setComments] = useState({ results: [] });
+  const [comments, setComments] = useState({ results: [] });
   const [dogprofiles] = useState({ results: [] });
 
   useEffect(() => {
     const handleMount = async () => {
       try {
-        const [{ data: dogprofile }] = await Promise.all([
-          // const [{ data: dogprofile }, { data: comments }] = await Promise.all([
+        // const [{ data: dogprofile }] = await Promise.all([
+          const [{ data: dogprofile }, { data: comments }] = await Promise.all([
           axiosReq.get(`/dogprofiles/${id}`),
-          // axiosReq.get(`/comments/?post=${id}`),
+          axiosReq.get(`/comments/?dogprofile=${id}`),
         ]);
         setDogProfile({ results: [dogprofile] });
-        // setComments(comments);
+        setComments(comments);
       } catch (err) {
         // console.log(err);
       }
@@ -255,12 +255,12 @@ function DogProfilePage() {
         <DogProfile {...dogprofile.results[0]} setDogProfiles={setDogProfile} dogProfilePage />
         <Container className={appStyles.Content}>
           {currentUser ? (
-            <Form
+            <Form className={styles.DogProfile}
               dogprofile_id={currentUser.profile_id}
               dogProfileImage={dog_profile_image}
               dogprofile={id}
               setDogProfile={setDogProfile}
-              // setComments={setComments}
+              setComments={setComments}
             />
            ) : dogprofiles.results.length ? (
               "Dog Profiles"
@@ -272,13 +272,13 @@ function DogProfilePage() {
                     key={dogprofile.id}
                     {...dogprofile}
                     setPost={setDogProfile}
-                    // setComments={setComments}
+                    setComments={setComments}
                   />
                 ))}
-                // dataLength={comments.results.length}
-                // loader={<Asset spinner />}
-                // hasMore={!!comments.next}
-                // next={() => fetchMoreData(comments, setComments)}
+                dataLength={comments.results.length}
+                loader={<Asset spinner />}
+                hasMore={!!comments.next}
+                next={() => fetchMoreData(comments, setComments)}
               />
             ) : currentUser ? (
               <span>No comments yet, be the first to comment!</span>

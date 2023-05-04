@@ -16,9 +16,10 @@ const DogProfile = (props) => {
   const {
         id,
         owner,
-        // profile_id,
-        // profile_image,
-        dog_profile_id,
+        profile_id,
+        profile_image,
+        // dog_profile_id,
+        // dogprofile_id,
         dog_name,
         dog_age,
         dog_color,
@@ -55,10 +56,10 @@ const DogProfile = (props) => {
     <Card className={styles.DogProfile}>
       <Card.Body>
         <Media className="align-items-center justify-content-between">
-        <Link to={`/dogprofiles/${dog_profile_id}`}>
-        {/* <Link to={`/profiles/${profile_id}`}> */}
+        {/* <Link to={`/dogprofiles/${dogprofile_id}`}> */}
+        <Link to={`/profiles/${profile_id}`}>
+            <Avatar src={profile_image} height={55} />
             {/* <Avatar src={dog_profile_image} height={55} /> */}
-            <Avatar src={dog_profile_image} height={55} />
             {owner}
           </Link>
           <div className="my-3 d-flex align-items-center">
@@ -76,6 +77,7 @@ const DogProfile = (props) => {
       <Link to={`/dogprofiles/${id}`}>
         <Card.Img src={dog_profile_image} alt={dog_name} />
       </Link>
+
       <Card.Body>
        {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
         
@@ -101,41 +103,62 @@ const DogProfile = (props) => {
 
         {dog_profile_image && <Card.Title className="text-center">{dog_profile_image}</Card.Title>}
         {dog_profile_image && <Card.Text>{dog_profile_image}</Card.Text>} */}
-        
-        <div className={styles.PostBar}>
+
+        <div className={styles.DogProfile}>
           {is_owner ? (
             <OverlayTrigger
               placement="top"
-              overlay={<Tooltip>Edit doggy profile!</Tooltip>}
+              overlay={<Tooltip>See Doggy Health</Tooltip>}
             >
-              <i className="far fa-dog" />
-            </OverlayTrigger> 
-             
 
-          // ) : dogprofile_id ? (
-          //   <span onClick={handleEdit}>
-          //     <i className={`fas fa-dog ${styles.Dog}`} />
-          //   </span>
-            ) : currentUser ? (
-              <span onClick={handleDelete}>
-                <i className={`far fa-dog ${styles.DogOutline}`} />
-              </span>
-            ) : (
+            <Link to={`/doghealth/DogHealth${id}`}>
+              <i className="far fa-dog" />
+            </Link>  
+              
+            </OverlayTrigger> 
+          ) : currentUser ? (
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>See Doggy Danger</Tooltip>}
+            >
+            
+            <Link to={`/dogdanger/DogDanger${id}`}>
+            <i className="far fa-dog" />
+            </Link>
+            
+            </OverlayTrigger>
+          
+          )  : (
               <OverlayTrigger
                 placement="top"
-                overlay={<Tooltip>Log in to edit doggy profiles!</Tooltip>}
+                overlay={<Tooltip>X</Tooltip>}
               >
                 <i className="far fa-dog" />
               </OverlayTrigger>
-            )}
-            {/* {likes_count} */}
-            <Link to={`/dogprofiles/${id}`}>
+          )}
+        </div>
+
+            {/* // ) : currentUser ? (
+            //   <span onClick={handleDelete}>
+            //     <i className={`far fa-dog ${styles.DogOutline}`} />
+            //   </span>
+            // ) : (
+              // <OverlayTrigger */}
+              {/* //   placement="top"
+              //   overlay={<Tooltip>See Doggy Danger</Tooltip>}
+              // >
+              // <Link to={`/dogprofiles/${id}`}>
+              //   <i className="far fa-dog" />
+              // </Link>
+              // </OverlayTrigger>
+            // )} */}
+            {/* <Link to={`/dogprofiles/${id}`}>
               <i className="far fa-dog" />
-            </Link>
-          </div>
+            </Link> */}
+          {/* </div> */}
       </Card.Body>
     </Card>
-        );
-      };
+  );
+};
       
 export default DogProfile;
