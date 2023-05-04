@@ -39,7 +39,7 @@ import NotFound from "./components/NotFound";
 function App() {
   const currentUser = useCurrentUser();
   const profile_id = currentUser?.profile_id || "";
-  const dogprofile_id = currentUser?.dogprofile_id || "";
+  // const dogprofile_id = currentUser?.dogprofile_id || "";
 
   return (
     <div className={styles.App}>
@@ -59,8 +59,8 @@ function App() {
             render={() => (
               <DogProfilesPage
                 message="No results found. Adjust the search keyword or follow a user."
-                filter={`owner__followed__owner__dogprofile=${dogprofile_id}&ordering=-created_at&`}
-                // filter={`owner__followed__owner__profile=${profile_id}&`}
+                // filter={`owner__followed__owner__dogprofile=${dogprofile_id}&ordering=-created_at&`}
+                filter={`owner__followed__owner__profile=${profile_id}&`}
                 // filter={`owner__followed__owner__profile__owner__dogprofile=${dogprofile_id}&`}
               />
             )}
