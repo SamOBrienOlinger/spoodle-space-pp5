@@ -19,7 +19,7 @@ import { fetchMoreData } from "../../utils/utils";
 // import DogProfiles from "../dogprofiles/DogProfilesPage";
 import PopularProfiles from "../profiles/PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-// import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function DogProfilesPage({ message, filter = "" }) {
   const [dogprofiles, setDogProfiles] = useState({ results: [] });
@@ -69,6 +69,14 @@ function DogProfilesPage({ message, filter = "" }) {
           />
         </Form>
 
+        <Link
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/dogprofiles/create"
+      >
+      <i className="far fa-plus-square"></i><i className="fas fa-dog"></i>Create your Doggy Profiles
+      </Link>
+
         {hasLoaded ? (
           <>
             {/* {posts?.results?.length ? ( */}
@@ -93,13 +101,7 @@ function DogProfilesPage({ message, filter = "" }) {
             <Asset spinner />
           </Container>
         )}
-        {/* <div> */}
 
-          {/* <Link to={`/dogprofile${id}`}>
-              <i className="far fa-dog" />
-          </Link> */}
-
-        {/* </div> */}
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
         <PopularProfiles />

@@ -199,7 +199,9 @@ function DogProfileEditForm() {
             <Form.Group>
               {dog_profile_image && (
                 <figure>
+                  {/* <Image src={dog_profile_image} fluid /> */}
                   <Image src={dog_profile_image} fluid />
+                
                 </figure>
               )}
               {errors?.dog_profile_image?.map((message, idx) => (

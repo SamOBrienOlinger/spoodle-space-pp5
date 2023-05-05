@@ -6,6 +6,8 @@ import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
 
+// import { Image } from "react-bootstrap";
+
 import Card from "react-bootstrap/Card";
 import Media from "react-bootstrap/Media";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -19,8 +21,6 @@ const DogProfile = (props) => {
         owner,
         profile_id,
         profile_image,
-        // dog_profile_id,
-        // dogprofile_id,
         dog_name,
         dog_age,
         dog_color,
@@ -36,8 +36,6 @@ const DogProfile = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
-
-  // const { handleEdit, handleDelete } = setDogProfiles();
   
   const handleEdit = () => {
     history.push(`/dogprofiles/${id}/edit`);

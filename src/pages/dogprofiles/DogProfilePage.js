@@ -30,13 +30,13 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 // import Post from "../posts/Post";
 // import DogProfile from ".dogprofiles/DogProfile";
-import DogProfileEditForm from "../dogprofiles/DogProfileEditForm"
+// import DogProfileEditForm from "../dogprofiles/DogProfileEditForm"
 
-import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
+// import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
 // import reactRouterDom from "react-router-dom";
 import { fetchMoreData } from "../../utils/utils";
 // import NoResults from "../../assets/no-results.png";
-import { DogProfileEditDropdown } from "../../components/MoreDropdown";
+// import { DogProfileEditDropdown } from "../../components/MoreDropdown";
 
 function DogProfilePage() {
 
@@ -77,7 +77,7 @@ function DogProfilePage() {
               dogProfileImage={dog_profile_image}
               dogprofile={id}
               setDogProfile={setDogProfile}
-              setComments={setComments}
+              // setComments={setComments}
             />
            ) : dogprofiles.results.length ? (
               "Dog Profiles"
@@ -88,8 +88,8 @@ function DogProfilePage() {
                   <DogProfile
                     key={dogprofile.id}
                     {...dogprofile}
-                    setPost={setDogProfile}
-                    setComments={setComments}
+                    setDogProfile={setDogProfile}
+                    // setComments={setComments}
                   />
                 ))}
                 dataLength={comments.results.length}
@@ -107,39 +107,5 @@ function DogProfilePage() {
     </Row>  
   );
 }
-
-
-//    return (
-    
-//     <div>
-//       <div img></div>
-    
-//       <h1>Doggy Profile</h1>
-
-//       <h2>Dog Name</h2>
-
-//         <p>placeholder</p>
-
-//       <h2>Dog Age</h2>
-//         <p>placeholder</p>
-
-//       <h2>Dog Color</h2>
-
-//         <p>placeholder</p>
-
-//       <h2>Dog Bio</h2>
-
-//         <p>placeholder</p>
-
-//       <div>
-
-//         <button a href='./dogprofiles/dogprofilescreateform'>
-//           Add doggy profile
-//         </button>
-
-//       </div>
-//     </div>
-//   );
-// }  
 
 export default DogProfilePage;
