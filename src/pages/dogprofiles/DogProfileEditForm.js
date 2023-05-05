@@ -10,22 +10,27 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 
 import { axiosReq } from "../../api/axiosDefaults";
-import {
-  useCurrentUser,
-  useSetCurrentUser,
-} from "../../contexts/CurrentUserContext";
+// import {
+//   useCurrentUser,
+//   useSetCurrentUser,
+// } from "../../contexts/CurrentUserContext";
 
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 // import styles from "../../styles/DogProfileCreateEditForm.module.css";
 
 
-const DogProfileEditForm = () => {
-  const currentUser = useCurrentUser();
-  const setCurrentUser = useSetCurrentUser();
+// const DogProfileEditForm = () => {
+function DogProfileEditForm() {
+  // const currentUser = useCurrentUser();
+  // const setCurrentUser = useSetCurrentUser();
+
   const { id } = useParams();
   const history = useHistory();
-  const imageFile = useRef();
+  // const imageFile = useRef();
+  const imageInput = useRef(null);
+
+
 
   const [dogProfileData, setDogProfileData] = useState({
     dog_name: "",
@@ -39,40 +44,40 @@ const DogProfileEditForm = () => {
     dog_age, 
     dog_color, 
     dog_bio, 
-    dog_profile_image 
+    dog_profile_image,
+    is_owner 
 } = dogProfileData;
 
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const handleMount = async () => {
-      if (currentUser?.dogprofile_id?.toString() === id) {
-        try {
+      // if (currentUser?.dogprofile_id?.toString() === id) {
+      try {
           const { data } = await axiosReq.get(`/dogprofiles/${id}/`);
           const { 
-            dog_name, 
-            dog_age, 
-            dog_color, 
-            dog_bio, 
-            dog_profile_image } = data;
+        dog_name, 
+        dog_age, 
+        dog_color, 
+        dog_bio, 
+        dog_profile_image } = data;
 
-          setDogProfileData({     
-            dog_name, 
-            dog_age, 
-            dog_color, 
-            dog_bio, 
-            dog_profile_image });
-        } catch (err) {
-          // console.log(err);
-          history.push("/");
-        }
-      } else {
-        history.push("/");
-      }
-    };
+      is_owner ? setDogProfileData({     
+        dog_name, 
+        dog_age, 
+        dog_color, 
+        dog_bio, 
+        dog_profile_image }) : history.push("/");
+    } catch (err) {
+      // console.log(err);
+    }
+  };
 
-    handleMount();
-  }, [currentUser, history, id]);
+  //   handleMount();
+  // }, [currentUser, history, id]);
+
+  handleMount();
+}, [is_owner, history, id]);
 
   const handleChange = (event) => {
     setDogProfileData({
@@ -90,22 +95,33 @@ const DogProfileEditForm = () => {
     formData.append("dog color", dog_color);
     formData.append("dog bio", dog_bio);
 
-    if (imageFile?.current?.files[0]) {
-      formData.append("dog image", imageFile?.current?.files[0]);
+    if (imageInput?.current?.files[0]) {
+      formData.append("dog image", imageInput?.current?.files[0]);
     }
 
     try {
-      const { data } = await axiosReq.put(`/dogprofiles/${id}/`, formData);
-      setCurrentUser((currentUser) => ({
-        ...currentUser,
-        dog_profile_image: data.dog_profile_image,
-      }));
-      history.goBack();
+      await axiosReq.put(`/dogprofiles/${id}/`, formData);
+      history.push(`/dogprofiles/${id}`);
     } catch (err) {
       // console.log(err);
-      setErrors(err.response?.data);
+      if (err.response?.status !== 401) {
+        setErrors(err.response?.data);
+      }
     }
   };
+  
+  //   try {
+  //     const { data } = await axiosReq.put(`/dogprofiles/${id}/`, formData);
+  //     setCurrentUser((currentUser) => ({
+  //       ...currentUser,
+  //       dog_profile_image: data.dog_profile_image,
+  //     }));
+  //     history.goBack();
+  //   } catch (err) {
+  //     // console.log(err);
+  //     setErrors(err.response?.data);
+  //   }
+  // };
 
   const textFields = (
     <>
@@ -201,7 +217,7 @@ const DogProfileEditForm = () => {
               </div>
               <Form.File
                 id="image-upload"
-                ref={imageFile}
+                ref={imageInput}
                 accept="image/*"
                 onChange={(e) => {
                   if (e.target.files.length) {

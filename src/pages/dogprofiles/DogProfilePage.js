@@ -30,11 +30,13 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 // import Post from "../posts/Post";
 // import DogProfile from ".dogprofiles/DogProfile";
-// import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
+import DogProfileEditForm from "../dogprofiles/DogProfileEditForm"
+
+import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
 // import reactRouterDom from "react-router-dom";
 import { fetchMoreData } from "../../utils/utils";
 // import NoResults from "../../assets/no-results.png";
-// import { DogProfileEditDropdown } from "../../components/MoreDropdown";
+import { DogProfileEditDropdown } from "../../components/MoreDropdown";
 
 function DogProfilePage() {
 
