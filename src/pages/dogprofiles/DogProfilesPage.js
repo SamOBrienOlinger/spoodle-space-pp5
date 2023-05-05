@@ -19,6 +19,7 @@ import { fetchMoreData } from "../../utils/utils";
 // import DogProfiles from "../dogprofiles/DogProfilesPage";
 import PopularProfiles from "../profiles/PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+// import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function DogProfilesPage({ message, filter = "" }) {
   const [dogprofiles, setDogProfiles] = useState({ results: [] });
@@ -92,6 +93,13 @@ function DogProfilesPage({ message, filter = "" }) {
             <Asset spinner />
           </Container>
         )}
+        {/* <div> */}
+
+          {/* <Link to={`/dogprofile${id}`}>
+              <i className="far fa-dog" />
+          </Link> */}
+
+        {/* </div> */}
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
         <PopularProfiles />

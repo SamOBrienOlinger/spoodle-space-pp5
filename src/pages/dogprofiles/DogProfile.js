@@ -11,6 +11,7 @@ import Media from "react-bootstrap/Media";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { MoreDropdown } from "../../components/MoreDropdown";
+// import { Button } from "react-bootstrap";
 
 const DogProfile = (props) => {
   const {
@@ -104,7 +105,40 @@ const DogProfile = (props) => {
         {dog_profile_image && <Card.Title className="text-center">{dog_profile_image}</Card.Title>}
         {dog_profile_image && <Card.Text>{dog_profile_image}</Card.Text>} */}
 
-        <div className={styles.DogProfile}>
+        {/* <div className={styles.PostBar}>
+
+            <div>       
+            <Link to={`/dogprofiles${id}`}>
+              <i className="far fa-dog" />
+            </Link>
+            <p> Click the image to see more doggy details </p>
+          </div>
+
+          <div>
+          <Link to={`/doghealth/DogHealth${id}`}>
+              <i className="far fa-dog" />
+          </Link>
+            <p> See doggy health</p>
+          </div>
+          
+          <div>
+
+            <Link to={`/dogdanger/DogDanger${id}`}>
+              <i className="far fa-dog" />
+            </Link>
+          </div>
+
+        </div>
+      </Card.Body>
+    </Card>
+  );
+};
+          
+export default DogProfile; */}
+        
+        
+
+        <div className={styles.PostBar}>
           {is_owner ? (
             <OverlayTrigger
               placement="top"
@@ -131,33 +165,14 @@ const DogProfile = (props) => {
           )  : (
               <OverlayTrigger
                 placement="top"
-                overlay={<Tooltip>X</Tooltip>}
+                overlay={<Tooltip>Log in to view doggy profiles</Tooltip>}
               >
                 <i className="far fa-dog" />
               </OverlayTrigger>
           )}
         </div>
-
-            {/* // ) : currentUser ? (
-            //   <span onClick={handleDelete}>
-            //     <i className={`far fa-dog ${styles.DogOutline}`} />
-            //   </span>
-            // ) : (
-              // <OverlayTrigger */}
-              {/* //   placement="top"
-              //   overlay={<Tooltip>See Doggy Danger</Tooltip>}
-              // >
-              // <Link to={`/dogprofiles/${id}`}>
-              //   <i className="far fa-dog" />
-              // </Link>
-              // </OverlayTrigger>
-            // )} */}
-            {/* <Link to={`/dogprofiles/${id}`}>
-              <i className="far fa-dog" />
-            </Link> */}
-          {/* </div> */}
-      </Card.Body>
-    </Card>
+   </Card.Body>
+  </Card>
   );
 };
       
