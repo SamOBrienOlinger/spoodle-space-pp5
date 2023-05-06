@@ -24,8 +24,7 @@ function DogProfileCreateForm() {
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
 
-  // const [postData, setPostData] = useState({
-    const [dogProfileData, setDogProfileData] = useState({  
+  const [dogProfileData, setDogProfileData] = useState({  
     dog_name: "",
     dog_age: "",
     dog_color: "",
@@ -49,7 +48,6 @@ function DogProfileCreateForm() {
       URL.revokeObjectURL(dog_profile_image);
       setDogProfileData({
         ...dogProfileData,
-        // image: URL.createObjectURL(event.target.files[0]),
         dog_profile_image: URL.createObjectURL(event.target.files[0]),
       });
     }

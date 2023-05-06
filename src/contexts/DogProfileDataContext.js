@@ -1,8 +1,8 @@
 // import { createContext, useContext, useEffect, useState } from "react";
 // import { axiosReq, axiosRes } from "../api/axiosDefaults";
 // import { useCurrentUser } from "../contexts/CurrentUserContext";
-// import { followHelper, unfollowHelper } from "../utils/utils";
-// import {editHelper, deleteHelper } from "../utils/utils";
+// // import { followHelper, unfollowHelper } from "../utils/utils";
+// // import {editHelper, deleteHelper } from "../utils/utils";
 
 // const DogProfileDataContext = createContext();
 // const SetDogProfileDataContext = createContext();
@@ -12,10 +12,10 @@
 
 // export const DogProfileDataProvider = ({ children }) => {
 //   const [dogProfileData, setDogProfileData] = useState({
-    // we will use the pageProfile later!
-  //   dogPageProfile: { results: [] },
-  //   popularProfiles: { results: [] },
-  // });
+//     // we will use the pageProfile later!
+//     dogPageProfile: { results: [] },
+//     popularProfiles: { results: [] },
+//   });
 
 //   const currentUser = useCurrentUser();
 
@@ -30,15 +30,7 @@
 //         dogPageProfile: {
 //           results: prevState.dogPageProfile.results.map((dogprofile) =>
 //             EditHelper(dogprofile, clickedDogProfile, data.id)
-//           ),
-//         },
-//         popularDogProfiles: {
-//           ...prevState.popularDogProfiles,
-//           results: prevState.popularDogProfiles.results.map((dogprofile) =>
-//             followHelper(profile, clickedProfile, data.id)
-//           ),
-//         },
-//       }));
+//         }),
 //     } catch (err) {
 //       // console.log(err);
 //     }
@@ -67,20 +59,32 @@
 //     // console.log(err);
 //   }
 
-// //   useEffect(() => {
-// //     const handleMount = async () => {
-// //       try {
-// //         const { data } = await axiosReq.get(
-// //           "/dogprofiles/?ordering=-followers_count"
-// //         );
-// //         setProfileData((prevState) => ({
-// //           ...prevState,
-// //           popularProfiles: data,
-// //         }));
-// //       } catch (err) {
-// //         // console.log(err);
-// //       }
-// //     };
+//   useEffect(() => {
+//     const handleMount = async () => {
+//       try {
+//         const { data } = await axiosReq.get(
+//           "/dogprofiles/?ordering=-created_at"
+//         );
+//         setDogProfileData((prevState) => ({
+//           ...prevState,
+//           popularProfiles: data,
+//         }));
+//       } catch (err) {
+//         // console.log(err);
+//       }
+//     };
 
-// //     handleMount();
-// //   }, [currentUser]);
+//     handleMount();
+//   }, [currentUser]);
+
+//   return (
+//     <DogProfileDataContext.Provider value={dogProfileData}>
+//     <SetDogProfileDataContext.Provider
+//       value={{ setDogProfileData }}
+//     >
+//       {children}
+//     </SetDogProfileDataContext.Provider>
+//   </DogProfileDataContext.Provider>
+
+//   );
+// };
