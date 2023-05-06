@@ -183,7 +183,7 @@ function ProfilePage() {
         />
       )}
       <hr />
-      <p className="text-center">{profile?.owner}'s posts</p>
+      <p className="text-center">{profile?.owner}'s dog profile</p>
       <hr />
       {/* {dogProfiles.results.length ? ( */}
       {dogProfiles?.results?.length ? ( 
