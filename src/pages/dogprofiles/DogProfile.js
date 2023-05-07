@@ -155,14 +155,6 @@ const DogProfile = (props) => {
       
 export default DogProfile;
 
-{/* <Link to={`/posts/${id}`}>
-<Card.Img src={image} alt={title} />
-</Link>
-<Card.Body>
-{title && <Card.Title className="text-center">{title}</Card.Title>}
-{content && <Card.Text>{content}</Card.Text>}
-<div className={styles.PostBar}>
-// {is_owner ? ( */}
 //   <OverlayTrigger
 //     placement="top"
 //     overlay={<Tooltip>You can't edit another user's dog profile details!</Tooltip>}

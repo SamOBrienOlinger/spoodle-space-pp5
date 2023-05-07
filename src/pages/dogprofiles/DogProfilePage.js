@@ -122,7 +122,7 @@ function DogProfilePage() {
               overlay={<Tooltip>See Doggy Health</Tooltip>}
             >
 
-            <Link to={`/doghealth/DogHealth${id}`}>
+            <Link to={`/doghealth/${id}`}>
               <i className="far fa-dog" />
             </Link>  
               
@@ -133,7 +133,7 @@ function DogProfilePage() {
               overlay={<Tooltip>See Doggy Danger</Tooltip>}
             >
             
-            <Link to={`/dogdanger/DogDanger${id}`}>
+            <Link to={`/dogdanger/${id}`}>
             <i className="far fa-dog" />
             </Link>
             
