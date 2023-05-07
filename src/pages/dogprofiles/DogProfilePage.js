@@ -17,6 +17,10 @@ import { axiosReq } from "../../api/axiosDefaults";
 import DogProfile from "./DogProfile";
 import { Form } from "react-bootstrap";
 
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { Link } from "react-router-dom";
+
 // import Comment from "../comments/Comment";
 
 // import CommentCreateForm from "../comments/CommentCreateForm";
@@ -108,6 +112,35 @@ function DogProfilePage() {
             // ) : (
             //   <span>No comments... yet</span>
             )} */}
+
+<div className={styles.PostBar}>
+          {/* {is_owner ? ( */}
+
+          <div className={"text-center"}>
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>See Doggy Health</Tooltip>}
+            >
+
+            <Link to={`/doghealth/DogHealth${id}`}>
+              <i className="far fa-dog" />
+            </Link>  
+              
+            </OverlayTrigger> 
+          {/* ) : currentUser ? ( */}
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>See Doggy Danger</Tooltip>}
+            >
+            
+            <Link to={`/dogdanger/DogDanger${id}`}>
+            <i className="far fa-dog" />
+            </Link>
+            
+            </OverlayTrigger>
+          </div>
+        </div>
+
         </Container>
       </Col>
     </Row>  
