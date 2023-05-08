@@ -119,34 +119,7 @@ const DogProfile = (props) => {
             </OverlayTrigger> 
           
 
-        {/* <div className={styles.PostBar}> */}
-          {/* {is_owner ? ( */}
-            {/* <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>See Doggy Health</Tooltip>}
-            >
-
-            <Link to={`/doghealth/DogHealth${id}`}>
-              <i className="far fa-dog" />
-            </Link>   */}
-              
-            {/* </OverlayTrigger>  */}
-          {/* ) : currentUser ? ( */}
-            {/* <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>See Doggy Danger</Tooltip>}
-            >
-            
-            <Link to={`/dogdanger/DogDanger${id}`}>
-            <i className="far fa-dog" />
-            </Link>
-            
-            </OverlayTrigger> */}
-          
-          {/* )  : ( */}
-
-          {/* )} */}
-        {/* </div> */}
+       
         </div>
    </Card.Body>
   </Card>
