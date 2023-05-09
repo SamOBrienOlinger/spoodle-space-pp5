@@ -10,26 +10,25 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 
 import { axiosReq } from "../../api/axiosDefaults";
-// import {
-//   useCurrentUser,
-//   useSetCurrentUser,
-// } from "../../contexts/CurrentUserContext";
+import {
+  useCurrentUser,
+  useSetCurrentUser,
+} from "../../contexts/CurrentUserContext";
 
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 // import styles from "../../styles/DogProfileCreateEditForm.module.css";
 
 
-// const DogProfileEditForm = () => {
-function DogProfileEditForm() {
-  // const currentUser = useCurrentUser();
-  // const setCurrentUser = useSetCurrentUser();
+const DogProfileEditForm = () => {
+// function DogProfileEditForm() {
+  const currentUser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
 
   const { id } = useParams();
   const history = useHistory();
-  // const imageFile = useRef();
-  const imageInput = useRef(null);
-
+  const imageFile = useRef();
+  // const imageInput = useRef(null);
 
 
   const [dogProfileData, setDogProfileData] = useState({
@@ -45,14 +44,14 @@ function DogProfileEditForm() {
     dog_color, 
     dog_bio, 
     dog_profile_image,
-    is_owner 
+    // is_owner 
 } = dogProfileData;
 
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const handleMount = async () => {
-      // if (currentUser?.dogprofile_id?.toString() === id) {
+      if (currentUser?.dogprofile_id?.toString() === id) {
       try {
           const { data } = await axiosReq.get(`/dogprofiles/${id}/`);
           const { 
@@ -62,22 +61,37 @@ function DogProfileEditForm() {
         dog_bio, 
         dog_profile_image } = data;
 
-      is_owner ? setDogProfileData({     
-        dog_name, 
-        dog_age, 
-        dog_color, 
-        dog_bio, 
-        dog_profile_image }) : history.push("/");
-    } catch (err) {
-      // console.log(err);
-    }
-  };
+        setDogProfileData({     
+          dog_name, 
+          dog_age, 
+          dog_color, 
+          dog_bio, 
+          dog_profile_image,});
+        } catch (err) {
+          // console.log(err);
+          history.push("/");
+        }
+      } else {
+        history.push("/");
+      }
+    };
 
-  //   handleMount();
-  // }, [currentUser, history, id]);
+  //     is_owner ? setDogProfileData({     
+  //       dog_name, 
+  //       dog_age, 
+  //       dog_color, 
+  //       dog_bio, 
+  //       dog_profile_image }) : history.push("/");
+  //   } catch (err) {
+  //     // console.log(err);
+  //   }
+  // };
 
-  handleMount();
-}, [is_owner, history, id]);
+    handleMount();
+  }, [currentUser, history, id]);
+
+//   handleMount();
+// }, [is_owner, history, id]);
 
   const handleChange = (event) => {
     setDogProfileData({
@@ -95,13 +109,24 @@ function DogProfileEditForm() {
     formData.append("dog color", dog_color);
     formData.append("dog bio", dog_bio);
 
-    if (imageInput?.current?.files[0]) {
-      formData.append("dog image", imageInput?.current?.files[0]);
+    // if (imageInput?.current?.files[0]) {
+    //   formData.append("dog image", imageInput?.current?.files[0]);
+    // }
+
+    if (imageFile?.current?.files[0]) {
+      formData.append("dog image", imageFile?.current?.files[0]);
     }
 
+    // try {
+    //   await axiosReq.put(`/dogprofiles/${id}/`, formData);
+    //   history.push(`/dogprofiles/${id}`);
     try {
-      await axiosReq.put(`/dogprofiles/${id}/`, formData);
-      history.push(`/dogprofiles/${id}`);
+      const { data } = await axiosReq.put(`/dogprofiles/${id}/`, formData);
+      setCurrentUser((currentUser) => ({
+        ...currentUser,
+        dog_profile_image: data.image,
+      }));
+      history.goBack();
     } catch (err) {
       // console.log(err);
       if (err.response?.status !== 401) {
@@ -174,7 +199,7 @@ function DogProfileEditForm() {
           {message}
         </Alert> */}
 
-{errors?.dog_name?.map((message, idx) => (
+      {errors?.dog_name?.map((message, idx) => (
         <Alert variant="warning" key={idx}>
           {message}
         </Alert>
@@ -219,7 +244,8 @@ function DogProfileEditForm() {
               </div>
               <Form.File
                 id="image-upload"
-                ref={imageInput}
+                // ref={imageInput}
+                ref={imageFile}
                 accept="image/*"
                 onChange={(e) => {
                   if (e.target.files.length) {

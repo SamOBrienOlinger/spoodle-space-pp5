@@ -76,17 +76,15 @@ const DogProfile = (props) => {
       </Link>
 
       <Card.Body>
-       {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
+        {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
         
-       {dog_age && <Card.Text>{dog_age}</Card.Text>}
+        {dog_age && <Card.Text>{dog_age}</Card.Text>}
         
-        
-       {dog_color && <Card.Text>{dog_color}</Card.Text>}
-       
-       
-       {dog_bio && <Card.Text>{dog_bio}</Card.Text>}
+        {dog_color && <Card.Text>{dog_color}</Card.Text>}
+         
+        {dog_bio && <Card.Text>{dog_bio}</Card.Text>}
 
-       {dog_profile_image && <Card.Text>{dog_profile_image}</Card.Text>}
+        {/* {dog_profile_image && <Card.Text>{dog_profile_image}</Card.Text>} */}
 
         {/* {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
         {dog_name && <Card.Text>{dog_name}</Card.Text>}
