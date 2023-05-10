@@ -240,7 +240,9 @@ function ProfilePage() {
             <>
               {mainProfile}
               {mainProfilePosts}
-              {/* {createDogProfile} */}
+              {/* {mainDogProfile} */}
+
+              
             </>
           ) : (
             <Asset spinner />
