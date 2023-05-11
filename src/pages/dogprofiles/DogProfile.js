@@ -30,6 +30,7 @@ const DogProfile = (props) => {
         updated_at,
         dogProfilePage,
     } = props;
+    console.log(props);
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;

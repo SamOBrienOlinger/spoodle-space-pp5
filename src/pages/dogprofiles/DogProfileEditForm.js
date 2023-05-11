@@ -38,6 +38,7 @@ const DogProfileEditForm = () => {
     dog_bio: "",
     dog_profile_image: "",
   });
+  console.log(dogProfileData);
   const { 
     dog_name, 
     dog_age, 
@@ -51,7 +52,7 @@ const DogProfileEditForm = () => {
 
   useEffect(() => {
     const handleMount = async () => {
-      if (currentUser?.dogprofile_id?.toString() === id) {
+      // if (currentUser?.dogprofile_id?.toString() === id) {
       try {
           const { data } = await axiosReq.get(`/dogprofiles/${id}/`);
           const { 
@@ -71,9 +72,10 @@ const DogProfileEditForm = () => {
           // console.log(err);
           history.push("/");
         }
-      } else {
-        history.push("/");
-      }
+
+      // } else {
+      //   history.push("/");
+      // }
     };
 
   //     is_owner ? setDogProfileData({     
@@ -104,17 +106,17 @@ const DogProfileEditForm = () => {
     event.preventDefault();
     const formData = new FormData();
     
-    formData.append("dog name", dog_name);
-    formData.append("dog age", dog_age);
-    formData.append("dog color", dog_color);
-    formData.append("dog bio", dog_bio);
+    formData.append("dog_name", dog_name);
+    formData.append("dog_age", dog_age);
+    formData.append("dog_color", dog_color);
+    formData.append("dog_bio", dog_bio);
 
     // if (imageInput?.current?.files[0]) {
     //   formData.append("dog image", imageInput?.current?.files[0]);
     // }
 
     if (imageFile?.current?.files[0]) {
-      formData.append("dog image", imageFile?.current?.files[0]);
+      formData.append("dog_image", imageFile?.current?.files[0]);
     }
 
     // try {
@@ -156,7 +158,7 @@ const DogProfileEditForm = () => {
           as="textarea"
           value={dog_name}
           onChange={handleChange}
-          name="dog name"
+          name="dog_name"
           rows={1}
         />
       </Form.Group>
@@ -167,7 +169,7 @@ const DogProfileEditForm = () => {
           as="textarea"
           value={dog_age}
           onChange={handleChange}
-          name="dog age"
+          name="dog_age"
           rows={1}
         />
       </Form.Group>
@@ -178,7 +180,7 @@ const DogProfileEditForm = () => {
           as="textarea"
           value={dog_color}
           onChange={handleChange}
-          name="dog color"
+          name="dog_color"
           rows={1}
         />
       </Form.Group>
@@ -189,7 +191,7 @@ const DogProfileEditForm = () => {
           as="textarea"
           value={dog_bio}
           onChange={handleChange}
-          name="dog bio"
+          name="dog_bio"
           rows={7}
         />
       </Form.Group>
