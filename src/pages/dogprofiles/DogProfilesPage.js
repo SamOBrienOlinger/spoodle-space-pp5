@@ -17,7 +17,7 @@ import NoResults from "../../assets/no-results.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 // import DogProfiles from "../dogprofiles/DogProfilesPage";
-import PopularProfiles from "../profiles/PopularProfiles";
+// import PopularProfiles from "../profiles/PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 function DogProfilesPage({ message, filter = "" }) {
@@ -54,7 +54,7 @@ function DogProfilesPage({ message, filter = "" }) {
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         {/* <DogProfiles mobile /> */}
-        <PopularProfiles mobile />
+        {/* <PopularProfiles mobile /> */}
         <i className={`fas fa-search ${styles.SearchIcon}`} />
         <Form
           className={styles.SearchBar}
@@ -96,7 +96,7 @@ function DogProfilesPage({ message, filter = "" }) {
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
         {/* <DogProfiles /> */}
-        <PopularProfiles />
+        {/* <PopularProfiles /> */}
       </Col>
     </Row>
   );

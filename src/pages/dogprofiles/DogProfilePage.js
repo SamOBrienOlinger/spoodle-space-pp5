@@ -10,7 +10,7 @@ import Asset from "../../components/Asset";
 import appStyles from "../../App.module.css";
 // import btnStyles from "../../styles/Button.module.css";
 
-import PopularProfiles from "./PopularProfiles";
+// import PopularProfiles from "../profiles/PopularProfiles";
 // import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
@@ -22,7 +22,7 @@ import {
 import InfiniteScroll from "react-infinite-scroll-component";
 
 // import Post from "../posts/Post";
-import DogProfile from ".dogprofiles/DogProfile";
+import DogProfile from "../dogprofiles/DogProfile";
 // import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
 // import reactRouterDom from "react-router-dom";
 import { fetchMoreData } from "../../utils/utils";
@@ -111,7 +111,7 @@ function DogProfilePage() {
     return (
       <Row>
         <Col className="py-2 p-0 p-lg-2" lg={8}>
-          <PopularProfiles mobile />
+          {/* <PopularProfiles mobile /> */}
           <Container className={appStyles.Content}>
             {hasLoaded ? (
               <>
@@ -125,7 +125,7 @@ function DogProfilePage() {
           </Container>
         </Col>
         <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-          <PopularProfiles />
+          {/* <PopularProfiles /> */}
         </Col>
       </Row>
     );
