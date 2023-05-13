@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from "react";
-
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-
-import Asset from "../../components/Asset";
-
-import styles from "../../styles/ProfilePage.module.css";
-import appStyles from "../../App.module.css";
-import btnStyles from "../../styles/Button.module.css";
-
-import PopularProfiles from "./PopularProfiles";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { useParams } from "react-router";
-import { axiosReq } from "../../api/axiosDefaults";
-import {
-  useProfileData,
-  useSetProfileData,
-} from "../../contexts/ProfileDataContext";
-import { Button, Image } from "react-bootstrap";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Post from "../posts/Post";
-// import DogProfile from "../dogprofiles/DogProfile";
-import { fetchMoreData } from "../../utils/utils";
-import NoResults from "../../assets/no-results.png";
+import React, { useEffect, useState } from "react";	
+import Col from "react-bootstrap/Col";	
+import Row from "react-bootstrap/Row";	
+import Container from "react-bootstrap/Container";	
+import Asset from "../../components/Asset";	
+import styles from "../../styles/ProfilePage.module.css";	
+import appStyles from "../../App.module.css";	
+import btnStyles from "../../styles/Button.module.css";	
+import PopularProfiles from "./PopularProfiles";	
+import { useCurrentUser } from "../../contexts/CurrentUserContext";	
+import { useParams } from "react-router";	
+import { axiosReq } from "../../api/axiosDefaults";	
+import {	
+  useProfileData,	
+  useSetProfileData,	
+} from "../../contexts/ProfileDataContext";	
+import Button from "react-bootstrap/Button";	
+import Image from "react-bootstrap/Image";	
+import InfiniteScroll from "react-infinite-scroll-component";	
+import Post from "../posts/Post";	
+import { fetchMoreData } from "../../utils/utils";	
+import NoResults from "../../assets/no-results.png";	
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
 function ProfilePage() {
@@ -33,53 +29,35 @@ function ProfilePage() {
   const currentUser = useCurrentUser();
   const { id } = useParams();
 
-  const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();
+  // const { handleFollow, handleUnfollow } = useSetProfileData();
+  const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();	
   const { pageProfile } = useProfileData();
 
   const [profile] = pageProfile.results;
   const is_owner = currentUser?.username === profile?.owner;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [{ data: pageProfile }, { data: profilePosts }] =
-          await Promise.all([
-            axiosReq.get(`/profiles/${id}/`),
-            axiosReq.get(`/posts/?owner__profile=${id}`),
-          ]);
-        setProfileData((prevState) => ({
-          ...prevState,
-          pageProfile: { results: [pageProfile] },
-        }));
-        setProfilePosts(profilePosts);
-        setHasLoaded(true);
-      } catch (err) {
-        // console.log(err);
-      }
-    };
-    fetchData();
-  }, [id, setProfileData]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const [{ data: pageProfile }, { data: dogProfiles }] =
-  //         await Promise.all([
-  //           axiosReq.get(`/profiles/${id}/`),
-  //           axiosReq.get(`/dogprofiles/?owner__profile=${id}`),
-  //         ]);
-  //       setProfileData((prevState) => ({
-  //         ...prevState,
-  //         pageProfile: { results: [pageProfile] },
-  //       }));
-  //       setDogProfiles(dogProfiles);
-  //       setHasLoaded(true);
-  //     } catch (err) {
-  //       // console.log(err);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [id, setProfileData]);
+  // Add useEffect for fetching profile data and posts
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+    const [{ data: pageProfile }, { data: profilePosts }] =	
+    await Promise.all([	
+      axiosReq.get(`/profiles/${id}/`),	
+      axiosReq.get(`/posts/?owner__profile=${id}`),	
+    ]);	
+  setProfileData((prevState) => ({	
+    ...prevState,	
+    pageProfile: { results: [pageProfile] },	
+  }));
+      setProfilePosts(profilePosts);
+      // update profile data in your context here if necessary
+      setHasLoaded(true);
+    } catch (err) {
+      // console.log(err);
+    }
+  };
+  fetchData();
+}, [id, setProfileData]);
 
   const mainProfile = (
     <>
