@@ -37,27 +37,26 @@ function ProfilePage() {
   const is_owner = currentUser?.username === profile?.owner;
 
   // Add useEffect for fetching profile data and posts
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-    const [{ data: pageProfile }, { data: profilePosts }] =	
-    await Promise.all([	
-      axiosReq.get(`/profiles/${id}/`),	
-      axiosReq.get(`/posts/?owner__profile=${id}`),	
-    ]);	
-  setProfileData((prevState) => ({	
-    ...prevState,	
-    pageProfile: { results: [pageProfile] },	
-  }));
-      setProfilePosts(profilePosts);
-      // update profile data in your context here if necessary
-      setHasLoaded(true);
-    } catch (err) {
-      // console.log(err);
-    }
-  };
-  fetchData();
-}, [id, setProfileData]);
+  useEffect(() => {	
+    const fetchData = async () => {	
+      try {	
+        const [{ data: pageProfile }, { data: profilePosts }] =	
+          await Promise.all([	
+            axiosReq.get(`/profiles/${id}/`),	
+            axiosReq.get(`/posts/?owner__profile=${id}`),	
+          ]);	
+        setProfileData((prevState) => ({	
+          ...prevState,	
+          pageProfile: { results: [pageProfile] },	
+        }));	
+        setProfilePosts(profilePosts);	
+        setHasLoaded(true);	
+      } catch (err) {	
+        // console.log(err);	
+      }	
+    };	
+    fetchData();	
+  }, [id, setProfileData]);
 
   const mainProfile = (
     <>
