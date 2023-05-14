@@ -35,7 +35,8 @@ function DogProfilesPage({ message, filter = "" }) {
         const { data } = await axiosReq.get(`/dogprofiles/?${filter}search=${query}`);
         setDogProfiles(data);
         setHasLoaded(true);
-      } catch (err) {        
+      } catch (err) {
+        // console.log(err);
       }
     };
 
