@@ -34,7 +34,8 @@ function PostsPage({ message, filter = "" }) {
         const { data } = await axiosReq.get(`/posts/?${filter}search=${query}`);
         setPosts(data);
         setHasLoaded(true);
-      } catch (err) {        
+      } catch (err) {
+        // console.log(err);
       }
     };
 
