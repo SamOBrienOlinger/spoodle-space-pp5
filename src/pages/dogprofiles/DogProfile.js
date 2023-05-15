@@ -49,6 +49,7 @@ const DogProfile = (props) => {
 
       const handleEdit = () => {
         history.push(`/dogprofile/${id}/edit`);
+      };
 
       const handleDelete = async () => {
         try {
@@ -58,7 +59,6 @@ const DogProfile = (props) => {
           // console.log(err);
         }
       };
-    };
 
 //  const {handleEdit, handleDelete} = useSetDogProfile();
 
@@ -76,9 +76,9 @@ const DogProfile = (props) => {
             <span>{updated_at}</span>
             {is_owner && dogProfilePage && (
               <MoreDropdown
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
+               handleEdit={handleEdit}
+               handleDelete={handleDelete}
+              />
             )}
             </div>
           </Media>
