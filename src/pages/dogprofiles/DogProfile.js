@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../../styles/DogProfile.module.css";
-// import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 import { Link, useHistory } from "react-router-dom";
 // import Avatar from "../../components/Avatar";
