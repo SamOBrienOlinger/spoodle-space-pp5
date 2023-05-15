@@ -29,10 +29,22 @@ import DogProfileEditForm from "./pages/dogprofiles/DogProfileEditForm";
 // import DogHealthCreateForm from "./pages/doghealth/DogHealthCreateForm";
 // import DogHealthEditForm from "./pages/doghealth/DogHealthEditForm";
 
-// import DoggyDanger from "./pages/doggydanger/DoggyDanger";
-// import DoggysDanger from "./pages/doggydanger/DoggysDanger";
-// import DoggyDangerCreateForm from "./pages/doggydanger/DoggyDangerCreateForm";
-// import DoggyDangerEditForm from "./pages/doggydanger/DoggyDangerEditForm";
+// import dog
+Danger from "./pages/dog
+danger/dog
+Danger";
+// import dog
+sDanger from "./pages/dog
+danger/dog
+sDanger";
+// import dog
+DangerCreateForm from "./pages/dog
+danger/dog
+DangerCreateForm";
+// import dog
+DangerEditForm from "./pages/dog
+danger/dog
+DangerEditForm";
 
 import NotFound from "./components/NotFound";
 

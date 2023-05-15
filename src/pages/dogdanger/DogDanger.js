@@ -1,6 +1,7 @@
 // Custom Model 3
 
-// class DoggyDanger(models.Model):
+// class dog
+Danger(models.Model):
 
 // owner = models.ForeignKey(User, on_delete=models.CASCADE)
 // created_at = models.DateTimeField(auto_now_add=True)
@@ -26,7 +27,8 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { MoreDropdown } from "../../components/MoreDropdown";
 
-const DoggyDanger = (props) => {
+const dog
+Danger = (props) => {
   const {
         owner,
         id,
@@ -52,12 +54,14 @@ const DoggyDanger = (props) => {
   // const { handleEdit, handleDelete } = setDogProfiles();
   
   const handleEdit = () => {
-    history.push(`/doggydanger/${id}/edit`);
+    history.push(`/dog
+danger/${id}/edit`);
   }
 
   const handleDelete = async () => {
     try {
-      await axiosRes.delete(`/doggydanger/${id}/`);
+      await axiosRes.delete(`/dog
+danger/${id}/`);
       history.goBack();
     } catch (err) {
       // console.log(err);
@@ -66,7 +70,8 @@ const DoggyDanger = (props) => {
 
 
   return (
-    <Card className={styles.DoggyDanger}>
+    <Card className={styles.dog
+Danger}>
       <Card.Body>
         <Media className="align-items-center justify-content-between">
         <Link to={`/dogprofiles/${dog_profile_id}`}>
@@ -77,7 +82,8 @@ const DoggyDanger = (props) => {
           </Link>
           <div className="my-3 d-flex align-items-center">
             <span>{updated_at}</span>
-            {is_owner && DoggyDangerPage && (
+            {is_owner && dog
+DangerPage && (
               <MoreDropdown
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
@@ -87,7 +93,8 @@ const DoggyDanger = (props) => {
         </Media>
       </Card.Body>
 
-      <Link to={`/doggydangers/${id}`}>
+      <Link to={`/dog
+dangers/${id}`}>
         <Card.Img src={dog_profile_image} alt={dog_name} />
       </Link>
       <Card.Body>  
@@ -122,7 +129,8 @@ const DoggyDanger = (props) => {
           {is_owner ? (
             <OverlayTrigger
               placement="top"
-              overlay={<Tooltip>Edit doggy danger!</Tooltip>}
+              overlay={<Tooltip>Edit dog
+ danger!</Tooltip>}
             >
               <i className="far fa-dog" />
             </OverlayTrigger> 
@@ -139,13 +147,15 @@ const DoggyDanger = (props) => {
             ) : (
               <OverlayTrigger
                 placement="top"
-                overlay={<Tooltip>Log in to edit doggy profiles!</Tooltip>}
+                overlay={<Tooltip>Log in to edit dog
+ profiles!</Tooltip>}
               >
                 <i className="far fa-dog" />
               </OverlayTrigger>
             )}
             {/* {likes_count} */}
-            <Link to={`/doggydangers/${id}`}>
+            <Link to={`/dog
+dangers/${id}`}>
               <i className="far fa-dog" />
             </Link>
           </div>
@@ -154,4 +164,5 @@ const DoggyDanger = (props) => {
         );
       };
       
-export default DoggyDanger;
+export default dog
+Danger;

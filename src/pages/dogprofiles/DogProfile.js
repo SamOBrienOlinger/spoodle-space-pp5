@@ -94,7 +94,8 @@ const DogProfile = (props) => {
           {is_owner ? (
             <OverlayTrigger
               placement="top"
-              overlay={<Tooltip>Edit doggy profile!</Tooltip>}
+              overlay={<Tooltip>Edit dog
+ profile!</Tooltip>}
             >
               <i className="far fa-dog" />
             </OverlayTrigger> 
@@ -111,7 +112,8 @@ const DogProfile = (props) => {
             ) : (
               <OverlayTrigger
                 placement="top"
-                overlay={<Tooltip>Log in to edit doggy profiles!</Tooltip>}
+                overlay={<Tooltip>Log in to edit dog
+ profiles!</Tooltip>}
               >
                 <i className="far fa-dog" />
               </OverlayTrigger>

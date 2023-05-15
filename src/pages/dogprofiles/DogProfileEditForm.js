@@ -1,6 +1,7 @@
 function DogProfileEditForm() {
  
-    <h1>Hi, I'm a doggy, edit my profile please?</h1>
+    <h1>Hi, I'm a dog
+, edit my profile please?</h1>
 
 };
 
