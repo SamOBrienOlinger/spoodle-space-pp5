@@ -29,22 +29,13 @@ import DogProfileEditForm from "./pages/dogprofiles/DogProfileEditForm";
 // import DogHealthCreateForm from "./pages/doghealth/DogHealthCreateForm";
 // import DogHealthEditForm from "./pages/doghealth/DogHealthEditForm";
 
-// import dog
-Danger from "./pages/dog
-danger/dog
-Danger";
-// import dog
-sDanger from "./pages/dog
-danger/dog
-sDanger";
-// import dog
-DangerCreateForm from "./pages/dog
-danger/dog
-DangerCreateForm";
-// import dog
-DangerEditForm from "./pages/dog
-danger/dog
-DangerEditForm";
+// import DogDogDanger from "./pages/dogdanger/DogDanger";
+
+// import DogDogsDanger from "./pages/dogdanger/DogsDanger";
+
+// import DogDangerCreateForm from "./pages/dogdanger/DogDangerCreateForm";
+
+// import DogDangerEditForm from "./pages/dogdanger/DogDangerEditForm";
 
 import NotFound from "./components/NotFound";
 
@@ -105,7 +96,7 @@ function App() {
 
           <Route exact path="/dogprofiles/create" render={() => <DogProfileCreateForm />} />
           <Route exact path="/dogprofiles/:id" render={() => <DogProfilePage />} />
-          {/* <Route exact path="/dogprofiles/:id" render={() => <DogProfilesPage />} /> */}
+          <Route exact path="/dogprofiles/:id" render={() => <DogProfilesPage />} />
           <Route exact path="/dogprofiles/:id/edit" render={() => <DogProfileEditForm />} />
           
           <Route

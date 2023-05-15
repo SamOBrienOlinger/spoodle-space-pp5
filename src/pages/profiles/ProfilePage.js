@@ -155,7 +155,7 @@ function ProfilePage() {
   //       <Asset
   //         src={NoResults}
   //         message={`No results found, ${profile?.owner} hasn't created a dog
- profile yet.`}
+//  profile yet.`}
   //       />
   //     )}
   //   </>
