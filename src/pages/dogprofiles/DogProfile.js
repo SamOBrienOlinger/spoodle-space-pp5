@@ -2,65 +2,65 @@ import React from "react";
 import styles from "../../styles/DogProfile.module.css";
 // import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-// import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 // import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
 
 import Card from "react-bootstrap/Card";
-// import Media from "react-bootstrap/Media";
+import Media from "react-bootstrap/Media";
 // import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 // import Tooltip from "react-bootstrap/Tooltip";
 import { MoreDropdown } from "../../components/MoreDropdown";
 
-import btnStyles from "../../styles/Button.module.css";
+// import btnStyles from "../../styles/Button.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
-import Button from "react-bootstrap/Button";
-import { useSetDogProfileData } from "../../contexts/DogProfileDataContext";
+// import Button from "react-bootstrap/Button";
+// import { useSetDogProfileData } from "../../contexts/DogProfileDataContext";
 // import { Card } from "react-bootstrap";
 
 const DogProfile = (props) => {
   const {
-        // id,
-        // owner,
+        id,
+        owner,
         profile_id,
         profile_image,
-        dog_profile_id,
+        // dog_profile_id,
         dog_name,
         dog_age,
         dog_color,
         dog_bio,
-        // dog_profile_image,
+        dog_profile_image,
         updated_at,
         dogProfilePage,
-        setDogProfiles,
+        // setDogProfiles,
 
         mobile,
 
         // created_at,
-
       } = props;
 
-  const { id, dog_profile_image, owner } = dogprofile; 
+  // const { id, dog_profile_image, owner } = dogprofile; 
 
-  const currentUser = useCurrentUser();
-  const is_owner = currentUser?.username === owner;
-  const history = useHistory();
+      const currentUser = useCurrentUser();
+      const is_owner = currentUser?.username === owner;
+      const history = useHistory();
 
-  const handleEdit = () => {
-    history.push(`/dogprofile/${id}/edit`);
+      const handleEdit = () => {
+        history.push(`/dogprofile/${id}/edit`);
 
-  const handleDelete = async () => {
-    try {
-      await axiosRes.delete(`/dogprofile/${id}/`);
-      history.goBack();
-    } catch (err) {
-      // console.log(err);
-    }
-  };
+      const handleDelete = async () => {
+        try {
+          await axiosRes.delete(`/dogprofile/${id}/`);
+          history.goBack();
+        } catch (err) {
+          // console.log(err);
+        }
+      };
+    };
 
- const {handleEdit, handleDelete} = useSetDogProfile();
+//  const {handleEdit, handleDelete} = useSetDogProfile();
 
   return (
     <div>className={`my-3 d-flex align-items-center ${mobile && "flex-column"}`}
@@ -104,7 +104,7 @@ const DogProfile = (props) => {
           {dog_profile_image && <Card.Title className="text-center">{dog_profile_image}</Card.Title>}
           {dog_profile_image && <Card.Text>{dog_profile_image}</Card.Text>} 
 
-          <div className={`text-right ${!mobile && "ml-auto"}`}>
+          {/* <div className={`text-right ${!mobile && "ml-auto"}`}>
             {currentUser &&
             !is_owner && 
             (dog_profile_id ? (
@@ -124,10 +124,10 @@ const DogProfile = (props) => {
                 onClick={() => handleDelete(dogprofile)}
               >
                 delete
-              </Button>
+              </Button> */}
           
-          ))} 
-          </div> 
+          {/* ))}  */}
+          {/* </div>  */}
         </Card.Body>
       </Card>
     </div>  
@@ -135,6 +135,8 @@ const DogProfile = (props) => {
 };
 
 export default DogProfile;
+
+
 
 
 //   return (
