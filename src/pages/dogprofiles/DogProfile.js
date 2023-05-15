@@ -62,7 +62,9 @@ const DogProfile = (props) => {
 //  const {handleEdit, handleDelete} = useSetDogProfile();
 
   return (
-    <div>className={`my-3 d-flex align-items-center ${mobile && "flex-column"}`}
+    <div
+    className={`my-3 d-flex align-items-center ${mobile && "flex-column"}`}
+    >
     
       <Card className={styles.setDogProfile}>
         <Card.Body>
