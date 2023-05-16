@@ -57,8 +57,7 @@ const NavBar = () => {
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
-        to="/dogprofiles/dog
-DangerPage"
+        to="/dogprofiles/dogDangerPage"
       >
       <i className="fas fa-dog"></i>Doggy Danger
       </NavLink>
@@ -93,6 +92,13 @@ DangerPage"
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
+        to="/DogProfilesPage"
+      >
+      <i className="fas fa-dog"></i>Doggy profiles
+      </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
         to="/signin"
       >
         <i className="fas fa-sign-in-alt"></i>Sign in
@@ -106,7 +112,6 @@ DangerPage"
       </NavLink>
     </>
   );
-
 
   return (
     <Navbar
