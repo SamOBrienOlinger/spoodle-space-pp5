@@ -30,7 +30,7 @@ function DogProfilesPage({ message, filter = "" }) {
   const currentUser = useCurrentUser();
 
   useEffect(() => {
-    const fetchDogProfile = async () => {
+    const fetchDogProfiles = async () => {
       try {
         const { data } = await axiosReq.get(`/dogprofiles/?${filter}search=${query}`);
         setDogProfiles(data);
@@ -42,7 +42,7 @@ function DogProfilesPage({ message, filter = "" }) {
 
     setHasLoaded(false);
     const timer = setTimeout(() => {
-      fetchDogProfile();
+      fetchDogProfiles();
     }, 1000);
 
     return () => {
