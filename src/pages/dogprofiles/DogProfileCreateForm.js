@@ -212,13 +212,3 @@ function DogProfileCreateForm() {
 }
 
 export default DogProfileCreateForm;
-
-
-// function DogProfileCreateForm() {
- 
-//         <h1>Hi, I'm a dog
-// , create my profile please?</h1>
-
-// };
-
-// export default DogProfileCreateForm;
