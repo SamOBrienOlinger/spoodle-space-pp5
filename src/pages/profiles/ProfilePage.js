@@ -17,14 +17,20 @@ import {
 import Button from "react-bootstrap/Button";	
 import Image from "react-bootstrap/Image";	
 import InfiniteScroll from "react-infinite-scroll-component";	
+
 import Post from "../posts/Post";	
+import DogProfile from "../dogprofiles/DogProfile";
+
 import { fetchMoreData } from "../../utils/utils";	
 import NoResults from "../../assets/no-results.png";	
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
+// import DogProfilesPage from "../dogprofiles/DogProfilesPage";
+
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profilePosts, setProfilePosts] = useState({ results: [] });
+  const [profileDogProfiles, setProfileDogProfiles] = useState({ results: [] });
 
   const currentUser = useCurrentUser();
   const { id } = useParams();
@@ -40,10 +46,14 @@ function ProfilePage() {
   useEffect(() => {	
     const fetchData = async () => {	
       try {	
-        const [{ data: pageProfile }, { data: profilePosts }] =	
+        // const [{ data: pageProfile }, { data: profilePosts }] =	
+
+        const [{ data: pageProfile }, { data: profilePosts }, { data: profileDogProfiles }] =	
           await Promise.all([	
             axiosReq.get(`/profiles/${id}/`),	
-            axiosReq.get(`/posts/?owner__profile=${id}`),	
+            axiosReq.get(`/posts/?owner__profile=${id}`),
+
+            axiosReq.get(`/dogprofiles/?owner__profile=${id}`),	
           ]);	
         setProfileData((prevState) => ({	
           ...prevState,	
@@ -51,6 +61,10 @@ function ProfilePage() {
         }));	
         setProfilePosts(profilePosts);	
         setHasLoaded(true);	
+
+        setProfileDogProfiles(profileDogProfiles);
+        setHasLoaded(true);
+
       } catch (err) {	
         // console.log(err);	
       }	
@@ -135,31 +149,31 @@ function ProfilePage() {
     </>
   );
 
-  // const createDogProfile = (
-  //   <>
-  //     <hr />
-  //     <p className="text-center">{profile?.owner}'s posts</p>
-  //     <hr />
-  //     {dogProfiles.results.length ? (
-  //     // {dogPProfiles?.results?.length ? ( 
-  //       <InfiniteScroll
-  //         children={dogProfiles.results.map((post) => (
-  //           <Post key={DogProfile.id} {...post} setPosts={setDogProfiles} />
-  //         ))}
-  //         dataLength={dogProfiles.results.length}
-  //         loader={<Asset spinner />}
-  //         hasMore={!!dogProfiles.next}
-  //         next={() => fetchMoreData(dogProfiles, setDogProfiles)}
-  //       />
-  //     ) : (
-  //       <Asset
-  //         src={NoResults}
-  //         message={`No results found, ${profile?.owner} hasn't created a dog
-//  profile yet.`}
-  //       />
-  //     )}
-  //   </>
-  // );
+  const mainProfileDogProfiles = (
+    <>
+      <hr />
+      <p className="text-center">{profile?.owner}'s dog profile</p>
+      <hr />
+      {profileDogProfiles.results.length ? (
+      // {dogProfiles?.results?.length ? ( 
+        <InfiniteScroll
+          children={profileDogProfiles.results.map((dogprofile) => (
+            <DogProfile key={dogprofile.id} {...dogprofile} setDogProfiles={setProfileDogProfiles} />
+          ))}
+          dataLength={profileDogProfiles.results.length}
+          loader={<Asset spinner />}
+          hasMore={!!profileDogProfiles.next}
+          next={() => fetchMoreData(profileDogProfiles, setProfileDogProfiles)}
+        />
+      ) : (
+        <Asset
+          src={NoResults}
+          message={`No results found, ${profile?.owner} hasn't created a dog
+ profile yet.`}
+        />
+      )}
+    </>
+  );
 
   return (
     <Row>
@@ -170,7 +184,7 @@ function ProfilePage() {
             <>
               {mainProfile}
               {mainProfilePosts}
-              {/* {createDogProfile} */}
+              {mainProfileDogProfiles}
             </>
           ) : (
             <Asset spinner />
