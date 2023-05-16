@@ -21,24 +21,24 @@ import Avatar from "../../components/Avatar";
 
 const DogProfile = (props) => {
   const {
-        id,
-        owner,
-        profile_id,
-        profile_image,
-        // dog_profile_id,
-        dog_name,
-        dog_age,
-        dog_color,
-        dog_bio,
-        dog_profile_image,
-        updated_at,
-        dogProfilePage,
-        // setDogProfiles,
+      id,
+      owner,
+      profile_id,
+      profile_image,
+      // dog_profile_id,
+      dog_name,
+      dog_age,
+      dog_color,
+      dog_bio,
+      dog_profile_image,
+      updated_at,
+      dogProfilePage,
+      // setDogProfiles,
 
-        mobile,
+      mobile,
 
-        // created_at,
-      } = props;
+      // created_at,
+  } = props;
 
   // const { id, dog_profile_image, owner } = dogprofile; 
 
@@ -47,12 +47,12 @@ const DogProfile = (props) => {
       const history = useHistory();
 
       const handleEdit = () => {
-        history.push(`/dogprofile/${id}/edit`);
+        history.push(`/dogprofiles/${id}/edit`);
       };
 
       const handleDelete = async () => {
         try {
-          await axiosRes.delete(`/dogprofile/${id}/`);
+          await axiosRes.delete(`/dogprofiles/${id}/`);
           history.goBack();
         } catch (err) {
           // console.log(err);
@@ -85,7 +85,7 @@ const DogProfile = (props) => {
           </Media>
         </Card.Body>
 
-        <Link to={`/dogprofile/${id}`}>
+        <Link to={`/dogprofiles/${id}`}>
           <Card.Img src={dog_profile_image} alt={dog_name} />
         </Link>
         
