@@ -25,7 +25,7 @@ function DogProfileCreateForm() {
   const [errors, setErrors] = useState({});
 
   // const [postData, setPostData] = useState({
-    const [dogProfileData, setDogProfileData] = useState({  
+  const [dogProfileData, setDogProfileData] = useState({  
     dog_name: "",
     dog_age: "",
     dog_color: "",
@@ -59,11 +59,11 @@ function DogProfileCreateForm() {
     event.preventDefault();
     const formData = new FormData();
 
-    formData.append("dog_name", dog_name);
-    formData.append("dog_age", dog_age);
-    formData.append("dog_color", dog_color);
-    formData.append("dog_bio", dog_bio);
-    formData.append("dog_profile_image", imageInput.current.files[0]);
+    formData.append("dog name", dog_name);
+    formData.append("dog age", dog_age);
+    formData.append("dog color", dog_color);
+    formData.append("dog bio", dog_bio);
+    formData.append("dog profile image", imageInput.current.files[0]);
 
     try {
       const { data } = await axiosReq.post("/dogprofiles/", formData);
