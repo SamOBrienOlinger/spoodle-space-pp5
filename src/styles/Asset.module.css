@@ -5,3 +5,16 @@
     align-items: center;
     min-height: 120px;
   }
+
+#profile-text-center {
+    color: black;
+  }
+
+#center-create-dogprofile-button {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}

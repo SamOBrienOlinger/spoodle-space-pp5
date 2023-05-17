@@ -25,7 +25,9 @@ import { fetchMoreData } from "../../utils/utils";
 import NoResults from "../../assets/no-results.png";	
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
-// import DogProfilesPage from "../dogprofiles/DogProfilesPage";
+// import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm";
+
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -127,7 +129,7 @@ function ProfilePage() {
   const mainProfilePosts = (
     <>
       <hr />
-      <p className="text-center">{profile?.owner}'s posts</p>
+      <p id="profile-text-center">{profile?.owner}'s posts</p>
       <hr />
       {profilePosts.results.length ? (
       // {profilePosts?.results?.length ? ( 
@@ -171,8 +173,19 @@ function ProfilePage() {
           message={`No results found, ${profile?.owner} hasn't created a dog profile yet.`}
         />
       )}
-    </>
-  );
+
+      <Button id="center-create-dogprofile-button" className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+      <Link
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/dogprofiles/create"
+      >
+        <i className="fas fa-dog"></i>
+        Add your dog profile now!
+      </Link>	
+      </Button>
+          </>
+        );
 
   return (
     <Row>

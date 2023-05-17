@@ -1,4 +1,8 @@
-.ProfileImage {
+  #profile-text-center {
+    color: black;
+  }
+  
+  .ProfileImage {
     object-fit: cover;
     height: 120px;
     width: 120px;
@@ -11,3 +15,4 @@
       height: 250px;
     }
   }
+
