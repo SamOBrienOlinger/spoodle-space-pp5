@@ -3,17 +3,21 @@ import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import appStyles from "../../App.module.css";
+
+
+import PopularProfiles from "../profiles/PopularProfiles";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useParams } from "react-router";
+import { axiosReq } from "../../api/axiosDefaults";
 
 // import Asset from "../../components/Asset";
 
 // import styles from "../../styles/DogProfilePage.module.css";
-import appStyles from "../../App.module.css";
+
 // import btnStyles from "../../styles/Button.module.css";
 
-import PopularProfiles from "../profiles/PopularProfiles";
-// import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { useParams } from "react-router";
-import { axiosReq } from "../../api/axiosDefaults";
+
 // import {
 //   useProfileData,
 //   useSetProfileData,
@@ -27,14 +31,13 @@ import DogProfile from "./DogProfile";
 // import { fetchMoreData } from "../../utils/utils";
 // import NoResults from "../../assets/no-results.png";
 // import { ProfileEditDropdown } from "../../components/MoreDropdown";
-// import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 function DogProfilePage() {
   const { id } = useParams();
   const [dogprofile, setDogProfile] = useState({ results: [] }); 
 
-  // const currentUser = useCurrentUser();
-  // const dog_profile_image = currentUser?.dog_profile_image;
+  const currentUser = useCurrentUser();
+  const dog_profile_image = currentUser?.dog_profile_image;
   
 
   // const { setDogProfileData } = useSetProfileData();
@@ -64,6 +67,16 @@ function DogProfilePage() {
         <PopularProfiles mobile />
         <DogProfile {...dogprofile.results[0]} setDogProfile={setDogProfile} dogProfilePage />
         <Container className={appStyles.Content}>
+          
+          {currentUser ? (
+            <Row
+            dogprofile_id={currentUser.profile_id}
+            dog_profile_image={dog_profile_image}
+            dogprofile={id}
+            setDogProfile={setDogProfile}
+          />
+        ) : null}
+
 
         </Container>
       </Col>

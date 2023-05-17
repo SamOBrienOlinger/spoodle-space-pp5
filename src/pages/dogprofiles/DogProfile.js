@@ -1,22 +1,28 @@
 import React from "react";
 import styles from "../../styles/DogProfile.module.css";
 
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link, useHistory } from "react-router-dom";
-// import Avatar from "../../components/Avatar";
+import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
 
 import Card from "react-bootstrap/Card";
 import Media from "react-bootstrap/Media";
-// import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-// import Tooltip from "react-bootstrap/Tooltip";
+
 import { MoreDropdown } from "../../components/MoreDropdown";
 
+// import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+
+// import Tooltip from "react-bootstrap/Tooltip";
+
 // import btnStyles from "../../styles/Button.module.css";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
 // import { Link } from "react-router-dom";
-import Avatar from "../../components/Avatar";
+
 // import Button from "react-bootstrap/Button";
+
 // import { useSetDogProfileData } from "../../contexts/DogProfileDataContext";
+
 // import { Card } from "react-bootstrap";
 
 const DogProfile = (props) => {
@@ -129,6 +135,7 @@ const DogProfile = (props) => {
           
           {/* ))}  */}
           {/* </div>  */}
+          
         </Card.Body>
       </Card>
     </div>  

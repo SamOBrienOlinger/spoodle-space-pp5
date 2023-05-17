@@ -173,19 +173,34 @@ function ProfilePage() {
           message={`No results found, ${profile?.owner} hasn't created a dog profile yet.`}
         />
       )}
+        
+        const CreateDogProfileButton = (
+        
+          if (is_owner {
+              <Button id="center-create-dogprofile-button" className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+              <Link
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to="/dogprofiles/create"
+              >
+                <i className="fas fa-dog"></i>
+                Don't have a dog profile? Add your dog profile now!
+              </Link>	
+              </Button>
+          }));
 
-      <Button id="center-create-dogprofile-button" className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-      <Link
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/dogprofiles/create"
-      >
-        <i className="fas fa-dog"></i>
-        Add your dog profile now!
-      </Link>	
-      </Button>
-          </>
-        );
+
+{/*           
+        } catch (err) {
+          // console.log(err);
+          history.push("/");
+        }
+      } else {
+        history.push("/");
+      }; */}
+      
+    </>
+  );
 
   return (
     <Row>
