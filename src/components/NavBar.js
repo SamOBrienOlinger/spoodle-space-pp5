@@ -14,6 +14,9 @@ import axios from "axios";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle.js";
 import { removeTokenTimestamp } from "../utils/utils";
 
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
@@ -89,28 +92,20 @@ const NavBar = () => {
   );
   const loggedOutIcons = (
     <>
-      {/* <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/DogProfilesPage"
-      > */}
-      {/* <div 
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        >
-          <i className="fas fa-dog"></i>Doggy profiles
-      </div> */}
-      
+      <OverlayTrigger
+          placement="bottom"
+          overlay={<Tooltip>Sign in or Sign up to view and create doggy profiles!</Tooltip>}
+        >  
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/"
       >
-
+      
         <i className="fas fa-dog"></i>Doggy profiles
-
+           
       </NavLink>
-
+      </OverlayTrigger>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
