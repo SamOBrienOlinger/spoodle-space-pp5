@@ -89,13 +89,28 @@ const NavBar = () => {
   );
   const loggedOutIcons = (
     <>
-      <NavLink
+      {/* <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/DogProfilesPage"
+      > */}
+      {/* <div 
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        >
+          <i className="fas fa-dog"></i>Doggy profiles
+      </div> */}
+      
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/"
       >
-      <i className="fas fa-dog"></i>Doggy profiles
+
+        <i className="fas fa-dog"></i>Doggy profiles
+
       </NavLink>
+
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
