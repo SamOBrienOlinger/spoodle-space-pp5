@@ -13,8 +13,6 @@ import { axiosReq } from "../../api/axiosDefaults";
 
 // import Asset from "../../components/Asset";
 
-// import styles from "../../styles/DogProfilePage.module.css";
-
 // import btnStyles from "../../styles/Button.module.css";
 
 

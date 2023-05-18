@@ -11,6 +11,8 @@ import Media from "react-bootstrap/Media";
 
 import { MoreDropdown } from "../../components/MoreDropdown";
 
+// import { Image } from "react-bootstrap";
+
 // import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 // import Tooltip from "react-bootstrap/Tooltip";
@@ -72,7 +74,7 @@ const DogProfile = (props) => {
     className={`my-3 d-flex align-items-center ${mobile && "flex-column"}`}
     >
     
-      <Card className={styles.setDogProfile}>
+      <Card className={styles.DogProfile}>
         <Card.Body>
           <Media className="align-items-center justify-content-between">
           <Link to={`/profiles/${profile_id}`}>
