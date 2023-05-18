@@ -27,7 +27,7 @@ import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
 // import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm";
 
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+// import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -43,6 +43,8 @@ function ProfilePage() {
 
   const [profile] = pageProfile.results;
   const is_owner = currentUser?.username === profile?.owner;
+  // const has_dogprofile = currentUser?.username === profile?.owner;
+
 
   // Add useEffect for fetching profile data and posts
   useEffect(() => {	
@@ -173,34 +175,60 @@ function ProfilePage() {
           message={`No results found, ${profile?.owner} hasn't created a dog profile yet.`}
         />
       )}
-        
-        const CreateDogProfileButton = (
-        
-          if (is_owner {
-              <Button id="center-create-dogprofile-button" className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-              <Link
-                className={styles.NavLink}
-                activeClassName={styles.Active}
-                to="/dogprofiles/create"
-              >
-                <i className="fas fa-dog"></i>
-                Don't have a dog profile? Add your dog profile now!
-              </Link>	
-              </Button>
-          }));
-
-
-{/*           
-        } catch (err) {
-          // console.log(err);
-          history.push("/");
-        }
-      } else {
-        history.push("/");
-      }; */}
-      
-    </>
+   </>
   );
+
+  // const ownerCreateFirstDogProfile = (
+  //   <>
+  //     <div className="text-center">
+      
+  //       <Button id="center-create-dogprofile-button" className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+  //       <Link
+  //         className={styles.NavLink}
+  //         activeClassName={styles.Active}
+  //         to="/dogprofiles/create"
+  //       >
+  //       <i className="fas fa-dog"></i>
+  //       Add or change your doggy profile!
+  //        </Link>	
+  //        </Button>
+  //    </div>
+  //   </>
+  // );
+
+  // const notOwnerCreateFirstDogProfile = (
+  //  <>
+  //    <div className="text-center">
+
+  //      <Button id="center-create-dogprofile-button" className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+  //      {/* <Link
+  //         className={styles.NavLink}
+  //         activeClassName={styles.Active}
+  //         // to="/dogprofilespage/"
+  //       > */}
+  //       <i className="fas fa-dog"></i>
+  //       Can't add a dog profile if you are not the owner!
+  //       {/* </Link>	 */}
+  //       </Button>
+      
+  //     </div>
+  //   </>
+  // );
+
+  // const CannotCreateTwoDogProfiles = (
+  //  <>
+  //    <div className="text-center">
+
+  //    <Button id="center-create-dogprofile-button" className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+
+  //       <i className="fas fa-dog"></i>
+  //       Can't add a 2nd dog profile!
+
+  //       </Button>
+      
+  //     </div>
+  //  </>
+  // );
 
   return (
     <Row>
@@ -212,6 +240,10 @@ function ProfilePage() {
               {mainProfile}
               {mainProfilePosts}
               {mainProfileDogProfiles}
+
+              {/* {is_owner ? ownerCreateFirstDogProfile : notOwnerCreateFirstDogProfile} */}
+              {/* {has_dogprofile ? CannotCreateTwoDogProfiles : ownerCreateFirstDogProfile} */}
+
             </>
           ) : (
             <Asset spinner />

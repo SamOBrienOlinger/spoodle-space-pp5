@@ -26,6 +26,11 @@ import { axiosReq } from "../../api/axiosDefaults";
 // import InfiniteScroll from "react-infinite-scroll-component";
 
 import DogProfile from "./DogProfile";
+// import dogProfilePage from "./DogProfile"
+// import dogprofiles from "./DogProfile";
+// import setDogProfiles from "./DogProfile"
+// import DogProfileCreateForm from "./DogProfileCreateForm";
+// import DogProfileCreateForm from "./DogProfileCreateForm";
 // import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
 // import reactRouterDom from "react-router-dom";
 // import { fetchMoreData } from "../../utils/utils";
@@ -67,7 +72,50 @@ function DogProfilePage() {
         <PopularProfiles mobile />
         <DogProfile {...dogprofile.results[0]} setDogProfile={setDogProfile} dogProfilePage />
         <Container className={appStyles.Content}>
-          
+
+
+            {/* {currentUser ? (
+              <Row
+                dogprofile_id={currentUser.dogprofile_id}
+                dogprofileImage={dog_profile_image}
+                dogprofile={id}
+                setDogProfile={setDogProfile}
+              />
+            ) : null}
+
+              {dogprofiles.results.length ? (
+                <InfiniteScroll
+                  children={dogprofiles.results.map((comment) => (
+                    <DogProfile
+                      key={dogProfilePage.id}
+                      {...dogprofile}
+                      setDogProfile={setDogProfile}
+                    />
+                  ))}
+                  dataLength={dogprofiles.results.length}
+                  loader={<Asset spinner />}
+                  hasMore={!!dogprofiles.next}
+                  next={() => fetchMoreData(dogprofiles, setDogProfiles)}
+                />
+              ) : <span>No Doggy profile yet!</span>} */}
+
+
+              {/* {currentUser ? (
+              <DogProfileCreateForm    
+                  dog_name =
+                  dog_age =
+                  dog_color =
+                  dog_bio =
+                  dog_profile_image={dog_profile_image}
+                />
+              
+              ) : null} */}
+
+              {/* dogprofile_id={currentUser.profile_id}
+              dog_profile_image={dog_profile_image}
+              dogprofile={id}
+              setDogProfile={setDogProfile} */}
+
           {currentUser ? (
             <Row
             dogprofile_id={currentUser.profile_id}
@@ -76,6 +124,8 @@ function DogProfilePage() {
             setDogProfile={setDogProfile}
           />
         ) : null}
+
+        
 
 
         </Container>
