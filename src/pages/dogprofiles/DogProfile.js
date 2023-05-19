@@ -40,7 +40,7 @@ const DogProfile = (props) => {
       dogProfilePage,
       // setDogProfiles,
 
-      mobile,
+      // mobile,
 
       // created_at,
   } = props;
@@ -67,9 +67,9 @@ const DogProfile = (props) => {
 //  const {handleEdit, handleDelete} = useSetDogProfile();
 
   return (
-    <div
-    className={`my-3 d-flex align-items-center ${mobile && "flex-column"}`}
-    >
+    // <div
+    // className={`my-3 d-flex align-items-center ${mobile && "flex-column"}`}
+    // >
     
       <Card className={styles.DogProfile}>
         <Card.Body>
@@ -137,7 +137,7 @@ const DogProfile = (props) => {
           
         </Card.Body>
       </Card>
-    </div>  
+    // </div>  
   );
 };
 
