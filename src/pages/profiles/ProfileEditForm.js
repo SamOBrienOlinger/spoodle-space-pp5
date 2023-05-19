@@ -18,6 +18,10 @@ import {
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
+import { Link } from "react-router-dom/cjs/react-router-dom";
+import styles from "../../App.module.css"
+
+
 const ProfileEditForm = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
@@ -111,7 +115,27 @@ const ProfileEditForm = () => {
         save
       </Button>
     </>
-  );
+    )
+
+  // const textArea = (
+  //   <>
+  //     <Button
+  //       className={`${btnStyles.Button} ${btnStyles.Blue}`}
+  //       >
+  //         <Link
+  //         to="/dogprofiles"
+  //         className={styles.NavLink}
+  //         activeClassName={styles.Active}
+  //       >
+  //         <i className="fas fa-user-plus"></i>
+          
+  //       Create your doggy profile now!
+  //       </Link>
+      
+  //     </Button>
+  //   </>
+  // );
+
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -152,6 +176,24 @@ const ProfileEditForm = () => {
               />
             </Form.Group>
             <div className="d-md-none">{textFields}</div>
+            {/* <div className="d-md-none">{textArea}</div> */}
+
+            <div>
+              <Button
+                className={`${btnStyles.Button} ${btnStyles.Blue}`}
+                >
+                  <Link
+                  to="/dogprofiles/create"
+                  className={styles.Blue}
+                  activeClassName={styles.Active}
+                >
+                  <i className="fas fa-plus"></i><i className="fas fa-dog"></i>
+                  
+                  Create your doggy profile now!
+                </Link>
+              
+              </Button>
+            </div>
           </Container>
         </Col>
         <Col md={5} lg={6} className="d-none d-md-block p-0 p-md-2 text-center">

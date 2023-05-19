@@ -1,79 +1,63 @@
-import React, { useEffect, useState } from "react";	
-import Col from "react-bootstrap/Col";	
-import Row from "react-bootstrap/Row";	
-import Container from "react-bootstrap/Container";	
-import Asset from "../../components/Asset";	
-import styles from "../../styles/ProfilePage.module.css";	
-import appStyles from "../../App.module.css";	
-import btnStyles from "../../styles/Button.module.css";	
-import PopularProfiles from "./PopularProfiles";	
-import { useCurrentUser } from "../../contexts/CurrentUserContext";	
-import { useParams } from "react-router";	
-import { axiosReq } from "../../api/axiosDefaults";	
-import {	
-  useProfileData,	
-  useSetProfileData,	
-} from "../../contexts/ProfileDataContext";	
-import Button from "react-bootstrap/Button";	
-import Image from "react-bootstrap/Image";	
-import InfiniteScroll from "react-infinite-scroll-component";	
+import React, { useEffect, useState } from "react";
 
-import Post from "../posts/Post";	
-import DogProfile from "../dogprofiles/DogProfile";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
 
-import { fetchMoreData } from "../../utils/utils";	
-import NoResults from "../../assets/no-results.png";	
+import Asset from "../../components/Asset";
+
+import styles from "../../styles/ProfilePage.module.css";
+import appStyles from "../../App.module.css";
+import btnStyles from "../../styles/Button.module.css";
+
+import PopularProfiles from "./PopularProfiles";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useParams } from "react-router";
+import { axiosReq } from "../../api/axiosDefaults";
+import {
+  useProfileData,
+  useSetProfileData,
+} from "../../contexts/ProfileDataContext";
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Post from "../posts/Post";
+import { fetchMoreData } from "../../utils/utils";
+import NoResults from "../../assets/no-results.png";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
-
-// import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm";
-
-// import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profilePosts, setProfilePosts] = useState({ results: [] });
-  const [profileDogProfiles, setProfileDogProfiles] = useState({ results: [] });
 
   const currentUser = useCurrentUser();
   const { id } = useParams();
 
-  // const { handleFollow, handleUnfollow } = useSetProfileData();
-  const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();	
+  const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();
   const { pageProfile } = useProfileData();
 
   const [profile] = pageProfile.results;
   const is_owner = currentUser?.username === profile?.owner;
-  // const has_dogprofile = currentUser?.username === profile?.owner;
 
-
-  // Add useEffect for fetching profile data and posts
-  useEffect(() => {	
-    const fetchData = async () => {	
-      try {	
-        // const [{ data: pageProfile }, { data: profilePosts }] =	
-
-        const [{ data: pageProfile }, { data: profilePosts }, { data: profileDogProfiles }] =	
-          await Promise.all([	
-            axiosReq.get(`/profiles/${id}/`),	
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [{ data: pageProfile }, { data: profilePosts }] =
+          await Promise.all([
+            axiosReq.get(`/profiles/${id}/`),
             axiosReq.get(`/posts/?owner__profile=${id}`),
-
-            axiosReq.get(`/dogprofiles/?owner__profile=${id}`),	
-          ]);	
-        setProfileData((prevState) => ({	
-          ...prevState,	
-          pageProfile: { results: [pageProfile] },	
-        }));	
-        setProfilePosts(profilePosts);	
-        setHasLoaded(true);	
-
-        setProfileDogProfiles(profileDogProfiles);
+          ]);
+        setProfileData((prevState) => ({
+          ...prevState,
+          pageProfile: { results: [pageProfile] },
+        }));
+        setProfilePosts(profilePosts);
         setHasLoaded(true);
-
-      } catch (err) {	
-        // console.log(err);	
-      }	
-    };	
-    fetchData();	
+      } catch (err) {
+        // console.log(err);
+      }
+    };
+    fetchData();
   }, [id, setProfileData]);
 
   const mainProfile = (
@@ -131,10 +115,9 @@ function ProfilePage() {
   const mainProfilePosts = (
     <>
       <hr />
-      <p id="profile-text-center">{profile?.owner}'s posts</p>
+      <p className="text-center">{profile?.owner}'s posts</p>
       <hr />
       {profilePosts.results.length ? (
-      // {profilePosts?.results?.length ? ( 
         <InfiniteScroll
           children={profilePosts.results.map((post) => (
             <Post key={post.id} {...post} setPosts={setProfilePosts} />
@@ -153,83 +136,6 @@ function ProfilePage() {
     </>
   );
 
-  const mainProfileDogProfiles = (
-    <>
-      <hr />
-      <p className="text-center">{profile?.owner}'s dog profile</p>
-      <hr />
-      {profileDogProfiles.results.length ? (
-      // {dogProfiles?.results?.length ? ( 
-        <InfiniteScroll
-          children={profileDogProfiles.results.map((dogprofile) => (
-            <DogProfile key={dogprofile.id} {...dogprofile} setDogProfiles={setProfileDogProfiles} />
-          ))}
-          dataLength={profileDogProfiles.results.length}
-          loader={<Asset spinner />}
-          hasMore={!!profileDogProfiles.next}
-          next={() => fetchMoreData(profileDogProfiles, setProfileDogProfiles)}
-        />
-      ) : (
-        <Asset
-          src={NoResults}
-          message={`No results found, ${profile?.owner} hasn't created a dog profile yet.`}
-        />
-      )}
-   </>
-  );
-
-  // const ownerCreateFirstDogProfile = (
-  //   <>
-  //     <div className="text-center">
-      
-  //       <Button id="center-create-dogprofile-button" className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-  //       <Link
-  //         className={styles.NavLink}
-  //         activeClassName={styles.Active}
-  //         to="/dogprofiles/create"
-  //       >
-  //       <i className="fas fa-dog"></i>
-  //       Add or change your doggy profile!
-  //        </Link>	
-  //        </Button>
-  //    </div>
-  //   </>
-  // );
-
-  // const notOwnerCreateFirstDogProfile = (
-  //  <>
-  //    <div className="text-center">
-
-  //      <Button id="center-create-dogprofile-button" className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-  //      {/* <Link
-  //         className={styles.NavLink}
-  //         activeClassName={styles.Active}
-  //         // to="/dogprofilespage/"
-  //       > */}
-  //       <i className="fas fa-dog"></i>
-  //       Can't add a dog profile if you are not the owner!
-  //       {/* </Link>	 */}
-  //       </Button>
-      
-  //     </div>
-  //   </>
-  // );
-
-  // const CannotCreateTwoDogProfiles = (
-  //  <>
-  //    <div className="text-center">
-
-  //    <Button id="center-create-dogprofile-button" className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-
-  //       <i className="fas fa-dog"></i>
-  //       Can't add a 2nd dog profile!
-
-  //       </Button>
-      
-  //     </div>
-  //  </>
-  // );
-
   return (
     <Row>
       <Col className="py-2 p-0 p-lg-2" lg={8}>
@@ -239,11 +145,6 @@ function ProfilePage() {
             <>
               {mainProfile}
               {mainProfilePosts}
-              {mainProfileDogProfiles}
-
-              {/* {is_owner ? ownerCreateFirstDogProfile : notOwnerCreateFirstDogProfile} */}
-              {/* {has_dogprofile ? CannotCreateTwoDogProfiles : ownerCreateFirstDogProfile} */}
-
             </>
           ) : (
             <Asset spinner />

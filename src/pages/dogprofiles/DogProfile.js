@@ -1,14 +1,11 @@
 import React from "react";
 import styles from "../../styles/DogProfile.module.css";
-
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
-
 import Card from "react-bootstrap/Card";
 import Media from "react-bootstrap/Media";
-
 import { MoreDropdown } from "../../components/MoreDropdown";
 
 // import { Image } from "react-bootstrap";
