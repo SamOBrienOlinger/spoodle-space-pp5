@@ -180,38 +180,112 @@ function ProfilePage() {
             <>
               {mainProfile}
               {mainProfilePosts}
-              {/* {mainDogProfiles} */}
-
             </>
           ) : (
             <Asset spinner />
           )}
-          <>
-          <Row className="text-center">
-            <Col lg={3} className="text-lg-right">
-              {currentUser &&
-                !is_owner &&
-                (profile?.following_id ? (
-                  <Button >
-                    <NavLink
-                      className={styles.NavLink}
-                      activeClassName={styles.Active}
-                      to={`/dogprofiles/${id}`}
-                    >
-                    <i className="fas fa-dog"></i>
-                      <p className="text-center">{profile?.owner}'s dog profile</p>
-                    </NavLink>
-                  </Button>
-                ) : (
-                  <Asset
-                    src={NoResults}
-                    message={`No results found, ${profile?.owner} hasn't added a dog profile yet.`}
-                  />
-                )
-              )}
-            </Col>
-          </Row>
-        </>
+
+          {hasLoaded ? (
+            <>
+              <Button>
+                <NavLink
+                  className={styles.NavLink}
+                  activeClassName={styles.Active}
+                  to={`/dogprofiles/${id}`}
+                >
+                  <i className="fas fa-dog"></i>
+                  <p className="text-center">{profile?.owner}'s doggy profile</p>
+                </NavLink>
+              </Button>
+            </>
+          ) : (
+            <Asset
+              src={NoResults}
+              message={`No results found, ${profile?.owner} hasn't added a dog profile yet.`}
+            />
+          )}
+
+           {hasLoaded ? (
+            <>
+              <Button>
+                <NavLink
+                  className={styles.NavLink}
+                  activeClassName={styles.Active}
+                  to={`/dogprofiles/${id}/doghealthpage`}
+                >
+                  <i className="fas fa-dog"></i>
+                  <p className="text-center">{profile?.owner}'s doggy health details</p>
+                </NavLink>
+              </Button>
+            </>
+          ) : (
+            <Asset
+              src={NoResults}
+              message={`No results found, ${profile?.owner} hasn't added a any details yet.`}
+            />
+          )}
+
+           {hasLoaded ? (
+            <>
+              <Button>
+                <NavLink
+                  className={styles.NavLink}
+                  activeClassName={styles.Active}
+                  to={`/dogprofiles/${id}/dogdangerpage`}
+                >
+                  <i className="fas fa-dog"></i>
+                  <p className="text-center">{profile?.owner}'s doggy danger details</p>
+                </NavLink>
+              </Button>
+            </>
+          ) : (
+            <Asset
+              src={NoResults}
+              message={`No results found, ${profile?.owner} hasn't added any details yet.`}
+            />
+          )}
+
+          {/* <>
+            {/* <Row className="text-center">
+              <Col lg={3} className="text-lg-right">
+                {currentUser && !is_owner && (
+                  <>
+                    {profile?.following_id ? (
+                      <Button>
+                        <NavLink
+                          className={styles.NavLink}
+                          activeClassName={styles.Active}
+                          to="/"
+                        >
+                          <i className="fas fa-dog"></i>
+                          <p className="text-center">{profile?.owner}'s dog profile</p>
+                        </NavLink>
+                      </Button>
+                    ) : (
+                      <div>
+                        <Button>
+                          <NavLink
+                            className={styles.NavLink}
+                            activeClassName={styles.Active}
+                            to="/"
+                          >
+                            <i className="fas fa-dog"></i>
+                            <p className="text-center">{profile?.owner}'s dog health</p>
+                          </NavLink>
+                        </Button>
+                        <Asset
+                          src={NoResults}
+                          message={`No results found, ${profile?.owner} hasn't added a dog profile yet.`}
+                        />
+                      </div>
+                    )}
+
+                    
+                  </>
+                )}
+              </Col>
+            </Row>
+          </> */}
         </Container>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
@@ -219,6 +293,7 @@ function ProfilePage() {
       </Col>
     </Row>
   );
+  
 }
 
 export default ProfilePage;
