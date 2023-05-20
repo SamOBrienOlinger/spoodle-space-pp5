@@ -196,7 +196,7 @@ function ProfilePage() {
                     <NavLink
                       className={styles.NavLink}
                       activeClassName={styles.Active}
-                      to="/dogprofile/"
+                      to={`/dogprofiles/${id}`}
                     >
                     <i className="fas fa-dog"></i>
                       <p className="text-center">{profile?.owner}'s dog profile</p>
