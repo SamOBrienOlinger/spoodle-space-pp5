@@ -28,6 +28,8 @@ import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
 // import DogProfile from "../dogprofiles/DogProfile";
 
+import { NavLink } from "react-bootstrap";
+
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -51,7 +53,7 @@ function ProfilePage() {
           await Promise.all([
             axiosReq.get(`/profiles/${id}/`),
             axiosReq.get(`/posts/?owner__profile=${id}`),
-            // axiosReq.get(`/dogprofiles/?owner__profile=${id}`),
+            axiosReq.get(`/dogprofiles/?owner__profile=${id}`),
           ]);
         setProfileData((prevState) => ({
           ...prevState,
@@ -177,10 +179,37 @@ function ProfilePage() {
               {mainProfile}
               {mainProfilePosts}
               {/* {mainDogProfiles} */}
+
             </>
           ) : (
             <Asset spinner />
           )}
+          <>
+          <Row className="text-center">
+            <Col lg={3} className="text-lg-right">
+              {currentUser &&
+                !is_owner &&
+                (profile?.following_id ? (
+                  <Button >
+                    <NavLink
+                      className={styles.NavLink}
+                      activeClassName={styles.Active}
+                      to="/DogProfilesPage"
+                    >
+                    <i className="fas fa-dog"></i>
+                      <p className="text-center">{profile?.owner}'s dog profile</p>
+                    </NavLink>
+                  </Button>
+                ) : (
+                  <Asset
+                    src={NoResults}
+                    message={`No results found, ${profile?.owner} hasn't added a dog profile yet.`}
+                  />
+                )
+              )}
+            </Col>
+          </Row>
+        </>
         </Container>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
