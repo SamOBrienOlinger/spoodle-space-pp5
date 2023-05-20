@@ -28,7 +28,9 @@ import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
 // import DogProfile from "../dogprofiles/DogProfile";
 
-import { NavLink } from "react-bootstrap";
+// import { NavLink } from "react-bootstrap";
+
+import { NavLink } from "react-router-dom";
 
 
 function ProfilePage() {
@@ -194,7 +196,7 @@ function ProfilePage() {
                     <NavLink
                       className={styles.NavLink}
                       activeClassName={styles.Active}
-                      to="/DogProfilesPage"
+                      to="/dogprofile/"
                     >
                     <i className="fas fa-dog"></i>
                       <p className="text-center">{profile?.owner}'s dog profile</p>
