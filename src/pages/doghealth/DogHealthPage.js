@@ -1,12 +1,12 @@
 import React from "react";
 
-function DogDangerPage() {
+function DogHealthPage() {
     return <p className="text-center">hello dog world</p>;
   }
+  
+  export default DogHealthPage;
 
-export default DogDangerPage;
-
-// import React, { useEffect, useState } from "react";
+//   import React, { useEffect, useState } from "react";
 
 // import Col from "react-bootstrap/Col";
 // import Row from "react-bootstrap/Row";
@@ -26,7 +26,7 @@ export default DogDangerPage;
 // import { fetchMoreData } from "../../utils/utils";
 // import PopularProfiles from "../profiles/PopularProfiles";
 
-// function DogDangerPage() {
+// function DogHealthPage() {
 //   const { id } = useParams();
 //   const [post, setPost] = useState({ results: [] });
 

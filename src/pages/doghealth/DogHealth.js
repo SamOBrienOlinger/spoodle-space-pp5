@@ -10,3 +10,4 @@
 // kennel_cough = models.CharField(max_length=255, blank=True)
 // rabies = models.CharField(max_length=255, blank=True)
 // allergies = models.CharField(max_length=255, blank=True)
+
