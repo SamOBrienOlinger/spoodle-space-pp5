@@ -1,62 +1,27 @@
 import React, { useEffect, useState } from "react";
-// import React, { useEffect } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-
 import appStyles from "../../App.module.css";
 import PopularProfiles from "../profiles/PopularProfiles";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
-
-// import Asset from "../../components/Asset";
-
-// import btnStyles from "../../styles/Button.module.css";
-
-
-// import {
-//   useProfileData,
-//   useSetProfileData,
-// } from "../../contexts/ProfileDataContext";
-// import { Image } from "react-bootstrap";
-// import InfiniteScroll from "react-infinite-scroll-component";
-
 import DogProfile from "./DogProfile";
-// import dogProfilePage from "./DogProfile"
-// import dogprofiles from "./DogProfile";
-// import setDogProfiles from "./DogProfile"
-// import DogProfileCreateForm from "./DogProfileCreateForm";
-// import DogProfileCreateForm from "./DogProfileCreateForm";
-// import DogProfileCreateForm from "../dogprofiles/DogProfileCreateForm"
-// import reactRouterDom from "react-router-dom";
-// import { fetchMoreData } from "../../utils/utils";
-// import NoResults from "../../assets/no-results.png";
-// import { ProfileEditDropdown } from "../../components/MoreDropdown";
+import DogProfileCreateForm from "./DogProfileCreateForm";
 
 function DogProfilePage() {
   const { id } = useParams();
-  const [dogprofile, setDogProfile] = useState({ results: [] }); 
-
-  const currentUser = useCurrentUser();
-  const dog_profile_image = currentUser?.dog_profile_image;
-  
-
-  // const { setDogProfileData } = useSetProfileData();
-  // const { pageProfile } = useProfileData();
-
-  // const [profile] = pageProfile.results;
-  // const is_owner = currentUser?.username === profile?.owner;
+  const [dogprofile, setDogProfile] = useState({ results: [] });
 
   useEffect(() => {
     const handleMount = async () => {
       try {
         const [{ data: dogprofile }] = await Promise.all([
-            axiosReq.get(`/dogprofiles/${id}/`),
-          ]);
+          axiosReq.get(`/dogprofiles/${id}/`),
+        ]);
         setDogProfile({ results: [dogprofile] });
       } catch (err) {
-        // console.log(err);
+        // Handle error
       }
     };
 
@@ -67,64 +32,13 @@ function DogProfilePage() {
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <PopularProfiles mobile />
-        <DogProfile {...dogprofile.results[0]} setDogProfile={setDogProfile} dogProfilePage />
+        <DogProfile {...dogprofile.results[0]} dogProfilePage />
         <Container className={appStyles.Content}>
-
-
-            {/* {currentUser ? (
-              <Row
-                dogprofile_id={currentUser.dogprofile_id}
-                dogprofileImage={dog_profile_image}
-                dogprofile={id}
-                setDogProfile={setDogProfile}
-              />
-            ) : null}
-
-              {dogprofiles.results.length ? (
-                <InfiniteScroll
-                  children={dogprofiles.results.map((comment) => (
-                    <DogProfile
-                      key={dogProfilePage.id}
-                      {...dogprofile}
-                      setDogProfile={setDogProfile}
-                    />
-                  ))}
-                  dataLength={dogprofiles.results.length}
-                  loader={<Asset spinner />}
-                  hasMore={!!dogprofiles.next}
-                  next={() => fetchMoreData(dogprofiles, setDogProfiles)}
-                />
-              ) : <span>No Doggy profile yet!</span>} */}
-
-
-              {/* {currentUser ? (
-              <DogProfileCreateForm    
-                  dog_name =
-                  dog_age =
-                  dog_color =
-                  dog_bio =
-                  dog_profile_image={dog_profile_image}
-                />
-              
-              ) : null} */}
-
-              {/* dogprofile_id={currentUser.profile_id}
-              dog_profile_image={dog_profile_image}
-              dogprofile={id}
-              setDogProfile={setDogProfile} */}
-
-          {currentUser ? (
-            <Row
-            dogprofile_id={currentUser.profile_id}
-            dog_profile_image={dog_profile_image}
+          <DogProfileCreateForm
+            profile_id={dogprofile.results[0]?.profile_id}
             dogprofile={id}
             setDogProfile={setDogProfile}
           />
-        ) : null}
-
-        
-
-
         </Container>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
@@ -135,6 +49,7 @@ function DogProfilePage() {
 }
 
 export default DogProfilePage;
+
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -265,3 +180,29 @@ export default DogProfilePage;
   //   </Row>
   // );
 // }
+
+
+              /* {currentUser ? (
+              <DogProfileCreateForm    
+                  dog_name =
+                  dog_age =
+                  dog_color =
+                  dog_bio =
+                  dog_profile_image={dog_profile_image}
+                />
+              
+              ) : null} */
+
+              /* dogprofile_id={currentUser.profile_id}
+              dog_profile_image={dog_profile_image}
+              dogprofile={id}
+              setDogProfile={setDogProfile} */
+
+          /* {currentUser ? (
+            <Row
+            dogprofile_id={currentUser.profile_id}
+            dog_profile_image={dog_profile_image}
+            dogprofile={id}
+            setDogProfile={setDogProfile}
+          />
+        ) : null} */

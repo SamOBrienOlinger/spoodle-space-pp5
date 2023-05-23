@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -7,27 +6,26 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
-
-// import styles from "../../styles/DogProfileCreateEditForm.module.css";
+import styles from "../../styles/DogProfileCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-
 import { useHistory, useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 
-import {
-  useCurrentUser,
-  useSetCurrentUser,
-} from "../../contexts/CurrentUserContext";
+// import {
+//   useCurrentUser,
+//   useSetCurrentUser,
+// } from "../../contexts/CurrentUserContext";
 
 // function DogProfileEditForm() {
 const DogProfileEditForm = () => {
-
-  const currentUser = useCurrentUser();
-  const setCurrentUser = useSetCurrentUser();
-  const imageFile = useRef();
-
   const [errors, setErrors] = useState({});
+  
+  // const currentUser = useCurrentUser();
+  // const setCurrentUser = useSetCurrentUser();
+  // const imageFile = useRef();
+
+  
 
   const [dogProfileData, setDogProfileData] = useState({
     dog_name: "",
@@ -36,30 +34,47 @@ const DogProfileEditForm = () => {
     dog_bio: "",
     dog_profile_image: "",
   });
-  const { dog_name, dog_age, dog_color, dog_bio, dog_profile_image, } = dogProfileData;
 
-  // const imageInput = useRef(null);
+  const { 
+    dog_name, 
+    dog_age, 
+    dog_color, 
+    dog_bio, 
+    dog_profile_image, } = dogProfileData;
+
+  const imageInput = useRef(null);
   const history = useHistory();
   const { id } = useParams();
 
   useEffect(() => {
     const handleMount = async () => {
-      if (currentUser?.dog_profile_id?.toString() === id) {
+      // if (currentUser?.dog_profile_id?.toString() === id) {
         try {
           const { data } = await axiosReq.get(`/dogprofiles/${id}/`);
-          const { dog_name, dog_age, dog_color, dog_bio, dog_profile_image } = data;
-          setDogProfileData({ dog_name, dog_age, dog_color, dog_bio, dog_profile_image, })
+          const { 
+            dog_name, 
+            dog_age, 
+            dog_color, 
+            dog_bio, 
+            dog_profile_image,
+            is_owner } = data;
+
+          is_owner ? setDogProfileData({ 
+            
+            dog_name, 
+            dog_age, 
+            dog_color, 
+            dog_bio, 
+            dog_profile_image, 
+          }) : history.push("/");
         } catch (err) {
         // console.log(err);
-        history.push("/");
-      }
-    } else {
-      history.push("/");
-    }
+        }
   };
 
     handleMount();
-  }, [currentUser, history, id]);
+  // }, [currentUser, history, id]);
+  }, [history, id]);
 
   const handleChange = (event) => {
     setDogProfileData({
@@ -68,15 +83,15 @@ const DogProfileEditForm = () => {
     });
   };
 
-  // const handleChangeImage = (event) => {
-  //   if (event.target.files.length) {
-  //     URL.revokeObjectURL(dog_profile_image);
-  //     setDogProfileData({
-  //       ...dogProfileData,
-  //       image: URL.createObjectURL(event.target.files[0]),
-  //     });
-  //   }
-  // };
+  const handleChangeImage = (event) => {
+    if (event.target.files.length) {
+      URL.revokeObjectURL(dog_profile_image);
+      setDogProfileData({
+        ...dogProfileData,
+        image: URL.createObjectURL(event.target.files[0]),
+      });
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -86,22 +101,20 @@ const DogProfileEditForm = () => {
     formData.append("dog age", dog_age);
     formData.append("dog color", dog_color);
     formData.append("dog bio", dog_bio);
-    formData.append("dog profile image", imageFile.current.files[0]);
+    formData.append("dog profile image", imageInput.current.files[0]);
 
-    if (imageFile?.current?.files[0]) {
-      formData.append("dog profile image", imageFile.current.files[0]);
+    if (imageInput?.current?.files[0]) {
+      formData.append("dog profile image", imageInput.current.files[0]);
     }
 
     try {
-      const { data } = await axiosReq.put(`/dogprofiles/${id}/`, formData);
-      setCurrentUser((currentUser) => ({
-        ...currentUser,
-        profile_image: data.dog_profile,
-      }));
-      history.goBack();
+      await axiosReq.put(`/dogprofiles/${id}/`, formData);
+      history.push(`/posts/${id}`);
     } catch (err) {
       // console.log(err);
-      setErrors(err.response?.data);
+      if (err.response?.status !== 401) {
+        setErrors(err.response?.data);
+      }
     }
   };
 
@@ -188,18 +201,13 @@ const DogProfileEditForm = () => {
     <Form onSubmit={handleSubmit}>
       <Row>
         <Col className="py-2 p-0 p-md-2 text-center" md={7} lg={6}>
-          <Container className={appStyles.Content}>
+          <Container 
+          className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
+          >
             <Form.Group>
-            {dog_profile_image && (
                 <figure>
-                  <Image src={dog_profile_image} fluid />
+                  <Image className={appStyles.Image} src={dog_profile_image} fluid />
                 </figure>
-              )}
-              {errors?.dog_profile_image?.map((message, idx) => (
-                <Alert variant="warning" key={idx}>
-                  {message}
-                </Alert>
-              ))}
               <div>
                 <Form.Label
                   className={`${btnStyles.Button} ${btnStyles.Blue} btn my-auto`}
@@ -212,16 +220,16 @@ const DogProfileEditForm = () => {
               <Form.File
                 id="image-upload"
                 accept="image/*"
-                onChange={(e) => {
-                  if (e.target.files.length) {
-                    setDogProfileData({
-                      ...dogProfileData,
-                      dog_profile_image: URL.createObjectURL(e.target.files[0]),
-                    });
-                  }
-                }}
+                onChange={handleChangeImage}
+                ref={imageInput}
               />
             </Form.Group>
+            {errors?.image?.map((message, idx) => (
+              <Alert variant="warning" key={idx}>
+                {message}
+              </Alert>
+            ))}
+
             <div className="d-md-none">{textFields}</div>
           </Container>
         </Col>

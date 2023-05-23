@@ -15,23 +15,23 @@ import { useHistory } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useRedirect } from "../../hooks/useRedirect";
 
-function PostCreateForm() {
+function DogDangerCreateForm() {
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
 
-  const [postData, setPostData] = useState({
+  const [dogdangerData, setDogDangerData] = useState({
     title: "",
     content: "",
     image: "",
   });
-  const { title, content, image } = postData;
+  const { title, content, image } = dogdangerData;
 
   const imageInput = useRef(null);
   const history = useHistory();
 
   const handleChange = (event) => {
-    setPostData({
-      ...postData,
+    setDogDangerData({
+      ...dogdangerData,
       [event.target.name]: event.target.value,
     });
   };
@@ -39,8 +39,8 @@ function PostCreateForm() {
   const handleChangeImage = (event) => {
     if (event.target.files.length) {
       URL.revokeObjectURL(image);
-      setPostData({
-        ...postData,
+      setDogDangerData({
+        ...dogdangerData,
         image: URL.createObjectURL(event.target.files[0]),
       });
     }
@@ -55,8 +55,8 @@ function PostCreateForm() {
     formData.append("image", imageInput.current.files[0]);
 
     try {
-      const { data } = await axiosReq.post("/posts/", formData);
-      history.push(`/posts/${data.id}`);
+      const { data } = await axiosReq.post("/dogdangers/", formData);
+      history.push(`/dogdangers/${data.id}`);
     } catch (err) {
       // console.log(err);
       if (err.response?.status !== 401) {
@@ -168,4 +168,4 @@ function PostCreateForm() {
   );
 }
 
-export default PostCreateForm;
+export default DogDangerCreateForm;

@@ -194,6 +194,44 @@ const ProfileEditForm = () => {
               
               </Button>
             </div>
+
+            <div>
+              <Button
+                className={`${btnStyles.Button} ${btnStyles.Blue}`}
+                >
+                  <Link
+                  to="/dogprofiles/doghealth/create"
+                  className={styles.Blue}
+                  activeClassName={styles.Active}
+                >
+                  <i className="fas fa-plus"></i><i className="fas fa-dog"></i>
+                  
+                  Create your doggy health details now!
+                </Link>
+              
+              </Button>
+            </div>
+
+
+            <div>
+              <Button
+                className={`${btnStyles.Button} ${btnStyles.Blue}`}
+                >
+                  <Link
+                  to="/dogprofiles/dogdanger/create"
+                  className={styles.Blue}
+                  activeClassName={styles.Active}
+                >
+                  <i className="fas fa-plus"></i><i className="fas fa-dog"></i>
+                  
+                  Add your doggy dangers now!
+                </Link>
+              
+              </Button>
+            </div>
+
+
+
           </Container>
         </Col>
         <Col md={5} lg={6} className="d-none d-md-block p-0 p-md-2 text-center">

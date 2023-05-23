@@ -20,8 +20,8 @@ import { axiosRes } from "../../api/axiosDefaults";
 
 import Card from "react-bootstrap/Card";
 import Media from "react-bootstrap/Media";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
+// import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+// import Tooltip from "react-bootstrap/Tooltip";
 import { MoreDropdown } from "../../components/MoreDropdown";
 
 const DogDanger = (props) => {
@@ -29,10 +29,11 @@ const DogDanger = (props) => {
         owner,
         id,
         updated_at,
-
+        
+        profile_id,
         profile_image,
 
-        dog_profile_id,
+        // dog_profile_id,
         dog_profile_image,
 
         dog_name,
@@ -76,8 +77,10 @@ const DogDanger = (props) => {
     <Card className={styles.dogDanger}>
       <Card.Body>
         <Media className="align-items-center justify-content-between">
-        <Link to={`/dogprofiles/${dog_profile_id}`}>
-           <Avatar src={dog_profile_image} height={55} />
+        {/* <Link to={`/dogprofiles/${dog_profile_id}`}>
+           <Avatar src={dog_profile_image} height={55} /> */}
+
+           <Link to={`/profiles/${profile_id}`}>
            <Avatar src={profile_image} height={55} />
           {owner}
         </Link>
@@ -93,7 +96,7 @@ const DogDanger = (props) => {
         </Media>
       </Card.Body>
 
-      <Link to={`/dogdangers/${id}`}>
+      <Link to={`/dogdanger/${id}`}>
         <Card.Img src={dog_profile_image} alt={dog_name} />
       </Link>
 
@@ -134,7 +137,7 @@ const DogDanger = (props) => {
         
 
                 
-        <div className={styles.PostBar}>
+        {/* <div className={styles.PostBar}>
           {is_owner ? (
             <OverlayTrigger
               placement="top"
@@ -159,7 +162,7 @@ const DogDanger = (props) => {
             <Link to={`/dogdangers/${id}`}>
               <i className="far fa-dog" />
             </Link>
-          </div>
+          </div> */}
       </Card.Body>
     </Card>
         );
