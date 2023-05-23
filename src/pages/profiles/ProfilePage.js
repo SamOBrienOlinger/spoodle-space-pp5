@@ -172,6 +172,36 @@ function ProfilePage() {
             <>
               {mainProfile}
               {mainProfilePosts}
+              {/* <Button>
+                <NavLink
+                  className={styles.NavLink}
+                  activeClassName={styles.Active}
+                  to={`/dogprofiles/${id}/dogprofilepage`}
+                >
+                  <i className="fas fa-dog"></i>
+                  <p className="text-center">{profile?.owner}'s doggy profile</p>
+                </NavLink>
+              </Button>
+              <Button>
+                <NavLink
+                  className={styles.NavLink}
+                  activeClassName={styles.Active}
+                  to={`/dogprofiles/${id}/dogshealthpage`}
+                >
+                  <i className="fas fa-dog"></i>
+                  <p className="text-center">{profile?.owner}'s doggy health details</p>
+                </NavLink>
+              </Button>
+              <Button>
+                <NavLink
+                  className={styles.NavLink}
+                  activeClassName={styles.Active}
+                  to={`/dogprofiles/${id}/dogdangerspage`}
+                >
+                  <i className="fas fa-dog"></i>
+                  <p className="text-center">{profile?.owner}'s doggy danger details</p>
+                </NavLink>
+              </Button> */}
               <Button>
                 <NavLink
                   className={styles.NavLink}
