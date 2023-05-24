@@ -54,7 +54,7 @@ function App() {
           />
            <Route
             exact
-            path="/dogprofilespage"
+            path="/dogprofilespage/"
             render={() => (
               <DogProfilesPage
                 message="No results found. Adjust the search keyword or follow a user."
