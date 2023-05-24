@@ -34,14 +34,34 @@ const DogProfile = (props) => {
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/dogprofiles/${id}/`);
-      // Perform any additional cleanup or update operations if needed
-      // ...
       history.goBack();
     } catch (err) {
-      // Handle any errors that occurred during deletion
-      // ...
     }
   };
+
+  // const mainDoggyProfiles = (
+  //   <>
+  //     <hr />
+  //     <p className="text-center">{profile?.owner}'s dog profile</p>
+  //     <hr />
+  //     {dogProfile.results.length ? (
+  //       <InfiniteScroll
+  //         children={dogProfiles.results.map((dogprofile) => (
+  //           <DogProfile key={dogprofile.id} {...dogprofile} setDogProfiles={setDogProfiles} />
+  //         ))}
+  //         dataLength={dogProfiles.results.length}
+  //         loader={<Asset spinner />}
+  //         hasMore={!!dogProfiles.next}
+  //         next={() => fetchMoreData(dogProfiles, setDogProfiles)}
+  //       />
+  //     ) : (
+  //       <Asset
+  //         src={NoResults}
+  //         message={`No results found, ${profile?.owner} hasn't created a doggy profile yet.`}
+  //       />
+  //     )}
+  //   </>
+  // );
 
   return (
     <Card className={styles.DogProfile}>
