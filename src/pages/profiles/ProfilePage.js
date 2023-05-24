@@ -17,6 +17,9 @@ import styles from "../../styles/ProfilePage.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import PopularProfiles from "./PopularProfiles";
+// import DogProfilePage from "../dogprofiles/DogProfilePage";
+
+
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -216,7 +219,7 @@ function ProfilePage() {
                 <NavLink
                   className={styles.NavLink}
                   activeClassName={styles.Active}
-                  to={`/dogprofiles/${id}/dogshealthpage`}
+                  to={`/dogprofiles/${id}/doghealthpage`}
                 >
                   <i className="fas fa-dog"></i>
                   <p className="text-center">{profile?.owner}'s doggy health details</p>
@@ -226,7 +229,7 @@ function ProfilePage() {
                 <NavLink
                   className={styles.NavLink}
                   activeClassName={styles.Active}
-                  to={`/dogprofiles/${id}/dogdangerspage`}
+                  to={`/dogprofiles/${id}/dogdangerpage`}
                 >
                   <i className="fas fa-dog"></i>
                   <p className="text-center">{profile?.owner}'s doggy danger details</p>

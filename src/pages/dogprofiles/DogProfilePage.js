@@ -7,7 +7,8 @@ import PopularProfiles from "../profiles/PopularProfiles";
 import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import DogProfile from "./DogProfile";
-import DogProfileCreateForm from "./DogProfileCreateForm";
+// import DogProfileCreateForm from "./DogProfileCreateForm";
+
 
 function DogProfilePage() {
   const { id } = useParams();
@@ -34,11 +35,11 @@ function DogProfilePage() {
         <PopularProfiles mobile />
         <DogProfile {...dogprofile.results[0]} dogProfilePage />
         <Container className={appStyles.Content}>
-          <DogProfileCreateForm
+          {/* <DogProfileCreateForm
             profile_id={dogprofile.results[0]?.profile_id}
             dogprofile={id}
             setDogProfile={setDogProfile}
-          />
+          /> */}
         </Container>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
