@@ -1,13 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
-import Image from "react-bootstrap/Image";
-import Asset from "../../components/Asset";
-import Upload from "../../assets/upload.png";
+
+// import Asset from "../../components/Asset";
+
 import styles from "../../styles/PostCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
@@ -20,13 +20,20 @@ function DogDangerCreateForm() {
   const [errors, setErrors] = useState({});
 
   const [dogdangerData, setDogDangerData] = useState({
-    title: "",
-    content: "",
-    image: "",
+    bites_babies: "",
+    bites_kids: "",
+    bites_teenagers: "",
+    bites_burglars: "",
+    bites_bolsonaro: "",
+    bites_trump: "",
+    bites_thatcher: "",
+    bites_reagan: "",
+    bites_bush: "",
+    bites_wbush: "",
+    dangerously_cute: "",
   });
-  const { title, content, image } = dogdangerData;
+  const {bites_babies, bites_kids, bites_teenagers, bites_burglars, bites_bolsonaro, bites_trump, bites_thatcher, bites_reagan, bites_bush, bites_wbush, dangerously_cute } = dogdangerData;
 
-  const imageInput = useRef(null);
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -36,24 +43,21 @@ function DogDangerCreateForm() {
     });
   };
 
-  const handleChangeImage = (event) => {
-    if (event.target.files.length) {
-      URL.revokeObjectURL(image);
-      setDogDangerData({
-        ...dogdangerData,
-        image: URL.createObjectURL(event.target.files[0]),
-      });
-    }
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
 
-    formData.append("title", title);
-    formData.append("content", content);
-    formData.append("image", imageInput.current.files[0]);
-
+    formData.append("bites_babies", bites_babies);
+    formData.append("bites_kids", bites_kids);
+    formData.append("bites_teenagers", bites_teenagers)
+    formData.append("bites_burglars", bites_burglars)
+    formData.append("bites_bolsonaro", bites_bolsonaro)
+    formData.append("bites_trump", bites_trump)
+    formData.append("bites_thatcher", bites_thatcher)
+    formData.append("bites_reagan", bites_reagan)
+    formData.append("bites_bush", bites_bush)
+    formData.append("bites_wbush", bites_wbush)
+    formData.append("dangerously_cute", dangerously_cute)
     try {
       const { data } = await axiosReq.post("/dogdangers/", formData);
       history.push(`/dogdangers/${data.id}`);
@@ -68,11 +72,11 @@ function DogDangerCreateForm() {
   const textFields = (
     <div className="text-center">
       <Form.Group>
-        <Form.Label>Title</Form.Label>
+        <Form.Label>Bites Babies?</Form.Label>
         <Form.Control
           type="text"
-          name="title"
-          value={title}
+          name="bites_babies"
+          value={bites_babies}
           onChange={handleChange}
         />
       </Form.Group>
@@ -83,12 +87,156 @@ function DogDangerCreateForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Content</Form.Label>
+        <Form.Label>Bites Kids?</Form.Label>
         <Form.Control
           as="textarea"
           rows={6}
-          name="content"
-          value={content}
+          name="bites_kids"
+          value={bites_kids}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.content?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Bites Teenagers?</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="bites_teenagers"
+          value={bites_teenagers}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.content?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Bites Burglars?</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="bites_burglars"
+          value={bites_burglars}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.content?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Bites Bolsonaro?</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="bites_bolsonaro"
+          value={bites_bolsonaro}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.content?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Bites Trump?</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="bites_trump"
+          value={bites_trump}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.content?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Bites Thatcher?</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="bites_thatcher"
+          value={bites_thatcher}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.content?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Bites Reagan?</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="bites_reagan"
+          value={bites_reagan}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.content?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Bites Bush?</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="bites_bush"
+          value={bites_bush}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.content?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Bites W.Bush?</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="bites_wbush"
+          value={bites_wbush}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.content?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Dangerously Cute?</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="dangerously_cute"
+          value={dangerously_cute}
           onChange={handleChange}
         />
       </Form.Group>
@@ -117,46 +265,6 @@ function DogDangerCreateForm() {
           <Container
             className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
           >
-            <Form.Group className="text-center">
-              {image ? (
-                <>
-                  <figure>
-                    <Image className={appStyles.Image} src={image} rounded />
-                  </figure>
-                  <div>
-                    <Form.Label
-                      className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
-                      htmlFor="image-upload"
-                    >
-                      Change the image
-                    </Form.Label>
-                  </div>
-                </>
-              ) : (
-                <Form.Label
-                  className="d-flex justify-content-center"
-                  htmlFor="image-upload"
-                >
-                  <Asset
-                    src={Upload}
-                    message="Click or tap to upload an image"
-                  />
-                </Form.Label>
-              )}
-
-              <Form.File
-                id="image-upload"
-                accept="image/*"
-                onChange={handleChangeImage}
-                ref={imageInput}
-              />
-            </Form.Group>
-            {errors?.image?.map((message, idx) => (
-              <Alert variant="warning" key={idx}>
-                {message}
-              </Alert>
-            ))}
-
             <div className="d-md-none">{textFields}</div>
           </Container>
         </Col>
