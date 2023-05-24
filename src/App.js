@@ -127,7 +127,7 @@ function App() {
           <Route exact path="/dogdanger/create" render={() => <DogDangerCreateForm />} />
           <Route exact path="/dogdanger/:id" render={() => <DogDangerPage />} />
           {/* <Route exact path="/dogdangers/:id" render={() => <DogDangersPage />} /> */}
-          <Route exact path="/dogprofiles/:id/edit" render={() => <DogDangerEditForm />} />
+          <Route exact path="/dogdanger/:id/edit" render={() => <DogDangerEditForm />} />
           
           <Route
             exact
