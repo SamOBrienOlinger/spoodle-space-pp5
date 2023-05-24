@@ -135,9 +135,14 @@ const DogDanger = (props) => {
         {dangerously_cute && <Card.Title className="text-center">{dangerously_cute}</Card.Title>}
         {dangerously_cute && <Card.Text>{dangerously_cute}</Card.Text>}
         
-
+        </Card.Body>
+    </Card>
+        );
+      };
+      
+export default DogDanger;
                 
-        {/* <div className={styles.PostBar}>
+        /* <div className={styles.PostBar}>
           {is_owner ? (
             <OverlayTrigger
               placement="top"
@@ -162,10 +167,10 @@ const DogDanger = (props) => {
             <Link to={`/dogdangers/${id}`}>
               <i className="far fa-dog" />
             </Link>
-          </div> */}
-      </Card.Body>
+          </div> */
+      /* </Card.Body>
     </Card>
         );
       };
       
-export default DogDanger;
+export default DogDanger; */
