@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import NoResults from "../../assets/no-results.png";
@@ -17,7 +17,8 @@ import styles from "../../styles/ProfilePage.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import PopularProfiles from "./PopularProfiles";
-import DogProfilePage from "../dogprofiles/DogProfilePage";
+// import DogProfilePage from "../dogprofiles/DogProfilePage";
+import DogProfileEditForm from "../dogprofiles/DogProfileEditForm";
 
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -42,9 +43,12 @@ function ProfilePage() {
         const [
           { data: pageProfile },
           { data: profilePosts },
+          { data: dogProfileData },
         ] = await Promise.all([
           axiosReq.get(`/profiles/${id}/`),
           axiosReq.get(`/posts/?owner__profile=${id}`),
+          axiosReq.get(`/dogprofiles/${id}/`),
+
         ]);
 
         if (isMounted) {
@@ -59,6 +63,16 @@ function ProfilePage() {
         console.log(err);
       }
     };
+
+//     if (dogProfileData) {
+//       history.push(`/dogprofiles/${id}/dogprofileeditform`);
+//       return;
+//     }
+//   }
+// } catch (err) {
+//   console.log(err);
+// }
+// };
 
     fetchData();
 
@@ -152,69 +166,6 @@ function ProfilePage() {
             <>
               {mainProfile}
               {mainProfilePosts}
-
-                {/* <div>
-                  <Link
-                    id="purple-Link"
-                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} purple-Link`}
-                    activeClassName={styles.Active}
-                    to={`/dogprofiles/${id}/dogprofilepage`}
-                  >
-                    <i id="purple-icon" className="fas fa-dog purple-icon"></i>
-                    <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
-                  </Link>
-
-                  <Link
-                    className={styles.NavLink}
-                    activeClassName={styles.Active}
-                    to={`/dogprofiles/${id}/doghealthpage`}
-                  >
-                    <i className="fas fa-dog"></i>
-                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy health details</p>
-                  </Link>
-
-                  <Link
-                    id="myButton"
-                    className={styles.NavLink}
-                    activeClassName={styles.Active}
-                    to={`/dogprofiles/${id}/dogdangerpage`}
-                  >
-                    <i className="fas fa-dog"></i>
-                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy danger details</p>
-                  </Link> 
-                </div> */}
-
-
-
-                {/* <div class="links-container">
-                  <Link
-                    // id="purple-Link"
-                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} purple-Link`}
-                    activeClassName={styles.Active}
-                    to={`/dogprofiles/${id}/dogprofilepage`}
-                  >
-                    <i id="purple-icon1" className="fas fa-dog purple-icon"></i>
-                    <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
-                  </Link>
-
-                  <Link
-                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} purple-Link`}
-                    activeClassName={styles.Active}
-                    to={`/dogprofiles/${id}/doghealthpage`}
-                  >
-                    <i id="purple-icon2" className="fas fa-dog"></i>
-                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy health details</p>
-                  </Link>
-
-                  <Link
-                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} purple-Link`}
-                    activeClassName={styles.Active}
-                    to={`/dogprofiles/${id}/dogdangerpage`}
-                  >
-                    <i id="purple-icon3" className="fas fa-dog"></i>
-                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy danger details</p>
-                  </Link> 
-                </div> */}
 
                 <div class="links-container">
 
