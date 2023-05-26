@@ -1,114 +1,122 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Oswald&display=swap'); */
 .App {
-    font-family: "Lato", "DM Sans", "sans-serif";
-    background-color: #f8f8f8;
-    min-height: 100vh;
-    color: #e9ebf2;
-  }
-  
- #profile-text-center {
+  font-family: "Lato", "DM Sans", "sans-serif";
+  background-color: #f8f8f8;
+  min-height: 100vh;
+  color: #e9ebf2;
+}
 
-    color: #7112ee;
-  
-  } 
-
+#profile-text-center {
+  color: #7112ee;
+}
 
 div {
-
   background-color: #7112ee;
+}
 
-  }
+.Main {
+  padding-top: 81px;
+}
 
-  .Main {
-    padding-top: 81px;
-  }
+.Content {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 2px;
+  border: 1px solid #dadadf;
+}
 
-  .Content {
-    background-color: #ffffff;
-    padding: 10px;
-    border-radius: 2px;
-    border: 1px solid #dadadf;
-  }
-  
-  .FillerImage {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-  }
-  
-  .Image {
-    max-height: 40vh;
-    max-width: 100%;
-    object-fit: contain;
-  }
+.FillerImage {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
 
-  * {
-    box-sizing: border-box;
-  }
+.Image {
+  max-height: 40vh;
+  max-width: 100%;
+  object-fit: contain;
+}
 
-  body { 
-    font-family: "Oswald", "sans-serif;"
-  }
+* {
+  box-sizing: border-box;
+}
 
-  /* .navbar-text {
-    color: #e9ebf2;
-  } */
+body {
+  font-family: "Oswald", "sans-serif";
+}
 
-  a {
-    color: #e9ebf2;
-    transition: color ease-in-out 0.3s;
-  }
-  
+/* .styles.LinkContainer {
+  display: flex;
+  justify-content: space-between;
+} */
 
-  /* a:i {
-    color: #e9ebf2;
-  } */
+.links-container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #dadadf;
+}
 
-  a:hover {
-    text-decoration: none;
-    color: yellow;
-  }
-  
-  a:hover i {
-    color: yellow;
-    transition: color ease-in-out 0.3s;
-  }
-  
-  i {
-    color: #e9ebf2;
-    font-size: 1.6rem;
-    padding: 7px;
-    vertical-align: middle;
-  }
-  
-  i:hover {
-    cursor: pointer;
-    transition: color ease-in-out 0.3s;
-    /* color: #2142b2; */
-    color: yellow;
-  }
-
-  figure {
-    text-align: center;
-    display: inline-block;
-  }
-  
- /* p.text-center {
+.link {
+  flex: 1;
   color: #7112ee;
+}
 
- } */
+.purple-Link,
+.purple-Link i {
+  color: #7112ee;
+}
 
-  /* scrollbar */
-  *::-webkit-scrollbar {
-    width: 5px;
-  }
-  *::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  *::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-  *::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  
+.purple-Link:hover,
+.purple-Link:hover i {
+  color: yellow;
+}
+
+a {
+  color: #e9ebf2;
+  transition: color ease-in-out 0.3s;
+}
+
+a:hover {
+  text-decoration: none;
+  color: yellow;
+}
+
+a:hover i {
+  color: yellow;
+  transition: color ease-in-out 0.3s;
+}
+
+i {
+  color: #e9ebf2;
+  font-size: 1.6rem;
+  padding: 7px;
+  vertical-align: middle;
+}
+
+i:hover {
+  cursor: pointer;
+  transition: color ease-in-out 0.3s;
+  color: yellow;
+}
+
+figure {
+  text-align: center;
+  display: inline-block;
+}
+
+/* scrollbar */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  color: #7112ee;
+}

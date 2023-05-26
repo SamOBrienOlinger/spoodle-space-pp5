@@ -17,9 +17,9 @@ import styles from "../../styles/ProfilePage.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import PopularProfiles from "./PopularProfiles";
-// import DogProfilePage from "../dogprofiles/DogProfilePage";
+import DogProfilePage from "../dogprofiles/DogProfilePage";
 
-
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -66,29 +66,6 @@ function ProfilePage() {
       isMounted = false;
     };
   }, [id, setProfileData]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const [
-  //         { data: pageProfile },
-  //         { data: profilePosts },
-  //       ] = await Promise.all([
-  //         axiosReq.get(`/profiles/${id}/`),
-  //         axiosReq.get(`/posts/?owner__profile=${id}`),
-  //       ]);
-  //       setProfileData((prevState) => ({
-  //         ...prevState,
-  //         pageProfile: { results: [pageProfile] },
-  //       }));
-  //       setProfilePosts(profilePosts);
-  //       setHasLoaded(true);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [id, setProfileData]);
 
   const mainProfile = (
     <>
@@ -175,71 +152,114 @@ function ProfilePage() {
             <>
               {mainProfile}
               {mainProfilePosts}
-              {/* <Button>
-                <NavLink
-                  className={styles.NavLink}
-                  activeClassName={styles.Active}
-                  to={`/dogprofiles/${id}/dogprofilepage`}
-                >
-                  <i className="fas fa-dog"></i>
-                  <p className="text-center">{profile?.owner}'s doggy profile</p>
-                </NavLink>
-              </Button>
-              <Button>
-                <NavLink
-                  className={styles.NavLink}
-                  activeClassName={styles.Active}
-                  to={`/dogprofiles/${id}/dogshealthpage`}
-                >
-                  <i className="fas fa-dog"></i>
-                  <p className="text-center">{profile?.owner}'s doggy health details</p>
-                </NavLink>
-              </Button>
-              <Button>
-                <NavLink
-                  className={styles.NavLink}
-                  activeClassName={styles.Active}
-                  to={`/dogprofiles/${id}/dogdangerspage`}
-                >
-                  <i className="fas fa-dog"></i>
-                  <p className="text-center">{profile?.owner}'s doggy danger details</p>
-                </NavLink>
-              </Button> */}
-              <Button>
-                <NavLink
-                  className={styles.NavLink}
-                  activeClassName={styles.Active}
-                  to={`/dogprofiles/${id}/dogprofilepage`}
-                >
-                  <i className="fas fa-dog"></i>
-                  <p className="text-center">{profile?.owner}'s doggy profile</p>
-                </NavLink>
-              </Button>
-              <Button>
-                <NavLink
-                  className={styles.NavLink}
-                  activeClassName={styles.Active}
-                  to={`/dogprofiles/${id}/doghealthpage`}
-                >
-                  <i className="fas fa-dog"></i>
-                  <p className="text-center">{profile?.owner}'s doggy health details</p>
-                </NavLink>
-              </Button>
-              <Button>
-                <NavLink
-                  className={styles.NavLink}
-                  activeClassName={styles.Active}
-                  to={`/dogprofiles/${id}/dogdangerpage`}
-                >
-                  <i className="fas fa-dog"></i>
-                  <p className="text-center">{profile?.owner}'s doggy danger details</p>
-                </NavLink>
-              </Button>
+
+                {/* <div>
+                  <Link
+                    id="purple-Link"
+                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} purple-Link`}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}/dogprofilepage`}
+                  >
+                    <i id="purple-icon" className="fas fa-dog purple-icon"></i>
+                    <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
+                  </Link>
+
+                  <Link
+                    className={styles.NavLink}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}/doghealthpage`}
+                  >
+                    <i className="fas fa-dog"></i>
+                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy health details</p>
+                  </Link>
+
+                  <Link
+                    id="myButton"
+                    className={styles.NavLink}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}/dogdangerpage`}
+                  >
+                    <i className="fas fa-dog"></i>
+                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy danger details</p>
+                  </Link> 
+                </div> */}
+
+
+
+                {/* <div class="links-container">
+                  <Link
+                    // id="purple-Link"
+                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} purple-Link`}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}/dogprofilepage`}
+                  >
+                    <i id="purple-icon1" className="fas fa-dog purple-icon"></i>
+                    <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
+                  </Link>
+
+                  <Link
+                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} purple-Link`}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}/doghealthpage`}
+                  >
+                    <i id="purple-icon2" className="fas fa-dog"></i>
+                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy health details</p>
+                  </Link>
+
+                  <Link
+                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} purple-Link`}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}/dogdangerpage`}
+                  >
+                    <i id="purple-icon3" className="fas fa-dog"></i>
+                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy danger details</p>
+                  </Link> 
+                </div> */}
+
+                <div class="links-container">
+
+                  <Col>
+                  <Link
+                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}/dogprofilepage`}
+                  >
+                    <i className="fas fa-dog purple-icon"></i>
+                    <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
+                  </Link>
+                  </Col>
+                  
+                  <Col>
+                  <Link
+                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}/doghealthpage`}
+                  >
+                    <i className="fas fa-dog"></i>
+                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy health details</p>
+                  </Link>
+                  </Col>
+                  
+                  <Col>
+                  <Link
+                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}/dogdangerpage`}
+                  >
+                    <i className="fas fa-dog"></i>
+                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy danger details</p>
+                  </Link>
+                  </Col>
+                
+                </div>
+
+
             </>
           ) : (
             <Asset spinner />
           )}
         </Container>
+        {/* <DogProfilePage /> */}
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
         <PopularProfiles />
@@ -249,6 +269,261 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+
+
+
+// import React, { useEffect, useState } from "react";
+// import { useParams, NavLink } from "react-router-dom";
+// import { Button, Col, Container, Image, Row } from "react-bootstrap";
+// import InfiniteScroll from "react-infinite-scroll-component";
+// import NoResults from "../../assets/no-results.png";
+// import { axiosReq } from "../../api/axiosDefaults";
+// import Asset from "../../components/Asset";
+// import { ProfileEditDropdown } from "../../components/MoreDropdown";
+// import Post from "../posts/Post";
+// import { fetchMoreData } from "../../utils/utils";
+// import { useCurrentUser } from "../../contexts/CurrentUserContext";
+// import {
+//   useProfileData,
+//   useSetProfileData,
+// } from "../../contexts/ProfileDataContext";
+// import styles from "../../styles/ProfilePage.module.css";
+// import appStyles from "../../App.module.css";
+// import btnStyles from "../../styles/Button.module.css";
+// import PopularProfiles from "./PopularProfiles";
+// import DogProfilePage from "../dogprofiles/DogProfilePage";
+
+
+
+// function ProfilePage() {
+//   const [hasLoaded, setHasLoaded] = useState(false);
+//   const [profilePosts, setProfilePosts] = useState({ results: [] });
+
+//   const currentUser = useCurrentUser();
+//   const { id } = useParams();
+
+//   const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();
+//   const { pageProfile } = useProfileData();
+
+//   const [profile] = pageProfile.results;
+//   const is_owner = currentUser?.username === profile?.owner;
+
+//   useEffect(() => {
+//     let isMounted = true;
+
+//     const fetchData = async () => {
+//       try {
+//         const [
+//           { data: pageProfile },
+//           { data: profilePosts },
+//         ] = await Promise.all([
+//           axiosReq.get(`/profiles/${id}/`),
+//           axiosReq.get(`/posts/?owner__profile=${id}`),
+//         ]);
+
+//         if (isMounted) {
+//           setProfileData((prevState) => ({
+//             ...prevState,
+//             pageProfile: { results: [pageProfile] },
+//           }));
+//           setProfilePosts(profilePosts);
+//           setHasLoaded(true);
+//         }
+//       } catch (err) {
+//         console.log(err);
+//       }
+//     };
+
+//     fetchData();
+
+//     return () => {
+//       isMounted = false;
+//     };
+//   }, [id, setProfileData]);
+
+//   // useEffect(() => {
+//   //   const fetchData = async () => {
+//   //     try {
+//   //       const [
+//   //         { data: pageProfile },
+//   //         { data: profilePosts },
+//   //       ] = await Promise.all([
+//   //         axiosReq.get(`/profiles/${id}/`),
+//   //         axiosReq.get(`/posts/?owner__profile=${id}`),
+//   //       ]);
+//   //       setProfileData((prevState) => ({
+//   //         ...prevState,
+//   //         pageProfile: { results: [pageProfile] },
+//   //       }));
+//   //       setProfilePosts(profilePosts);
+//   //       setHasLoaded(true);
+//   //     } catch (err) {
+//   //       console.log(err);
+//   //     }
+//   //   };
+//   //   fetchData();
+//   // }, [id, setProfileData]);
+
+//   const mainProfile = (
+//     <>
+//       {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
+//       <Row noGutters className="px-3 text-center">
+//         <Col lg={3} className="text-lg-left">
+//           <Image
+//             className={styles.ProfileImage}
+//             roundedCircle
+//             src={profile?.image}
+//           />
+//         </Col>
+//         <Col lg={6}>
+//           <h3 className="m-2">{profile?.owner}</h3>
+//           <Row className="justify-content-center no-gutters">
+//             <Col xs={3} className="my-2">
+//               <div>{profile?.posts_count}</div>
+//               <div>posts</div>
+//             </Col>
+//             <Col xs={3} className="my-2">
+//               <div>{profile?.followers_count}</div>
+//               <div>followers</div>
+//             </Col>
+//             <Col xs={3} className="my-2">
+//               <div>{profile?.following_count}</div>
+//               <div>following</div>
+//             </Col>
+//           </Row>
+//         </Col>
+//         <Col lg={3} className="text-lg-right">
+//           {currentUser &&
+//             !is_owner &&
+//             (profile?.following_id ? (
+//               <Button
+//                 className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
+//                 onClick={() => handleUnfollow(profile)}
+//               >
+//                 unfollow
+//               </Button>
+//             ) : (
+//               <Button
+//                 className={`${btnStyles.Button} ${btnStyles.Black}`}
+//                 onClick={() => handleFollow(profile)}
+//               >
+//                 follow
+//               </Button>
+//             ))}
+//         </Col>
+//         {profile?.content && <Col className="p-3">{profile.content}</Col>}
+//       </Row>
+//     </>
+//   );
+
+//   const mainProfilePosts = (
+//     <>
+//       <hr />
+//       <p className="text-center">{profile?.owner}'s posts</p>
+//       <hr />
+//       {profilePosts.results.length ? (
+//         <InfiniteScroll
+//           children={profilePosts.results.map((post) => (
+//             <Post key={post.id} {...post} setPosts={setProfilePosts} />
+//           ))}
+//           dataLength={profilePosts.results.length}
+//           loader={<Asset spinner />}
+//           hasMore={!!profilePosts.next}
+//           next={() => fetchMoreData(profilePosts, setProfilePosts)}
+//         />
+//       ) : (
+//         <Asset
+//           src={NoResults}
+//           message={`No results found, ${profile?.owner} hasn't posted yet.`}
+//         />
+//       )}
+//     </>
+//   );
+
+//   return (
+//       <Row>
+//         <Col className="py-2 p-0 p-lg-2" lg={8}>
+//           <PopularProfiles mobile />
+//           <Container className={appStyles.Content}>
+//             {hasLoaded ? (
+//               <>
+//               {mainProfile}
+//               {mainProfilePosts}
+//               {/* <Button>
+//                 <NavLink
+//                   className={styles.NavLink}
+//                   activeClassName={styles.Active}
+//                   to={`/dogprofiles/${id}/dogprofilepage`}
+//                 >
+//                   <i className="fas fa-dog"></i>
+//                   <p className="text-center">{profile?.owner}'s doggy profile</p>
+//                 </NavLink>
+//               </Button>
+//               <Button>
+//                 <NavLink
+//                   className={styles.NavLink}
+//                   activeClassName={styles.Active}
+//                   to={`/dogprofiles/${id}/dogshealthpage`}
+//                 >
+//                   <i className="fas fa-dog"></i>
+//                   <p className="text-center">{profile?.owner}'s doggy health details</p>
+//                 </NavLink>
+//               </Button>
+//               <Button>
+//                 <NavLink
+//                   className={styles.NavLink}
+//                   activeClassName={styles.Active}
+//                   to={`/dogprofiles/${id}/dogdangerspage`}
+//                 >
+//                   <i className="fas fa-dog"></i>
+//                   <p className="text-center">{profile?.owner}'s doggy danger details</p>
+//                 </NavLink>
+//               </Button> */}
+//                 <Button>
+//                 <NavLink
+//                   className={styles.NavLink}
+//                   activeClassName={styles.Active}
+//                   to={`/dogprofiles/${id}/dogprofilepage`}
+//                 >
+//                   <i className="fas fa-dog"></i>
+//                   <p className="text-center-button">{profile?.owner}'s doggy profile</p>
+//                 </NavLink>
+//               </Button>
+//               <Button>
+//                 <NavLink
+//                   className={styles.NavLink}
+//                   activeClassName={styles.Active}
+//                   to={`/dogprofiles/${id}/doghealthpage`}
+//                 >
+//                   <i className="fas fa-dog"></i>
+//                   <p className="text-center">{profile?.owner}'s doggy health details</p>
+//                 </NavLink>
+//               </Button>
+//               <Button>
+//                 <NavLink
+//                   className={styles.NavLink}
+//                   activeClassName={styles.Active}
+//                   to={`/dogprofiles/${id}/dogdangerpage`}
+//                 >
+//                   <i className="fas fa-dog"></i>
+//                   <p className="text-center">{profile?.owner}'s doggy danger details</p>
+//                 </NavLink>
+//               </Button>
+//             </>
+//           ) : (
+//             <Asset spinner />
+//           )}
+//         </Container>
+//         <DogProfilePage />
+//       </Col>
+//       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
+//         <PopularProfiles />
+//       </Col>
+//     </Row>
+//   );
+// }
+
+// export default ProfilePage;
 
 
 

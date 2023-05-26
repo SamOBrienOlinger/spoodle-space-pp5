@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-import appStyles from "../../App.module.css";
-import PopularProfiles from "../profiles/PopularProfiles";
+// import Container from "react-bootstrap/Container";
+// import appStyles from "../../App.module.css";
+// import PopularProfiles from "../profiles/PopularProfiles";
 import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import DogProfile from "./DogProfile";
 // import DogProfileCreateForm from "./DogProfileCreateForm";
+// import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 
 function DogProfilePage() {
   const { id } = useParams();
   const [dogprofile, setDogProfile] = useState({ results: [] });
+  // const currentUser = useCurrentUser();
 
   useEffect(() => {
     const handleMount = async () => {
@@ -32,18 +34,22 @@ function DogProfilePage() {
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <PopularProfiles mobile />
+        {/* <PopularProfiles mobile /> */}
         <DogProfile {...dogprofile.results[0]} dogProfilePage />
-        <Container className={appStyles.Content}>
-          {/* <DogProfileCreateForm
-            profile_id={dogprofile.results[0]?.profile_id}
-            dogprofile={id}
-            setDogProfile={setDogProfile}
-          /> */}
-        </Container>
+        {/* <Container className={appStyles.Content}>
+    {currentUser ? (
+      <DogProfileCreateForm
+        profile_id={dogprofile.results[0]?.profile_id}
+        dogprofile={id}
+        setDogProfile={setDogProfile}
+      />
+    ) : (
+      <span>No dog profiles yet, be the first to comment!</span>
+    )}
+  </Container> */}
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-        <PopularProfiles />
+        {/* <PopularProfiles /> */}
       </Col>
     </Row>
   );

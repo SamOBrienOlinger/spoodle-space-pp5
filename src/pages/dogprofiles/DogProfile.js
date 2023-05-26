@@ -36,6 +36,7 @@ const DogProfile = (props) => {
       await axiosRes.delete(`/dogprofiles/${id}/`);
       history.goBack();
     } catch (err) {
+      // console.log(err);
     }
   };
 
