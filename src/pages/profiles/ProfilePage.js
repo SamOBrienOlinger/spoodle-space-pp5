@@ -17,8 +17,8 @@ import styles from "../../styles/ProfilePage.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import PopularProfiles from "./PopularProfiles";
-// import DogProfilePage from "../dogprofiles/DogProfilePage";
-import DogProfileEditForm from "../dogprofiles/DogProfileEditForm";
+import DogProfilePage from "../dogprofiles/DogProfilePage";
+// import DogProfileEditForm from "../dogprofiles/DogProfileEditForm";
 
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -43,7 +43,7 @@ function ProfilePage() {
         const [
           { data: pageProfile },
           { data: profilePosts },
-          { data: dogProfileData },
+          // { data: dogProfileData },
         ] = await Promise.all([
           axiosReq.get(`/profiles/${id}/`),
           axiosReq.get(`/posts/?owner__profile=${id}`),
@@ -164,16 +164,17 @@ function ProfilePage() {
         <Container className={appStyles.Content}>
           {hasLoaded ? (
             <>
-              {mainProfile}
-              {mainProfilePosts}
+            
 
-                <div class="links-container">
+              {mainProfile}
+
+                          <div class="links-container">
 
                   <Col>
                   <Link
                     className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
                     activeClassName={styles.Active}
-                    to={`/dogprofiles/${id}/dogprofilepage`}
+                    to={`/dogprofiles/${id}`}
                   >
                     <i className="fas fa-dog purple-icon"></i>
                     <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
@@ -203,6 +204,11 @@ function ProfilePage() {
                   </Col>
                 
                 </div>
+
+
+              {mainProfilePosts}
+
+
 
 
             </>
