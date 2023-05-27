@@ -9,6 +9,11 @@
     min-width: 75px;
   }
   
+  .links-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .Button:hover {
     opacity: 0.8;
     border-color: transparent;
