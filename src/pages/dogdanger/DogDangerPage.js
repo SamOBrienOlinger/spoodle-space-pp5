@@ -1,11 +1,3 @@
-// import React from "react";
-
-// function DogDangerPage() {
-//     return <p className="text-center">hello dog world</p>;
-//   }
-
-// export default DogDangerPage;
-
 import React, { useEffect, useState } from "react";
 
 import Col from "react-bootstrap/Col";

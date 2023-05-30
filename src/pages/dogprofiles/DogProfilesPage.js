@@ -33,7 +33,9 @@ function DogProfilesPage({ message, filter = "" }) {
   useEffect(() => {
     const fetchDogProfiles = async () => {
       try {
-        const { data } = await axiosReq.get(`/dogprofiles/?${filter}search=${query}`);
+        const url = `/dogprofiles/?search=${query}`;
+        const { data } = await axiosReq.get(url);
+        // const { data } = await axiosReq.get(`/dogprofiles/?${filter}search=${query}`);
         console.info(`url /dogprofiles/?${filter}search=${query}}`);
         setDogProfiles(data);
         setHasLoaded(true);

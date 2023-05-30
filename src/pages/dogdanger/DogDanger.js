@@ -127,36 +127,3 @@ const DogDanger = (props) => {
       };
       
 export default DogDanger;
-                
-        /* <div className={styles.PostBar}>
-          {is_owner ? (
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Add or Edit your doggy's danger!</Tooltip>}
-            >
-              <i className="far fa-dog" />
-            </OverlayTrigger> 
-
-            ) : currentUser ? (
-              <span onClick={handleEdit}>
-                <i className={`far fa-dog ${styles.DogOutline}`} />
-              </span>
-            ) : (
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>Log in to Add or edit your doggy's danger!</Tooltip>}
-              >
-                <i className="far fa-dog" />
-              </OverlayTrigger>
-            )}
-
-            <Link to={`/dogdangers/${id}`}>
-              <i className="far fa-dog" />
-            </Link>
-          </div> */
-      /* </Card.Body>
-    </Card>
-        );
-      };
-      
-export default DogDanger; */

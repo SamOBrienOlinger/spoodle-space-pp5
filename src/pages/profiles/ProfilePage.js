@@ -43,7 +43,7 @@ function ProfilePage() {
         ] = await Promise.all([
           axiosReq.get(`/profiles/${id}/`),
           axiosReq.get(`/posts/?owner__profile=${id}`),
-          axiosReq.get(`/dogprofiles/${id}/`),
+          // axiosReq.get(`/dogprofiles/${id}/`),
 
         ]);
 
@@ -56,7 +56,15 @@ function ProfilePage() {
           setHasLoaded(true);
         }
       } catch (err) {
-        console.log(err);
+        setProfileData((prevState) => ({
+          ...prevState,
+          pageProfile: { results: [pageProfile] },
+        }));
+        setProfilePosts(profilePosts);
+        setHasLoaded(true);
+
+        // console.info(`user posts: ${JSON.stringify(profilePosts)}`);
+        // console.log(err);
       }
     };
 
@@ -65,13 +73,14 @@ function ProfilePage() {
     return () => {
       isMounted = false;
     };
-  }, [id, setProfileData]);
+  }, [id, profilePosts, setProfileData]);
 
   const mainProfile = (
     <>
       {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
       <Row noGutters className="px-3 text-center">
         <Col lg={3} className="text-lg-left">
+          <h3>{profile?.image}</h3>
           <Image
             className={styles.ProfileImage}
             roundedCircle
