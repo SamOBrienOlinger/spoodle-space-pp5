@@ -37,9 +37,9 @@ function DogHealthPage() {
               
               <Card.Img src={dogHealth.dog_Health_image} alt={dogHealth.dog_name} />
 
-              {/* <p>Age: {dogHealth.dog_age}</p>
+              <p>Age: {dogHealth.dog_age}</p>
               <p>Color: {dogHealth.dog_color}</p>
-              <p>Bio: {dogProfile.dog_bio}</p> */}
+              <p>Bio: {dogProfile.dog_bio}</p>
           </div>
         ) : (
           <Asset src={NoResults} message={`No dog Health found for ID ${id}`} />

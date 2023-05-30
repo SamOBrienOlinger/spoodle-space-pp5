@@ -6,6 +6,7 @@ import appStyles from "../../App.module.css";
 import NoResults from "../../assets/no-results.png";
 import { axiosReq } from "../../api/axiosDefaults";
 import { Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 function DogProfilePage() {
   const { id } = useParams();
