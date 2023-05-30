@@ -12,20 +12,9 @@ import btnStyles from "../../styles/Button.module.css";
 import { useHistory, useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 
-// import {
-//   useCurrentUser,
-//   useSetCurrentUser,
-// } from "../../contexts/CurrentUserContext";
 
-// function DogProfileEditForm() {
 const DogProfileEditForm = () => {
   const [errors, setErrors] = useState({});
-  
-  // const currentUser = useCurrentUser();
-  // const setCurrentUser = useSetCurrentUser();
-  // const imageFile = useRef();
-
-  
 
   const [dogProfileData, setDogProfileData] = useState({
     dog_name: "",
@@ -48,7 +37,6 @@ const DogProfileEditForm = () => {
 
   useEffect(() => {
     const handleMount = async () => {
-      // if (currentUser?.dog_profile_id?.toString() === id) {
         try {
           const { data } = await axiosReq.get(`/dogprofiles/${id}/`);
           const { 
@@ -73,7 +61,6 @@ const DogProfileEditForm = () => {
   };
 
     handleMount();
-  // }, [currentUser, history, id]);
   }, [history, id]);
 
   const handleChange = (event) => {

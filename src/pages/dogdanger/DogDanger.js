@@ -8,8 +8,6 @@ import { axiosRes } from "../../api/axiosDefaults";
 
 import Card from "react-bootstrap/Card";
 import Media from "react-bootstrap/Media";
-// import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-// import Tooltip from "react-bootstrap/Tooltip";
 import { MoreDropdown } from "../../components/MoreDropdown";
 
 const DogDanger = (props) => {
