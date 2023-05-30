@@ -39,7 +39,7 @@ function DogHealthPage() {
 
               <p>Age: {dogHealth.dog_age}</p>
               <p>Color: {dogHealth.dog_color}</p>
-              <p>Bio: {dogProfile.dog_bio}</p>
+              <p>Bio: {dogHealth.dog_bio}</p>
           </div>
         ) : (
           <Asset src={NoResults} message={`No dog Health found for ID ${id}`} />
