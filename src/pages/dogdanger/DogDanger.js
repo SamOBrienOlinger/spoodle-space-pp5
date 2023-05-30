@@ -1,15 +1,3 @@
-// Custom Model 3
-
-// owner = models.ForeignKey(User, on_delete=models.CASCADE)
-// created_at = models.DateTimeField(auto_now_add=True)
-// updated_at = models.DateTimeField(auto_now=True)
-// bites_babies = models.TextField(blank=True)
-// bites_kids = models.TextField(blank=True)
-// bites_teenagers = models.TextField(blank=True)
-// bites_burglars = models.TextField(blank=True)
-// bites_bolsonaro = models.TextField(blank=True)
-// dangerously_cute = models.TextField(blank=True
-
 import React from "react";
 import styles from "../../styles/DogProfile.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -97,7 +85,7 @@ const DogDanger = (props) => {
       </Card.Body>
 
       <Link to={`/dogdanger/${id}`}>
-        <Card.Img src={dog_profile_image} alt={dog_name} />
+        <Card.Img class="card_image" src={dog_profile_image} alt={dog_name} />
       </Link>
 
       <Card.Body>  

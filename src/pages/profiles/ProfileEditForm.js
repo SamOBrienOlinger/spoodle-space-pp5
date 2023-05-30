@@ -83,9 +83,9 @@ const ProfileEditForm = () => {
     }
   };
 
-  const navigateToLink = (link) => {
-    history.push(link);
-  };
+  // const navigateToLink = (link) => {
+  //   history.push(link);
+  // };
 
   const textFields = (
     <>
@@ -160,7 +160,7 @@ const ProfileEditForm = () => {
             </Form.Group>
             <div className="d-md-none">{textFields}</div>
 
-            <div>
+            {/* <div>
               <Button
                 className={`${btnStyles.Button} ${btnStyles.Blue}`}
                 onClick={() => navigateToLink("/dogprofiles/create")}
@@ -191,7 +191,7 @@ const ProfileEditForm = () => {
                 <i className="fas fa-dog"></i>
                 Add your doggy dangers now!
               </Button>
-            </div>
+            </div> */}
           </Container>
         </Col>
         <Col md={5} lg={6} className="d-none d-md-block p-0 p-md-2 text-center">

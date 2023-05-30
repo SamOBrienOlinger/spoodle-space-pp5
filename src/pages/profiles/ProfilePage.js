@@ -17,7 +17,7 @@ import styles from "../../styles/ProfilePage.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import PopularProfiles from "./PopularProfiles";
-import DogProfilePage from "../dogprofiles/DogProfilePage";
+// import DogProfilePage from "../dogprofiles/DogProfilePage";
 // import DogProfileEditForm from "../dogprofiles/DogProfileEditForm";
 
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
@@ -168,7 +168,40 @@ function ProfilePage() {
 
               {mainProfile}
 
-                          <div class="links-container">
+
+              {/* <div className={styles["links-container"]}> */}
+
+              <div className="links-container">
+                  <Link
+                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}`}
+                  >
+                    <i className="fas fa-dog purple-icon"></i>
+                    <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
+                  </Link>
+                  
+                  <Link
+                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}/doghealthpage`}
+                  >
+                    <i className="fas fa-dog"></i>
+                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy health details</p>
+                  </Link>
+                  
+                  <Link
+                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                    activeClassName={styles.Active}
+                    to={`/dogprofiles/${id}/dogdangerpage`}
+                  >
+                    <i className="fas fa-dog"></i>
+                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy danger details</p>
+                  </Link>
+              </div>
+
+
+                {/* <div className="links-container">
 
                   <Col>
                   <Link
@@ -203,7 +236,7 @@ function ProfilePage() {
                   </Link>
                   </Col>
                 
-                </div>
+                </div> */}
 
 
               {mainProfilePosts}

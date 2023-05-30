@@ -19,7 +19,7 @@ import { fetchMoreData } from "../../utils/utils";
 // import DogProfiles from "../dogprofiles/DogProfilesPage";
 import PopularProfiles from "../profiles/PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+// import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function DogProfilesPage({ message, filter = "" }) {
   const [dogprofiles, setDogProfiles] = useState({ results: [] });
@@ -34,6 +34,7 @@ function DogProfilesPage({ message, filter = "" }) {
     const fetchDogProfiles = async () => {
       try {
         const { data } = await axiosReq.get(`/dogprofiles/?${filter}search=${query}`);
+        console.info(`url /dogprofiles/?${filter}search=${query}}`);
         setDogProfiles(data);
         setHasLoaded(true);
       } catch (err) {        
@@ -69,13 +70,13 @@ function DogProfilesPage({ message, filter = "" }) {
           />
         </Form>
 
-        <Link
+        {/* <Link
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/dogprofiles/create"
       >
       <i className="far fa-plus-square"></i><i className="fas fa-dog"></i>Create your Doggy Profiles
-      </Link>
+      </Link> */}
 
         {hasLoaded ? (
           <>
@@ -110,4 +111,4 @@ function DogProfilesPage({ message, filter = "" }) {
   );
 }
 
-export default DogProfilesPage;;
+export default DogProfilesPage;
