@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
-import InfiniteScroll from "react-infinite-scroll-component";
-import NoResults from "../../assets/no-results.png";
-import { axiosReq } from "../../api/axiosDefaults";
+
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+
 import Asset from "../../components/Asset";
-import { ProfileEditDropdown } from "../../components/MoreDropdown";
-import Post from "../posts/Post";
-import { fetchMoreData } from "../../utils/utils";
+
+import styles from "../../styles/ProfilePage.module.css";
+import appStyles from "../../App.module.css";
+import btnStyles from "../../styles/Button.module.css";
+
+import PopularProfiles from "./PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useParams } from "react-router";
+import { axiosReq } from "../../api/axiosDefaults";
 import {
   useProfileData,
   useSetProfileData,
 } from "../../contexts/ProfileDataContext";
-import styles from "../../styles/ProfilePage.module.css";
-import appStyles from "../../App.module.css";
-import btnStyles from "../../styles/Button.module.css";
-import PopularProfiles from "./PopularProfiles";
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Post from "../posts/Post";
+import { fetchMoreData } from "../../utils/utils";
+import NoResults from "../../assets/no-results.png";
+import { ProfileEditDropdown } from "../../components/MoreDropdown";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfilePage() {
@@ -33,54 +41,31 @@ function ProfilePage() {
   const is_owner = currentUser?.username === profile?.owner;
 
   useEffect(() => {
-    let isMounted = true;
-
     const fetchData = async () => {
       try {
-        const [
-          { data: pageProfile },
-          { data: profilePosts },
-        ] = await Promise.all([
-          axiosReq.get(`/profiles/${id}/`),
-          axiosReq.get(`/posts/?owner__profile=${id}`),
-          // axiosReq.get(`/dogprofiles/${id}/`),
-
-        ]);
-
-        if (isMounted) {
-          setProfileData((prevState) => ({
-            ...prevState,
-            pageProfile: { results: [pageProfile] },
-          }));
-          setProfilePosts(profilePosts);
-          setHasLoaded(true);
-        }
-      } catch (err) {
+        const [{ data: pageProfile }, { data: profilePosts }] =
+          await Promise.all([
+            axiosReq.get(`/profiles/${id}/`),
+            axiosReq.get(`/posts/?owner__profile=${id}`),
+          ]);
         setProfileData((prevState) => ({
           ...prevState,
           pageProfile: { results: [pageProfile] },
         }));
         setProfilePosts(profilePosts);
         setHasLoaded(true);
-
-        // console.info(`user posts: ${JSON.stringify(profilePosts)}`);
+      } catch (err) {
         // console.log(err);
       }
     };
-
     fetchData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [id, profilePosts, setProfileData]);
+  }, [id, setProfileData]);
 
   const mainProfile = (
     <>
       {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
       <Row noGutters className="px-3 text-center">
         <Col lg={3} className="text-lg-left">
-          <h3>{profile?.image}</h3>
           <Image
             className={styles.ProfileImage}
             roundedCircle
@@ -169,7 +154,7 @@ function ProfilePage() {
               <div className="links-container">
                   <Link
                     className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-                    activeClassName={styles.Active}
+                    activeclassname={styles.Active}
                     to={`/dogprofiles/${id}`}
                   >
                     <i className="fas fa-dog purple-icon"></i>
@@ -178,7 +163,7 @@ function ProfilePage() {
                   
                   <Link
                     className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-                    activeClassName={styles.Active}
+                    activeclassname={styles.Active}
                     to={`/dogprofiles/${id}/doghealthpage`}
                   >
                     <i className="fas fa-dog"></i>
@@ -187,7 +172,7 @@ function ProfilePage() {
                   
                   <Link
                     className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-                    activeClassName={styles.Active}
+                    activeclassname={styles.Active}
                     to={`/dogprofiles/${id}/dogdangerpage`}
                   >
                     <i className="fas fa-dog"></i>
@@ -201,7 +186,7 @@ function ProfilePage() {
                   <Col>
                   <Link
                     className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-                    activeClassName={styles.Active}
+                    activeclassname={styles.Active}
                     to={`/dogprofiles/${id}`}
                   >
                     <i className="fas fa-dog purple-icon"></i>
@@ -212,7 +197,7 @@ function ProfilePage() {
                   <Col>
                   <Link
                     className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-                    activeClassName={styles.Active}
+                    activeclassname={styles.Active}
                     to={`/dogprofiles/${id}/doghealthpage`}
                   >
                     <i className="fas fa-dog"></i>
@@ -223,7 +208,7 @@ function ProfilePage() {
                   <Col>
                   <Link
                     className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-                    activeClassName={styles.Active}
+                    activeclassname={styles.Active}
                     to={`/dogprofiles/${id}/dogdangerpage`}
                   >
                     <i className="fas fa-dog"></i>
