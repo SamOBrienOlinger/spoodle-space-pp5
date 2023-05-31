@@ -50,11 +50,11 @@ body {
   justify-content: space-between;
 } */
 
-.links-container {
+/* .links-container {
   display: flex;
   flex-wrap: wrap;
   background-color: #dadadf;
-}
+} */
 
 .link {
   flex: 1;
