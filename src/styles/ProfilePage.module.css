@@ -1,4 +1,9 @@
-  #profile-text-center {
+ /* .links-container {
+  display: flex;
+  justify-content: space-between;
+} */
+ 
+ #profile-text-center {
     color: black;
   }
   
