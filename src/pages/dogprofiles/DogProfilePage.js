@@ -40,7 +40,7 @@ function DogProfilePage() {
             <p>Bio: {dogProfile.dog_bio}</p>
           </div>
         ) : (
-          <Asset src={NoResults} message={`No dog profile found for ID ${id}`} />
+          <Asset src={NoResults} message={`No dog profile found for {profile?.owner} ${id}`} />
         )
       ) : (
         <Asset spinner />
