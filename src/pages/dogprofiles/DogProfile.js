@@ -62,7 +62,8 @@ const DogProfile = (props) => {
       </Card.Body>
 
       <Link to={`/dogprofiles/${id}`}>
-        <Card.Img class="card_image" src={dog_profile_image} alt={dog_name} />
+        {/* <Card.Img class="card_image" src={dog_profile_image} alt={dog_name} /> */}
+        <Card.Img src={dog_profile_image} alt={dog_name} />
       </Link>
 
       <Card.Body>

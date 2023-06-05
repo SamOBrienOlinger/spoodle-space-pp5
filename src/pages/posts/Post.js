@@ -81,10 +81,23 @@ const Post = (props) => {
     <Card className={styles.Post}>
       <Card.Body>
         <Media className="align-items-center justify-content-between">
+          {currentUser && (
           <Link to={`/profiles/${profile_id}`}>
             <Avatar src={profile_image} height={55} />
             {owner}
           </Link>
+          )}
+          {!currentUser && (
+            <OverlayTrigger
+            placement="bottom"
+            overlay={<Tooltip>Sign in or Sign up to view and create doggy profiles!</Tooltip>}
+          >  
+              <Link to={`/`}>
+                <Avatar src={profile_image} height={55} />
+                {owner}
+              </Link>
+            </OverlayTrigger>
+          )}
           <div className="d-flex align-items-center">
             <span>{updated_at}</span>
             {is_owner && postPage && (

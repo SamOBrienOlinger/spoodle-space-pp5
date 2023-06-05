@@ -100,7 +100,7 @@ const NavBar = () => {
     <>
       <OverlayTrigger
           placement="bottom"
-          overlay={<Tooltip>Sign in or Sign up to view and create doggy profiles!</Tooltip>}
+          overlay={<Tooltip>Sign in or Sign up to view more!</Tooltip>}
         >  
       <NavLink
         className={styles.NavLink}

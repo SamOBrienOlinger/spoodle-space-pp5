@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import Button from "react-bootstrap/Button";
 import { useSetProfileData } from "../../contexts/ProfileDataContext";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const Profile = (props) => {
   const { profile, mobile, imageSize = 55 } = props;
@@ -21,9 +23,21 @@ const Profile = (props) => {
       className={`my-3 d-flex align-items-center ${mobile && "flex-column"}`}
     >
       <div>
+      {currentUser && (
         <Link className="align-self-center" to={`/profiles/${id}`}>
           <Avatar src={image} height={imageSize} />
         </Link>
+      )}
+      {!currentUser && (
+        <OverlayTrigger
+        placement="bottom"
+        overlay={<Tooltip>Sign in or Sign up to view more!</Tooltip>}
+      > 
+        <Link className="align-self-center" to={`/`}>
+          <Avatar src={image} height={imageSize} />
+        </Link>
+        </OverlayTrigger>
+      )}
       </div>
       <div className={`mx-2 ${styles.WordBreak}`}>
         <strong>{owner}</strong>

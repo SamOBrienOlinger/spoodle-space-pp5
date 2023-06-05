@@ -88,7 +88,7 @@ const DogProfileEditForm = () => {
     formData.append("dog_age", dog_age);
     formData.append("dog_color", dog_color);
     formData.append("dog_bio", dog_bio);
-    formData.append("dog_profile image", imageInput.current.files[0]);
+    // formData.append("dog_profile image", imageInput.current.files[0]);
 
     if (imageInput?.current?.files[0]) {
       formData.append("dog_profile_image", imageInput.current.files[0]);
@@ -96,7 +96,7 @@ const DogProfileEditForm = () => {
 
     try {
       await axiosReq.put(`/dogprofiles/${id}/`, formData);
-      history.push(`/posts/${id}`);
+      history.push(`/dogprofiles/${id}`);
     } catch (err) {
       // console.log(err);
       if (err.response?.status !== 401) {

@@ -16,10 +16,8 @@ import { axiosReq } from "../../api/axiosDefaults";
 import NoResults from "../../assets/no-results.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
-// import DogProfiles from "../dogprofiles/DogProfilesPage";
 import PopularProfiles from "../profiles/PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-// import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function DogProfilesPage({ message, filter = "" }) {
   const [dogprofiles, setDogProfiles] = useState({ results: [] });
@@ -72,17 +70,9 @@ function DogProfilesPage({ message, filter = "" }) {
           />
         </Form>
 
-        {/* <Link
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/dogprofiles/create"
-      >
-      <i className="far fa-plus-square"></i><i className="fas fa-dog"></i>Create your Doggy Profiles
-      </Link> */}
-
         {hasLoaded ? (
           <>
-            {/* {posts?.results?.length ? ( */}
+            {/* {dogprofiles?.results?.length ? ( */}
             {dogprofiles.results.length ? (
               <InfiniteScroll
                 children={dogprofiles.results.map((dogprofile) => (
