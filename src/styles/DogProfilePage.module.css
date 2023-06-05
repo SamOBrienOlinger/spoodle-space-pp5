@@ -1,7 +1,7 @@
-/* .links-container {
+.linksContainer {
   display: flex;
   justify-content: space-between;
-} */
+}
 
 .DogProfileImage {
     object-fit: cover;

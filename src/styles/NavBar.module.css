@@ -1,7 +1,11 @@
-/* .NavBar {
+.NavBar {
     background-color: #ffffff;
-    border: 1px solid #dadadf;
-  } */
+    /* border: 1px solid #dadadf; */
+    padding-top: 0.1rem;
+    padding-right: 1rem;
+    padding-bottom: 0.1rem;
+    padding-left: 1rem;
+  }
 
   .NavLink {
     padding: 5px;

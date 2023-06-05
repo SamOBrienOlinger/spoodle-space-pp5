@@ -1,10 +1,10 @@
- /* .links-container {
+ #linksContainer {
   display: flex;
   justify-content: space-between;
-} */
+}
  
- #profile-text-center {
-    color: black;
+ #ProfilePostsHeading{
+    color: #7112ee;
   }
   
   .ProfileImage {
