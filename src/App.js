@@ -116,17 +116,17 @@ function App() {
 
           <Route exact path="/dogprofiles/create" render={() => <DogProfileCreateForm />} />
           <Route exact path="/dogprofiles/:id" render={() => <DogProfilePage />} />
-          <Route exact path="/dogprofiles/:id" render={() => <DogProfilesPage />} />
+          <Route exact path="/dogprofiles/" render={() => <DogProfilesPage />} />
           <Route exact path="/dogprofiles/:id/edit" render={() => <DogProfileEditForm />} />
 
           <Route exact path="/doghealth/create" render={() => <DogHealthCreateForm />} />
           <Route exact path="/doghealth/:id/" render={() => <DogHealthPage />} />
-          {/* <Route exact path="/doghealth/:id" render={() => <DogsHealthPage />} /> */}
+          <Route exact path="/doghealth/" render={() => <DogsHealthPage />} />
           <Route exact path="/doghealth/:id/edit" render={() => <DogHealthEditForm />} />
 
           <Route exact path="/dogdanger/create" render={() => <DogDangerCreateForm />} />
           <Route exact path="/dogdanger/:id" render={() => <DogDangerPage />} />
-          {/* <Route exact path="/dogdangers/:id" render={() => <DogDangersPage />} /> */}
+          <Route exact path="/dogdangers/" render={() => <DogDangersPage />} />
           <Route exact path="/dogdanger/:id/edit" render={() => <DogDangerEditForm />} />
           
           <Route
