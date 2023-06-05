@@ -30,12 +30,6 @@ const DogDanger = (props) => {
         bites_kids,
         bites_teenagers,
         bites_burglars,
-        bites_bolsonaro,
-        bites_trump,
-        bites_thatcher,
-        bites_reagan,
-        bites_bush,
-        bites_wbush,
         dangerously_cute,
       } = props;
 
@@ -99,24 +93,6 @@ const DogDanger = (props) => {
            
         {bites_burglars && <Card.Title className="text-center">{}</Card.Title>}
         {bites_burglars && <Card.Text>{bites_burglars}</Card.Text>}  
-      
-        {bites_trump && <Card.Title className="text-center">{}</Card.Title>}
-        {bites_trump && <Card.Text>{bites_trump}</Card.Text>}
-
-        {bites_bolsonaro && <Card.Title className="text-center">{bites_bolsonaro}</Card.Title>}
-        {bites_bolsonaro && <Card.Text>{bites_bolsonaro}</Card.Text>}
-
-        {bites_thatcher && <Card.Title className="text-center">{bites_thatcher}</Card.Title>}
-        {bites_thatcher && <Card.Text>{bites_thatcher}</Card.Text>}
-        
-        {bites_reagan && <Card.Title className="text-center">{bites_reagan}</Card.Title>}
-        {bites_reagan && <Card.Text>{bites_reagan}</Card.Text>}
-
-        {bites_bush && <Card.Title className="text-center">{bites_wbush}</Card.Title>}
-        {bites_bush && <Card.Text>{bites_bush}</Card.Text>}
-
-        {bites_wbush && <Card.Title className="text-center">{bites_wbush}</Card.Title>}
-        {bites_wbush && <Card.Text>{bites_wbush}</Card.Text>}
 
         {dangerously_cute && <Card.Title className="text-center">{dangerously_cute}</Card.Title>}
         {dangerously_cute && <Card.Text>{dangerously_cute}</Card.Text>}

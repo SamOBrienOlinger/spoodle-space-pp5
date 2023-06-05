@@ -24,15 +24,9 @@ function DogDangerCreateForm() {
     bites_kids: "",
     bites_teenagers: "",
     bites_burglars: "",
-    bites_bolsonaro: "",
-    bites_trump: "",
-    bites_thatcher: "",
-    bites_reagan: "",
-    bites_bush: "",
-    bites_wbush: "",
     dangerously_cute: "",
   });
-  const {bites_babies, bites_kids, bites_teenagers, bites_burglars, bites_bolsonaro, bites_trump, bites_thatcher, bites_reagan, bites_bush, bites_wbush, dangerously_cute } = dogdangerData;
+  const {bites_babies, bites_kids, bites_teenagers, bites_burglars, dangerously_cute } = dogdangerData;
 
   const history = useHistory();
 
@@ -51,12 +45,6 @@ function DogDangerCreateForm() {
     formData.append("bites_kids", bites_kids);
     formData.append("bites_teenagers", bites_teenagers)
     formData.append("bites_burglars", bites_burglars)
-    formData.append("bites_bolsonaro", bites_bolsonaro)
-    formData.append("bites_trump", bites_trump)
-    formData.append("bites_thatcher", bites_thatcher)
-    formData.append("bites_reagan", bites_reagan)
-    formData.append("bites_bush", bites_bush)
-    formData.append("bites_wbush", bites_wbush)
     formData.append("dangerously_cute", dangerously_cute)
     try {
       const { data } = await axiosReq.post("/dogdangers/", formData);
@@ -125,102 +113,6 @@ function DogDangerCreateForm() {
           rows={6}
           name="bites_burglars"
           value={bites_burglars}
-          onChange={handleChange}
-        />
-      </Form.Group>
-      {errors?.content?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Label>Bites Bolsonaro?</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={6}
-          name="bites_bolsonaro"
-          value={bites_bolsonaro}
-          onChange={handleChange}
-        />
-      </Form.Group>
-      {errors?.content?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Label>Bites Trump?</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={6}
-          name="bites_trump"
-          value={bites_trump}
-          onChange={handleChange}
-        />
-      </Form.Group>
-      {errors?.content?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Label>Bites Thatcher?</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={6}
-          name="bites_thatcher"
-          value={bites_thatcher}
-          onChange={handleChange}
-        />
-      </Form.Group>
-      {errors?.content?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Label>Bites Reagan?</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={6}
-          name="bites_reagan"
-          value={bites_reagan}
-          onChange={handleChange}
-        />
-      </Form.Group>
-      {errors?.content?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Label>Bites Bush?</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={6}
-          name="bites_bush"
-          value={bites_bush}
-          onChange={handleChange}
-        />
-      </Form.Group>
-      {errors?.content?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Label>Bites W.Bush?</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={6}
-          name="bites_wbush"
-          value={bites_wbush}
           onChange={handleChange}
         />
       </Form.Group>
