@@ -17,7 +17,6 @@ const PopularProfiles = ({ mobile }) => {
       }`}
     >
       {popularProfiles.results.length ? (
-      // {popularProfiles?.results?.length ? (
         <>
           <p className={styles.MostPopularProfiles}>Most Followed SpoodleSpacers</p>
           {mobile ? (

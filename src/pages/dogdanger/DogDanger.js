@@ -14,30 +14,26 @@ const DogDanger = (props) => {
   const {
         owner,
         id,
+
         updated_at,
         
         profile_id,
         profile_image,
-
-        // dog_profile_id,
         dog_profile_image,
-
         dog_name,
-
-        dogDangerPage,
-
+        
         bites_babies,
         bites_kids,
         bites_teenagers,
         bites_burglars,
         dangerously_cute,
+        
+        dogDangerPage,
       } = props;
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
-
-  // const { handleEdit, handleDelete } = setDogProfiles();
   
   const handleEdit = () => {
     history.push(`/dogdanger/${id}/edit`);

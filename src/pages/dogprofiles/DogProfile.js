@@ -12,7 +12,7 @@ const DogProfile = (props) => {
   const {
     id,
     owner,
-    profile_id,
+    owner_id,
     profile_image,
     dog_name,
     dog_age,
@@ -21,6 +21,7 @@ const DogProfile = (props) => {
     dog_profile_image,
     updated_at,
     dogProfilePage,
+    profile_id, // Included profile_id here to try avoid duplication on custom pages.
   } = props;
 
   const currentUser = useCurrentUser();
@@ -45,7 +46,7 @@ const DogProfile = (props) => {
     <Card className={styles.DogProfile}>
       <Card.Body>
         <Media className="align-items-center justify-content-between">
-          <Link to={`/profiles/${profile_id}`}>
+          <Link to={`/profiles/${owner_id}`}>
             <Avatar src={profile_image} height={55} />
             {owner}
           </Link>
@@ -55,6 +56,7 @@ const DogProfile = (props) => {
               <MoreDropdown
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
+                profile_id={profile_id}
               />
             )}
           </div>
@@ -62,21 +64,20 @@ const DogProfile = (props) => {
       </Card.Body>
 
       <Link to={`/dogprofiles/${id}`}>
-        {/* <Card.Img class="card_image" src={dog_profile_image} alt={dog_name} /> */}
         <Card.Img src={dog_profile_image} alt={dog_name} />
       </Link>
 
       <Card.Body>
-        {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
+        {dog_name && <Card.Title className="text-center">Dog Name</Card.Title>}
         {dog_name && <Card.Text>{dog_name}</Card.Text>}
 
-        {dog_age && <Card.Title className="text-center">{dog_age}</Card.Title>}
+        {dog_age && <Card.Title className="text-center">Dog Age</Card.Title>}
         {dog_age && <Card.Text>{dog_age}</Card.Text>}
 
-        {dog_color && <Card.Title className="text-center">{dog_color}</Card.Title>}
+        {dog_color && <Card.Title className="text-center">Dog Color</Card.Title>}
         {dog_color && <Card.Text>{dog_color}</Card.Text>}
 
-        {dog_bio && <Card.Title className="text-center">{dog_bio}</Card.Title>}
+        {dog_bio && <Card.Title className="text-center">Dog Bio</Card.Title>}
         {dog_bio && <Card.Text>{dog_bio}</Card.Text>}
       </Card.Body>
     </Card>

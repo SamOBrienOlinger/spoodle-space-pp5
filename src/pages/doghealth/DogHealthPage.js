@@ -1,63 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
-import Asset from "../../components/Asset";
+import { useParams } from "react-router";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
 import appStyles from "../../App.module.css";
-import NoResults from "../../assets/no-results.png";
 import { axiosReq } from "../../api/axiosDefaults";
-import { Card } from "react-bootstrap";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import PopularProfiles from "../profiles/PopularProfiles";
+import NoResults from "../../components/NotFound";
+import DogHealth from "./DogHealth";
 
 function DogHealthPage() {
   const { id } = useParams();
   const [dogHealth, setDogHealth] = useState(null);
-  const [hasLoaded, setHasLoaded] = useState(false);
+  const currentUser = useCurrentUser();
 
   useEffect(() => {
     const fetchDogHealth = async () => {
       try {
-        const { data } = await axiosReq.get(`/dogHealths/${id}/`);
+        const { data } = await axiosReq.get(`/doghealth/${id}/`);
+        console.info(`Hello here's the User's Doggy Health details${JSON.stringify(data)}`);
         setDogHealth(data);
-        setHasLoaded(true);
       } catch (error) {
-        console.error(error);
+        console.error(`no profile? ${JSON.stringify(currentUser)} == ${id}`);
       }
     };
 
     fetchDogHealth();
-  }, [id]);
+  }, [id, currentUser]);
 
   return (
-    <div className={appStyles.Content}>
-      {hasLoaded ? (
-        dogHealth ? (
-          <div>
-            <h1>{dogHealth.dog_name}</h1>
-              
-              {/* <img src={dogHealth.dog_Health_image} alt={dogHealth.dog_name} />  */}
-              
-              <Card.Img src={dogHealth.dog_Health_image} alt={dogHealth.dog_name} />
+    <Row className="h-100">
+      <Col className="py-2 p-0 p-lg-2" lg={8}>
+        <PopularProfiles mobile />
 
-              <p>Age: {dogHealth.dog_age}</p>
-              <p>Color: {dogHealth.dog_color}</p>
-              <p>Bio: {dogHealth.dog_bio}</p>
-          </div>
+        {dogHealth ? (
+          <DogHealth {...dogHealth} setDogHealth={setDogHealth} dogHealthPage />
         ) : (
-          <Asset src={NoResults} message={`No dog Health found for ID ${id}`} />
-        )
-      ) : (
-        <Asset spinner />
-      )}
-    </div>
+          <NoResults message={`No results found, the doggy's health details do not exist.`} />
+        )}
+
+        <Container className={appStyles.Content}>
+          {dogHealth?.profile_id && (
+            <DogHealth profile_id={currentUser.profile_id} dogHealth={id} />
+          )}
+        </Container>
+      </Col>
+      <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
+        <PopularProfiles />
+      </Col>
+    </Row>
   );
 }
 
 export default DogHealthPage;
 
-
-// import React from "react";
-
-// function DogHealthPage() {
-//     return <p className="text-center">hello dog world</p>;
-//   }
-  
-//   export default DogHealthPage;

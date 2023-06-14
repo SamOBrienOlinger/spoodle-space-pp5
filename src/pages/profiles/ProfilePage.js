@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-
 import Asset from "../../components/Asset";
-
 import styles from "../../styles/ProfilePage.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-
 import PopularProfiles from "./PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useParams } from "react-router";
@@ -21,13 +17,11 @@ import {
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import InfiniteScroll from "react-infinite-scroll-component";
-
 import Post from "../posts/Post";
 import { fetchMoreData } from "../../utils/utils";
 import NoResults from "../../assets/no-results.png";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 function ProfilePage() {
@@ -115,77 +109,7 @@ function ProfilePage() {
       </Row>
     </>
   );
-
-
-  // const iconsOverlay = (
-  //   <>
-  //     {profile?.following_id ? (
-  //       <div id={styles.linksContainer}>
-  //         <Link
-  //           className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-  //           activeclassname={styles.Active}
-  //           to={`/dogprofiles/${id}`}
-  //         >
-  //           <i className="fas fa-dog purple-icon"></i>
-  //           <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
-  //         </Link>
-  
-  //         <Link
-  //           className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-  //           activeclassname={styles.Active}
-  //           to={`/dogprofiles/${id}/doghealthpage`}
-  //         >
-  //           <i className="fas fa-dog"></i>
-  //           <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy health details</p>
-  //         </Link>
-  
-  //         <Link
-  //           className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-  //           activeclassname={styles.Active}
-  //           to={`/dogprofiles/${id}/dogdangerpage`}
-  //         >
-  //           <i className="fas fa-dog"></i>
-  //           <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy danger details</p>
-  //         </Link>
-  //       </div>
-  //     ) : (
-  //       <OverlayTrigger
-  //         placement="bottom"
-  //         overlay={<Tooltip>You must follow another Cockapooper to view their Doggy details</Tooltip>}
-  //       >
-  //         <div id={styles.linksContainer}>
-  //           <Link
-  //             className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-  //             activeclassname={styles.Active}
-  //             to={`/dogprofiles/${id}`}
-  //           >
-  //             <i className="fas fa-dog purple-icon"></i>
-  //             <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
-  //           </Link>
-  
-  //           <Link
-  //             className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-  //             activeclassname={styles.Active}
-  //             to={`/dogprofiles/${id}/doghealthpage`}
-  //           >
-  //             <i className="fas fa-dog"></i>
-  //             <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy health details</p>
-  //           </Link>
-  
-  //           <Link
-  //             className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-  //             activeclassname={styles.Active}
-  //             to={`/dogprofiles/${id}/dogdangerpage`}
-  //           >
-  //             <i className="fas fa-dog"></i>
-  //             <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>{profile?.owner}'s doggy danger details</p>
-  //           </Link>
-  //         </div>
-  //       </OverlayTrigger>
-  //     )}
-  //   </>
-  // );
-  
+ 
 
   const mainProfilePosts = (
     <>
@@ -224,48 +148,217 @@ function ProfilePage() {
         <Container className={appStyles.Content}>
           {hasLoaded ? (
             <>
-            
+              {mainProfile}
 
-            {mainProfile}
+            <Container>
+              <div>
+                {(profile?.following_id || is_owner) && (
+                  <div id={styles.linksContainer}>
+                    {profile.dog_profile && (
+                      <Link
+                        className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                        activeClassName={styles.Active}
+                        to={`/dogprofiles/${profile.dog_profile}`}
+                      >
+                        <i className="fas fa-dog purple-icon" />
+                        <p className={styles.ButtonText}>{profile?.owner}'s doggy profile details</p>
+                      </Link>
+                    )}
+
+                    {!profile.dog_profile && is_owner && (
+                      <Link
+                        className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                        activeClassName={styles.Active}
+                        to={`/dogprofiles/create`}
+                      >
+                        <i className="fas fa-dog" />
+                        <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>
+                          {profile?.owner}, Create your doggy profile now 
+                        </p>
+                      </Link>
+                    )}
+
+                    {profile.dog_health && (
+                      <Link
+                        className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                        activeClassName={styles.Active}
+                        to={`/doghealth/${profile.dog_health}`}
+                      >
+                        <i className="fas fa-dog purple-icon" />
+                        <p className={styles.ButtonText}>{profile?.owner}'s doggy health details</p>
+                      </Link>
+                    )}
+
+                    {!profile.dog_health && is_owner && (
+                      <Link
+                        className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                        activeClassName={styles.Active}
+                        to={`/doghealth/create`}
+                      >
+                        <i className="fas fa-dog" />
+                        <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>
+                          {profile?.owner}, Create your doggy health details now 
+                        </p>
+                      </Link>
+                    )}
+
+                    {profile.dog_danger && (
+                      <Link
+                        className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                        activeClassName={styles.Active}
+                        to={`/dogdanger/${profile.dog_danger}`}
+                      >
+                        <i className="fas fa-dog purple-icon" />
+                        <p className={styles.ButtonText}>{profile?.owner}'s doggy danger details</p>
+                      </Link>
+                    )}
+
+                    {!profile.dog_danger && is_owner && (
+                      <Link
+                        className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                        activeClassName={styles.Active}
+                        to={`/dogdanger/create`}
+                      >
+                        <i className="fas fa-dog" />
+                        <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>
+                          {profile?.owner}, Create your Doggy Danger details now 
+                        </p>
+                      </Link>
+                    )}
+                  </div>
+                )}
+
+                {!profile?.following_id && !is_owner && (
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={<Tooltip>You must follow another Cockapooper to view their Doggy details</Tooltip>}
+                  >
+                    <div id={styles.linksContainer}>
+                      {profile.dog_profile && (
+                      <span
+                        className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                      >
+                        <i className="fas fa-dog purple-icon" />
+                        <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
+                      </span>
+                      )}
+                      {profile.dog_health && (
+                      <span
+                        className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                      >
+                        <i className="fas fa-dog" />
+                        <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>
+                          {profile?.owner}'s doggy health details
+                        </p>
+                      </span>)}
+                      {profile.dog_danger && (
+                      <span
+                        className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                      >
+                        <i className="fas fa-dog" />
+                        <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>
+                          {profile?.owner}'s doggy danger details
+                        </p>
+                      </span>)}
+                    </div>
+                  </OverlayTrigger>
+                )}
+              </div>
+            </Container>
 
 
-              <Container>
+
+
+
+
+
+              {/* <Container>
 
                 <div>
 
-              {profile?.following_id || is_owner ? (
-                <div id={styles.linksContainer}>
-                  <Link
-                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-                    activeClassName={styles.Active}
-                    to={`/dogprofiles/${id}`}
-                  >
-                    <i className="fas fa-dog purple-icon" />
-                    <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
-                  </Link>
+                  {profile?.following_id || is_owner ? (
+                    <div id={styles.linksContainer}>
+                      {profile.dog_profile && (
+                        <Link
+                          className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                          activeClassName={styles.Active}
+                          to={`/dogprofiles/${profile.dog_profile}`}
+                      >
+                        <i className="fas fa-dog purple-icon" />
+                        <p className={styles.ButtonText}>{profile?.owner}'s doggy profile details</p>
+                      </Link>
 
-                  <Link
-                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-                    activeClassName={styles.Active}
-                    to={`/dogprofiles/${id}/doghealthpage`}
-                  >
-                    <i className="fas fa-dog" />
-                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>
-                      {profile?.owner}'s doggy health details
-                    </p>
-                  </Link>
+                      )}
 
-                  <Link
-                    className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
-                    activeClassName={styles.Active}
-                    to={`/dogprofiles/${id}/dogdangerpage`}
-                  >
-                    <i className="fas fa-dog" />
-                    <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>
-                      {profile?.owner}'s doggy danger details
-                    </p>
-                  </Link>
-                </div>
+                      {!profile.dog_profile && is_owner && (
+                        <Link
+                          className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                          activeClassName={styles.Active}
+                          to={`/dogprofiles/create`}
+                      >
+                        <i className="fas fa-dog" />
+                        <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>
+                          {profile?.owner}, Create your doggy profile now 
+                        </p>
+                      </Link>
+    
+                      )}
+
+
+                      {profile.dog_health && (
+                        <Link
+                          className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                          activeClassName={styles.Active}
+                          to={`/doghealth/${profile.dog_health}`}
+                      >
+                        <i className="fas fa-dog purple-icon" />
+                        <p className={styles.ButtonText}>{profile?.owner}'s doggy health details</p>
+                      </Link>
+
+                      )}
+
+                      {!profile.dog_health && is_owner && (
+                        <Link
+                          className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                          activeClassName={styles.Active}
+                          to={`/doghealth/create`}
+                      >
+                        <i className="fas fa-dog" />
+                        <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>
+                          {profile?.owner}, Create your doggy health details now 
+                        </p>
+                      </Link>
+    
+                      )}
+
+
+                      {profile.dog_danger && (
+                        <Link
+                          className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                          activeClassName={styles.Active}
+                          to={`/dogdanger/${profile.dog_danger}`}
+                      >
+                        <i className="fas fa-dog purple-icon" />
+                        <p className={styles.ButtonText}>{profile?.owner}'s doggy profile</p>
+                      </Link>
+
+                      )}
+
+                      {!profile.dog_danger && is_owner && (
+                        <Link
+                          className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                          activeClassName={styles.Active}
+                          to={`/dogdanger/create`}
+                      >
+                        <i className="fas fa-dog" />
+                        <p className={`${btnStyles.ButtonText} ${styles.ButtonText}`}>
+                          {profile?.owner}, Create your Doggy Danger details now 
+                        </p>
+                      </Link>
+    
+                      )}
+              </div>
+
               ) : (
                 <OverlayTrigger
                   placement="bottom"
@@ -299,11 +392,14 @@ function ProfilePage() {
                   </div>
                 </OverlayTrigger>
               )
-            }
+            
 
-                </div>
+            }      
+            </div>
+              
 
-              </Container>
+
+              </Container> */}
 
 
         
@@ -321,6 +417,8 @@ function ProfilePage() {
       </Col>
     </Row>
   </>
+  
 );
 }
+
 export default ProfilePage;

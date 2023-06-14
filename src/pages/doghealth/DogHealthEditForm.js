@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
-import Image from "react-bootstrap/Image";
 import styles from "../../styles/DogHealthCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
@@ -15,24 +14,45 @@ import { axiosReq } from "../../api/axiosDefaults";
 function DogHealthEditForm() {
   const [errors, setErrors] = useState({});
 
-  const [doghealthData, setDogHealthData] = useState({
-    title: "",
-    content: "",
-    image: "",
+  const [dogHealthData, setDogHealthData] = useState({
+    vet_name: "",
+    vet_phone: "",
+    vet_email: "",
+    kennel_cough: "",
+    rabies: "",
+    allergies: "",
   });
-  const { title, content, image } = doghealthData;
+  const {     
+    vet_name,
+    vet_phone,
+    vet_email,
+    kennel_cough,
+    rabies,
+    allergies, } = dogHealthData;
 
-  const imageInput = useRef(null);
   const history = useHistory();
   const { id } = useParams();
 
   useEffect(() => {
     const handleMount = async () => {
       try {
-        const { data } = await axiosReq.get(`/DogHealths/${id}/`);
-        const { title, content, image, is_owner } = data;
+        const { data } = await axiosReq.get(`/doghealth/${id}/`);
+        const { 
+          vet_name,
+          vet_phone,
+          vet_email,
+          kennel_cough,
+          rabies,
+          allergies,
+          is_owner } = data;
 
-        is_owner ? setDogHealthData({ title, content, image }) : history.push("/");
+        is_owner ? setDogHealthData({    
+          vet_name,
+          vet_phone,
+          vet_email,
+          kennel_cough,
+          rabies,
+          allergies,}) : history.push("/");
       } catch (err) {
         // console.log(err);
       }
@@ -43,31 +63,21 @@ function DogHealthEditForm() {
 
   const handleChange = (event) => {
     setDogHealthData({
-      ...doghealthData,
+      ...dogHealthData,
       [event.target.name]: event.target.value,
     });
-  };
-
-  const handleChangeImage = (event) => {
-    if (event.target.files.length) {
-      URL.revokeObjectURL(image);
-      setDogHealthData({
-        ...doghealthData,
-        image: URL.createObjectURL(event.target.files[0]),
-      });
-    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
 
-    formData.append("title", title);
-    formData.append("content", content);
-
-    if (imageInput?.current?.files[0]) {
-      formData.append("image", imageInput.current.files[0]);
-    }
+    formData.append("vet_name", vet_name);
+    formData.append("vet_phone", vet_phone);
+    formData.append("vet_email", vet_email);
+    formData.append("kennel_cough", kennel_cough);
+    formData.append("rabies", rabies);
+    formData.append("allergies", allergies);
 
     try {
       await axiosReq.put(`/doghealth/${id}/`, formData);
@@ -82,32 +92,95 @@ function DogHealthEditForm() {
 
   const textFields = (
     <div className="text-center">
-      <Form.Group>
-        <Form.Label>Title</Form.Label>
-        <Form.Control
+       <Form.Group>
+         <Form.Label>Vet Name</Form.Label>
+         <Form.Control
           type="text"
-          name="title"
-          value={title}
+          name="vet_name"
+          value={vet_name}
           onChange={handleChange}
         />
       </Form.Group>
-      {errors?.title?.map((message, idx) => (
+      {errors?.vet_name?.map((message, idx) => (
         <Alert variant="warning" key={idx}>
           {message}
         </Alert>
       ))}
 
       <Form.Group>
-        <Form.Label>Content</Form.Label>
+        <Form.Label>Vet Phone</Form.Label>
         <Form.Control
           as="textarea"
           rows={6}
-          name="content"
-          value={content}
+          name="vet_phone"
+          value={vet_phone}
           onChange={handleChange}
         />
       </Form.Group>
-      {errors?.content?.map((message, idx) => (
+      {errors?.vet_phone?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Vet Email</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="vet_email"
+          value={vet_email}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.vet_email?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Kennel Cough</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="kennel_cough"
+          value={kennel_cough}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.kennel_cough?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+<Form.Group>
+         <Form.Label>Rabies</Form.Label>
+         <Form.Control
+          type="text"
+          name="rabies"
+          value={rabies}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.rabies?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+
+<Form.Group>
+         <Form.Label>Allergies</Form.Label>
+         <Form.Control
+          type="text"
+          name="allergies"
+          value={allergies}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.allergies?.map((message, idx) => (
         <Alert variant="warning" key={idx}>
           {message}
         </Alert>
@@ -132,32 +205,6 @@ function DogHealthEditForm() {
           <Container
             className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
           >
-            <Form.Group className="text-center">
-              <figure>
-                <Image className={appStyles.Image} src={image} rounded />
-              </figure>
-              <div>
-                <Form.Label
-                  className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
-                  htmlFor="image-upload"
-                >
-                  Change the image
-                </Form.Label>
-              </div>
-
-              <Form.File
-                id="image-upload"
-                accept="image/*"
-                onChange={handleChangeImage}
-                ref={imageInput}
-              />
-            </Form.Group>
-            {errors?.image?.map((message, idx) => (
-              <Alert variant="warning" key={idx}>
-                {message}
-              </Alert>
-            ))}
-
             <div className="d-md-none">{textFields}</div>
           </Container>
         </Col>

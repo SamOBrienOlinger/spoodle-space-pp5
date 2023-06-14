@@ -141,7 +141,6 @@ function DogProfileCreateForm() {
       <Button
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
         onClick={() => history.goBack()}
-        // type="submit"
       >
         cancel
       </Button>

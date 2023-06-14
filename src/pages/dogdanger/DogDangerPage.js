@@ -1,87 +1,49 @@
 import React, { useEffect, useState } from "react";
-
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-
 import appStyles from "../../App.module.css";
 import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
-
-import Comment from "../comments/Comment";
-
-import CommentCreateForm from "../comments/CommentCreateForm";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-
-import InfiniteScroll from "react-infinite-scroll-component";
-import Asset from "../../components/Asset";
-import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
-
+import NoResults from "../../components/NotFound";
 import DogDanger from "./DogDanger";
 
 
 function DogDangerPage() {
   const { id } = useParams();
-  const [dogdanger, setDogDanger] = useState({ results: [] });
-
+  const [dogDanger, setDogDanger] = useState(null);
   const currentUser = useCurrentUser();
-  const profile_image = currentUser?.profile_image;
-  const [comments, setComments] = useState({ results: [] });
 
   useEffect(() => {
-    const handleMount = async () => {
+    const fetchDogDanger = async () => {
       try {
-        const [{ data: dogdanger }, { data: comments }] = await Promise.all([
-          axiosReq.get(`/dogdanger/${id}`),
-          axiosReq.get(`/comments/?dogdanger=${id}`),
-        ]);
-        setDogDanger({ results: [dogdanger] });
-        setComments(comments);
-      } catch (err) {
-        // console.log(err);
+        const { data } = await axiosReq.get(`/dogdanger/${id}`);
+        console.info(`Hello here's the User's Doggy Danger details Page${JSON.stringify(data)}`);
+        setDogDanger(data);
+      } catch (error) {
+        console.error(`no profile? ${JSON.stringify(currentUser)} == ${id}`);
       }
     };
 
-    handleMount();
-  }, [id]);
+    fetchDogDanger();
+  }, [id, currentUser]);
 
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <PopularProfiles mobile />
-        <DogDanger {...dogdanger.results[0]} setDogDangers={setDogDanger} dogDangerPage />
+
+        {dogDanger ? (
+          <DogDanger {...dogDanger} setDogDanger={setDogDanger} dogDangerPage />
+        ) : (
+          <NoResults message={`No results found, the doggy's danger details do not exist.`} />
+        )}
+
         <Container className={appStyles.Content}>
-          {currentUser ? (
-            <CommentCreateForm
-              profile_id={currentUser.profile_id}
-              profileImage={profile_image}
-              dogdanger={id}
-              setDogdanger={setDogDanger}
-              setComments={setComments}
-            />
-          ) : comments.results.length ? (
-            "Comments"
-          ) : null}
-          {comments.results.length ? (
-            <InfiniteScroll
-              children={comments.results.map((comment) => (
-                <Comment
-                  key={comment.id}
-                  {...comment}
-                  setDogdanger={setDogDanger}
-                  setComments={setComments}
-                />
-              ))}
-              dataLength={comments.results.length}
-              loader={<Asset spinner />}
-              hasMore={!!comments.next}
-              next={() => fetchMoreData(comments, setComments)}
-            />
-          ) : currentUser ? (
-            <span>No comments yet, be the first to comment!</span>
-          ) : (
-            <span>No comments... yet</span>
+          {dogDanger?.profile_id && (
+            <DogDanger profile_id={currentUser.profile_id} dogdanger={id} />
           )}
         </Container>
       </Col>

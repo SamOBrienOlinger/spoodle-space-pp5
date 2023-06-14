@@ -1,38 +1,40 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
+import { axiosReq } from "../../api/axiosDefaults";
+import { useRedirect } from "../../hooks/useRedirect";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
-
-// import Asset from "../../components/Asset";
-
-import styles from "../../styles/PostCreateEditForm.module.css";
+import styles from "../../styles/DogProfileCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import { useHistory } from "react-router";
-import { axiosReq } from "../../api/axiosDefaults";
-import { useRedirect } from "../../hooks/useRedirect";
 
 function DogDangerCreateForm() {
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
 
-  const [dogdangerData, setDogDangerData] = useState({
+  const [dogDangerData, setDogDangerData] = useState({
     bites_babies: "",
     bites_kids: "",
     bites_teenagers: "",
     bites_burglars: "",
     dangerously_cute: "",
   });
-  const {bites_babies, bites_kids, bites_teenagers, bites_burglars, dangerously_cute } = dogdangerData;
+  const {
+    bites_babies, 
+    bites_kids, 
+    bites_teenagers, 
+    bites_burglars, 
+    dangerously_cute } = dogDangerData;
 
   const history = useHistory();
 
   const handleChange = (event) => {
     setDogDangerData({
-      ...dogdangerData,
+      ...dogDangerData,
       [event.target.name]: event.target.value,
     });
   };
@@ -47,8 +49,8 @@ function DogDangerCreateForm() {
     formData.append("bites_burglars", bites_burglars)
     formData.append("dangerously_cute", dangerously_cute)
     try {
-      const { data } = await axiosReq.post("/dogdangers/", formData);
-      history.push(`/dogdangers/${data.id}`);
+      const { data } = await axiosReq.post("/dogdanger/", formData);
+      history.push(`/dogdanger/${data.id}`);
     } catch (err) {
       // console.log(err);
       if (err.response?.status !== 401) {
