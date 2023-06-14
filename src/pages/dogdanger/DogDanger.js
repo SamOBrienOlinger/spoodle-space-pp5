@@ -78,19 +78,19 @@ const DogDanger = (props) => {
 
       <Card.Body>  
         
-        {bites_babies && <Card.Title className="text-center">{}</Card.Title>}
+        {bites_babies && <Card.Title className="text-center">Bites Babies?</Card.Title>}
         {bites_babies && <Card.Text>{bites_babies}</Card.Text>}
 
-        {bites_kids && <Card.Title className="text-center">{}</Card.Title>}
+        {bites_kids && <Card.Title className="text-center">Bites Kids?</Card.Title>}
         {bites_kids && <Card.Text>{bites_kids}</Card.Text>}
         
-        {bites_teenagers && <Card.Title className="text-center">{}</Card.Title>}
+        {bites_teenagers && <Card.Title className="text-center">Bites Teenagers?</Card.Title>}
         {bites_teenagers && <Card.Text>{bites_teenagers}</Card.Text>}
            
-        {bites_burglars && <Card.Title className="text-center">{}</Card.Title>}
+        {bites_burglars && <Card.Title className="text-center">Bites Burglars?</Card.Title>}
         {bites_burglars && <Card.Text>{bites_burglars}</Card.Text>}  
 
-        {dangerously_cute && <Card.Title className="text-center">{dangerously_cute}</Card.Title>}
+        {dangerously_cute && <Card.Title className="text-center">Dangeroulsy Cute?</Card.Title>}
         {dangerously_cute && <Card.Text>{dangerously_cute}</Card.Text>}
         
         </Card.Body>
