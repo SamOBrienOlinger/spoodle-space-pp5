@@ -21,7 +21,7 @@ const DogProfile = (props) => {
     dog_profile_image,
     updated_at,
     dogProfilePage,
-    profile_id, // Included profile_id here to try avoid duplication on custom pages.
+    profile_id,
   } = props;
 
   const currentUser = useCurrentUser();
