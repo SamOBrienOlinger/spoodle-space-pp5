@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/DogProfile.module.css";
+import styles from "../../styles/DogDanger.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 import { Link, useHistory } from "react-router-dom";
@@ -60,8 +60,11 @@ const DogDanger = (props) => {
            <Avatar src={profile_image} height={55} />
           {owner}
         </Link>
-          <div className="my-3 d-flex align-items-center">
-            <span><i className="fas fa-dog"></i>Doggy Danger</span>
+        <div className={`d-flex align-items-center ${styles.iconText}`}>
+          <span>
+              <i className="fas fa-dog"></i>
+              Doggy Danger
+            </span>
             <span>{updated_at}</span>
             {is_owner && dogDangerPage && (
               <MoreDropdown

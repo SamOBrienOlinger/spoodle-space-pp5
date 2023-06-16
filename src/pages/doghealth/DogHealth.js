@@ -56,8 +56,11 @@ const DogHealth = (props) => {
             <Avatar src={profile_image} height={55} />
             {owner}
           </Link>
-          <div className="d-flex align-items-center">
-            <span><i className="fas fa-dog"></i>Doggy Health</span>
+          <div className={`d-flex align-items-center ${styles.iconText}`}>
+          <span>
+              <i className="fas fa-dog"></i>
+              Doggy Health
+            </span>
             <span>{updated_at}</span>
             {is_owner && dogHealthPage && (
               <MoreDropdown 
