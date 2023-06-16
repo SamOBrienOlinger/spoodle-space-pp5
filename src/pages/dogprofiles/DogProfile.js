@@ -51,6 +51,7 @@ const DogProfile = (props) => {
             {owner}
           </Link>
           <div className="d-flex align-items-center">
+            <span><i className="fas fa-dog"></i>Doggy profiles </span>
             <span>{updated_at}</span>
             {is_owner && dogProfilePage && (
               <MoreDropdown

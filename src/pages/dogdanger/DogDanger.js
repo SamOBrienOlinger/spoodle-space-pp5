@@ -61,6 +61,7 @@ const DogDanger = (props) => {
           {owner}
         </Link>
           <div className="my-3 d-flex align-items-center">
+            <span><i className="fas fa-dog"></i>Doggy Danger</span>
             <span>{updated_at}</span>
             {is_owner && dogDangerPage && (
               <MoreDropdown

@@ -57,6 +57,7 @@ const DogHealth = (props) => {
             {owner}
           </Link>
           <div className="d-flex align-items-center">
+            <span><i className="fas fa-dog"></i>Doggy Health</span>
             <span>{updated_at}</span>
             {is_owner && dogHealthPage && (
               <MoreDropdown 
