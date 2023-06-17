@@ -12,24 +12,26 @@ import { MoreDropdown } from "../../components/MoreDropdown";
 
 const DogDanger = (props) => {
   const {
-        owner,
-        id,
-
-        updated_at,
-        
-        profile_id,
-        profile_image,
-        dog_profile_image,
-        dog_name,
-        
-        bites_babies,
-        bites_kids,
-        bites_teenagers,
-        bites_burglars,
-        dangerously_cute,
-        
-        dogDangerPage,
-      } = props;
+    id,
+    owner,
+    owner_id,
+    
+    profile_id,
+    profile_image,
+    
+    updated_at,
+          
+    dog_profile_image,
+    
+    dog_name,
+    bites_babies,
+    bites_kids,
+    bites_teenagers,
+    bites_burglars,
+    dangerously_cute,
+    
+    dogDangerPage,
+  } = props;
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
@@ -50,13 +52,10 @@ const DogDanger = (props) => {
 
 
   return (
-    <Card className={styles.dogDanger}>
+    <Card className={styles.DogDanger}>
       <Card.Body>
         <Media className="align-items-center justify-content-between">
-        {/* <Link to={`/dogprofiles/${dog_profile_id}`}>
-           <Avatar src={dog_profile_image} height={55} /> */}
-
-           <Link to={`/profiles/${profile_id}`}>
+           <Link to={`/profiles/${owner_id}`}>
            <Avatar src={profile_image} height={55} />
           {owner}
         </Link>
@@ -70,6 +69,7 @@ const DogDanger = (props) => {
               <MoreDropdown
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
+                profile_id={profile_id}
               />
             )}
           </div>
@@ -77,10 +77,13 @@ const DogDanger = (props) => {
       </Card.Body>
 
       <Link to={`/dogdanger/${id}`}>
-        <Card.Img class="card_image" src={dog_profile_image} alt={dog_name} />
+        <Card.Img className="card_image" src={dog_profile_image} alt={dog_name} />
       </Link>
 
-      <Card.Body>  
+      <Card.Body>
+
+        {dog_name && <Card.Title className="text-center">Dog Name</Card.Title>}
+        {dog_name && <Card.Text>{dog_name}</Card.Text>} 
         
         {bites_babies && <Card.Title className="text-center">Bites Babies?</Card.Title>}
         {bites_babies && <Card.Text>{bites_babies}</Card.Text>}

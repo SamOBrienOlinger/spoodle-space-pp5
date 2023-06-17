@@ -13,15 +13,20 @@ const DogProfile = (props) => {
     id,
     owner,
     owner_id,
+    
+    profile_id,
     profile_image,
+    
+    updated_at,
+    
+    dog_profile_image,
+    
     dog_name,
     dog_age,
     dog_color,
     dog_bio,
-    dog_profile_image,
-    updated_at,
+    
     dogProfilePage,
-    profile_id,
   } = props;
 
   const currentUser = useCurrentUser();

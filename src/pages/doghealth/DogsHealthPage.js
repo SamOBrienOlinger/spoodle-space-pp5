@@ -69,8 +69,8 @@ function DogsHealthPage({ message, filter = "" }) {
           <>
             {doghealth.results.length ? (
               <InfiniteScroll
-                children={doghealth.results.map((health) => (
-                  <DogHealth key={doghealth.id} {...health} setDogProfiles={setDogsHealth} />
+                children={doghealth.results.map((doghealth) => (
+                  <DogHealth key={doghealth.id} {...doghealth} setDogProfiles={setDogsHealth} />
                 ))}
                 dataLength={doghealth.results.length}
                 loader={<Asset spinner />}

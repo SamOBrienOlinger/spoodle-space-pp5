@@ -78,6 +78,10 @@ const DogHealth = (props) => {
       </Link>
 
       <Card.Body>
+        {dog_name && <Card.Title className="text-center">Dog Name</Card.Title>}
+        {dog_name && <Card.Text>{dog_name}</Card.Text>}
+
+
         {vet_name && <Card.Title className="text-center">Vet Name</Card.Title>}
         {vet_name && <Card.Text>{vet_name}</Card.Text>}
 
