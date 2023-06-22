@@ -185,6 +185,8 @@ Heroku was used to deploy this project by the following these steps:
 
     - [VS Code](https://code.visualstudio.com/)
     - [GitHub](https://github.com/)
+    - [ElephantSQL](https://customer.elephantsql.com/)
+    - [Heroku](https://dashboard.heroku.com)
 
 
 
