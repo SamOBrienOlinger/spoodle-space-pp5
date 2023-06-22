@@ -12,7 +12,6 @@ import btnStyles from "../../styles/Button.module.css";
 import { useHistory, useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 
-
 const DogProfileEditForm = () => {
   const [errors, setErrors] = useState({});
 
@@ -24,12 +23,8 @@ const DogProfileEditForm = () => {
     dog_profile_image: "",
   });
 
-  const { 
-    dog_name, 
-    dog_age, 
-    dog_color, 
-    dog_bio, 
-    dog_profile_image, } = dogProfileData;
+  const { dog_name, dog_age, dog_color, dog_bio, dog_profile_image } =
+    dogProfileData;
 
   const imageInput = useRef(null);
   const history = useHistory();
@@ -37,28 +32,30 @@ const DogProfileEditForm = () => {
 
   useEffect(() => {
     const handleMount = async () => {
-        try {
-          const { data } = await axiosReq.get(`/dogprofiles/${id}/`);
-          const { 
-            dog_name, 
-            dog_age, 
-            dog_color, 
-            dog_bio, 
-            dog_profile_image,
-            is_owner } = data;
+      try {
+        const { data } = await axiosReq.get(`/dogprofiles/${id}/`);
+        const {
+          dog_name,
+          dog_age,
+          dog_color,
+          dog_bio,
+          dog_profile_image,
+          is_owner,
+        } = data;
 
-          is_owner ? setDogProfileData({ 
-            
-            dog_name, 
-            dog_age, 
-            dog_color, 
-            dog_bio, 
-            dog_profile_image, 
-          }) : history.push("/");
-        } catch (err) {
+        is_owner
+          ? setDogProfileData({
+              dog_name,
+              dog_age,
+              dog_color,
+              dog_bio,
+              dog_profile_image,
+            })
+          : history.push("/");
+      } catch (err) {
         // console.log(err);
-        }
-  };
+      }
+    };
 
     handleMount();
   }, [history, id]);
@@ -180,20 +177,24 @@ const DogProfileEditForm = () => {
       <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
         save
       </Button>
-  </>
-);
+    </>
+  );
 
   return (
     <Form onSubmit={handleSubmit}>
       <Row>
         <Col className="py-2 p-0 p-md-2 text-center" md={7} lg={6}>
-          <Container 
-          className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
+          <Container
+            className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
           >
             <Form.Group>
-                <figure>
-                  <Image className={appStyles.Image} src={dog_profile_image} fluid />
-                </figure>
+              <figure>
+                <Image
+                  className={appStyles.Image}
+                  src={dog_profile_image}
+                  fluid
+                />
+              </figure>
               <div>
                 <Form.Label
                   className={`${btnStyles.Button} ${btnStyles.Blue} btn my-auto`}
@@ -225,6 +226,6 @@ const DogProfileEditForm = () => {
       </Row>
     </Form>
   );
-}
+};
 
 export default DogProfileEditForm;

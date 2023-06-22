@@ -32,8 +32,7 @@ function DogsHealthPage({ message, filter = "" }) {
         console.info(`url /doghealth/?${filter}search=${query}}`);
         setDogsHealth(data);
         setHasLoaded(true);
-      } catch (err) {        
-      }
+      } catch (err) {}
     };
 
     setHasLoaded(false);
@@ -45,7 +44,6 @@ function DogsHealthPage({ message, filter = "" }) {
       clearTimeout(timer);
     };
   }, [filter, query, pathname, currentUser]);
-
 
   return (
     <Row className="h-100">
@@ -61,7 +59,7 @@ function DogsHealthPage({ message, filter = "" }) {
             onChange={(event) => setQuery(event.target.value)}
             type="text"
             className="mr-sm-2"
-            placeholder="Search Doggy Health details"
+            placeholder="Search Doggy Health details by Spoodlers' Name or Vet's Name"
           />
         </Form>
 
@@ -70,7 +68,11 @@ function DogsHealthPage({ message, filter = "" }) {
             {doghealth.results.length ? (
               <InfiniteScroll
                 children={doghealth.results.map((doghealth) => (
-                  <DogHealth key={doghealth.id} {...doghealth} setDogProfiles={setDogsHealth} />
+                  <DogHealth
+                    key={doghealth.id}
+                    {...doghealth}
+                    setDogsHealth={setDogsHealth}
+                  />
                 ))}
                 dataLength={doghealth.results.length}
                 loader={<Asset spinner />}
@@ -88,7 +90,6 @@ function DogsHealthPage({ message, filter = "" }) {
             <Asset spinner />
           </Container>
         )}
-
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
         <PopularProfiles />

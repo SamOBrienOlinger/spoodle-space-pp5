@@ -10,7 +10,6 @@ import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
 import { MoreDropdown } from "../../components/MoreDropdown";
 
-
 const Post = (props) => {
   const {
     id,
@@ -82,16 +81,20 @@ const Post = (props) => {
       <Card.Body>
         <Media className="align-items-center justify-content-between">
           {currentUser && (
-          <Link to={`/profiles/${profile_id}`}>
-            <Avatar src={profile_image} height={55} />
-            {owner}
-          </Link>
+            <Link to={`/profiles/${profile_id}`}>
+              <Avatar src={profile_image} height={55} />
+              {owner}
+            </Link>
           )}
           {!currentUser && (
             <OverlayTrigger
-            placement="bottom"
-            overlay={<Tooltip>Sign in or Sign up to view and create doggy profiles!</Tooltip>}
-          >  
+              placement="bottom"
+              overlay={
+                <Tooltip>
+                  Sign in or Sign up to view and create doggy profiles!
+                </Tooltip>
+              }
+            >
               <Link to={`/`}>
                 <Avatar src={profile_image} height={55} />
                 {owner}
@@ -115,7 +118,7 @@ const Post = (props) => {
       <Card.Body>
         {title && <Card.Title className="text-center">{title}</Card.Title>}
         {content && <Card.Text>{content}</Card.Text>}
-        
+
         <div className={styles.PostBar}>
           {is_owner ? (
             <OverlayTrigger
@@ -142,8 +145,14 @@ const Post = (props) => {
           )}
           {likes_count}
           <Link to={`/posts/${id}`}>
-            <i className="far fa-comments" />
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Log in to leave a comment!</Tooltip>}
+            >
+              <i className="far fa-comments" />
+            </OverlayTrigger>
           </Link>
+
           {comments_count}
         </div>
       </Card.Body>

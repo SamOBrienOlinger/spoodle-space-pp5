@@ -16,28 +16,28 @@ const Profile = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
 
-  const { handleFollow, handleUnfollow } = useSetProfileData();	
+  const { handleFollow, handleUnfollow } = useSetProfileData();
 
   return (
     <div
       className={`my-3 d-flex align-items-center ${mobile && "flex-column"}`}
     >
       <div>
-      {currentUser && (
-        <Link className="align-self-center" to={`/profiles/${id}`}>
-          <Avatar src={image} height={imageSize} />
-        </Link>
-      )}
-      {!currentUser && (
-        <OverlayTrigger
-        placement="bottom"
-        overlay={<Tooltip>Sign in or Sign up to view more!</Tooltip>}
-      > 
-        <Link className="align-self-center" to={`/`}>
-          <Avatar src={image} height={imageSize} />
-        </Link>
-        </OverlayTrigger>
-      )}
+        {currentUser && (
+          <Link className="align-self-center" to={`/profiles/${id}`}>
+            <Avatar src={image} height={imageSize} />
+          </Link>
+        )}
+        {!currentUser && (
+          <OverlayTrigger
+            placement="bottom"
+            overlay={<Tooltip>Sign in or Sign up to view more!</Tooltip>}
+          >
+            <Link className="align-self-center" to={`/`}>
+              <Avatar src={image} height={imageSize} />
+            </Link>
+          </OverlayTrigger>
+        )}
       </div>
       <div className={`mx-2 ${styles.WordBreak}`}>
         <strong>{owner}</strong>

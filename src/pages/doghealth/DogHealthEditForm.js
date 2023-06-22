@@ -22,13 +22,8 @@ function DogHealthEditForm() {
     rabies: "",
     allergies: "",
   });
-  const {     
-    vet_name,
-    vet_phone,
-    vet_email,
-    kennel_cough,
-    rabies,
-    allergies, } = dogHealthData;
+  const { vet_name, vet_phone, vet_email, kennel_cough, rabies, allergies } =
+    dogHealthData;
 
   const history = useHistory();
   const { id } = useParams();
@@ -37,22 +32,26 @@ function DogHealthEditForm() {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/doghealth/${id}/`);
-        const { 
+        const {
           vet_name,
           vet_phone,
           vet_email,
           kennel_cough,
           rabies,
           allergies,
-          is_owner } = data;
+          is_owner,
+        } = data;
 
-        is_owner ? setDogHealthData({    
-          vet_name,
-          vet_phone,
-          vet_email,
-          kennel_cough,
-          rabies,
-          allergies,}) : history.push("/");
+        is_owner
+          ? setDogHealthData({
+              vet_name,
+              vet_phone,
+              vet_email,
+              kennel_cough,
+              rabies,
+              allergies,
+            })
+          : history.push("/");
       } catch (err) {
         // console.log(err);
       }
@@ -92,9 +91,9 @@ function DogHealthEditForm() {
 
   const textFields = (
     <div className="text-center">
-       <Form.Group>
-         <Form.Label>Vet Name</Form.Label>
-         <Form.Control
+      <Form.Group>
+        <Form.Label>Vet Name</Form.Label>
+        <Form.Control
           type="text"
           name="vet_name"
           value={vet_name}
@@ -155,9 +154,9 @@ function DogHealthEditForm() {
         </Alert>
       ))}
 
-<Form.Group>
-         <Form.Label>Rabies</Form.Label>
-         <Form.Control
+      <Form.Group>
+        <Form.Label>Rabies</Form.Label>
+        <Form.Control
           type="text"
           name="rabies"
           value={rabies}
@@ -170,10 +169,9 @@ function DogHealthEditForm() {
         </Alert>
       ))}
 
-
-<Form.Group>
-         <Form.Label>Allergies</Form.Label>
-         <Form.Control
+      <Form.Group>
+        <Form.Label>Allergies</Form.Label>
+        <Form.Control
           type="text"
           name="allergies"
           value={allergies}
@@ -200,16 +198,20 @@ function DogHealthEditForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <div className={`d-flex align-items-center ${styles.iconText}`}>
+        <span>
+          <i className="fas fa-dog"></i>
+          Doggy Health
+        </span>
+      </div>
       <Row>
         <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
-          <Container
-            className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
-          >
-            <div className="d-md-none">{textFields}</div>
-          </Container>
+          <div className="d-md-none">{textFields}</div>
         </Col>
         <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
-          <Container className={appStyles.Content}>{textFields}</Container>
+          <Container className={`Container ${appStyles.Content}`}>
+            {textFields}
+          </Container>
         </Col>
       </Row>
     </Form>

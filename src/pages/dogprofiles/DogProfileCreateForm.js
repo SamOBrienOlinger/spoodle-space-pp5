@@ -19,19 +19,15 @@ function DogProfileCreateForm() {
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
 
-  const [dogProfileData, setDogProfileData] = useState({  
+  const [dogProfileData, setDogProfileData] = useState({
     dog_name: "",
     dog_age: "",
     dog_color: "",
     dog_bio: "",
     dog_profile_image: "",
   });
-  const { 
-    dog_name, 
-    dog_age, 
-    dog_color, 
-    dog_bio, 
-    dog_profile_image } = dogProfileData;
+  const { dog_name, dog_age, dog_color, dog_bio, dog_profile_image } =
+    dogProfileData;
 
   const imageInput = useRef(null);
   const history = useHistory();
@@ -75,9 +71,9 @@ function DogProfileCreateForm() {
 
   const textFields = (
     <div className="text-center">
-       <Form.Group>
-         <Form.Label>Dog Name</Form.Label>
-         <Form.Control
+      <Form.Group>
+        <Form.Label>Dog Name</Form.Label>
+        <Form.Control
           type="text"
           name="dog_name"
           value={dog_name}
@@ -153,8 +149,8 @@ function DogProfileCreateForm() {
   return (
     <Form onSubmit={handleSubmit}>
       <Row>
-         <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
-           <Container
+        <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
+          <Container
             className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
           >
             <Form.Group className="text-center">
@@ -162,7 +158,11 @@ function DogProfileCreateForm() {
                 <>
                   <figure>
                     {/* <Image className={appStyles.Image} src={dog_profile_image} rounded /> */}
-                    <Image className={appStyles.Image} src={dog_profile_image} fluid />
+                    <Image
+                      className={appStyles.Image}
+                      src={dog_profile_image}
+                      fluid
+                    />
                   </figure>
                   <div>
                     <Form.Label

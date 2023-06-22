@@ -24,11 +24,12 @@ function DogDangerCreateForm() {
     dangerously_cute: "",
   });
   const {
-    bites_babies, 
-    bites_kids, 
-    bites_teenagers, 
-    bites_burglars, 
-    dangerously_cute } = dogDangerData;
+    bites_babies,
+    bites_kids,
+    bites_teenagers,
+    bites_burglars,
+    dangerously_cute,
+  } = dogDangerData;
 
   const history = useHistory();
 
@@ -45,9 +46,9 @@ function DogDangerCreateForm() {
 
     formData.append("bites_babies", bites_babies);
     formData.append("bites_kids", bites_kids);
-    formData.append("bites_teenagers", bites_teenagers)
-    formData.append("bites_burglars", bites_burglars)
-    formData.append("dangerously_cute", dangerously_cute)
+    formData.append("bites_teenagers", bites_teenagers);
+    formData.append("bites_burglars", bites_burglars);
+    formData.append("dangerously_cute", dangerously_cute);
     try {
       const { data } = await axiosReq.post("/dogdanger/", formData);
       history.push(`/dogdanger/${data.id}`);

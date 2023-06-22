@@ -13,19 +13,19 @@ const DogProfile = (props) => {
     id,
     owner,
     owner_id,
-    
+
     profile_id,
     profile_image,
-    
+
     updated_at,
-    
+
     dog_profile_image,
-    
+
     dog_name,
     dog_age,
     dog_color,
     dog_bio,
-    
+
     dogProfilePage,
   } = props;
 
@@ -46,7 +46,6 @@ const DogProfile = (props) => {
     }
   };
 
-
   return (
     <Card className={styles.DogProfile}>
       <Card.Body>
@@ -55,11 +54,11 @@ const DogProfile = (props) => {
             <Avatar src={profile_image} height={55} />
             {owner}
           </Link>
-          {/* <div className="d-flex align-items-center"> */}
+
           <div className={`d-flex align-items-center ${styles.iconText}`}>
-          <span>
+            <span>
               <i className="fas fa-dog"></i>
-              Doggy Profile
+              <p>Doggy Profile</p>
             </span>
             <span>{updated_at}</span>
             {is_owner && dogProfilePage && (
@@ -79,16 +78,20 @@ const DogProfile = (props) => {
 
       <Card.Body>
         {dog_name && <Card.Title className="text-center">Dog Name</Card.Title>}
-        {dog_name && <Card.Text>{dog_name}</Card.Text>}
+        {dog_name && <Card.Text className="text-center">{dog_name}</Card.Text>}
 
         {dog_age && <Card.Title className="text-center">Dog Age</Card.Title>}
-        {dog_age && <Card.Text>{dog_age}</Card.Text>}
+        {dog_age && <Card.Text className="text-center">{dog_age}</Card.Text>}
 
-        {dog_color && <Card.Title className="text-center">Dog Color</Card.Title>}
-        {dog_color && <Card.Text>{dog_color}</Card.Text>}
+        {dog_color && (
+          <Card.Title className="text-center">Dog Color</Card.Title>
+        )}
+        {dog_color && (
+          <Card.Text className="text-center">{dog_color}</Card.Text>
+        )}
 
         {dog_bio && <Card.Title className="text-center">Dog Bio</Card.Title>}
-        {dog_bio && <Card.Text>{dog_bio}</Card.Text>}
+        {dog_bio && <Card.Text className="text-center">{dog_bio}</Card.Text>}
       </Card.Body>
     </Card>
   );

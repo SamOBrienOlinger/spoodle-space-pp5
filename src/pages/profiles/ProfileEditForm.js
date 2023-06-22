@@ -8,7 +8,10 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import { axiosReq } from "../../api/axiosDefaults";
-import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import {
+  useCurrentUser,
+  useSetCurrentUser,
+} from "../../contexts/CurrentUserContext";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
@@ -82,7 +85,6 @@ const ProfileEditForm = () => {
     }
   };
 
-
   const textFields = (
     <>
       <Form.Group>
@@ -107,10 +109,7 @@ const ProfileEditForm = () => {
       >
         Cancel
       </Button>
-      <Button
-        className={`${btnStyles.Button} ${btnStyles.Blue}`}
-        type="submit"
-      >
+      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
         Save
       </Button>
     </>
@@ -155,7 +154,6 @@ const ProfileEditForm = () => {
               />
             </Form.Group>
             <div className="d-md-none">{textFields}</div>
-
           </Container>
         </Col>
         <Col md={5} lg={6} className="d-none d-md-block p-0 p-md-2 text-center">

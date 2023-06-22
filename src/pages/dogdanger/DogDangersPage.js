@@ -29,12 +29,10 @@ function DogDangersPage({ message, filter = "" }) {
       try {
         const url = `/dogdanger/?search=${query}`;
         const { data } = await axiosReq.get(url);
-        // const { data } = await axiosReq.get(`/dogdanger/?${filter}search=${query}`);
         console.info(`url /dogdanger/?${filter}search=${query}}`);
         setDogDangers(data);
         setHasLoaded(true);
-      } catch (err) {        
-      }
+      } catch (err) {}
     };
 
     setHasLoaded(false);
@@ -46,7 +44,6 @@ function DogDangersPage({ message, filter = "" }) {
       clearTimeout(timer);
     };
   }, [filter, query, pathname, currentUser]);
-
 
   return (
     <Row className="h-100">
@@ -62,17 +59,20 @@ function DogDangersPage({ message, filter = "" }) {
             onChange={(event) => setQuery(event.target.value)}
             type="text"
             className="mr-sm-2"
-            placeholder="Search Doggy Danger Details"
+            placeholder="Search Doggy Danger Details by Spoodlers' Name or if they are Dangerously Cute"
           />
         </Form>
 
         {hasLoaded ? (
           <>
-            {/* {dogdanger?.results?.length ? ( */}
             {dogdanger.results.length ? (
               <InfiniteScroll
                 children={dogdanger.results.map((dogdanger) => (
-                  <DogDanger key={dogdanger.id} {...dogdanger} setdogdanger={setDogDangers} />
+                  <DogDanger
+                    key={dogdanger.id}
+                    {...dogdanger}
+                    setdogdanger={setDogDangers}
+                  />
                 ))}
                 dataLength={dogdanger.results.length}
                 loader={<Asset spinner />}
@@ -90,7 +90,6 @@ function DogDangersPage({ message, filter = "" }) {
             <Asset spinner />
           </Container>
         )}
-
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
         <PopularProfiles />

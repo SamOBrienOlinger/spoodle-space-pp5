@@ -8,7 +8,6 @@ import PopularProfiles from "../profiles/PopularProfiles";
 import NoResults from "../../components/NotFound";
 import DogProfile from "./DogProfile";
 
-
 function DogProfilePage() {
   const { id } = useParams();
   const [dogProfile, setDogProfile] = useState(null);
@@ -18,7 +17,10 @@ function DogProfilePage() {
     const fetchDogProfile = async () => {
       try {
         const { data } = await axiosReq.get(`/dogprofiles/${id}`);
-        console.info(`Hello here's the User's Doggy Profile details${JSON.stringify(data)}`);
+        console.info(
+          `Hello here's the User's Doggy Profile details${JSON.stringify(data)}`
+        );
+        console.log("in set profile");
         setDogProfile(data);
       } catch (error) {
         console.error(`no profile? ${JSON.stringify(currentUser)} == ${id}`);
@@ -34,9 +36,15 @@ function DogProfilePage() {
         <PopularProfiles mobile />
 
         {dogProfile ? (
-          <DogProfile {...dogProfile} setDogProfile={setDogProfile} dogProfilePage />
+          <DogProfile
+            {...dogProfile}
+            setDogProfile={setDogProfile}
+            dogProfilePage
+          />
         ) : (
-          <NoResults message={`No results found, the doggy's profile details do not exist.`} />
+          <NoResults
+            message={`No results found, the doggy's profile details do not exist.`}
+          />
         )}
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">

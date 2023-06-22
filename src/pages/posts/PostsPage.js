@@ -19,7 +19,7 @@ import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-function DogsHealthPage({ message, filter = "" }) {
+function PostsPage({ message, filter = "" }) {
   const [posts, setPosts] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
@@ -51,25 +51,46 @@ function DogsHealthPage({ message, filter = "" }) {
 
   return (
     <Row className="h-100">
+      {!currentUser && (
+        <div id="welcome" className="px-3 text-center">
+          <h1>Welcome to SpoodleSpace</h1>
+          <h4>
+            The most Spoodley & Cockapoopy Space you're ever going to sniff out
+          </h4>
+          <br />
+          <p>
+            Our community is all about sharing ways of enjoying long ludicrous
+            lives with the lovliest little furrballs on Earth, probably in the
+            Universe!
+            <br />
+            Labradoodles, Poodles and everyone also welcome
+          </p>
+        </div>
+      )}
+
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <PopularProfiles mobile />
-        <i className={`fas fa-search ${styles.SearchIcon}`} />
-        <Form
-          className={styles.SearchBar}
-          onSubmit={(event) => event.preventDefault()}
-        >
-          <Form.Control
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            type="text"
-            className="mr-sm-2"
-            placeholder="Search posts"
-          />
-        </Form>
+
+        {currentUser && (
+          <div>
+            <i className={`fas fa-search ${styles.SearchIcon}`} />
+            <Form
+              className={styles.SearchBar}
+              onSubmit={(event) => event.preventDefault()}
+            >
+              <Form.Control
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                type="text"
+                className="mr-sm-2"
+                placeholder="Search for posts by Spoodlers' Name or the Title"
+              />
+            </Form>
+          </div>
+        )}
 
         {hasLoaded ? (
           <>
-            {/* {posts?.results?.length ? ( */}
             {posts.results.length ? (
               <InfiniteScroll
                 children={posts.results.map((post) => (
@@ -99,4 +120,4 @@ function DogsHealthPage({ message, filter = "" }) {
   );
 }
 
-export default DogsHealthPage;
+export default PostsPage;

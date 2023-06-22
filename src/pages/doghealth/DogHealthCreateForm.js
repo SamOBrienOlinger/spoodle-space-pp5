@@ -13,28 +13,20 @@ import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
 function DogHealthCreateForm() {
-  
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
 
-  const [dogHealthData, setDogHealthData] = useState({  
+  const [dogHealthData, setDogHealthData] = useState({
     vet_name: "",
     vet_phone: "",
     vet_email: "",
     kennel_cough: "",
     rabies: "",
-    allergies:"",
+    allergies: "",
   });
-  
-  
-  const {
-    vet_name,
-    vet_phone,
-    vet_email,
-    kennel_cough,
-    rabies,
-    allergies,
-  } = dogHealthData;
+
+  const { vet_name, vet_phone, vet_email, kennel_cough, rabies, allergies } =
+    dogHealthData;
 
   const history = useHistory();
 
@@ -68,9 +60,9 @@ function DogHealthCreateForm() {
 
   const textFields = (
     <div className="text-center">
-       <Form.Group>
-         <Form.Label>Vet Name</Form.Label>
-         <Form.Control
+      <Form.Group>
+        <Form.Label>Vet Name</Form.Label>
+        <Form.Control
           type="text"
           name="vet_name"
           value={vet_name}
@@ -131,9 +123,9 @@ function DogHealthCreateForm() {
         </Alert>
       ))}
 
-<Form.Group>
-         <Form.Label>Rabies</Form.Label>
-         <Form.Control
+      <Form.Group>
+        <Form.Label>Rabies</Form.Label>
+        <Form.Control
           type="text"
           name="rabies"
           value={rabies}
@@ -146,10 +138,9 @@ function DogHealthCreateForm() {
         </Alert>
       ))}
 
-
-<Form.Group>
-         <Form.Label>Allergies</Form.Label>
-         <Form.Control
+      <Form.Group>
+        <Form.Label>Allergies</Form.Label>
+        <Form.Control
           type="text"
           name="allergies"
           value={allergies}
@@ -161,7 +152,6 @@ function DogHealthCreateForm() {
           {message}
         </Alert>
       ))}
-
 
       <Button
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
@@ -178,12 +168,12 @@ function DogHealthCreateForm() {
   return (
     <Form onSubmit={handleSubmit}>
       <Row>
-         {/* <Col className="py-2 p-0 p-md-2" md={7} lg={8}> */}
-           <Container
-            className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
-          >
-            <div className="d-md-none">{textFields}</div>
-          </Container>
+        {/* <Col className="py-2 p-0 p-md-2" md={7} lg={8}> */}
+        <Container
+          className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
+        >
+          <div className="d-md-none">{textFields}</div>
+        </Container>
         {/* </Col> */}
         <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
           <Container className={appStyles.Content}>{textFields}</Container>

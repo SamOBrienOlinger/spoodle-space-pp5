@@ -16,3 +16,20 @@
     cursor: default;
     color: #cfced3;
   }
+
+  #welcome {
+    width: -webkit-fill-available;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    
+    position: sticky;
+    /* position: fixed; */
+    
+    top: 58px;
+    right: 0;
+    left: 0;
+    z-index: 200;
+  }

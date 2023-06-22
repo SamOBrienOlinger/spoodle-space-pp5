@@ -9,54 +9,56 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import Alert from "react-bootstrap/Alert";;
-
+import Alert from "react-bootstrap/Alert";
 
 const DogDangerEditForm = () => {
-    const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
-    const [dogDangerData, setDogDangerData] = useState({
-        bites_babies: "",
-        bites_kids: "",
-        bites_teenagers: "",
-        bites_burglars: "",
-        dangerously_cute: "",
-      });
+  const [dogDangerData, setDogDangerData] = useState({
+    bites_babies: "",
+    bites_kids: "",
+    bites_teenagers: "",
+    bites_burglars: "",
+    dangerously_cute: "",
+  });
 
-    const {
-        bites_babies, 
-        bites_kids, 
-        bites_teenagers, 
-        bites_burglars, 
-        dangerously_cute } = dogDangerData;
+  const {
+    bites_babies,
+    bites_kids,
+    bites_teenagers,
+    bites_burglars,
+    dangerously_cute,
+  } = dogDangerData;
 
-    const history = useHistory();
-    const { id } = useParams();
+  const history = useHistory();
+  const { id } = useParams();
 
-    useEffect(() => {
-        const handleMount = async () => {
-            try {
-              const { data } = await axiosReq.get(`/dogdanger/${id}/`);
-              const { 
-                bites_babies, 
-                bites_kids, 
-                bites_teenagers, 
-                bites_burglars, 
-                dangerously_cute,
-                is_owner } = data;
+  useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const { data } = await axiosReq.get(`/dogdanger/${id}/`);
+        const {
+          bites_babies,
+          bites_kids,
+          bites_teenagers,
+          bites_burglars,
+          dangerously_cute,
+          is_owner,
+        } = data;
 
-            is_owner ? setDogDangerData({
-
-                bites_babies, 
-                bites_kids, 
-                bites_teenagers, 
-                bites_burglars, 
-                dangerously_cute,
-            }) : history.push("/");
-          } catch (err) {
-          // console.log(err);
-          }
-  };
+        is_owner
+          ? setDogDangerData({
+              bites_babies,
+              bites_kids,
+              bites_teenagers,
+              bites_burglars,
+              dangerously_cute,
+            })
+          : history.push("/");
+      } catch (err) {
+        // console.log(err);
+      }
+    };
 
     handleMount();
   }, [history, id]);
@@ -74,18 +76,18 @@ const DogDangerEditForm = () => {
 
     formData.append("bites_babies", bites_babies);
     formData.append("bites_kids", bites_kids);
-    formData.append("bites_teenagers", bites_teenagers)
-    formData.append("bites_burglars", bites_burglars)
-    formData.append("dangerously_cute", dangerously_cute)
+    formData.append("bites_teenagers", bites_teenagers);
+    formData.append("bites_burglars", bites_burglars);
+    formData.append("dangerously_cute", dangerously_cute);
 
     try {
       await axiosReq.put(`/dogdanger/${id}`, formData);
       history.push(`/dogdanger/${id}`);
     } catch (err) {
-       // console.log(err);
-       if (err.response?.status !== 401) {
-          setErrors(err.response?.data);
-       }
+      // console.log(err);
+      if (err.response?.status !== 401) {
+        setErrors(err.response?.data);
+      }
     }
   };
 
@@ -184,13 +186,16 @@ const DogDangerEditForm = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <div className={`d-flex align-items-center ${styles.iconText}`}>
+        <span>
+          <i className="fas fa-dog"></i>
+          Doggy Danger
+        </span>
+      </div>
+
       <Row>
         <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
-          <Container
-            className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
-          >
-            <div className="d-md-none">{textFields}</div>
-          </Container>
+          <div className="d-md-none">{textFields}</div>
         </Col>
         <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
           <Container className={appStyles.Content}>{textFields}</Container>
@@ -198,6 +203,6 @@ const DogDangerEditForm = () => {
       </Row>
     </Form>
   );
-}
+};
 
 export default DogDangerEditForm;
