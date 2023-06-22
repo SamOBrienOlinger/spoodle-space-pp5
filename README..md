@@ -29,18 +29,17 @@ This platform is intended to not only meet the demand for learning and interacti
     - Dog danger details
  - [**Agile Development Process**](#agile-development-process)
 
- - [**Main Features**](#Main-features)
+ - [**Main Features**](#main-features)
 
-  - [**Features for the future**](#future-features)
+ - [**Typography**](#typography)
+
+  - [**Features for the future**](#features-for-the-future)
 
  - [**Testing**](#testing)
 
 - [**Deployment**](#deployment)
 
 - [**Technologies used**](#technologies-used)
-    - [**Languages**](#languages)
-    - [**Libraries, frameworks and dependencies**](#libraries-frameworks-and-dependencies)
-    - [**Development tools and programs**](#development-tools-and-programs)
 
  - [**Credits**](#credits)
 
@@ -124,14 +123,23 @@ This platform is intended to not only meet the demand for learning and interacti
   - Github Projects was used to structure the workflow. 
   - View the Project on Github [**Here**](https://github.com/users/SamOBrienOlinger/projects/3)
 
+### [**Typography**](#typography)
 
-### [**Main Features**](#Main-features)
+- The main font used throughout the project was Lato. 
+
+- These fonts were chosen to remain consistent with previous projects for [**Features for the future**](#features-for-the-future) when they are connected to each other. 
+
+
+
+### [**Main Features**](#main-features)
 
   Each of the goals for every User Stories outlined in detail above were implemented. 
 
-### [**Features for the future**](#future-features)
+### [**Features for the future**](#features-for-the-future)
 
   Features planned for future implementation are:
+
+  - Connecting **[SpoodleSpace](https://home-cockapoo-club-pp4.herokuapp.com)** with **[Cockapoo Club](https://home-cockapoo-club-pp4.herokuapp.com)** to widen the scope of both products and increase sustained engagement for both.    
 
   - Functionality for liking and commenting on user's **dog profile**, **dog health details** and their **dog danger details**. 
 
@@ -144,7 +152,7 @@ Manual testing was carried out to ensure that each of the functionalities descri
 All searchbars, links and buttons functioned as intended; uploading images and so on were all tested and passed.  
 
 
-- [**Deployment**](#deployment)
+### [**Deployment**](#deployment)
 
 Heroku was used to deploy this project by the following these steps:
 
@@ -162,14 +170,14 @@ Heroku was used to deploy this project by the following these steps:
 
 ### [**Technologies used**](#technologies-used)
   
-  - [**Languages**](#languages)
+  - **Languages**
 
     - HTML
     - CSS
     - Javascript
 
   
-  - [**Libraries, frameworks and dependencies**](#libraries-frameworks-and-dependencies)
+  - **Libraries, frameworks and dependencies**
 
     - [React](https://reactjs.org/)
     - [React Router](https://v5.reactrouter.com/web/guides/philosophy)
@@ -181,7 +189,7 @@ Heroku was used to deploy this project by the following these steps:
     - [Prettier](https://prettier.io/)
 
   
-  - [**Development tools and programs**](#development-tools-and-programs)
+  - **Development tools and programs**
 
     - [VS Code](https://code.visualstudio.com/)
     - [GitHub](https://github.com/)
