@@ -38,7 +38,11 @@ const NavBar = () => {
       activeClassName={styles.Active}
       to="/posts/create"
     >
-      <i className="far fa-plus-square"></i>Add post
+      <i className="far fa-plus-square"></i>
+      <div>
+        Add post
+      </div>
+      
     </NavLink>
   );
   const loggedInIcons = (
@@ -48,45 +52,60 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/dogprofilespage"
       >
-      <i className="fas fa-dog"></i>Doggy Profiles
+      <i className="fas fa-dog"></i>
+      <div>
+        Doggy Profiles
+      </div>
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/dogshealthpage"
       >
-      <i className="fas fa-dog"></i>Doggy Health
+      <i className="fas fa-dog"></i>
+      <div>
+        Doggy Health
+      </div>
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/dogdangerspage"
       >
-      <i className="fas fa-dog"></i>Doggy Danger
+      <i className="fas fa-dog"></i>
+      
+      <div>
+        Doggy Danger
+      </div>
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/feed"
       >
-        <i className="fas fa-stream"></i>Feed
+        <i className="fas fa-stream"></i>
+        <div>
+          Feed
+       </div>
+        
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/liked"
       >
-        <i className="fas fa-heart"></i>Liked
+        <i className="fas fa-heart"></i>
+        <div>
+          Liked
+        </div>
+        
       </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
-        <i className="fas fa-sign-out-alt"></i>Sign out
+        <i className="fas fa-sign-out-alt"></i>
+        <div>
+          Sign out
+        </div>
       </NavLink>
-      {/* <NavLink
-        className={styles.NavLink}
-        to={`/profiles/${currentUser?.profile_id}`}
-      >
-        <Avatar src={currentUser?.profile_image} text="Profile" height={40} />
-      </NavLink> */}
       <NavLink
           className={styles.NavLink}
           to={`/profiles/${currentUser?.profile_id}`}
@@ -156,7 +175,11 @@ const NavBar = () => {
               activeClassName={styles.Active}
               to="/"
             >
-              <i className="fas fa-home"></i>Home
+              <i className="fas fa-home"></i>
+              <div>
+                Home
+              </div>
+              
             </NavLink>
 
             {currentUser ? loggedInIcons : loggedOutIcons}

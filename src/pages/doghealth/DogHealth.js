@@ -54,12 +54,12 @@ const DogHealth = (props) => {
             <Avatar src={profile_image} height={55} />
             {owner}
           </Link>
-
+          <span>
+            <i className="fas fa-dog"></i>
+            <p>Doggy Health</p>
+          </span>
           <div className={`d-flex align-items-center ${styles.iconText}`}>
-            <span>
-              <i className="fas fa-dog"></i>
-              <p>Doggy Health</p>
-            </span>
+
 
             <span>{updated_at}</span>
 
