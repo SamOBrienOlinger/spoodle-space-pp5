@@ -45,16 +45,16 @@ body {
   font-family: "Oswald", "sans-serif";
 }
 
-/* .styles.LinkContainer {
+.styles.LinkContainer {
   display: flex;
   justify-content: space-between;
-} */
+}
 
-/* .links-container {
+.links-container {
   display: flex;
   flex-wrap: wrap;
   background-color: #dadadf;
-} */
+}
 
 .link {
   flex: 1;
@@ -104,7 +104,6 @@ figure {
   display: inline-block;
 }
 
-/* scrollbar */
 *::-webkit-scrollbar {
   width: 18px;
 }
