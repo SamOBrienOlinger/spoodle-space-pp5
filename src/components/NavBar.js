@@ -29,6 +29,7 @@ const NavBar = () => {
       setCurrentUser(null);
       removeTokenTimestamp();
     } catch (err) {
+      // console.log(err);
     }
   };
 
@@ -39,10 +40,7 @@ const NavBar = () => {
       to="/posts/create"
     >
       <i className="far fa-plus-square"></i>
-      <div>
-        Add post
-      </div>
-      
+      <div>Add post</div>
     </NavLink>
   );
   const loggedInIcons = (
@@ -52,31 +50,25 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/dogprofilespage"
       >
-      <i className="fas fa-dog"></i>
-      <div>
-        Doggy Profiles
-      </div>
+        <i className="fas fa-dog"></i>
+        <div>Doggy Profiles</div>
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/dogshealthpage"
       >
-      <i className="fas fa-dog"></i>
-      <div>
-        Doggy Health
-      </div>
+        <i className="fas fa-dog"></i>
+        <div>Doggy Health</div>
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/dogdangerspage"
       >
-      <i className="fas fa-dog"></i>
-      
-      <div>
-        Doggy Danger
-      </div>
+        <i className="fas fa-dog"></i>
+
+        <div>Doggy Danger</div>
       </NavLink>
       <NavLink
         className={styles.NavLink}
@@ -84,10 +76,7 @@ const NavBar = () => {
         to="/feed"
       >
         <i className="fas fa-stream"></i>
-        <div>
-          Feed
-       </div>
-        
+        <div>Feed</div>
       </NavLink>
       <NavLink
         className={styles.NavLink}
@@ -95,41 +84,37 @@ const NavBar = () => {
         to="/liked"
       >
         <i className="fas fa-heart"></i>
-        <div>
-          Liked
-        </div>
-        
+        <div>Liked</div>
       </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
         <i className="fas fa-sign-out-alt"></i>
-        <div>
-          Sign out
-        </div>
+        <div>Sign out</div>
       </NavLink>
       <NavLink
-          className={styles.NavLink}
-          to={`/profiles/${currentUser?.profile_id}`}
-        >
-          <Avatar src={currentUser?.profile_image} text={currentUser?.username} height={40} />
-        </NavLink>
-
+        className={styles.NavLink}
+        to={`/profiles/${currentUser?.profile_id}`}
+      >
+        <Avatar
+          src={currentUser?.profile_image}
+          text={currentUser?.username}
+          height={40}
+        />
+      </NavLink>
     </>
   );
   const loggedOutIcons = (
     <>
       <OverlayTrigger
-          placement="bottom"
-          overlay={<Tooltip>Sign in or Sign up to view more!</Tooltip>}
-        >  
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/"
+        placement="bottom"
+        overlay={<Tooltip>Sign in or Sign up to view more!</Tooltip>}
       >
-      
-        <i className="fas fa-dog"></i>Doggy profiles
-           
-      </NavLink>
+        <NavLink
+          className={styles.NavLink}
+          activeClassName={styles.Active}
+          to="/"
+        >
+          <i className="fas fa-dog"></i>Doggy profiles
+        </NavLink>
       </OverlayTrigger>
       <NavLink
         className={styles.NavLink}
@@ -176,10 +161,7 @@ const NavBar = () => {
               to="/"
             >
               <i className="fas fa-home"></i>
-              <div>
-                Home
-              </div>
-              
+              <div>Home</div>
             </NavLink>
 
             {currentUser ? loggedInIcons : loggedOutIcons}
