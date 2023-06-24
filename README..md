@@ -23,17 +23,12 @@ This platform is intended to not only meet the demand for learning and interacti
 ## Contents
 
   - [**User Stories**](#user-stories)
-    - Navigation and authentication
-    - Profile
-    - Posting, liking and commenting on images
-    - Dog profile
-    - Dog health details
-    - Dog danger details
+
  - [**Agile Development Process**](#agile-development-process)
 
- - [**Main Features**](#main-features)
-
  - [**Typography**](#typography)
+ 
+ - [**Main Features**](#main-features)
 
   - [**Features for the future**](#features-for-the-future)
 
@@ -119,6 +114,32 @@ This platform is intended to not only meet the demand for learning and interacti
     -  As a user, I can search for these details with keywords, so that I can find the details and user profiles I am most interested in.
     -  Infinite scroll: As a user I can keep scrolling through the images on the site, that are loaded for me automatically so that I don't have to click on "next page".
 
+    **UX Design**
+
+      Each stage of the UX design process involved revisiting the purpose of the product and reflecting on the goals of every User Story. 
+
+    - Early Stage Mock-Ups 
+
+      ![Early Stage Mock Up 1](src/assets/README-early-stage-ux-design.jfif)
+
+      ![Early Stage Mock Up 2](src/assets/README-early-stage-design-ux.jfif)
+
+      ![Early Stage Mock Up 3](src/assets/README-early-stage-design-ux-logo.jfif)
+
+
+        As the above image of ideas for logos demonstrates, SpoodleSpace is self-aware of it's simple and 'old fashioned' feel, but from the early stages of development, providing a more 'basic' UX was cosnidered a positive attribute.
+
+        At the very beginning, there was almost no consideration given to developing a product that combined the themes of post-nostalgia and post-retro that might result in a UX designed to be “so bad, it’s good”. 
+        
+        A significant amount of the added value this platform offers Users is rooted in how it references older versions of current and obsolete platforms. 
+        
+        In later stages of development it became clearer that the platform could also be interpreted as a parody of contemporary social platforms combining UI and UX for positive effect.
+
+
+    - Front-end Library
+      
+        -  React Bootstrap was chosen as much out of neccesity due to tight timeframe for delivering a MVP, as it was for providing components built from scratch with no unneeded dependencies and is accessible by default.
+
 
 ### [**Agile Development Process**](#agile-development-process)
 
@@ -131,11 +152,12 @@ This platform is intended to not only meet the demand for learning and interacti
 
 - These fonts were chosen to remain consistent with previous projects for [**Features for the future**](#features-for-the-future) when they are connected to each other. 
 
-
-
 ### [**Main Features**](#main-features)
 
-  Each of the goals for every User Stories outlined in detail above were implemented. 
+ - Each of the features and goals for every User Stories outlined in detail above were implemented.
+
+ - The React architecture provided reusable components that I customized, such as the Navbar. The MoreDropDown component was also adapted and applied to each custom model & form.
+
 
 ### [**Features for the future**](#features-for-the-future)
 
