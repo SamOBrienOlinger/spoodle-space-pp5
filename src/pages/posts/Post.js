@@ -145,12 +145,7 @@ const Post = (props) => {
           )}
           {likes_count}
           <Link to={`/posts/${id}`}>
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Log in to leave a comment!</Tooltip>}
-            >
-              <i className="far fa-comments" />
-            </OverlayTrigger>
+            <i className="far fa-comments" />
           </Link>
 
           {comments_count}

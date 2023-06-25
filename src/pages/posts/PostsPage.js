@@ -53,17 +53,15 @@ function PostsPage({ message, filter = "" }) {
     <Row className="h-100">
       {!currentUser && (
         <div id="welcome" className="px-3 text-center">
-          <h1>Welcome to SpoodleSpace</h1>
-          <h4>
-            The most Spoodley & Cockapoopy Space you're ever going to sniff out
-          </h4>
+          <h1 className={styles.Header}>Welcome to SpoodleSpace</h1>
+          <p id="spoodley">The most Spoodley & Cockapoopy Space you're ever going to sniff out</p>
           <br />
           <p>
             Our community is all about sharing ways of enjoying long ludicrous
-            lives with the lovliest little furrballs on Earth, probably in the
+            lives with the lovliest little furrballs on Earth, probably the
             Universe!
             <br />
-            Labradoodles, Poodles and everyone also welcome
+            Labradoodles, Poodles, cavapoos, basically anyone is welcome
           </p>
         </div>
       )}
@@ -72,7 +70,7 @@ function PostsPage({ message, filter = "" }) {
         <PopularProfiles mobile />
 
         {currentUser && (
-          <div>
+          <div id="search">
             <i className={`fas fa-search ${styles.SearchIcon}`} />
             <Form
               className={styles.SearchBar}

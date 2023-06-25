@@ -24,7 +24,7 @@
     margin-right: auto;
     margin-left: auto;
     text-align: center;
-    
+    margin-top: 1rem;    
     position: sticky;
     /* position: fixed; */
     
@@ -32,4 +32,12 @@
     right: 0;
     left: 0;
     z-index: 200;
+  }
+
+  #spoodley {
+    font-size: ;
+  }
+
+  #search {
+    margin-top: 15px;
   }
