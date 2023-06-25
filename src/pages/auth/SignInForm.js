@@ -52,7 +52,7 @@ function SignInForm() {
   };
 
   return (
-    <Row className={styles.Row}>
+    <Row  className={styles.Row}>
       <Col className="my-auto p-0 p-md-2" md={6}>
         <Container className={`${appStyles.Content} p-4 `}>
           <h1 className={styles.Header}>sign in</h1>
@@ -104,15 +104,15 @@ function SignInForm() {
           </Form>
         </Container>
         <Container className={`mt-3 ${appStyles.Content}`}>
-          <Link className={styles.Link} to="/signup">
-            Not a SpoodleSpacer yet? 
-            <div> Sign Up Now! </div>
+          <Link  className={styles.Link} to="/signup">
+            <span id="signin">Not a SpoodleSpacer yet?</span>
+            <div>Sign Up Now!</div>
           </Link>
         </Container>
       </Col>
-      <Col
+        <Col
         md={6}
-        className={`my-auto d-none d-md-block p-2 ${styles.SignInCol}`}
+        className={`my-auto d-none d-md-block p-2 ${styles.SignUpCol}`}
       >
         <Image
           className={`${appStyles.FillerImage}`}
