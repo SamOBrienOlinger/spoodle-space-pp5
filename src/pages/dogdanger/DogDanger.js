@@ -56,13 +56,14 @@ const DogDanger = (props) => {
             <Avatar src={profile_image} height={55} />
             {owner}
           </Link>
-          <span>
-            <i className="fas fa-dog"></i>
-            <p>Doggy Danger</p>
-          </span>
+          <Link to="/dogdangerspage">
+            <span>
+              <i className="fas fa-dog"></i>
+              <p>Doggy Danger</p>
+            </span>
+          </Link>
+
           <div className={`d-flex align-items-center ${styles.iconText}`}>
-
-
             <span>{updated_at}</span>
 
             {is_owner && dogDangerPage && (

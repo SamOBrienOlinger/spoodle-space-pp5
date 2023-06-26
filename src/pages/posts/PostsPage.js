@@ -54,7 +54,7 @@ function PostsPage({ message, filter = "" }) {
       {!currentUser && (
         <div id="welcome" className="px-3 text-center">
           <h1 className={styles.Header}>Welcome to SpoodleSpace</h1>
-          <p id="spoodley">The most Spoodley & Cockapoopy Space you're ever going to sniff out</p>
+          <p>The most Spoodley & Cockapoopy Space you're ever going to sniff out</p>
           <br />
           <p>
             Our community is all about sharing ways of enjoying long ludicrous

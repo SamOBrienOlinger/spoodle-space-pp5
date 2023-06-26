@@ -53,14 +53,15 @@ const DogProfile = (props) => {
           <Link to={`/profiles/${owner_id}`}>
             <Avatar src={profile_image} height={55} />
             {owner}
-          </Link>  
-          <span>
-            <i className="fas fa-dog"></i>
-            <p>Doggy Profile</p>
-          </span>
+          </Link>
 
+          <Link to="/dogprofilespage">
+            <span>
+              <i className="fas fa-dog"></i>
+              <p>Doggy Profiles</p>
+            </span>
+          </Link>
           <div className={`d-flex align-items-center ${styles.iconText}`}>
-
             <span>{updated_at}</span>
             {is_owner && dogProfilePage && (
               <MoreDropdown
@@ -78,7 +79,7 @@ const DogProfile = (props) => {
       </Link>
 
       <Card.Body>
-        {dog_name && <Card.Title className="text-center">Dog Name</Card.Title>}
+        {dog_name && <Card.Title className="text-center text-decoration-underline">Dog Name</Card.Title>}
         {dog_name && <Card.Text className="text-center">{dog_name}</Card.Text>}
 
         {dog_age && <Card.Title className="text-center">Dog Age</Card.Title>}
