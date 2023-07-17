@@ -24,19 +24,19 @@ This platform is intended to not only meet the demand for learning and interacti
 
   - **[User Stories](#user-stories)**
 
- - [**Agile Development Process**](#agile-development-process)
+ - **[Agile Development Process](#agile-development-process)**
 
- - [**Typography**](#typography)
- 
- - [**Main Features**](#main-features)
+- **[Typography](#typography)**
 
-  - [**Features for the future**](#features-for-the-future)
+- **[Main Features](#main-features)**
 
- - [**Testing**](#testing)
+- **[Features for the future](#features-for-the-future)**
 
-- [**Deployment**](#deployment)
+- **[Testing](#testing)**
 
-- [**Technologies used**](#technologies-used)
+- **[Deployment](#deployment)**
+
+- **[Technologies used](#technologies-used)**
 
  - **[Credits](#credits)**
 
