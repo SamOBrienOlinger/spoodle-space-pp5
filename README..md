@@ -181,7 +181,7 @@ All searchbars, links and buttons functioned as intended; uploading images and s
 Heroku was used to deploy this project by the following these steps:
 
 1. Create or log in to your account on [Heroku.com](https://www.heroku.com/)
-2. Create a new app, add a unique app name (this project is named "crepchat") and choose your region
+2. Create a a unique app name and choose your region
 3. Click on create app
 4. Push your changes to GitHub
 5. Push the code to Heroku using the command git push heroku main
@@ -231,7 +231,7 @@ Heroku was used to deploy this project by the following these steps:
 
   - The [README template](https://github.com/Code-Institute-Solutions/readme-template) provided by Code Institute was very helpful as a model for developing this README file.
 
-  - Code Institute [Tom Ainsworth](https://github.com/Tom-Ainsworth) was of great support at strategically important stages to tease out certain bugs.   
+  - Code Institute Alumnist [Tom Ainsworth](https://github.com/Tom-Ainsworth) was of great support at strategically important stages to tease out certain bugs.   
 
   - My mentors, [Naoise Gaffney](https://github.com/NaoiseGaffney) and [Antonio Rodriguez](AntonioRodriguez_mentor), provided invaluable support and I learned a lot from them throughout the development of this project. 
   
