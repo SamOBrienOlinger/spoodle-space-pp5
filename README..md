@@ -22,7 +22,7 @@ This platform is intended to not only meet the demand for learning and interacti
 
 ## Contents
 
-  - [**User Stories**](#user-stories)
+  - **[User Stories](#user-stories)**
 
  - [**Agile Development Process**](#agile-development-process)
 
@@ -38,7 +38,7 @@ This platform is intended to not only meet the demand for learning and interacti
 
 - [**Technologies used**](#technologies-used)
 
- - [**Credits**](#credits)
+ - **[Credits](#credits)**
 
 
    ## [**User Stories**](#user-stories)
