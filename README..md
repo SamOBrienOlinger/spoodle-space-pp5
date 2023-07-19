@@ -145,28 +145,27 @@ This platform is intended to not only meet the demand for learning and interacti
 
   - Github Projects was used to structure the workflow. 
   - View the Project on Github [**Here**](https://github.com/users/SamOBrienOlinger/projects/3)
-  - ## Minimum Viable Product (MVP) Features
-
+    
 To achieve the site goals outlined in the User Stories section above, the development process was divided into sprints with three categories using the MoSCoW method. This helped prioritize the implementation of features based on their importance.
 
 - **Must Have**
 
-- User Authentication: Users can create an account, sign in, and sign out.
-- User Profiles: CRUD functionality for users to personalize their presence on the website through profile pages.
-- Followers Feed: Users can view a list of posts by other users they are following. The logic for this feature can be found in the `utils.js`, `ProfileDataContext.js`, and `ProfilePage.js` files.
-- Liked Feed: Users can view a feed of posts they have liked. This feature is implemented in the `Navbar.js` component.
-- Image Posts: Users can create, read, update, and delete posts with images, titles, and descriptions.
-- Custom Models and Forms: Three custom models and corresponding forms with CRUD functionalities that are relevant to the site goal.
+  - User Authentication: Users can create an account, sign in, and sign out.
+  - User Profiles: CRUD functionality for users to personalize their presence on the website through profile pages.
+  - Followers Feed: Users can view a list of posts by other users they are following. The logic for this feature can be found in the `utils.js`, `ProfileDataContext.js`, and `ProfilePage.js` files.
+  - Liked Feed: Users can view a feed of posts they have liked. This feature is implemented in the `Navbar.js` component.
+  - Image Posts: Users can create, read, update, and delete posts with images, titles, and descriptions.
+  - Custom Models and Forms: Three custom models and corresponding forms with CRUD functionalities that are relevant to the site goal.
 
 - **Should Have**
 
-- Infinite Scroll: Implementing infinite scroll functionality for an improved user experience.
-- Search Bar: Users can search for posts and navigate to pages related to the three custom models and forms.
+ - Infinite Scroll: Implementing infinite scroll functionality for an improved user experience.
+ - Search Bar: Users can search for posts and navigate to pages related to the three custom models and forms.
 
 - **Could Have**
 
-- Online Resources: A feature that provides users with access to relevant websites and a list of online resources related to the site goal.
-- Portfolio Project Link: A feature that redirects users to my Portfolio Project 4, [Cockapoo Club, Dublin Ireland](https://home-cockapoo-club-pp4.herokuapp.com).
+ - Online Resources: A feature that provides users with access to relevant websites and a list of online resources related to the site goal.
+ - Portfolio Project Link: A feature that redirects users to my Portfolio Project 4, [Cockapoo Club, Dublin Ireland](https://home-cockapoo-club-pp4.herokuapp.com).
 
 
 ### [**Typography**](#typography)
