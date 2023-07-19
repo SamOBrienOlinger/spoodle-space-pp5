@@ -194,8 +194,15 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
 ### [**Testing**](#testing)
 
-Manual testing was carried out to ensure that each of the functionalities described in the Users Stories section worked as intended. 
-All searchbars, links and buttons functioned as intended; uploading images and so on were all tested and passed.  
+
+
+- **Manual Testing**
+
+    - Manual testing of every feature was conducted on an ongoing basis throughout development. All manual testing passed, once bugs were fixed. 
+    All searchbars, links and buttons functioned as intended; uploading images and so on were all tested and passed.
+    - **Validator Testing**
+
+ - 
 
 
 ### [**Deployment**](#deployment)
