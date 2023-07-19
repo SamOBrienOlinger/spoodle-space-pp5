@@ -159,13 +159,13 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
 - **Should Have**
 
- - Infinite Scroll: Implementing infinite scroll functionality for an improved user experience.
- - Search Bar: Users can search for posts and navigate to pages related to the three custom models and forms.
+  - Infinite Scroll: Implementing infinite scroll functionality for an improved user experience.
+  - Search Bar: Users can search for posts and navigate to pages related to the three custom models and forms.
 
 - **Could Have**
 
- - Online Resources: A feature that provides users with access to relevant websites and a list of online resources related to the site goal.
- - Portfolio Project Link: A feature that redirects users to my Portfolio Project 4, [Cockapoo Club, Dublin Ireland](https://home-cockapoo-club-pp4.herokuapp.com).
+   - Online Resources: A feature that provides users with access to relevant websites and a list of online resources related to the site goal.
+   - Portfolio Project Link: A feature that redirects users to my Portfolio Project 4, [Cockapoo Club, Dublin Ireland](https://home-cockapoo-club-pp4.herokuapp.com).
 
 
 ### [**Typography**](#typography)
