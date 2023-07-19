@@ -194,15 +194,26 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
 ### [**Testing**](#testing)
 
-
-
 - **Manual Testing**
 
     - Manual testing of every feature was conducted on an ongoing basis throughout development. All manual testing passed, once bugs were fixed. 
-    All searchbars, links and buttons functioned as intended; uploading images and so on were all tested and passed.
-    - **Validator Testing**
+    All forms, searchbars, links, buttons functioned as intended; uploading images and so on were all tested and passed.
+    
+- **Validator Testing**
 
- - 
+    - **Python**
+
+     [CI Python Linter](https://pep8ci.herokuapp.com/) was the validator used. All the Python code passed without errors, except for the following files `home/urls.py`, `settings.py`, `book_sessions/views.py`, `book_sessions/urls.py` which gave E501 'line too long' warnings.
+
+     - **JavaScript**
+
+     [JSHint](https://jshint.com/) was used to validate the JavaScript in this project.
+
+     - **CSS**
+       [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) was used to validate all CSS code. All CSS passed with one warning regarding Imported style sheets.
+
+    - **HTML**
+        All HTML code was validated using [Nu Html Checker](https://validator.w3.org/nu/), except for
 
 
 ### [**Deployment**](#deployment)
