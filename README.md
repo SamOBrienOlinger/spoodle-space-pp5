@@ -176,7 +176,11 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
  - Each of the features and goals for every User Stories outlined in detail above were implemented.
 
- - The React architecture provided reusable components that I customized, such as the Navbar. The MoreDropDown component was also adapted and applied to each custom model & form.
+ - The React library provided menu of reusable components that were vital to allowing me using specific element across multiple features on the frontent on the project. These invaluable components saved me an immeasurable amount of time. I either customized or relied heavily on the following to meet the site goal:
+    -  Navbar.js
+    -  The MoreDropDown.js
+    -  Assets.js
+    -  NotFound.js
 
 ### [**Features for the future**](#features-for-the-future)
 
