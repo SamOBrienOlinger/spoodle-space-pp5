@@ -159,6 +159,10 @@ To achieve the site goals outlined in the User Stories section above, the develo
    - Online Resources: A feature that provides users with access to relevant websites and a list of online resources related to the site goal.
    - Portfolio Project Link: A feature that redirects users to my Portfolio Project 4, [Cockapoo Club, Dublin Ireland](https://home-cockapoo-club-pp4.herokuapp.com).
 
+- **Would Have**
+
+    - Add functionality to upload video to posts.
+
 ### [**Typography**](#typography)
 
 - The main font used throughout the project was Lato. 
