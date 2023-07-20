@@ -148,16 +148,19 @@ To achieve the site goals outlined in the User Stories section above, the develo
   - Liked Feed: Users can view a feed of posts they have liked. This feature is implemented in the `Navbar.js` component.
   - Image Posts: Users can create, read, update, and delete posts with images, titles, and descriptions.
   - Custom Models and Forms: Three custom models and corresponding forms with CRUD functionalities that are relevant to the site goal.
+  - README.md files for the frontend and backend repositories.
+  - Testing
+
 
 - **Should Have**
 
   - Infinite Scroll: Implementing infinite scroll functionality for an improved user experience.
-  - Search Bar: Users can search for posts and navigate to pages related to the three custom models and forms.
+  - Search Bars: Users can search for posts and navigate to pages related to the three custom models and forms.
 
 - **Could Have**
 
    - Online Resources: A feature that provides users with access to relevant websites and a list of online resources related to the site goal.
-   - Portfolio Project Link: A feature that redirects users to my Portfolio Project 4, [Cockapoo Club, Dublin Ireland](https://home-cockapoo-club-pp4.herokuapp.com).
+   - Portfolio Project 4 Link: A feature that redirects users to my Portfolio Project 4, [Cockapoo Club, Dublin Ireland](https://home-cockapoo-club-pp4.herokuapp.com).
 
 - **Would Have**
 
