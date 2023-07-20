@@ -186,22 +186,17 @@ To achieve the site goals outlined in the User Stories section above, the develo
 - **Manual Testing**
 
     - Manual testing of every feature was conducted on an ongoing basis throughout development. All manual testing passed, once bugs were fixed. 
-    All forms, search bars, links, buttons functioned as intended; uploading images and so on were all tested and passed.
-    
-- **Validator Testing**
+    All overlays, forms, search bars, links, redirects, authentication, ownership, toggles, buttons functioned as intended; uploading images and so on were all tested and passed.
 
+- **Responsiveness Testing**
 
-     - **JavaScript**
+   The following were used to test and fix responsive design issues.
 
-         [ESLint](https://eslint.org/) was used to validate the JavaScript in this project.
+    - [React Bootstrap](https://react-bootstrap.github.io/getting-started/introduction) 
 
-     - **CSS**
+    - [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
+    - [Am I Responsive:](https://ui.dev/amiresponsive)  
 
-          [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) was used to validate all CSS code. All CSS passed with one warning regarding 
-
-    - **HTML**
-
-      All HTML code was validated using [Nu Html Checker](https://validator.w3.org/nu/), 
 
 ### [**Deployment**](#deployment)
 
