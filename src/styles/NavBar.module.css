@@ -13,3 +13,10 @@
   .Active i {
     color: #dddfe4;
   }
+
+  @media screen and (max-width: 576px) {
+    .NavBar {
+    padding-left: 0rem;
+    padding-right: 0rem;
+    }
+  }
