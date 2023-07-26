@@ -14,6 +14,7 @@ import { Link, useHistory } from "react-router-dom";
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
+
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { useRedirect } from "../../hooks/useRedirect";
 import { setTokenTimestamp } from "../../utils/utils";
@@ -61,7 +62,7 @@ function SignInForm() {
               <Form.Label className="d-none">Username</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Username"
+                placeholder="Enter your Username"
                 name="username"
                 className={styles.Input}
                 value={username}
@@ -78,7 +79,7 @@ function SignInForm() {
               <Form.Label className="d-none">Password</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placeholder="Enter your Password"
                 name="password"
                 className={styles.Input}
                 value={password}
@@ -94,7 +95,7 @@ function SignInForm() {
               className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`}
               type="submit"
             >
-              Sign in
+              <span className={`${styles.signButton}`}>Sign in</span>
             </Button>
             {errors.non_field_errors?.map((message, idx) => (
               <Alert key={idx} variant="warning" className="mt-3">
@@ -104,8 +105,9 @@ function SignInForm() {
           </Form>
         </Container>
         <Container className={`mt-3 ${appStyles.Content}`}>
+          
           <Link  className={styles.Link} to="/signup">
-            <span id="signin">Not a SpoodleSpacer yet?</span>
+            <span className={`${styles.signin}`}>Not a SpoodleSpacer yet?</span>
             <div>Sign Up Now!</div>
           </Link>
         </Container>

@@ -39,6 +39,8 @@ const Post = (props) => {
     try {
       await axiosRes.delete(`/posts/${id}/`);
       history.goBack();
+      // history.goBack(`/profiles/${id}/`);
+      // history.push(`/profiles/${profile_id}`);
     } catch (err) {
       // console.log(err);
     }
@@ -91,7 +93,7 @@ const Post = (props) => {
               placement="bottom"
               overlay={
                 <Tooltip>
-                  Sign in or Sign up to view and create doggy profiles!
+                  Sign in or Sign up to view more!
                 </Tooltip>
               }
             >

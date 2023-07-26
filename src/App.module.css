@@ -71,6 +71,10 @@ body {
   color: yellow;
 }
 
+.SignInUpForm_Link__1BeMm span {
+  color: #7177a1;
+}
+
 a {
   color: #e9ebf2;
   transition: color ease-in-out 0.3s;

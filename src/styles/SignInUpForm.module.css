@@ -16,7 +16,8 @@
     text-align: center;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #7112FB2;
+    /* color: #7112FB2; */
+    color: #7177a1;
   }
   
   .Link {
@@ -26,6 +27,10 @@
     margin: auto;
   }
   
+  .SignInUpForm_Link__1BeMm span {
+    color: #7177a1;
+  }
+
   .Link span {
     color: #7112FB2;
   }
@@ -47,10 +52,9 @@
     background-image: src="https://res.cloudinary.com/dzhbg6go0/image/upload/v1670254218/CockapooClub/Benjiline1_qrxkoe.webp;";
   }
 
-  #signin {
+  .signin {
 
     color: #7177a1;
-
   }
 
   a:hover {

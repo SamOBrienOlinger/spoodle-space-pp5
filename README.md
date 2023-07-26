@@ -196,12 +196,25 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
 - **Manual Testing**
 
-    - Manual testing of every feature was conducted on an ongoing basis throughout development. All manual testing passed, once bugs were fixed. 
-    All overlays, forms, search bars, links, redirects, authentication, ownership, toggles, buttons functioned as intended; uploading images and so on were all tested and passed.
+    Manual testing of every feature, component and page was conducted on an ongoing basis throughout development.
+     
+    The following test cases passed and all CRUD functionality performed as intended: 
+
+    - Overlays
+    - forms 
+    - search bars
+    - links
+    - redirects
+    - authentication
+    - ownership
+    - toggles
+    - buttons 
+    - uploading images
+
 
 - **Responsiveness Testing**
 
-   The following were used to test and fix responsive design issues.
+   The following were used to support, test and fix any responsive design issues:
 
     - [React Bootstrap](https://react-bootstrap.github.io/getting-started/introduction) 
 

@@ -43,6 +43,7 @@ const DogDanger = (props) => {
     try {
       await axiosRes.delete(`/dogdanger/${id}/`);
       history.goBack();
+      // history.push(`/profiles/${profile_id}`);
     } catch (err) {
       // console.log(err);
     }
