@@ -38,9 +38,13 @@ const Post = (props) => {
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/posts/${id}/`);
-      history.goBack();
+
+      history.push(`/`);
+
+      // history.goBack();
       // history.goBack(`/profiles/${id}/`);
-      // history.push(`/profiles/${profile_id}`);
+      // history.push(`/posts/${id}/postpage/`);
+      // history.push(`/profiles/${profile_id}/profilepage`);
     } catch (err) {
       // console.log(err);
     }

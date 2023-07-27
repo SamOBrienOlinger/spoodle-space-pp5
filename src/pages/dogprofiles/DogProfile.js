@@ -32,6 +32,7 @@ const DogProfile = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
+  const profileId=currentUser?.profile_id
 
   const handleEdit = () => {
     history.push(`/dogprofiles/${id}/edit`);
@@ -40,8 +41,8 @@ const DogProfile = (props) => {
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/dogprofiles/${id}/`);
-      history.goBack();
-      // history.push(`/profiles/${profile_id}`);
+      // history.goBack();
+      history.push(`/profiles/${profileId}/`);
     } catch (err) {
       // console.log(err);
     }

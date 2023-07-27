@@ -81,7 +81,7 @@ const DogDangerEditForm = () => {
     formData.append("dangerously_cute", dangerously_cute);
 
     try {
-      await axiosReq.put(`/dogdanger/${id}`, formData);
+      await axiosReq.put(`/dogdanger/${id}/`, formData);
       history.push(`/dogdanger/${id}`);
     } catch (err) {
       // console.log(err);
@@ -179,7 +179,7 @@ const DogDangerEditForm = () => {
         cancel
       </Button>
       <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-        create
+        save
       </Button>
     </div>
   );
