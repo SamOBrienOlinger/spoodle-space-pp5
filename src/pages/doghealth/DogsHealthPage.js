@@ -3,10 +3,10 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import DogDanger from "./DogDanger";
+import DogHealth from "./DogHealth";
 import Asset from "../../components/Asset";
 import appStyles from "../../App.module.css";
-import styles from "../../styles/DogDangersPage.module.css";
+import styles from "../../styles/DogsHealthPage.module.css";
 import { useLocation } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import NoResults from "../../assets/no-results.png";
@@ -15,8 +15,8 @@ import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-function DogDangersPage({ message, filter = "" }) {
-  const [dogdanger, setDogDangers] = useState({ results: [] });
+function DogsHealthPage({ message, filter = "" }) {
+  const [doghealth, setDogsHealth] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
 
@@ -25,19 +25,19 @@ function DogDangersPage({ message, filter = "" }) {
   const currentUser = useCurrentUser();
 
   useEffect(() => {
-    const fetchDogDangers = async () => {
+    const fetchDogsHealth = async () => {
       try {
-        const url = `/dogdanger/?search=${query}`;
+        const url = `/doghealth/?search=${query}`;
         const { data } = await axiosReq.get(url);
-        console.info(`url /dogdanger/?${filter}search=${query}}`);
-        setDogDangers(data);
+        console.info(`url /doghealth/?${filter}search=${query}}`);
+        setDogsHealth(data);
         setHasLoaded(true);
       } catch (err) {}
     };
 
     setHasLoaded(false);
     const timer = setTimeout(() => {
-      fetchDogDangers();
+      fetchDogsHealth();
     }, 1000);
 
     return () => {
@@ -59,25 +59,25 @@ function DogDangersPage({ message, filter = "" }) {
             onChange={(event) => setQuery(event.target.value)}
             type="text"
             className="mr-sm-2"
-            placeholder="Search Doggy Danger Details by Spoodlers' Name or if they are Dangerously Cute"
+            placeholder="Search Doggy Health details by Spoodlers' Name or Vet's Name"
           />
         </Form>
 
         {hasLoaded ? (
           <>
-            {dogdanger.results.length ? (
+            {doghealth.results.length ? (
               <InfiniteScroll
-                children={dogdanger.results.map((dogdanger) => (
-                  <DogDanger
-                    key={dogdanger.id}
-                    {...dogdanger}
-                    setdogdanger={setDogDangers}
+                children={doghealth.results.map((doghealth) => (
+                  <DogHealth
+                    key={doghealth.id}
+                    {...doghealth}
+                    setDogsHealth={setDogsHealth}
                   />
                 ))}
-                dataLength={dogdanger.results.length}
+                dataLength={doghealth.results.length}
                 loader={<Asset spinner />}
-                hasMore={!!dogdanger.next}
-                next={() => fetchMoreData(dogdanger, setDogDangers)}
+                hasMore={!!doghealth.next}
+                next={() => fetchMoreData(doghealth, setDogsHealth)}
               />
             ) : (
               <Container className={appStyles.Content}>
@@ -98,4 +98,4 @@ function DogDangersPage({ message, filter = "" }) {
   );
 }
 
-export default DogDangersPage;
+export default DogsHealthPage;

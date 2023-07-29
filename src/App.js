@@ -24,13 +24,13 @@ import DogProfilesPage from "./pages/dogprofiles/DogProfilesPage";
 import DogProfileEditForm from "./pages/dogprofiles/DogProfileEditForm";
 
 
-// import DogHealthsPage from "./pages/doghealth/DogHealthsPage";
 import DogHealthPage from "./pages/doghealth/DogHealthPage";
+import DogsHealthPage from "./pages/doghealth/DogsHealthPage";
 import DogHealthCreateForm from "./pages/doghealth/DogHealthCreateForm";
 import DogHealthEditForm from "./pages/doghealth/DogHealthEditForm";
 
-// import DoggysDanger from "./pages/doggydanger/DoggysDanger";
-import DogDangerPage from "./pages/dogdanger/DogDanger";
+import DogDangerPage from "./pages/dogdanger/DogDangerPage";
+import DogDangersPage from "./pages/dogdanger/DogDangersPage";
 import DogDangerCreateForm from "./pages/dogdanger/DogDangerCreateForm";
 import DogDangerEditForm from "./pages/dogdanger/DogDangerEditForm";
 
@@ -65,6 +65,29 @@ function App() {
               />
             )}
           />
+
+          <Route
+            exact
+            path="/dogshealthpage"
+            render={() => (
+              <DogsHealthPage
+                message="No results found. Adjust the search keyword or follow a user."
+                filter={`owner__followed__owner__profile=${profile_id}&`}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/dogdangerspage"
+            render={() => (
+              <DogDangersPage
+                message="No results found. Adjust the search keyword or follow a user."
+                filter={`owner__followed__owner__profile=${profile_id}&`}
+              />
+            )}
+          />
+
           <Route
             exact
             path="/feed"
@@ -98,17 +121,19 @@ function App() {
 
           <Route exact path="/dogprofiles/create" render={() => <DogProfileCreateForm />} />
           <Route exact path="/dogprofiles/:id" render={() => <DogProfilePage />} />
-          {/* <Route exact path="/dogprofiles/:id" render={() => <DogProfilesPage />} /> */}
+          <Route exact path="/dogprofiles/" render={() => <DogProfilesPage />} />
           <Route exact path="/dogprofiles/:id/edit" render={() => <DogProfileEditForm />} />
 
           <Route exact path="/doghealth/create" render={() => <DogHealthCreateForm />} />
-          <Route exact path="/doghealth/:id" render={() => <DogHealthPage />} />
-          {/* <Route exact path="/dogshealth/:id" render={() => <DogsHealthPage />} /> */}
+          <Route exact path="/doghealth/:id/" render={() => <DogHealthPage />} />
+          <Route exact path="/doghealth/" render={() => <DogsHealthPage />} />
+
           <Route exact path="/doghealth/:id/edit" render={() => <DogHealthEditForm />} />
 
           <Route exact path="/dogdanger/create" render={() => <DogDangerCreateForm />} />
           <Route exact path="/dogdanger/:id" render={() => <DogDangerPage />} />
-          {/* <Route exact path="/dogdangers/:id" render={() => <DogDangersPage />} /> */}
+
+          <Route exact path="/dogdangers/" render={() => <DogDangersPage />} />
           <Route exact path="/dogdanger/:id/edit" render={() => <DogDangerEditForm />} />
           
           <Route

@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from "react";
-
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-
 import DogProfile from "./DogProfile";
 import Asset from "../../components/Asset";
-
 import appStyles from "../../App.module.css";
 import styles from "../../styles/DogProfilesPage.module.css";
 import { useLocation } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
-
 import NoResults from "../../assets/no-results.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
-// import DogProfiles from "../dogprofiles/DogProfilesPage";
 import PopularProfiles from "../profiles/PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
@@ -33,11 +28,12 @@ function DogProfilesPage({ message, filter = "" }) {
   useEffect(() => {
     const fetchDogProfiles = async () => {
       try {
-        const { data } = await axiosReq.get(`/dogprofiles/?${filter}search=${query}`);
+        const url = `/dogprofiles/?search=${query}`;
+        const { data } = await axiosReq.get(url);
+        console.info(`url /dogprofiles/?${filter}search=${query}}`);
         setDogProfiles(data);
         setHasLoaded(true);
-      } catch (err) {        
-      }
+      } catch (err) {}
     };
 
     setHasLoaded(false);
@@ -49,7 +45,6 @@ function DogProfilesPage({ message, filter = "" }) {
       clearTimeout(timer);
     };
   }, [filter, query, pathname, currentUser]);
-
 
   return (
     <Row className="h-100">
@@ -65,7 +60,7 @@ function DogProfilesPage({ message, filter = "" }) {
             onChange={(event) => setQuery(event.target.value)}
             type="text"
             className="mr-sm-2"
-            placeholder="Search Doggy Profiles"
+            placeholder="Search Doggy Profiles by Spoodlers' Name or their Dog's Name"
           />
         </Form>
 
@@ -79,11 +74,14 @@ function DogProfilesPage({ message, filter = "" }) {
 
         {hasLoaded ? (
           <>
-            {/* {posts?.results?.length ? ( */}
             {dogprofiles.results.length ? (
               <InfiniteScroll
                 children={dogprofiles.results.map((dogprofile) => (
-                  <DogProfile key={dogprofile.id} {...dogprofile} setDogProfiles={setDogProfiles} />
+                  <DogProfile
+                    key={dogprofile.id}
+                    {...dogprofile}
+                    setDogProfiles={setDogProfiles}
+                  />
                 ))}
                 dataLength={dogprofiles.results.length}
                 loader={<Asset spinner />}

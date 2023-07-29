@@ -10,9 +10,35 @@
     font-size: 1.2rem;
     padding: 9px;
     padding-left: 15px;
+    color: #7112ee;
   }
   
   .SearchIcon:hover {
     cursor: default;
     color: #cfced3;
+  }
+
+  #welcome {
+    width: -webkit-fill-available;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    margin-top: 1rem;    
+    position: sticky;
+    /* position: fixed; */
+    
+    top: 58px;
+    right: 0;
+    left: 0;
+    z-index: 200;
+  }
+
+  #spoodley {
+    font-size: ;
+  }
+
+  #search {
+    margin-top: 15px;
   }

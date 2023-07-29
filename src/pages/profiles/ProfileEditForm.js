@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
-
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
@@ -8,13 +7,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
-
 import { axiosReq } from "../../api/axiosDefaults";
 import {
   useCurrentUser,
   useSetCurrentUser,
 } from "../../contexts/CurrentUserContext";
-
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
@@ -37,6 +34,11 @@ const ProfileEditForm = () => {
   useEffect(() => {
     const handleMount = async () => {
       if (currentUser?.profile_id?.toString() === id) {
+        if (currentUser?.dog_profile_id) {
+          history.push(`/dogprofiles/${currentUser.dog_profile_id}/edit`);
+          return;
+        }
+
         try {
           const { data } = await axiosReq.get(`/profiles/${id}/`);
           const { name, content, image } = data;
@@ -105,18 +107,18 @@ const ProfileEditForm = () => {
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
         onClick={() => history.goBack()}
       >
-        cancel
+        Cancel
       </Button>
       <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-        save
+        Save
       </Button>
     </>
   );
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Row>
-        <Col className="py-2 p-0 p-md-2 text-center" md={7} lg={6}>
+      <Row className="flex-row-reverse">
+        <Col md={7} lg={6} className="p-0 p-md-2">
           <Container className={appStyles.Content}>
             <Form.Group>
               {image && (

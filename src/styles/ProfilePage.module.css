@@ -1,9 +1,13 @@
-/* #purplename {
-
-  color: #7112ee;
- } */
-
-.ProfileImage {
+#linksContainer {
+  display: flex;
+  justify-content: space-between;
+}
+ 
+ #ProfilePostsHeading{
+    color: #7112ee;
+  }
+  
+  .ProfileImage {
     object-fit: cover;
     height: 120px;
     width: 120px;
@@ -16,7 +20,3 @@
       height: 250px;
     }
   }
-
-/* #p.purplename.text-center {
-  color: mediumpurple;
-} */

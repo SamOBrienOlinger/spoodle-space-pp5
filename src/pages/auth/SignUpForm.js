@@ -58,7 +58,7 @@ const SignUpForm = () => {
               <Form.Control
                 className={styles.Input}
                 type="text"
-                placeholder="Username"
+                placeholder="Creat your Username"
                 name="username"
                 value={username}
                 onChange={handleChange}
@@ -75,7 +75,7 @@ const SignUpForm = () => {
               <Form.Control
                 className={styles.Input}
                 type="password"
-                placeholder="Password"
+                placeholder="Creat your Password"
                 name="password1"
                 value={password1}
                 onChange={handleChange}
@@ -92,7 +92,7 @@ const SignUpForm = () => {
               <Form.Control
                 className={styles.Input}
                 type="password"
-                placeholder="Confirm password"
+                placeholder="Please Confirm your Password"
                 name="password2"
                 value={password2}
                 onChange={handleChange}
@@ -120,7 +120,8 @@ const SignUpForm = () => {
 
         <Container className={`mt-3 ${appStyles.Content}`}>
           <Link className={styles.Link} to="/signin">
-            Already have an account? <span>Sign in</span>
+          <span className={`${styles.signin}`}>Already have an account?</span>
+          <div>Sign in</div>
           </Link>
         </Container>
       </Col>

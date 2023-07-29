@@ -1,6 +1,9 @@
 .NavBar {
-    background-color: #ffffff;
-    border: 1px solid #dadadf;
+    background-color: #f8f8f8;
+    padding-top: 0.1rem;
+    padding-right: 1rem;
+    padding-bottom: 0.1rem;
+    padding-left: 1rem;
   }
 
   .NavLink {
@@ -9,4 +12,11 @@
   
   .Active i {
     color: #dddfe4;
+  }
+
+  @media screen and (max-width: 576px) {
+    .NavBar {
+    padding-left: 0rem;
+    padding-right: 0rem;
+    }
   }

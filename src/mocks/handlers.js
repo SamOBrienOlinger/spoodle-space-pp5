@@ -12,8 +12,8 @@ export const handlers = [
         // username: "brian",
         username: "sam",
         email: "",
-        first_name: "",
-        last_name: "",
+        first_name: "Sam",
+        last_name: "OBO",
         profile_id: 2,
         profile_image:
           "https://res.cloudinary.com/dgjrrvdbl/image/upload/v1/media/../default_profile_qdjgyp",

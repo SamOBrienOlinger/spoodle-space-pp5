@@ -1,71 +1,76 @@
 import React from "react";
 import styles from "../../styles/DogProfile.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-
 import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
-
-// import { Image } from "react-bootstrap";
-
 import Card from "react-bootstrap/Card";
 import Media from "react-bootstrap/Media";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
 import { MoreDropdown } from "../../components/MoreDropdown";
-// import { Button } from "react-bootstrap";
 
 const DogProfile = (props) => {
   const {
-        id,
-        owner,
-        // profile,
-        profile_id,
-        profile_image,
-        dog_name,
-        dog_age,
-        dog_color,
-        dog_bio,
-        dog_profile_image,
-        updated_at,
-        dogProfilePage,
-    } = props;
-    console.log(props);
+    id,
+    owner,
+    owner_id,
+
+    profile_id,
+    profile_image,
+
+    updated_at,
+
+    dog_profile_image,
+
+    dog_name,
+    dog_age,
+    dog_color,
+    dog_bio,
+
+    dogProfilePage,
+  } = props;
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
-  
+  const profileId=currentUser?.profile_id
+
   const handleEdit = () => {
     history.push(`/dogprofiles/${id}/edit`);
-  }
+  };
 
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/dogprofiles/${id}/`);
-      history.goBack();
+      // history.goBack();
+      history.push(`/profiles/${profileId}/`);
     } catch (err) {
       // console.log(err);
     }
   };
 
-
   return (
     <Card className={styles.DogProfile}>
       <Card.Body>
         <Media className="align-items-center justify-content-between">
-        {/* <Link to={`/dogprofiles/${dogprofile_id}`}> */}
-        <Link to={`/profiles/${profile_id}`}>
+          <Link to={`/profiles/${owner_id}`}>
             <Avatar src={profile_image} height={55} />
             {/* <Avatar src={dog_profile_image} height={55} /> */}
             {owner}
           </Link>
-          <div className="my-3 d-flex align-items-center">
+
+          <Link to="/dogprofilespage">
+            <span>
+              <i className="fas fa-dog"></i>
+              <p>Doggy Profiles</p>
+            </span>
+          </Link>
+          <div className={`d-flex align-items-center ${styles.iconText}`}>
             <span>{updated_at}</span>
             {is_owner && dogProfilePage && (
               <MoreDropdown
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
+                profile_id={profile_id}
               />
             )}
           </div>
@@ -77,85 +82,24 @@ const DogProfile = (props) => {
       </Link>
 
       <Card.Body>
-        {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
-        
-        {dog_age && <Card.Text>{dog_age}</Card.Text>}
-        
-        {dog_color && <Card.Text>{dog_color}</Card.Text>}
-         
-        {dog_bio && <Card.Text>{dog_bio}</Card.Text>}
+        {dog_name && <Card.Title className="text-center text-decoration-underline">Dog Name</Card.Title>}
+        {dog_name && <Card.Text className="text-center">{dog_name}</Card.Text>}
 
-        {/* {dog_profile_image && <Card.Text>{dog_profile_image}</Card.Text>} */}
+        {dog_age && <Card.Title className="text-center">Dog Age</Card.Title>}
+        {dog_age && <Card.Text className="text-center">{dog_age}</Card.Text>}
 
-        {/* {dog_name && <Card.Title className="text-center">{dog_name}</Card.Title>}
-        {dog_name && <Card.Text>{dog_name}</Card.Text>}
-        
-        {dog_age && <Card.Title className="text-center">{dog_age}</Card.Title>}
-        {dog_age && <Card.Text>{dog_age}</Card.Text>}
-        
-        {dog_color && <Card.Title className="text-center">{dog_color}</Card.Title>}
-        {dog_color && <Card.Text>{dog_color}</Card.Text>}
-       
-        {dog_bio && <Card.Title className="text-center">{dog_bio}</Card.Title>}
-        {dog_bio && <Card.Text>{dog_bio}</Card.Text>}
+        {dog_color && (
+          <Card.Title className="text-center">Dog Color</Card.Title>
+        )}
+        {dog_color && (
+          <Card.Text className="text-center">{dog_color}</Card.Text>
+        )}
 
-        {dog_profile_image && <Card.Title className="text-center">{dog_profile_image}</Card.Title>}
-        {dog_profile_image && <Card.Text>{dog_profile_image}</Card.Text>} */}
-        
-        
-
-        <div className={styles.PostBar}>
-          {/* {current user? ( */}
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Click to find out more about <span className="text-center">{dog_name}</span> </Tooltip>}
-            >
-
-            <Link to={`/dogprofiles/${id}`}>
-              <i className="far fa-dog" />
-            </Link>  
-              
-            </OverlayTrigger> 
-          
-
-       
-        </div>
-   </Card.Body>
-  </Card>
+        {dog_bio && <Card.Title className="text-center">Dog Bio</Card.Title>}
+        {dog_bio && <Card.Text className="text-center">{dog_bio}</Card.Text>}
+      </Card.Body>
+    </Card>
   );
 };
-      
-export default DogProfile;
 
-//   <OverlayTrigger
-//     placement="top"
-//     overlay={<Tooltip>You can't edit another user's dog profile details!</Tooltip>}
-//   >
-//     <i className="far fa-dog" />
-//   </OverlayTrigger>
-// ) : dog_id ? (
-//   <span onClick={handleEdit}>
-//     <i className={`fas fa-dog ${styles.dog}`} />
-//   </span>
-// ) : currentUser ? (
-//   <span onClick={handleEdit}>
-//     <i className={`far fa-dog ${styles.DogOutline}`} />
-//   </span>
-// ) : (
-//   <OverlayTrigger
-//     placement="top"
-//     overlay={<Tooltip>Log in to view doggy details!</Tooltip>}
-//   >
-//     <i className="far fa-dog" />
-//   </OverlayTrigger>
-// )}
-// {likes_count}
-// <Link to={`/dogprofiles/${id}`}>
-//   <i className="far fa-comments" />
-// </Link>
-// {comments_count}
-// </div>
-// </Card.Body>
-// </Card>
-// );
-// };
+export default DogProfile;

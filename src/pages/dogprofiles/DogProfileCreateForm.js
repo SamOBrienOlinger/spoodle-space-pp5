@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
-
+import { useHistory } from "react-router";
+import { axiosReq } from "../../api/axiosDefaults";
+import { useRedirect } from "../../hooks/useRedirect";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -7,31 +9,24 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
-
 import Asset from "../../components/Asset";
-
 import Upload from "../../assets/upload.png";
-
 import styles from "../../styles/DogProfileCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
-import { useHistory } from "react-router";
-import { axiosReq } from "../../api/axiosDefaults";
-import { useRedirect } from "../../hooks/useRedirect";
-
 function DogProfileCreateForm() {
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
-
-  const [dogProfileData, setDogProfileData] = useState({  
+  const [dogProfileData, setDogProfileData] = useState({
     dog_name: "",
     dog_age: "",
     dog_color: "",
     dog_bio: "",
     dog_profile_image: "",
   });
-  const { dog_name, dog_age, dog_color, dog_bio, dog_profile_image } = dogProfileData;
+  const { dog_name, dog_age, dog_color, dog_bio, dog_profile_image } =
+    dogProfileData;
 
   const imageInput = useRef(null);
   const history = useHistory();
@@ -67,7 +62,6 @@ function DogProfileCreateForm() {
       const { data } = await axiosReq.post("/dogprofiles/", formData);
       history.push(`/dogprofiles/${data.id}`);
     } catch (err) {
-      // console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
@@ -77,7 +71,7 @@ function DogProfileCreateForm() {
   const textFields = (
     <div className="text-center">
       <Form.Group>
-        <Form.Label>Doggy Name</Form.Label>
+        <Form.Label>Dog Name</Form.Label>
         <Form.Control
           type="text"
           name="dog_name"
@@ -92,7 +86,7 @@ function DogProfileCreateForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Doggy Age</Form.Label>
+        <Form.Label>Dog Age</Form.Label>
         <Form.Control
           as="textarea"
           rows={6}
@@ -108,7 +102,7 @@ function DogProfileCreateForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Doggy Color</Form.Label>
+        <Form.Label>Dog Color</Form.Label>
         <Form.Control
           as="textarea"
           rows={6}
@@ -124,7 +118,7 @@ function DogProfileCreateForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Doggy Bio</Form.Label>
+        <Form.Label>Dog Bio</Form.Label>
         <Form.Control
           as="textarea"
           rows={6}
@@ -162,7 +156,12 @@ function DogProfileCreateForm() {
               {dog_profile_image ? (
                 <>
                   <figure>
-                    <Image className={appStyles.Image} src={dog_profile_image} rounded />
+                    {/* <Image className={appStyles.Image} src={dog_profile_image} rounded /> */}
+                    <Image
+                      className={appStyles.Image}
+                      src={dog_profile_image}
+                      fluid
+                    />
                   </figure>
                   <div>
                     <Form.Label
@@ -210,12 +209,3 @@ function DogProfileCreateForm() {
 }
 
 export default DogProfileCreateForm;
-
-
-// function DogProfileCreateForm() {
- 
-//         <h1>Hi, I'm a doggy, create my profile please?</h1>
-
-// };
-
-// export default DogProfileCreateForm;

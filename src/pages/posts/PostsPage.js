@@ -34,7 +34,8 @@ function PostsPage({ message, filter = "" }) {
         const { data } = await axiosReq.get(`/posts/?${filter}search=${query}`);
         setPosts(data);
         setHasLoaded(true);
-      } catch (err) {        
+      } catch (err) {
+        // console.log(err);
       }
     };
 
@@ -50,25 +51,44 @@ function PostsPage({ message, filter = "" }) {
 
   return (
     <Row className="h-100">
+      {!currentUser && (
+        <div id="welcome" className="px-3 text-center">
+          <h1 className={styles.Header}>Welcome to SpoodleSpace</h1>
+          <p>The most Spoodley & Cockapoopy Space you're ever going to sniff out</p>
+          <br />
+          <p>
+            Our community is all about sharing ways of enjoying long ludicrous
+            lives with the lovliest little furrballs on Earth, probably the
+            Universe!
+            <br />
+            Labradoodles, Poodles, cavapoos, basically anyone is welcome
+          </p>
+        </div>
+      )}
+
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <PopularProfiles mobile />
-        <i className={`fas fa-search ${styles.SearchIcon}`} />
-        <Form
-          className={styles.SearchBar}
-          onSubmit={(event) => event.preventDefault()}
-        >
-          <Form.Control
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            type="text"
-            className="mr-sm-2"
-            placeholder="Search posts"
-          />
-        </Form>
+
+        {currentUser && (
+          <div id="search">
+            <i className={`fas fa-search ${styles.SearchIcon}`} />
+            <Form
+              className={styles.SearchBar}
+              onSubmit={(event) => event.preventDefault()}
+            >
+              <Form.Control
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                type="text"
+                className="mr-sm-2"
+                placeholder="Search for posts by Spoodlers' Name or the Title"
+              />
+            </Form>
+          </div>
+        )}
 
         {hasLoaded ? (
           <>
-            {/* {posts?.results?.length ? ( */}
             {posts.results.length ? (
               <InfiniteScroll
                 children={posts.results.map((post) => (

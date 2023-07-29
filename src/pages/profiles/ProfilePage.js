@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-
 import Asset from "../../components/Asset";
-
 import styles from "../../styles/ProfilePage.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-
 import PopularProfiles from "./PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useParams } from "react-router";
@@ -18,13 +14,15 @@ import {
   useProfileData,
   useSetProfileData,
 } from "../../contexts/ProfileDataContext";
-import { Button, Image } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Post from "../posts/Post";
-import DogProfile from "../dogprofiles/DogProfile";
 import { fetchMoreData } from "../../utils/utils";
 import NoResults from "../../assets/no-results.png";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -39,27 +37,6 @@ function ProfilePage() {
 
   const [profile] = pageProfile.results;
   const is_owner = currentUser?.username === profile?.owner;
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const [{ data: pageProfile }, { data: profilePosts }] =
-  //         await Promise.all([
-  //           axiosReq.get(`/profiles/${id}/`),
-  //           axiosReq.get(`/posts/?owner__profile=${id}`),
-  //         ]);
-  //       setProfileData((prevState) => ({
-  //         ...prevState,
-  //         pageProfile: { results: [pageProfile] },
-  //       }));
-  //       setProfilePosts(profilePosts);
-  //       setHasLoaded(true);
-  //     } catch (err) {
-  //       // console.log(err);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [id, setProfileData]);
 
   useEffect(() => {
       const fetchData = async () => {
@@ -86,27 +63,6 @@ function ProfilePage() {
       };
       fetchData();
     }, [id, setProfileData], [id, setDogProfiles]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const [{ data: pageProfile }, { data: dogProfiles }] =
-  //         await Promise.all([
-  //           axiosReq.get(`/profiles/${id}/`),
-  //           axiosReq.get(`/dogprofiles/?owner__profile=${id}`),
-  //         ]);
-  //       setProfileData((prevState) => ({
-  //         ...prevState,
-  //         pageProfile: { results: [pageProfile] },
-  //       }));
-  //       setDogProfiles(dogProfiles);
-  //       setHasLoaded(true);
-  //     } catch (err) {
-  //       // console.log(err);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [id, setProfileData]);
 
   const mainProfile = (
     <>
@@ -163,19 +119,21 @@ function ProfilePage() {
   const mainProfilePosts = (
     <>
       <hr />
-      <p className="text-center" id="purplename">{profile?.owner}'s posts</p>
+      <p className="text-center" id={styles.ProfilePostsHeading}>
+        {profile?.owner}'s posts
+      </p>
       <hr />
       {profilePosts.results.length ? (
-      // {profilePosts?.results?.length ? ( 
         <InfiniteScroll
-          children={profilePosts.results.map((post) => (
-            <Post key={post.id} {...post} setPosts={setProfilePosts} />
-          ))}
           dataLength={profilePosts.results.length}
           loader={<Asset spinner />}
           hasMore={!!profilePosts.next}
           next={() => fetchMoreData(profilePosts, setProfilePosts)}
-        />
+        >
+          {profilePosts.results.map((post) => (
+            <Post key={post.id} {...post} setPosts={setProfilePosts} />
+          ))}
+        </InfiniteScroll>
       ) : (
         <Asset
           src={NoResults}
@@ -206,53 +164,165 @@ function ProfilePage() {
     </>
   );
 
-  // const createDogProfile = (
-  //   <>
-  //     <hr />
-  //     <p className="text-center">{profile?.owner}'s posts</p>
-  //     <hr />
-  //     {dogProfiles.results.length ? (
-  //     // {dogPProfiles?.results?.length ? ( 
-  //       <InfiniteScroll
-  //         children={dogProfiles.results.map((post) => (
-  //           <Post key={DogProfile.id} {...post} setPosts={setDogProfiles} />
-  //         ))}
-  //         dataLength={dogProfiles.results.length}
-  //         loader={<Asset spinner />}
-  //         hasMore={!!dogProfiles.next}
-  //         next={() => fetchMoreData(dogProfiles, setDogProfiles)}
-  //       />
-  //     ) : (
-  //       <Asset
-  //         src={NoResults}
-  //         message={`No results found, ${profile?.owner} hasn't created a doggy profile yet.`}
-  //       />
-  //     )}
-  //   </>
-  // );
-
   return (
-    <Row>
-      <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <PopularProfiles mobile />
-        <Container className={appStyles.Content}>
-          {hasLoaded ? (
-            <>
-              {mainProfile}
-              {mainProfilePosts}
-              {/* {mainDogProfile} */}
+    <>
+      <Row>
+        <Col className="py-2 p-0 p-lg-2" lg={8}>
+          <PopularProfiles mobile />
+          <Container className={appStyles.Content}>
+            {hasLoaded ? (
+              <>
+                {mainProfile}
 
-              
-            </>
-          ) : (
-            <Asset spinner />
-          )}
-        </Container>
-      </Col>
-      <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-        <PopularProfiles />
-      </Col>
-    </Row>
+                <Container>
+                  <div>
+                    {(profile?.following_id || is_owner) && (
+                      <div id={styles.linksContainer}>
+                        {profile.dog_profile && (
+                          <Link
+                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            to={`/dogprofiles/${profile.dog_profile}`}
+                          >
+                            <i className="fas fa-dog purple-icon" />
+                            <p className={styles.ButtonText}>
+                              {profile?.owner}'s doggy profile details
+                            </p>
+                          </Link>
+                        )}
+
+                        {!profile.dog_profile && is_owner && (
+                          <Link
+                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            to={`/dogprofiles/create`}
+                          >
+                            <i className="fas fa-dog" />
+                            <p
+                              className={`${btnStyles.ButtonText} ${styles.ButtonText}`}
+                            >
+                              {profile?.owner}, Create your doggy profile now
+                            </p>
+                          </Link>
+                        )}
+
+                        {profile.dog_health && (
+                          <Link
+                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            to={`/doghealth/${profile.dog_health}`}
+                          >
+                            <i className="fas fa-dog purple-icon" />
+                            <p className={styles.ButtonText}>
+                              {profile?.owner}'s doggy health details
+                            </p>
+                          </Link>
+                        )}
+
+                        {!profile.dog_health && is_owner && (
+                          <Link
+                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            to={`/doghealth/create`}
+                          >
+                            <i className="fas fa-dog" />
+                            <p
+                              className={`${btnStyles.ButtonText} ${styles.ButtonText}`}
+                            >
+                              {profile?.owner}, Create your doggy health details
+                              now
+                            </p>
+                          </Link>
+                        )}
+
+                        {profile.dog_danger && (
+                          <Link
+                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            to={`/dogdanger/${profile.dog_danger}`}
+                          >
+                            <i className="fas fa-dog purple-icon" />
+                            <p className={styles.ButtonText}>
+                              {profile?.owner}'s doggy danger details
+                            </p>
+                          </Link>
+                        )}
+
+                        {!profile.dog_danger && is_owner && (
+                          <Link
+                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            to={`/dogdanger/create`}
+                          >
+                            <i className="fas fa-dog" />
+                            <p
+                              className={`${btnStyles.ButtonText} ${styles.ButtonText}`}
+                            >
+                              {profile?.owner}, Create your Doggy Danger details
+                              now
+                            </p>
+                          </Link>
+                        )}
+                      </div>
+                    )}
+
+                    {!profile?.following_id && !is_owner && (
+                      <OverlayTrigger
+                        placement="bottom"
+                        overlay={
+                          <Tooltip>
+                            You must follow another Cockapooper to view their
+                            Doggy details
+                          </Tooltip>
+                        }
+                      >
+                        <div id={styles.linksContainer}>
+                          {profile.dog_profile && (
+                            <span
+                              className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            >
+                              <i className="fas fa-dog purple-icon" />
+                              <p className={styles.ButtonText}>
+                                {profile?.owner}'s doggy profile
+                              </p>
+                            </span>
+                          )}
+                          {profile.dog_health && (
+                            <span
+                              className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            >
+                              <i className="fas fa-dog" />
+                              <p
+                                className={`${btnStyles.ButtonText} ${styles.ButtonText}`}
+                              >
+                                {profile?.owner}'s doggy health details
+                              </p>
+                            </span>
+                          )}
+                          {profile.dog_danger && (
+                            <span
+                              className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            >
+                              <i className="fas fa-dog" />
+                              <p
+                                className={`${btnStyles.ButtonText} ${styles.ButtonText}`}
+                              >
+                                {profile?.owner}'s doggy danger details
+                              </p>
+                            </span>
+                          )}
+                        </div>
+                      </OverlayTrigger>
+                    )}
+                  </div>
+                </Container>
+
+                {mainProfilePosts}
+              </>
+            ) : (
+              <Asset spinner />
+            )}
+          </Container>
+        </Col>
+        <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
+          <PopularProfiles />
+        </Col>
+      </Row>
+    </>
   );
 }
 

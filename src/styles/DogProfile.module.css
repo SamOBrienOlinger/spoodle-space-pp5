@@ -1,22 +1,4 @@
-/* .ProfileImage {
-  object-fit: cover;
-  height: 120px;
-  width: 120px;
-  margin: 4px;
-}
-
-@media screen and (max-width: 991px) {
-  .ProfileImage {
-    width: 250px;
-    height: 250px;
-  }
-} */
-
-.WordBreak {
-  word-break: break-all;
-}
-
-.DogProfile {
+.Post {
   background-color: #ffffff;
   border: 1px solid #dadadf;
   border-radius: 2px;
@@ -24,19 +6,21 @@
   text-align: center;
 }
 
-.DogProfile figure,
-h5 {
+.Post figure, h5 {
   margin: 0 0;
 }
 
-.Dog {
-  color: #f85032;
-}
+  a:hover i {
+    color: yellow;
+    transition: color ease-in-out 0.3s;
+  }
 
-.Dog:hover {
-  color: #2142b2;
-}
-
-.DogOutline:hover {
-  color: #f85032;
-}
+  .iconText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .iconText i {
+    margin-bottom: 5px;
+  }
