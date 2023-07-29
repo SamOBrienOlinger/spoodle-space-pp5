@@ -27,6 +27,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profilePosts, setProfilePosts] = useState({ results: [] });
+  const [dogProfiles, setDogProfiles] = useState({ results: [] });
 
   const currentUser = useCurrentUser();
   const { id } = useParams();
@@ -38,25 +39,30 @@ function ProfilePage() {
   const is_owner = currentUser?.username === profile?.owner;
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [{ data: pageProfile }, { data: profilePosts }] =
-          await Promise.all([
-            axiosReq.get(`/profiles/${id}/`),
-            axiosReq.get(`/posts/?owner__profile=${id}`),
-          ]);
-        setProfileData((prevState) => ({
-          ...prevState,
-          pageProfile: { results: [pageProfile] },
-        }));
-        setProfilePosts(profilePosts);
-        setHasLoaded(true);
-      } catch (err) {
-        // console.log(err);
-      }
-    };
-    fetchData();
-  }, [id, setProfileData]);
+      const fetchData = async () => {
+        try {
+          const [{ data: pageProfile }, { data: profilePosts }, { data: dogProfiles}] =
+            await Promise.all([
+              axiosReq.get(`/profiles/${id}/`),
+              axiosReq.get(`/posts/?owner__profile=${id}`),
+    
+              axiosReq.get(`/dogprofiles/?owner__profile=${id}`),
+            ]);
+          setProfileData((prevState) => ({
+            ...prevState,
+            pageProfile: { results: [pageProfile] },
+          }));
+          setProfilePosts(profilePosts);
+          setHasLoaded(true);
+
+          setDogProfiles(dogProfiles);
+          setHasLoaded(true);
+        } catch (err) {
+          // console.log(err);
+        }
+      };
+      fetchData();
+    }, [id, setProfileData], [id, setDogProfiles]);
 
   const mainProfile = (
     <>
@@ -134,6 +140,27 @@ function ProfilePage() {
           message={`No results found, ${profile?.owner} hasn't posted yet.`}
         />
       )}
+      <hr />
+      <p className="text-center">{profile?.owner}'s dog profile</p>
+      <hr />
+      {/* {dogProfiles.results.length ? ( */}
+      {dogProfiles?.results?.length ? ( 
+        <InfiniteScroll
+          children={dogProfiles.results.map((dogprofile) => (
+            <DogProfile key={dogprofile.id} {...dogprofile} setDogProfiles={setDogProfiles} />
+          ))}
+          dataLength={dogProfiles.results.length}
+          loader={<Asset spinner />}
+          hasMore={!!dogProfiles.next}
+          next={() => fetchMoreData(dogProfiles, setDogProfiles)}
+        />
+      ) : (
+        <Asset
+          src={NoResults}
+          message={`No results found, ${profile?.owner} hasn't created a doggy profile yet.`}
+        />
+      )}
+
     </>
   );
 

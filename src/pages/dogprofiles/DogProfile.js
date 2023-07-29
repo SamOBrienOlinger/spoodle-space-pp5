@@ -54,6 +54,7 @@ const DogProfile = (props) => {
         <Media className="align-items-center justify-content-between">
           <Link to={`/profiles/${owner_id}`}>
             <Avatar src={profile_image} height={55} />
+            {/* <Avatar src={dog_profile_image} height={55} /> */}
             {owner}
           </Link>
 

@@ -119,7 +119,3 @@ figure {
 *::-webkit-scrollbar-thumb {
   background: #888;
 }
-
-*::-webkit-scrollbar-thumb:hover {
-  color: #7112ee;
-}

@@ -18,9 +18,9 @@ import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 
+import DogProfileCreateForm from "./pages/dogprofiles/DogProfileCreateForm";
 import DogProfilePage from "./pages/dogprofiles/DogProfilePage";
 import DogProfilesPage from "./pages/dogprofiles/DogProfilesPage";
-import DogProfileCreateForm from "./pages/dogprofiles/DogProfileCreateForm";
 import DogProfileEditForm from "./pages/dogprofiles/DogProfileEditForm";
 
 
@@ -39,6 +39,7 @@ import NotFound from "./components/NotFound";
 function App() {
   const currentUser = useCurrentUser();
   const profile_id = currentUser?.profile_id || "";
+  // const dogprofile_id = currentUser?.dogprofile_id || "";
 
   return (
     <div className={styles.App}>
@@ -58,7 +59,9 @@ function App() {
             render={() => (
               <DogProfilesPage
                 message="No results found. Adjust the search keyword or follow a user."
+                // filter={`owner__followed__owner__dogprofile=${dogprofile_id}&ordering=-created_at&`}
                 filter={`owner__followed__owner__profile=${profile_id}&`}
+                // filter={`owner__followed__owner__profile__owner__dogprofile=${dogprofile_id}&`}
               />
             )}
           />
@@ -105,6 +108,8 @@ function App() {
               />
             )}
           />
+
+          
           <Route exact path="/signin" render={() => <SignInForm />} />
           <Route exact path="/signup" render={() => <SignUpForm />} />
 
@@ -122,10 +127,12 @@ function App() {
           <Route exact path="/doghealth/create" render={() => <DogHealthCreateForm />} />
           <Route exact path="/doghealth/:id/" render={() => <DogHealthPage />} />
           <Route exact path="/doghealth/" render={() => <DogsHealthPage />} />
+
           <Route exact path="/doghealth/:id/edit" render={() => <DogHealthEditForm />} />
 
           <Route exact path="/dogdanger/create" render={() => <DogDangerCreateForm />} />
           <Route exact path="/dogdanger/:id" render={() => <DogDangerPage />} />
+
           <Route exact path="/dogdangers/" render={() => <DogDangersPage />} />
           <Route exact path="/dogdanger/:id/edit" render={() => <DogDangerEditForm />} />
           

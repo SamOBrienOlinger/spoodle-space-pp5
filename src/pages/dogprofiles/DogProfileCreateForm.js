@@ -18,7 +18,6 @@ import btnStyles from "../../styles/Button.module.css";
 function DogProfileCreateForm() {
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
-
   const [dogProfileData, setDogProfileData] = useState({
     dog_name: "",
     dog_age: "",
@@ -169,7 +168,7 @@ function DogProfileCreateForm() {
                       className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
                       htmlFor="image-upload"
                     >
-                      Change the image
+                      Change doggy image
                     </Form.Label>
                   </div>
                 </>

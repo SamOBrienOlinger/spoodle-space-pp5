@@ -32,18 +32,12 @@ const DogHealth = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
-  const profileId=currentUser?.profile_id
-
-  const handleEdit = () => {
-    history.push(`/doghealth/${id}/edit`);
-  };
 
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/doghealth/${id}/`);
       // history.goBack();
       history.push(`/profiles/${profileId}/`);
-
     } catch (err) {
       // console.log(err);
     }
@@ -65,7 +59,6 @@ const DogHealth = (props) => {
           </Link>
           <div className={`d-flex align-items-center ${styles.iconText}`}>
             <span>{updated_at}</span>
-
             {is_owner && dogHealthPage && (
               <MoreDropdown
                 handleEdit={handleEdit}
@@ -76,7 +69,6 @@ const DogHealth = (props) => {
           </div>
         </Media>
       </Card.Body>
-
       <Card.Body className="text-center">
         {vet_name && <Card.Title className="text-center">Vet Name</Card.Title>}
         {vet_name && <Card.Text>{vet_name}</Card.Text>}

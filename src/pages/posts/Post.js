@@ -142,12 +142,23 @@ const Post = (props) => {
               <i className={`far fa-heart ${styles.HeartOutline}`} />
             </span>
           ) : (
-            <OverlayTrigger
+            <div> 
+              
+              <OverlayTrigger
               placement="top"
               overlay={<Tooltip>Log in to like posts!</Tooltip>}
             >
               <i className="far fa-heart" />
             </OverlayTrigger>
+
+            <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Log in to comment!</Tooltip>}
+            >
+            <i className="far fa-comment" />
+            </OverlayTrigger>
+            </div>
+
           )}
           {likes_count}
           <Link to={`/posts/${id}`}>

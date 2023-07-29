@@ -167,7 +167,6 @@ const DogProfileEditForm = () => {
           {message}
         </Alert>
       ))}
-
       <Button
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
         onClick={() => history.goBack()}

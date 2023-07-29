@@ -1,4 +1,4 @@
- #linksContainer {
+#linksContainer {
   display: flex;
   justify-content: space-between;
 }
@@ -20,4 +20,3 @@
       height: 250px;
     }
   }
-
