@@ -17,6 +17,7 @@ import {
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import InfiniteScroll from "react-infinite-scroll-component";
+import DogProfile from "../dogprofiles/DogProfile";
 import Post from "../posts/Post";
 import { fetchMoreData } from "../../utils/utils";
 import NoResults from "../../assets/no-results.png";
