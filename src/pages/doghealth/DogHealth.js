@@ -32,6 +32,11 @@ const DogHealth = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
+  const profileId=currentUser?.profile_id
+
+  const handleEdit = () => {
+    history.push(`/doghealth/${id}/edit`);
+  };
 
   const handleDelete = async () => {
     try {
