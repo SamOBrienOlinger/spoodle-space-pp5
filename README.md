@@ -1,4 +1,4 @@
-# **SpoodleSpace**
+# **SpoodleSpace - Frontend**
 
 
 **[SpoodleSpace](https://spoodle-space-pp5.herokuapp.com/)** was developed and submitted as my fifth Profile Portfolio Project as part of the Advanced Frontend specialization for Code Institute's Diploma in full-stack software development. 
