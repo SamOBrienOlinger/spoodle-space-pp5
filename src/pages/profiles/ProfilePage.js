@@ -144,7 +144,6 @@ function ProfilePage() {
       <hr />
       <p className="text-center">{profile?.owner}'s dog profile</p>
       <hr />
-      {/* {dogProfiles.results.length ? ( */}
       {dogProfiles?.results?.length ? ( 
         <InfiniteScroll
           children={dogProfiles.results.map((dogprofile) => (

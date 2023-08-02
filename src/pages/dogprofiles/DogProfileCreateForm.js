@@ -156,7 +156,6 @@ function DogProfileCreateForm() {
               {dog_profile_image ? (
                 <>
                   <figure>
-                    {/* <Image className={appStyles.Image} src={dog_profile_image} rounded /> */}
                     <Image
                       className={appStyles.Image}
                       src={dog_profile_image}
