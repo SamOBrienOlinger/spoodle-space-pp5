@@ -198,12 +198,14 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
     Manual testing of every feature, component and page was conducted on an ongoing basis throughout development.
      
-    The following test cases passed and all CRUD functionality performed as intended: 
+    The following test-cases passed and all CRUD functionality performed as intended: 
 
     - Overlays
+    - Tooltips
     - forms 
     - search bars
     - links
+    - dropdown menus
     - redirects
     - authentication
     - ownership
@@ -214,12 +216,44 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
 - **Responsiveness Testing**
 
+MULTISCREEN IMAGE HERE
+
    The following were used to support, test and fix any responsive design issues:
 
     - [React Bootstrap](https://react-bootstrap.github.io/getting-started/introduction) 
 
     - [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
     - [Am I Responsive:](https://ui.dev/amiresponsive)  
+
+Media queries were used in three seperate CSS files for each components as follows to improve UI:
+
+- The DogProfilePage.module.css file uses the same media query as Code Institute's ProfilePage.module.css but uses a more appropriate className. 
+
+```
+  @media screen and (max-width: 991px) {
+    .DogProfileImage {
+      width: 250px;
+      height: 250px;
+```
+
+
+```
+@media screen and (max-width: 991px) {
+  .ProfileImage {
+    width: 250px;
+    height: 250px;
+  }
+}
+```
+  
+Due to the number of icons and features added to the Navigation bar, in the file NavBar.module.css the media query regarding className '.NabBar' was adapted to the following:
+
+ ```
+  @media screen and (max-width: 576px) {
+    .NavBar {
+    padding-left: 0rem;
+    padding-right: 0rem;
+```
 
 
 ### [**Deployment**](#deployment)
