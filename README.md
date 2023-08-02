@@ -168,7 +168,7 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
 ### [**Typography**](#typography)
 
-- The main font used throughout the project was Lato. 
+- The main font-family used throughout the project was "Lato", "Oswald", "DM Sans", "sans-serif". 
 
 - These fonts were chosen to remain consistent with previous projects for [**Features for the future**](#features-for-the-future) when they are connected to each other. 
 
@@ -255,6 +255,8 @@ To achieve the site goals outlined in the User Stories section above, the develo
   ```
 
 
+ - [Prettier](https://prettier.io/) and [ESLint](https://eslint.org/) were used to enforce consistent code formatting. 
+
 ### [**Deployment**](#deployment)
 
 Heroku was used to deploy this project by the following these steps:
@@ -280,15 +282,21 @@ Heroku was used to deploy this project by the following these steps:
   
   - **Libraries, frameworks and dependencies**
 
-    - [React](https://reactjs.org/)
-    - [React Router](https://v5.reactrouter.com/web/guides/philosophy)
-    - [React Infinite Scroll](https://www.npmjs.com/package/react-infinite-scroll-component)
-    - [Axios](https://axios-http.com/)
-    - [React Bootstrap](https://react-bootstrap.github.io/)
-    - [Font Awesome](https://fontawesome.com/)
-    - [Cloudinary](https://cloudinary.com/)
-    - [Prettier](https://prettier.io/)
-    - [ESLint](https://eslint.org/)
+    - [React](https://reactjs.org/) was the core library used for building this website.
+
+    - [React Router](https://v5.reactrouter.com/web/guides/philosophy)  handled the navigation between views and components.
+
+    - [React Infinite Scroll](https://www.npmjs.com/package/react-infinite-scroll-component) was used for to load content as the user scrolls down the page.
+
+    - [Axios](https://axios-http.com/) is used here to make the HTTP requests and handle data fetching.
+
+
+    - [React Bootstrap](https://react-bootstrap.github.io/) provided the pre-built UI components described above. 
+
+
+    - [Font Awesome](https://fontawesome.com/) allowed me to use scalable vector icons which add value to the UX.
+
+    - [Cloudinary](https://cloudinary.com/) is the cloud-based image and video management platform used.
 
   
   - **Development tools and programs**
@@ -298,7 +306,7 @@ Heroku was used to deploy this project by the following these steps:
     - [GitHub](https://github.com/)
     - [ElephantSQL](https://customer.elephantsql.com/)
     - [Heroku](https://dashboard.heroku.com)
-    - [Am I Responsive](https://ui.dev/amiresponsive)
+  
 
 
 ### [**Credits**](#credits)
