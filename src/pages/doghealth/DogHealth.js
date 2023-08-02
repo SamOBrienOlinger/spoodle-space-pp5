@@ -41,7 +41,6 @@ const DogHealth = (props) => {
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/doghealth/${id}/`);
-      // history.goBack();
       history.push(`/profiles/${profileId}/`);
     } catch (err) {
       // console.log(err);

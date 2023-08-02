@@ -40,11 +40,6 @@ const Post = (props) => {
       await axiosRes.delete(`/posts/${id}/`);
 
       history.push(`/`);
-
-      // history.goBack();
-      // history.goBack(`/profiles/${id}/`);
-      // history.push(`/posts/${id}/postpage/`);
-      // history.push(`/profiles/${profile_id}/profilepage`);
     } catch (err) {
       // console.log(err);
     }

@@ -1,6 +1,5 @@
 import { rest } from "msw";
 
-// const baseURL = "https://spoodlespace-backend.herokuapp.com/";
 
 const baseURL = "https://spoodlespace.herokuapp.com/"
 
@@ -9,7 +8,6 @@ export const handlers = [
     return res(
       ctx.json({
         pk: 2,
-        // username: "brian",
         username: "sam",
         email: "",
         first_name: "Sam",
