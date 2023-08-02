@@ -11,9 +11,7 @@ Since initial iterations based on this original concept, on offer here is a diff
 
 This platform is intended to not only meet the demand for learning and interacting in a fun way from others who share the experience of having Cockapoos in their lives, but also to increase that demand. This platform provides a rare opportunity to establish and develop their own very unique online community.     
 
-- View the deployed website **[Here](https://spoodle-space-pp5.herokuapp.com)** 
-
-- View the repository on Github **[Here](https://github.com/SamOBrienOlinger/spoodle-space-pp5)**.
+- View the deployed website **[Here](https://spoodle-space-pp5.herokuapp.com)**
 
 - View the backend repository on Github **[Here](https://github.com/SamOBrienOlinger/drf-spoodle-space)**. 
 
