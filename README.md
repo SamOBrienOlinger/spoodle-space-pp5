@@ -213,19 +213,18 @@ To achieve the site goals outlined in the User Stories section above, the develo
     - buttons 
     - uploading images
 
-
-- **Responsiveness Testing**
-
-![Responsive Multiscreen image](src/assets/README.md-multiscreen.jpg)
-
-   The following were used to support, test and fix any responsive design issues:
+  
+    The following tools were used to support, test and fix any responsive design issues:
 
   - [React Bootstrap](https://react-bootstrap.github.io/getting-started/introduction) 
 
   - [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
   - [Am I Responsive:](https://ui.dev/amiresponsive)  
 
-Media queries were used in three seperate CSS files for each components as follows to improve UI:
+![Responsive Multiscreen image](src/assets/README.md-multiscreen.jpg)
+
+    When testing if the website was responsive or not,
+    Media queries were used in three seperate CSS files for each components as follows to improve UI:
 
 - The DogProfilePage.module.css file uses the same media query as Code Institute's ProfilePage.module.css but uses a more appropriate className. 
 
@@ -238,15 +237,15 @@ Media queries were used in three seperate CSS files for each components as follo
 
 
   ```css
-  @media screen and (max-width: 991px) {
-    .ProfileImage {
-      width: 250px;
-      height: 250px;
+    @media screen and (max-width: 991px) {
+      .ProfileImage {
+        width: 250px;
+        height: 250px;
+      }
     }
-  }
   ```
   
-Due to the number of icons and features added to the Navigation bar, in the file NavBar.module.css the media query regarding className '.NabBar' was adapted to the following:
+- Due to the number of icons and features added to the Navigation bar, in the file NavBar.module.css the media query regarding className '.NabBar' was adapted to the following:
 
   ```css
     @media screen and (max-width: 576px) {
@@ -261,15 +260,14 @@ Due to the number of icons and features added to the Navigation bar, in the file
 Heroku was used to deploy this project by the following these steps:
 
 1. Create or log in to your account on [Heroku.com](https://www.heroku.com/)
-2. Create a unique app name and choose your region
+2. Click "New" and select "Create new app", then add a unique app name and choose your region
 3. Click on create app
 4. Push your changes to GitHub
 5. Push the code to Heroku using the command git push Heroku main
-6. Log in to heroku.com and open the dashboard for your react application (remember this is separate from the DRF application that runs your API)
-7. Select the “Deploy” tab in the dashboard
-8. Scroll down to the bottom and then select “Deploy Branch”
-9. Wait for your build to complete (you can click “view build log” to watch the process in a larger window)
-10. When you see the message “deployed to Heroku” in the build log, click the “open app” button at the top of the page.
+6. Log in to heroku.com and open the dashboard for your React application (this is separate from the Django Rest Framework application that runs the API). In settings, make sure that the 'Config Vars' match the env.py file and that DEBUG and DEVELOPMENT are set correctly. 
+7. Before Selecting the “Deploy” tab in the dashboard, add 'Python' to the 'buildpack' if not already present. 
+8. Connect to Github, the relevant repository and choose the correct branch before clicking on “Deploy Branch”
+9. When you see the message “deployed to Heroku” in the build log, click the “open app” button at the top of the page.
 
 ### [**Technologies used**](#technologies-used)
   
