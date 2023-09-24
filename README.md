@@ -147,6 +147,8 @@ This platform is intended to not only meet the demand for learning and interacti
 
     **Color Scheme**
 
+    ![colors](/src/assets/readme_colors.jpg)
+
     Following on from the points made about the importance of UI for this project, the most frequently used colors are:
 
       - **Background Colors:**
@@ -357,6 +359,7 @@ Heroku was used to deploy this project by the following these steps:
   - [W3Schools](https://www.w3schools.com/) 
   - [Stack Overflow](https://stackoverflow.com/)
   - Code Institute's [Moments](https://github.com/Code-Institute-Solutions/moments) module.
+  - coolers.co [coolers](https://coolors.co/)
 
   - The [README template](https://github.com/Code-Institute-Solutions/readme-template) provided by Code Institute was very helpful as a model for developing this README file.
 
