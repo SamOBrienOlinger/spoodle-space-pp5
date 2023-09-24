@@ -131,6 +131,51 @@ This platform is intended to not only meet the demand for learning and interacti
       
         -  React Bootstrap was chosen as much out of necessity due to tight timeframe for delivering a MVP, as it was for providing components built from scratch with no unneeded dependencies and is accessible by default.
 
+    **UI Design** 
+
+     Given the nature of the project being a social platform, it was paramount that the aesthetic served a range purposes. The main priorities were:
+
+      - **Branding and Consistency**: maintaining a consistent color scheme across the app is intended to make the app easily recognizable and memorable.
+
+      - **Readability and Accessibility**: the decision to use a strong background color to contrast with text aimed to ensure that content is easy to read and accessible to all users, including those with visual impairments.
+
+      - **Feedback and Interactivity**: the standard expectations of today's users around UI had to be considered. This project attempts to use these taken-for-granted expectations to maximise the impact of basic features on the user, such as changing the color of a button when it's hovered over or clicked. Often, websites opt for more subtle and subdued shifts between colors to notify users of any data changes happening and to provide real-time feedback to users. 
+      
+        SpoodleSapce uses both subtle color themes familar to users and then loud unexpected strong contrasting colors to achieve a more intense and enhanced UI depending on the context. 
+
+      - **Consistency Across Components**: the styling defined in each of the seperate CSS modules reuses a color scheme that can be efficiently applied to the different components as needed, ensuring a consistent look and feel.
+
+    **Color Scheme**
+
+    Following on from the points made about the importance of UI for this project, the most frequently used colors are:
+
+      - **Background Colors:**
+        - `#f8f8f8`
+        - `#ffffff`
+        - `#f1f1f1`
+
+      - **Text Colors:**
+        - `#e9ebf2`
+        - `#7112ee`
+        - `#7177a1` 
+
+ There are three features most directly connected to the core concept of the website and to the three custom models in the backend. The styling for each can be found in these files: 
+
+ - DogProfile.module.css
+ - DogHealth.module.css
+ - DogDanger.module.css 
+
+For UX and UI reasons outlined above, it was important that they shared the same color scheme and overall styling. 
+The shared Styles for DogProfile, DogHealth, and DogDanger modules are:
+
+- Background Color: `#ffffff`
+- Border Color: `#dadadf`
+- Border Radius: `2px`
+- Margin Bottom: `16px`
+- Text Alignment: `center`
+
+
+
 ### [**Agile Development Process**](#agile-development-process)
 
   - Github Projects was used to structure the workflow. 
@@ -221,8 +266,8 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
 ![Responsive Multiscreen image](src/assets/README.md-multiscreen.jpg)
 
-    When testing if the website was responsive or not,
-    Media queries were used in three seperate CSS files for each components as follows to improve UI:
+  When testing if the website was responsive or not,
+  Media queries were used in three seperate CSS files for each components as follows to improve UI:
 
 - The DogProfilePage.module.css file uses the same media query as Code Institute's ProfilePage.module.css but uses a more appropriate className. 
 
