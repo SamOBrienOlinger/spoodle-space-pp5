@@ -147,7 +147,25 @@ This platform is intended to not only meet the demand for learning and interacti
 
     **Color Scheme**
 
-    ![colors](/src/assets/readme_colors.jpg)
+    there are a total of 13 different colors used throughout the project: 
+
+        #f8f8f8
+        #e9ebf2
+        #7112ee
+        #ffffff
+        #dadadf
+        #7177a1
+        #7112FB2
+        #242a3d
+        #3b3d24
+        #cfced3
+        #7112ee
+        #7112FB2
+        #242a3d
+
+These colors are used for background colors, text colors, and border colors.
+
+  ![colors](/src/assets/readme_colors.jpg)
 
     Following on from the points made about the importance of UI for this project, the most frequently used colors are:
 
@@ -222,10 +240,50 @@ To achieve the site goals outlined in the User Stories section above, the develo
  - Each of the features and goals for every User Stories outlined in detail above were implemented.
 
  - The React library provided menu of reusable components that were vital to allowing me using specific element across multiple features on the frontent on the project. These invaluable components saved me an immeasurable amount of time. I either customized or relied heavily on the following to meet the site goal:
-    -  Navbar.js
-    -  The MoreDropDown.js
-    -  Assets.js
-    -  NotFound.js
+
+    - Assets.js
+    - Avatar.js
+    - MoreDropDown.js
+    - ProfileEditDropdown.js
+    - Navbar.js 
+    - NotFound.js
+
+
+    **Asset.js**
+
+    This component can display an image, a spinner, and/or a message to the user depending on the circumstances. It accepts the following props:
+
+    - `spinner`: A boolean indicating whether to display a spinner animation.
+    - `src`: The source URL of an image.
+    - `message`: A message to display.
+
+    **Avatar.js**
+
+      This component is used to display the user's personalised avatar with an image they are able to choose. It accepts the following props:
+
+      - `src`: The source URL of the avatar image.
+      - `height`: The height of the avatar image.
+      - `text`: Text to overlay on the avatar.
+
+    **MoreDropdown.js**
+
+      This component represents a dropdown menu with options for the user to edit and delete details as needed. It uses Bootstrap's Dropdown component and accepts two callback functions:
+
+      - `handleEdit`: A callback function for the edit action.
+      - `handleDelete`: A callback function for the delete action.
+
+      **ProfileEditDropdown.js**
+
+      Similar to `MoreDropdown`, this component allows the user to use a dropdown menu with options for editing their profile. It accepts the `id` of the profile to determine where to redirect for editing.
+
+      **NavBar.js**
+
+      This component provides navigation links and icons based on whether a user is logged in or not. It includes features such as sign out and dynamic icons based on a user's authentication status.
+
+      **NotFound.js**
+
+      This component is used to display a "Not Found" message along with an image when a user tries to access a non-existent page. It uses the `Asset` component to display the image and message.
+
 
 ### [**Features for the future**](#features-for-the-future)
 
