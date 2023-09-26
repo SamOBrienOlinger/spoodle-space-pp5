@@ -27,7 +27,7 @@ function DogHealthCreateForm() {
 
   const { vet_name, vet_phone, vet_email, kennel_cough, rabies, allergies } =
     dogHealthData;
-
+ 
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -67,6 +67,7 @@ function DogHealthCreateForm() {
           name="vet_name"
           value={vet_name}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.vet_name?.map((message, idx) => (
@@ -83,6 +84,7 @@ function DogHealthCreateForm() {
           name="vet_phone"
           value={vet_phone}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.vet_phone?.map((message, idx) => (
@@ -99,6 +101,7 @@ function DogHealthCreateForm() {
           name="vet_email"
           value={vet_email}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.vet_email?.map((message, idx) => (
@@ -115,6 +118,7 @@ function DogHealthCreateForm() {
           name="kennel_cough"
           value={kennel_cough}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.kennel_cough?.map((message, idx) => (
@@ -130,6 +134,7 @@ function DogHealthCreateForm() {
           name="rabies"
           value={rabies}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.rabies?.map((message, idx) => (
@@ -145,6 +150,7 @@ function DogHealthCreateForm() {
           name="allergies"
           value={allergies}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.allergies?.map((message, idx) => (
@@ -168,14 +174,17 @@ function DogHealthCreateForm() {
   return (
     <Form onSubmit={handleSubmit}>
       <Row>
+      <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
         <Container
           className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
         >
           <div className="d-md-none">{textFields}</div>
         </Container>
-        <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
+      </Col>
+        <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
+        {/* <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2"> */}
           <Container className={appStyles.Content}>{textFields}</Container>
-        </Col>
+       </Col>
       </Row>
     </Form>
   );

@@ -69,6 +69,7 @@ function DogDangerCreateForm() {
           name="bites_babies"
           value={bites_babies}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.title?.map((message, idx) => (
@@ -85,6 +86,7 @@ function DogDangerCreateForm() {
           name="bites_kids"
           value={bites_kids}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.content?.map((message, idx) => (
@@ -101,6 +103,7 @@ function DogDangerCreateForm() {
           name="bites_teenagers"
           value={bites_teenagers}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.content?.map((message, idx) => (
@@ -117,6 +120,7 @@ function DogDangerCreateForm() {
           name="bites_burglars"
           value={bites_burglars}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.content?.map((message, idx) => (
@@ -133,6 +137,7 @@ function DogDangerCreateForm() {
           name="dangerously_cute"
           value={dangerously_cute}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.content?.map((message, idx) => (
@@ -155,19 +160,20 @@ function DogDangerCreateForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Row>
-        <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
-          <Container
-            className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
-          >
-            <div className="d-md-none">{textFields}</div>
-          </Container>
-        </Col>
-        <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
-          <Container className={appStyles.Content}>{textFields}</Container>
-        </Col>
-      </Row>
-    </Form>
+    <Row>
+    <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
+      <Container
+        className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
+      >
+        <div className="d-md-none">{textFields}</div>
+      </Container>
+    </Col>
+      <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
+      {/* <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2"> */}
+        <Container className={appStyles.Content}>{textFields}</Container>
+     </Col>
+    </Row>
+  </Form>
   );
 }
 

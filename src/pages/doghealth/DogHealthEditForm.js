@@ -98,6 +98,7 @@ function DogHealthEditForm() {
           name="vet_name"
           value={vet_name}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.vet_name?.map((message, idx) => (
@@ -114,6 +115,7 @@ function DogHealthEditForm() {
           name="vet_phone"
           value={vet_phone}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.vet_phone?.map((message, idx) => (
@@ -130,6 +132,7 @@ function DogHealthEditForm() {
           name="vet_email"
           value={vet_email}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.vet_email?.map((message, idx) => (
@@ -146,6 +149,7 @@ function DogHealthEditForm() {
           name="kennel_cough"
           value={kennel_cough}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.kennel_cough?.map((message, idx) => (
@@ -161,6 +165,7 @@ function DogHealthEditForm() {
           name="rabies"
           value={rabies}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.rabies?.map((message, idx) => (
@@ -176,6 +181,7 @@ function DogHealthEditForm() {
           name="allergies"
           value={allergies}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.allergies?.map((message, idx) => (

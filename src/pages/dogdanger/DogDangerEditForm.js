@@ -100,6 +100,7 @@ const DogDangerEditForm = () => {
           name="bites_babies"
           value={bites_babies}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.title?.map((message, idx) => (
@@ -116,6 +117,7 @@ const DogDangerEditForm = () => {
           name="bites_kids"
           value={bites_kids}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.content?.map((message, idx) => (
@@ -132,6 +134,7 @@ const DogDangerEditForm = () => {
           name="bites_teenagers"
           value={bites_teenagers}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.content?.map((message, idx) => (
@@ -148,6 +151,7 @@ const DogDangerEditForm = () => {
           name="bites_burglars"
           value={bites_burglars}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.content?.map((message, idx) => (
@@ -164,6 +168,7 @@ const DogDangerEditForm = () => {
           name="dangerously_cute"
           value={dangerously_cute}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.content?.map((message, idx) => (
