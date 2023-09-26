@@ -18,7 +18,7 @@ function DogProfilePage() {
       try {
         const { data } = await axiosReq.get(`/dogprofiles/${id}`);
         console.info(
-          `Hello here's the User's Doggy Profile details${JSON.stringify(data)}`
+          `Hello here's the User's Doggy Profile details page${JSON.stringify(data)}`
         );
         console.log("in set profile");
         setDogProfile(data);
