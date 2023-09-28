@@ -107,6 +107,9 @@ This platform is intended to not only meet the demand for learning and interacti
     -  As a user, I can search for these details with keywords, so that I can find the details and user profiles I am most interested in.
     -  Infinite scroll: As a user I can keep scrolling through the images on the site, that are loaded for me automatically so that I don't have to click on "next page".
 
+
+  To provide real-time feedback to users notifying them of any changes they make to their data I used React's ['NotificationContainer' component](https://www.npmjs.com/package/react-notifications). 
+
     **UX Design**
 
       Each stage of the UX design process involved revisiting the purpose of the product and reflecting on the goals of every User Story. 
