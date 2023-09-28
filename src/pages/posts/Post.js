@@ -9,6 +9,8 @@ import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
 import { MoreDropdown } from "../../components/MoreDropdown";
+import {NotificationManager} from 'react-notifications';
+
 
 const Post = (props) => {
   const {
@@ -36,14 +38,17 @@ const Post = (props) => {
   };
 
   const handleDelete = async () => {
-    try {
-      await axiosRes.delete(`/posts/${id}/`);
-
-      history.push(`/`);
-    } catch (err) {
-      // console.log(err);
-    }
-  };
+    NotificationManager.warning('Are you sure you want to delete?', 'Click to delete', 5000,() => {
+      try {
+        axiosRes.delete(`/posts/${id}/`);
+        NotificationManager.success('Your Post has been deleted!', 'Success');
+        history.push(`/`);
+      } catch (err) {
+        NotificationManager.error('Error message', 'Click me!')
+        // console.log(err);
+      }
+    });
+  }
 
   const handleLike = async () => {
     try {
