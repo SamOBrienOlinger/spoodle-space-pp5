@@ -14,6 +14,8 @@ import Upload from "../../assets/upload.png";
 import styles from "../../styles/DogProfileCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import {NotificationManager} from 'react-notifications';
+
 
 function DogProfileCreateForm() {
   useRedirect("loggedOut");
@@ -60,11 +62,12 @@ function DogProfileCreateForm() {
 
     try {
       const { data } = await axiosReq.post("/dogprofiles/", formData);
+      NotificationManager.success('Dog Profile Created!', 'Success');
       history.push(`/dogprofiles/${data.id}`);
     } catch (err) {
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
-      }
+        NotificationManager.error('You forgot to add an image of your doggy ', 'Click me!')      }
     }
   };
 
@@ -77,6 +80,7 @@ function DogProfileCreateForm() {
           name="dog_name"
           value={dog_name}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.dog_name?.map((message, idx) => (
@@ -93,6 +97,7 @@ function DogProfileCreateForm() {
           name="dog_age"
           value={dog_age}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.dog_age?.map((message, idx) => (
@@ -109,6 +114,7 @@ function DogProfileCreateForm() {
           name="dog_color"
           value={dog_color}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.dog_color?.map((message, idx) => (
@@ -125,6 +131,7 @@ function DogProfileCreateForm() {
           name="dog_bio"
           value={dog_bio}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.dog_bio?.map((message, idx) => (

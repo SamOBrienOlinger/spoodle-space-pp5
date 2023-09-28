@@ -11,6 +11,8 @@ import Alert from "react-bootstrap/Alert";
 import styles from "../../styles/DogProfileCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import {NotificationManager} from 'react-notifications';
+
 
 function DogDangerCreateForm() {
   useRedirect("loggedOut");
@@ -51,11 +53,13 @@ function DogDangerCreateForm() {
     formData.append("dangerously_cute", dangerously_cute);
     try {
       const { data } = await axiosReq.post("/dogdanger/", formData);
+      NotificationManager.success('Dog Danger details Created!', 'Success');
       history.push(`/dogdanger/${data.id}`);
     } catch (err) {
       // console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
+        NotificationManager.error('Error message', 'Click me!')
       }
     }
   };

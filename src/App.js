@@ -36,6 +36,10 @@ import DogDangerEditForm from "./pages/dogdanger/DogDangerEditForm";
 
 import NotFound from "./components/NotFound";
 
+import {NotificationContainer} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+
+
 function App() {
   const currentUser = useCurrentUser();
   const profile_id = currentUser?.profile_id || "";
@@ -44,6 +48,7 @@ function App() {
     <div className={styles.App}>
       <NavBar />
       <Container className={styles.Main}>
+      <NotificationContainer/>
         <Switch>
           <Route
             exact

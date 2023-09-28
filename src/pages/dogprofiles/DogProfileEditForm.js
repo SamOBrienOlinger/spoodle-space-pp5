@@ -11,6 +11,8 @@ import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import { useHistory, useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
+import {NotificationManager} from 'react-notifications';
+
 
 const DogProfileEditForm = () => {
   const [errors, setErrors] = useState({});
@@ -92,11 +94,14 @@ const DogProfileEditForm = () => {
 
     try {
       await axiosReq.put(`/dogprofiles/${id}/`, formData);
+      NotificationManager.success('Dog Profile Edited!', 'Success');
       history.push(`/dogprofiles/${id}`);
     } catch (err) {
       // console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
+        NotificationManager.error('Error', 'Click me!')
+
       }
     }
   };
@@ -111,6 +116,7 @@ const DogProfileEditForm = () => {
           value={dog_name}
           onChange={handleChange}
           rows={2}
+          required
         />
       </Form.Group>
 
@@ -128,6 +134,7 @@ const DogProfileEditForm = () => {
           name="dog_age"
           value={dog_age}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.dog_age?.map((message, idx) => (
@@ -144,6 +151,7 @@ const DogProfileEditForm = () => {
           name="dog_color"
           value={dog_color}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.dog_color?.map((message, idx) => (
@@ -160,6 +168,7 @@ const DogProfileEditForm = () => {
           name="dog_bio"
           value={dog_bio}
           onChange={handleChange}
+          required
         />
       </Form.Group>
       {errors?.dog_bio?.map((message, idx) => (

@@ -10,6 +10,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
+import {NotificationManager} from 'react-notifications';
+
 
 const DogDangerEditForm = () => {
   const [errors, setErrors] = useState({});
@@ -82,11 +84,13 @@ const DogDangerEditForm = () => {
 
     try {
       await axiosReq.put(`/dogdanger/${id}/`, formData);
+      NotificationManager.success('Dog Danger details Edited!', 'Success');
       history.push(`/dogdanger/${id}`);
     } catch (err) {
       // console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
+        NotificationManager.error('Error message', 'Click me!')
       }
     }
   };

@@ -11,6 +11,10 @@ import Alert from "react-bootstrap/Alert";
 import styles from "../../styles/DogHealthCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import {NotificationManager} from 'react-notifications';
+
+
+
 
 function DogHealthCreateForm() {
   useRedirect("loggedOut");
@@ -50,10 +54,12 @@ function DogHealthCreateForm() {
 
     try {
       const { data } = await axiosReq.post("/doghealth/", formData);
+      NotificationManager.success('Dog Health Created!', 'Success');
       history.push(`/doghealth/${data.id}`);
     } catch (err) {
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
+        NotificationManager.error('Error message', 'Click me!')
       }
     }
   };

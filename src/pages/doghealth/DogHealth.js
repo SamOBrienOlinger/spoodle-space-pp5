@@ -7,6 +7,8 @@ import { axiosRes } from "../../api/axiosDefaults";
 import Card from "react-bootstrap/Card";
 import Media from "react-bootstrap/Media";
 import { MoreDropdown } from "../../components/MoreDropdown";
+import {NotificationManager} from 'react-notifications';
+
 
 const DogHealth = (props) => {
   const {
@@ -39,12 +41,16 @@ const DogHealth = (props) => {
   };
 
   const handleDelete = async () => {
-    try {
-      await axiosRes.delete(`/doghealth/${id}/`);
-      history.push(`/profiles/${profileId}/`);
-    } catch (err) {
-      // console.log(err);
-    }
+    NotificationManager.warning('Are you sure you want to delete?', 'Click to delete', 5000,() => {
+      try {
+        axiosRes.delete(`/doghealth/${id}/`);
+        NotificationManager.success('Dog Health Deleted!', 'Success');
+        history.push(`/profiles/${profileId}/`);
+      } catch (err) {
+        NotificationManager.error('Error message', 'Click me!')
+        // console.log(err);
+      }
+    });    
   };
 
   return (
