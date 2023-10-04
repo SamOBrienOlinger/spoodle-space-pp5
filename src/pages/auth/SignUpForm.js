@@ -43,7 +43,7 @@ const SignUpForm = () => {
     event.preventDefault();
     try {
       await axios.post("/dj-rest-auth/registration/", signUpData);
-      NotificationManager.success('Welcome to SpoodleSpace!', 'Have Fun, Cockapooper');
+      NotificationManager.success('Please Sign In', 'Welcome to SpoodleSpace!');
       history.push("/signin");
     } catch (err) {
       setErrors(err.response?.data);

@@ -40,7 +40,7 @@ function SignInForm() {
 
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
-      NotificationManager.success('Welcome Back!', 'Cockapooper');
+      NotificationManager.success('Cockapooper', 'Welcome Back!');
       setCurrentUser(data.user);
       setTokenTimestamp(data);
       history.goBack();
