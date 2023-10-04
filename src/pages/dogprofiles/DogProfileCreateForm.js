@@ -67,7 +67,7 @@ function DogProfileCreateForm() {
     } catch (err) {
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
-        NotificationManager.error('You forgot to add an image of your doggy ', 'Click me!')      }
+        NotificationManager.error('You forgot to add an image of your doggy ', 'Please try again!')      }
     }
   };
 
