@@ -14,6 +14,7 @@ import btnStyles from "../../styles/Button.module.css";
 import { useHistory } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useRedirect } from "../../hooks/useRedirect";
+import {NotificationManager} from 'react-notifications';
 
 function PostCreateForm() {
   useRedirect("loggedOut");
@@ -56,11 +57,13 @@ function PostCreateForm() {
 
     try {
       const { data } = await axiosReq.post("/posts/", formData);
+      NotificationManager.success('Post Created!', 'Success');
       history.push(`/posts/${data.id}`);
     } catch (err) {
       // console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
+        NotificationManager.error('Error message', 'Click me!')
       }
     }
   };
