@@ -302,9 +302,7 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
 - **Manual Testing**
 
-    Manual testing of every feature, component and page was conducted on an ongoing basis throughout development.
-     
-    The following test-cases passed and all CRUD functionality performed as intended: 
+    Manual testing of every feature, component and page was conducted on an ongoing basis throughout development. All test cases performed as intended and passed. The most important of these, regarding users being able to Create, Read, Update and Delete data, included:
 
     - Overlays
     - Tooltips
@@ -318,6 +316,8 @@ To achieve the site goals outlined in the User Stories section above, the develo
     - toggles
     - buttons 
     - uploading images
+
+    A seperate file providing details of all the test cases carried out can be found **[here]()**
 
   
     The following tools were used to support, test and fix any responsive design issues:
