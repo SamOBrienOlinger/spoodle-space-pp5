@@ -16,6 +16,9 @@ import Alert from "react-bootstrap/Alert";
 import axios from "axios";
 import { useRedirect } from "../../hooks/useRedirect";
 
+import {NotificationManager} from 'react-notifications';
+
+
 const SignUpForm = () => {
   useRedirect("loggedIn");
   const [signUpData, setSignUpData] = useState({
@@ -40,9 +43,11 @@ const SignUpForm = () => {
     event.preventDefault();
     try {
       await axios.post("/dj-rest-auth/registration/", signUpData);
+      NotificationManager.success('Welcome to SpoodleSpace!', 'Have Fun, Cockapooper');
       history.push("/signin");
     } catch (err) {
       setErrors(err.response?.data);
+      NotificationManager.error('Error message', 'Click me!')
     }
   };
 

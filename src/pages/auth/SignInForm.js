@@ -19,6 +19,9 @@ import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { useRedirect } from "../../hooks/useRedirect";
 import { setTokenTimestamp } from "../../utils/utils";
 
+import {NotificationManager} from 'react-notifications';
+
+
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
   useRedirect("loggedIn");
@@ -37,11 +40,13 @@ function SignInForm() {
 
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
+      NotificationManager.success('Welcome Back!', 'Cockapooper');
       setCurrentUser(data.user);
       setTokenTimestamp(data);
       history.goBack();
     } catch (err) {
       setErrors(err.response?.data);
+      NotificationManager.error('Error message', 'Click me!')
     }
   };
 
