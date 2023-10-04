@@ -78,7 +78,7 @@ function PostEditForm() {
       // console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
-        NotificationManager.error('Error message', 'Click me!')
+        NotificationManager.error('Please try again', 'Oopsadoodle!')
       }
     }
   };

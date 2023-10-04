@@ -46,7 +46,7 @@ function SignInForm() {
       history.goBack();
     } catch (err) {
       setErrors(err.response?.data);
-      NotificationManager.error('Error message', 'Click me!')
+      NotificationManager.error('Please try again', 'Oopsadoodle!')
     }
   };
 

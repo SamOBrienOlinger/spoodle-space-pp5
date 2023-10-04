@@ -49,7 +49,7 @@ const DogDanger = (props) => {
         NotificationManager.success('Dog Danger details Deleted!', 'Success');
         history.push(`/profiles/${profileId}/`);
       } catch (err) {
-        NotificationManager.error('Error message', 'Click me!')
+        NotificationManager.error('Please try again', 'Oopsadoodle!')
         // console.log(err);
       }
     });

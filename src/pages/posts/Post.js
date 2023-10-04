@@ -44,7 +44,7 @@ const Post = (props) => {
         NotificationManager.success('Your Post has been deleted!', 'Success');
         history.push(`/`);
       } catch (err) {
-        NotificationManager.error('Error message', 'Click me!')
+        NotificationManager.error('Please try again', 'Oopsadoodle!')
         // console.log(err);
       }
     });

@@ -47,7 +47,7 @@ const DogProfile = (props) => {
         NotificationManager.success('Dog Profile Deleted!', 'Success');
         history.push(`/profiles/${profileId}/`);
       } catch (err) {
-        NotificationManager.error('Error message', 'Click me!')
+        NotificationManager.error('Please try again', 'Oopsadoodle!')
         // console.log(err);
       }
     });

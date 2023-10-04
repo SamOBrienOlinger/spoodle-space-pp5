@@ -46,7 +46,7 @@ const Comment = (props) => {
           results: prevComments.results.filter((comment) => comment.id !== id),
         }));
       } catch (err) {
-        NotificationManager.error('Error message', 'Click me!')
+        NotificationManager.error('Please try again', 'Oopsadoodle!')
       }
     });
   };
