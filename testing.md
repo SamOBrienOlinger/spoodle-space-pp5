@@ -1,4 +1,4 @@
-# Manual Testing
+# [Manual Testing](#manual-testing)
 
 Click **[here](README.md)** to return to the **README.md** file.
 
@@ -1533,3 +1533,7 @@ The `NotFound` component should render with a visible "Not Found" image and mess
    3. Click the "Save" button.
 - **Expected Result:** The component should display validation error messages.
 - **Result:** Passed
+
+Click **[here](#manual-testing)** to return to the top of this file.
+
+Click **[here](README.md)** to return to the **README.md** file.
