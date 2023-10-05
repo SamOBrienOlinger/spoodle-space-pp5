@@ -1480,18 +1480,18 @@ The `NotFound` component should render with a visible "Not Found" image and mess
 - **Expected Result:** The component should navigate to the dog danger details page for the profile owner's dog. If there are no dog danger details, it should display a message encouraging the user to create them if they are the owner.
 - **Result:** Passed
 
+## UsernameForm Component Test Cases
+
 ### Test Case 1: Rendering UsernameForm Component
-- **Test Case Name:** Rendering UsernameForm Component
-- **Test Objective:** Verify that the `UsernameForm` component renders correctly.
-- **Test Steps:**
+- **Objective:** Verify that the `UsernameForm` component renders correctly.
+- **Steps:**
    1. Render the `UsernameForm` component.
 - **Expected Result:** The component should render without errors and display a form to change the username.
 - **Result:** Passed
 
 ### Test Case 2: Changing Username
-- **Test Case Name:** Changing Username
-- **Test Objective:** Verify that the user can change their username using the `UsernameForm` component.
-- **Test Steps:**
+- **Objective:** Verify that the user can change their username using the `UsernameForm` component.
+- **Steps:**
    1. Render the `UsernameForm` component.
    2. Enter a new username in the input field.
    3. Click the "Save" button.
@@ -1499,90 +1499,37 @@ The `NotFound` component should render with a visible "Not Found" image and mess
 - **Result:** Passed
 
 ### Test Case 3: Validation Error Handling
-- **Test Case Name:** Validation Error Handling
-- **Test Objective:** Verify that the `UsernameForm` component handles validation errors correctly.
-- **Test Steps:**
-   1. Render the `UsernameForm` component.
-   2. Enter an invalid username in the input field.
-   3. Click the "Save" button.
-- **Expected Result:** The component should display validation error messages, and the username should not be updated.
-- **Result:** Passed
-
-### Test Case 4: Rendering UserPasswordForm Component
-- **Test Case Name:** Rendering UserPasswordForm Component
-- **Test Objective:** Verify that the `UserPasswordForm` component renders correctly.
-- **Test Steps:**
-   1. Render the `UserPasswordForm` component.
-- **Expected Result:** The component should render without errors and display a form to change the user's password.
-- **Result:** Passed
-
-### Test Case 5: Changing Password
-- **Test Case Name:** Changing Password
-- **Test Objective:** Verify that the user can change their password using the `UserPasswordForm` component.
-- **Test Steps:**
-   1. Render the `UserPasswordForm` component.
-   2. Enter a new password in both password fields.
-   3. Click the "Save" button.
-- **Expected Result:** The user's password should be updated, and they should be navigated back to the previous page.
-- **Result:** Passed
-
-### Test Case 6: Validation Error Handling
-- **Test Case Name:** Validation Error Handling
-- **Test Objective:** Verify that the `UserPasswordForm` component handles validation errors correctly.
-- **Test Steps:**
-   1. Render the `UserPasswordForm` component.
-   2. Enter an invalid password or mismatched passwords in the input fields.
-   3. Click the "Save" button.
-- **Expected Result:** The component should display validation error messages, and the password should not be updated.
-- **Result:** Passed
-
-### UsernameForm Component Test Cases
-
-**Test Case 1: Rendering UsernameForm Component**
-- **Test Objective:** Verify that the `UsernameForm` component renders correctly.
-- **Test Steps:**
-   1. Render the `UsernameForm` component.
-- **Expected Result:** The component should render without errors and display a form to change the username.
-
-**Test Case 2: Changing Username**
-- **Test Objective:** Verify that the user can change their username using the `UsernameForm` component.
-- **Test Steps:**
-   1. Render the `UsernameForm` component.
-   2. Enter a new username in the input field.
-   3. Click the "Save" button.
-- **Expected Result:** The user's username should be updated, and they should be navigated back to the previous page.
-
-**Test Case 3: Validation Error Handling**
-- **Test Objective:** Verify that the `UsernameForm` component handles validation errors correctly.
-- **Test Steps:**
+- **Objective:** Verify that the `UsernameForm` component handles validation errors correctly.
+- **Steps:**
    1. Render the `UsernameForm` component.
    2. Enter an invalid username in the input field.
    3. Click the "Save" button.
 - **Expected Result:** The component should display validation error messages.
+- **Result:** Passed
 
-### UserPasswordForm Component Test Cases
+## UserPasswordForm Component Test Cases
 
-**Test Case 1: Rendering UserPasswordForm Component**
-- **Test Objective:** Verify that the `UserPasswordForm` component renders correctly.
-- **Test Steps:**
+### Test Case 1: Rendering UserPasswordForm Component
+- **Objective:** Verify that the `UserPasswordForm` component renders correctly.
+- **Steps:**
    1. Render the `UserPasswordForm` component.
 - **Expected Result:** The component should render without errors and display a form to change the user's password.
+- **Result:** Passed
 
-**Test Case 2: Changing Password**
-- **Test Objective:** Verify that the user can change their password using the `UserPasswordForm` component.
-- **Test Steps:**
+### Test Case 2: Changing Password
+- **Objective:** Verify that the user can change their password using the `UserPasswordForm` component.
+- **Steps:**
    1. Render the `UserPasswordForm` component.
    2. Enter a new password in the input fields.
    3. Click the "Save" button.
 - **Expected Result:** The user's password should be updated, and they should be navigated back to the previous page.
+- **Result:** Passed
 
-**Test Case 3: Validation Error Handling**
-- **Test Objective:** Verify that the `UserPasswordForm` component handles validation errors correctly.
-- **Test Steps:**
+### Test Case 3: Validation Error Handling
+- **Objective:** Verify that the `UserPasswordForm` component handles validation errors correctly.
+- **Steps:**
    1. Render the `UserPasswordForm` component.
    2. Enter an invalid password in the input fields.
    3. Click the "Save" button.
 - **Expected Result:** The component should display validation error messages.
-
-
-
+- **Result:** Passed
