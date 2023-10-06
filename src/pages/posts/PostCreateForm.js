@@ -60,7 +60,7 @@ function PostCreateForm() {
       NotificationManager.success('Post Created!', 'Success');
       history.push(`/posts/${data.id}`);
     } catch (err) {
-      // console.log(err);
+      
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
         NotificationManager.error('Please try again', 'Oopsadoodle!')

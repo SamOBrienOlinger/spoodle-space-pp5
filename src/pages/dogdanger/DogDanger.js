@@ -50,7 +50,7 @@ const DogDanger = (props) => {
         history.push(`/profiles/${profileId}/`);
       } catch (err) {
         NotificationManager.error('Please try again', 'Oopsadoodle!')
-        // console.log(err);
+        
       }
     });
   }

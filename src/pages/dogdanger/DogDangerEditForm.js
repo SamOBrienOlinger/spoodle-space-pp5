@@ -58,7 +58,7 @@ const DogDangerEditForm = () => {
             })
           : history.push("/");
       } catch (err) {
-        // console.log(err);
+        
       }
     };
 
@@ -87,7 +87,7 @@ const DogDangerEditForm = () => {
       NotificationManager.success('Dog Danger details Edited!', 'Success');
       history.push(`/dogdanger/${id}`);
     } catch (err) {
-      // console.log(err);
+      
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
         NotificationManager.error('Please try again', 'Oopsadoodle!')

@@ -59,7 +59,7 @@ function ProfilePage() {
           setDogProfiles(dogProfiles);
           setHasLoaded(true);
         } catch (err) {
-          // console.log(err);
+          
         }
       };
       fetchData();

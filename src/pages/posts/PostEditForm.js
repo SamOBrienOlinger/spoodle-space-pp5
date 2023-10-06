@@ -35,7 +35,7 @@ function PostEditForm() {
 
         is_owner ? setPostData({ title, content, image }) : history.push("/");
       } catch (err) {
-        // console.log(err);
+        
       }
     };
 
@@ -75,7 +75,7 @@ function PostEditForm() {
       NotificationManager.success('Post Edited!', 'Success');
       history.push(`/posts/${id}`);
     } catch (err) {
-      // console.log(err);
+      
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
         NotificationManager.error('Please try again', 'Oopsadoodle!')

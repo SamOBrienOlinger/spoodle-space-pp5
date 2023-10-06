@@ -45,7 +45,7 @@ const Post = (props) => {
         history.push(`/`);
       } catch (err) {
         NotificationManager.error('Please try again', 'Oopsadoodle!')
-        // console.log(err);
+        
       }
     });
   }
@@ -62,7 +62,7 @@ const Post = (props) => {
         }),
       }));
     } catch (err) {
-      // console.log(err);
+      
     }
   };
 
@@ -78,7 +78,7 @@ const Post = (props) => {
         }),
       }));
     } catch (err) {
-      // console.log(err);
+      
     }
   };
 

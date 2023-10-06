@@ -55,7 +55,7 @@ const DogProfileEditForm = () => {
             })
           : history.push("/");
       } catch (err) {
-        // console.log(err);
+        
       }
     };
 
@@ -97,7 +97,7 @@ const DogProfileEditForm = () => {
       NotificationManager.success('Dog Profile Edited!', 'Success');
       history.push(`/dogprofiles/${id}`);
     } catch (err) {
-      // console.log(err);
+      
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
         NotificationManager.error('Error', 'Click me!')

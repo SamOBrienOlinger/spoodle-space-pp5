@@ -39,7 +39,7 @@ export const DogProfileDataProvider = ({ children }) => {
         },
       }));
     } catch (err) {
-      // console.log(err);
+      
     }
   };
 
@@ -62,7 +62,7 @@ export const DogProfileDataProvider = ({ children }) => {
         },
       }));
     } catch (err) {
-      // console.log(err);
+      
     }
   };
 
@@ -77,7 +77,7 @@ export const DogProfileDataProvider = ({ children }) => {
           popularProfiles: data,
         }));
       } catch (err) {
-        // console.log(err);
+        
       }
     };
 

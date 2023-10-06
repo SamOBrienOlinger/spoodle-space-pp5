@@ -55,7 +55,7 @@ function DogHealthEditForm() {
             })
           : history.push("/");
       } catch (err) {
-        // console.log(err);
+        
       }
     };
 
@@ -85,7 +85,7 @@ function DogHealthEditForm() {
       NotificationManager.success('Dog Health Edited!', 'Success');
       history.push(`/doghealth/${id}`);
     } catch (err) {
-      // console.log(err);
+      
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
         NotificationManager.error('Please try again', 'Oopsadoodle!')
