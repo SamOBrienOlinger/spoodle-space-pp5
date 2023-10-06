@@ -144,9 +144,9 @@ This platform is intended to not only meet the demand for learning and interacti
 
       - **Feedback and Interactivity**: the standard expectations of today's users around UI had to be considered. This project attempts to use these taken-for-granted expectations to maximise the impact of basic features on the user, such as changing the color of a button when it's hovered over or clicked. Often, websites opt for more subtle and subdued shifts between colors to notify users of any data changes happening and to provide real-time feedback to users. 
       
-        SpoodleSapce uses both subtle color themes familar to users and then loud unexpected strong contrasting colors to achieve a more intense and enhanced UI depending on the context. 
+        SpoodleSapce uses both subtle color themes familiar to users and then loud unexpected strong contrasting colors to achieve a more intense and enhanced UI depending on the context. 
 
-      - **Consistency Across Components**: the styling defined in each of the seperate CSS modules reuses a color scheme that can be efficiently applied to the different components as needed, ensuring a consistent look and feel.
+      - **Consistency Across Components**: the styling defined in each of the separate CSS modules reuses a color scheme that can be efficiently applied to the different components as needed, ensuring a consistent look and feel.
 
     **Color Scheme**
 
@@ -242,7 +242,7 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
  - Each of the features and goals for every User Stories outlined in detail above were implemented.
 
- - The React library provided menu of reusable components that were vital to allowing me using specific element across multiple features on the frontent on the project. These invaluable components saved me an immeasurable amount of time. I either customized or relied heavily on the following to meet the site goal:
+ - The React library provided menu of reusable components that were vital to allowing me using specific element across multiple features on the frontend on the project. These invaluable components saved me an immeasurable amount of time. I either customized or relied heavily on the following to meet the site goal:
 
     - Assets.js
     - Avatar.js
@@ -317,7 +317,7 @@ To achieve the site goals outlined in the User Stories section above, the develo
     - buttons 
     - uploading images
 
-    A seperate file providing details of all the test cases carried out can be found **[here](testing.md)**
+    A separate file providing details of all the test cases carried out can be found **[here](testing.md)**
 
   
     The following tools were used to support, test and fix any responsive design issues:
@@ -329,8 +329,7 @@ To achieve the site goals outlined in the User Stories section above, the develo
 
 ![Responsive Multiscreen image](src/assets/README.md-multiscreen.jpg)
 
-  When testing if the website was responsive or not,
-  Media queries were used in three seperate CSS files for each components as follows to improve UI:
+  When testing if the website was responsive or not in order to improve the UI media queries were implemented for the relevant components as follows:
 
 - The DogProfilePage.module.css file uses the same media query as Code Institute's ProfilePage.module.css but uses a more appropriate className. 
 
