@@ -11,7 +11,6 @@ export const useSetDogProfileData = () => useContext(SetDogProfileDataContext);
 
 export const DogProfileDataProvider = ({ children }) => {
   const [profileData, setProfileData] = useState({
-    // we will use the pageProfile later!
     pageProfile: { results: [] },
     popularProfiles: { results: [] },
   });
