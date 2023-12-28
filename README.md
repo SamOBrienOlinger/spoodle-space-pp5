@@ -329,8 +329,7 @@ To achieve the site goals outlined in the User Stories section above, the develo
   
     The following tools were used to support, test and fix any responsive design issues:
 
-  - [React Bootstrap](https://react-bootstrap.github.io/getting-started/introduction) 
-
+  - [React Bootstrap](https://github.com/react-bootstrap/react-bootstrap) 
   - [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
   - [Am I Responsive:](https://ui.dev/amiresponsive)  
 
