@@ -18,6 +18,8 @@ This platform is intended to not only meet the demand for learning and interacti
 ## Contents
 
  - **[User Stories](#user-stories)**
+   
+ - **[UX and UI Design](#ux-ui)**
 
  - **[Agile Development Process](#agile-development-process)**
 
@@ -107,8 +109,9 @@ This platform is intended to not only meet the demand for learning and interacti
     -  As a user, I can search for these details with keywords, so that I can find the details and user profiles I am most interested in.
     -  Infinite scroll: As a user I can keep scrolling through the images on the site, that are loaded for me automatically so that I don't have to click on "next page".
  
+  ## [**UX and UI Design](#ux-ui)**
 
-### **UX Design**
+   ### **UX Design**
 
    Each stage of the UX design process involved revisiting the purpose of the product and reflecting on the goals of every User Story. 
 
@@ -126,11 +129,7 @@ This platform is intended to not only meet the demand for learning and interacti
         
         In later stages of development, it became clearer that the platform could also be interpreted as a parody of contemporary social platforms combining UI and UX for positive effect.
 
-   - Front-end Library
-     
-       -  React Bootstrap was chosen as much out of necessity due to tight timeframe for delivering a MVP, as it was for providing components built from scratch with no unneeded dependencies and is accessible by default.
-
-### **UI Design**
+  ### **UI Design**
    
    Given the nature of the project being a social platform, it was paramount that the aesthetic served a range purposes. The main priorities were:
 
@@ -138,9 +137,8 @@ This platform is intended to not only meet the demand for learning and interacti
 
    - **Readability and Accessibility**: the decision to use a strong background color to contrast with text aimed to ensure that content is easy to read and accessible to all users, including those with visual impairments.
 
-   - **Feedback and Interactivity**: the standard expectations of today's users around UI had to be considered. This project attempts to use these taken-for-granted expectations to maximise the impact of basic features on the user, such as changing the color of a button when it's hovered over or clicked. Often, websites opt for more subtle and subdued shifts between colors to notify users of any data changes happening and to provide real-time feedback to users. 
-   
-     SpoodleSapce uses both subtle color themes familiar to users and then loud unexpected strong contrasting colors to achieve a more intense and enhanced UI depending on the context. 
+   - **Feedback and Interactivity**: the standard expectations of today's users around UI had to be considered. This project attempts to use these taken-for-granted expectations to maximise the impact of basic features on the user, such as changing the color of a button when it's hovered over or clicked.
+Often, websites opt for more subtle and subdued shifts between colors to notify users of any data changes happening and to provide real-time feedback to users. SpoodleSapce uses both subtle color themes familiar to users and then loud unexpected strong contrasting colors to achieve a more intense and enhanced UI depending on the context. 
 
    - **Consistency Across Components**: the styling defined in each of the separate CSS modules reuses a color scheme that can be efficiently applied to the different components as needed, ensuring a consistent look and feel.
 
@@ -195,6 +193,18 @@ The shared Styles for DogProfile, DogHealth, and DogDanger modules are:
 - Text Alignment: `center`
 
 To provide real-time feedback to Users notifying them of any changes they make to their data I used React's ['NotificationContainer' component](https://www.npmjs.com/package/react-notifications).
+
+The front-end library chosen for the project was React Bootstrap to combine the component-based approach of React with the styling and design principles of Bootstrap. The advantage of this decision was directly linked to the tight timeframe for delivering a MVP. Its 'out of the box' components and pre-built styles removed a significant amount of the time and energy required. Other advantages of its key features for this project include:
+
+- React Components: It provides React-compatible versions of Bootstrap components, allowing developers to use them in their React applications seamlessly.
+
+- Responsive Design: React Bootstrap components are designed to be responsive, adapting to different screen sizes and devices.
+
+- Customization: While React Bootstrap provides ready-to-use components, developers can still customize and extend these components to meet the specific requirements of their applications.
+
+- Integration: React Bootstrap can be easily integrated into existing React projects. Developers can import individual components or the entire library based on their needs.
+
+- Maintained and Updated: React Bootstrap is actively maintained and updated to align with the latest versions of React and Bootstrap.
 
 ### [**Agile Development Process**](#agile-development-process)
 
