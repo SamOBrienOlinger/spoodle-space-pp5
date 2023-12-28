@@ -192,9 +192,9 @@ The shared Styles for DogProfile, DogHealth, and DogDanger modules are:
 - Margin Bottom: `16px`
 - Text Alignment: `center`
 
-To provide real-time feedback to Users notifying them of any changes they make to their data I used React's ['NotificationContainer' component](https://www.npmjs.com/package/react-notifications).
+To provide real-time feedback to Users notifying them of any changes they make to their data I used React's ['Notification Container' component](https://www.npmjs.com/package/react-notifications).
 
-The front-end library chosen for the project was React Bootstrap to combine the component-based approach of React with the styling and design principles of Bootstrap. The advantage of this decision was directly linked to the tight timeframe for delivering a MVP. Its 'out of the box' components and pre-built styles removed a significant amount of the time and energy required. Other advantages of its key features for this project include:
+The front-end library chosen for the project was [React Bootstrap](https://github.com/react-bootstrap/react-bootstrap) to combine the component-based approach of React with the styling and design principles of Bootstrap. The advantage of this decision was directly linked to the tight timeframe for delivering a MVP. Its 'out of the box' components and pre-built styles removed a significant amount of the time and energy required. Other advantages of its key features for this project include:
 
 - React Components: It provides React-compatible versions of Bootstrap components, allowing developers to use them in their React applications seamlessly.
 
