@@ -106,81 +106,78 @@ This platform is intended to not only meet the demand for learning and interacti
     -  As a user I can view the most recent details posted about how dangerous other users' dogs are, ordered by most recently created first so that I am up to date with the newest content.
     -  As a user, I can search for these details with keywords, so that I can find the details and user profiles I am most interested in.
     -  Infinite scroll: As a user I can keep scrolling through the images on the site, that are loaded for me automatically so that I don't have to click on "next page".
+ 
 
+### **UX Design**
 
-  To provide real-time feedback to users notifying them of any changes they make to their data I used React's ['NotificationContainer' component](https://www.npmjs.com/package/react-notifications). 
+   Each stage of the UX design process involved revisiting the purpose of the product and reflecting on the goals of every User Story. 
 
-    **UX Design**
+   - Early-Stage Mock-Ups 
 
-      Each stage of the UX design process involved revisiting the purpose of the product and reflecting on the goals of every User Story. 
+     ![Early Stage Mock Up 1](src/assets/README-early-stage-ux-design.jfif)
 
-    - Early-Stage Mock-Ups 
+     ![Early Stage Mock Up 2](src/assets/README-early-stage-design-ux.jfif)
 
-      ![Early Stage Mock Up 1](src/assets/README-early-stage-ux-design.jfif)
+     ![Early Stage Mock Up 3](src/assets/README-early-stage-design-ux-logo.jfif)
 
-      ![Early Stage Mock Up 2](src/assets/README-early-stage-design-ux.jfif)
-
-      ![Early Stage Mock Up 3](src/assets/README-early-stage-design-ux-logo.jfif)
-
-        As the above image of ideas for logos demonstrates, SpoodleSpace is self-aware of it's simple and 'old fashioned' feel, but from the early stages of development, providing a more 'basic' UX was considered a positive attribute.
-
-        At the very beginning, there was almost no consideration given to developing a product that combined the themes of post-nostalgia and post-retro that might result in a UX designed to be “so bad, it’s good”. 
+        As the above image of ideas for logos demonstrates, SpoodleSpace is self-aware of it's simple and 'old fashioned' feel, but from the early stages of development, providing a more 'basic' UX was considered a positive attribute. At the very beginning, there was almost no consideration given to developing a product that combined the themes of post-nostalgia and post-retro that might result in a UX designed to be “so bad, it’s good”. 
         
         A significant amount of the added value this platform offers Users is rooted in how it references older versions of current and obsolete platforms. 
         
         In later stages of development, it became clearer that the platform could also be interpreted as a parody of contemporary social platforms combining UI and UX for positive effect.
 
-    - Front-end Library
-      
-        -  React Bootstrap was chosen as much out of necessity due to tight timeframe for delivering a MVP, as it was for providing components built from scratch with no unneeded dependencies and is accessible by default.
+   - Front-end Library
+     
+       -  React Bootstrap was chosen as much out of necessity due to tight timeframe for delivering a MVP, as it was for providing components built from scratch with no unneeded dependencies and is accessible by default.
 
-    **UI Design** 
+### **UI Design**
+   
+   Given the nature of the project being a social platform, it was paramount that the aesthetic served a range purposes. The main priorities were:
 
-     Given the nature of the project being a social platform, it was paramount that the aesthetic served a range purposes. The main priorities were:
+   - **Branding and Consistency**: maintaining a consistent color scheme across the app is intended to make the app easily recognizable and memorable.
 
-      - **Branding and Consistency**: maintaining a consistent color scheme across the app is intended to make the app easily recognizable and memorable.
+   - **Readability and Accessibility**: the decision to use a strong background color to contrast with text aimed to ensure that content is easy to read and accessible to all users, including those with visual impairments.
 
-      - **Readability and Accessibility**: the decision to use a strong background color to contrast with text aimed to ensure that content is easy to read and accessible to all users, including those with visual impairments.
+   - **Feedback and Interactivity**: the standard expectations of today's users around UI had to be considered. This project attempts to use these taken-for-granted expectations to maximise the impact of basic features on the user, such as changing the color of a button when it's hovered over or clicked. Often, websites opt for more subtle and subdued shifts between colors to notify users of any data changes happening and to provide real-time feedback to users. 
+   
+     SpoodleSapce uses both subtle color themes familiar to users and then loud unexpected strong contrasting colors to achieve a more intense and enhanced UI depending on the context. 
 
-      - **Feedback and Interactivity**: the standard expectations of today's users around UI had to be considered. This project attempts to use these taken-for-granted expectations to maximise the impact of basic features on the user, such as changing the color of a button when it's hovered over or clicked. Often, websites opt for more subtle and subdued shifts between colors to notify users of any data changes happening and to provide real-time feedback to users. 
-      
-        SpoodleSapce uses both subtle color themes familiar to users and then loud unexpected strong contrasting colors to achieve a more intense and enhanced UI depending on the context. 
+   - **Consistency Across Components**: the styling defined in each of the separate CSS modules reuses a color scheme that can be efficiently applied to the different components as needed, ensuring a consistent look and feel.
 
-      - **Consistency Across Components**: the styling defined in each of the separate CSS modules reuses a color scheme that can be efficiently applied to the different components as needed, ensuring a consistent look and feel.
+   **Color Scheme**
 
-    **Color Scheme**
+   There are a total of 13 different colors used throughout the project: 
 
-    there are a total of 13 different colors used throughout the project: 
+  - `#f8f8f8`
+  - `#e9ebf2`
+  - `#7112ee`
+  - `#ffffff`
+  - `#dadadf`
+  - `#7177a1`
+  - `#7112FB2`
+  - `#242a3d`
+  - `#3b3d24`
+  - `#cfced3`
+  - `#7112ee`
+  - `#7112FB2`
+  - `#242a3d`
 
-        #f8f8f8
-        #e9ebf2
-        #7112ee
-        #ffffff
-        #dadadf
-        #7177a1
-        #7112FB2
-        #242a3d
-        #3b3d24
-        #cfced3
-        #7112ee
-        #7112FB2
-        #242a3d
 
 These colors are used for background colors, text colors, and border colors.
 
   ![colors](/src/assets/readme_colors.jpg)
 
-    Following on from the points made about the importance of UI for this project, the most frequently used colors are:
+   Following on from the points made about the importance of UI for this project, the most frequently used colors are:
 
-      - **Background Colors:**
-        - `#f8f8f8`
-        - `#ffffff`
-        - `#f1f1f1`
+   - **Background Colors:**
+     - `#f8f8f8`
+     - `#ffffff`
+     - `#f1f1f1`
 
-      - **Text Colors:**
-        - `#e9ebf2`
-        - `#7112ee`
-        - `#7177a1` 
+   - **Text Colors:**
+     - `#e9ebf2`
+     - `#7112ee`
+     - `#7177a1` 
 
  There are three features most directly connected to the core concept of the website and to the three custom models in the backend. The styling for each can be found in these files: 
 
@@ -197,7 +194,7 @@ The shared Styles for DogProfile, DogHealth, and DogDanger modules are:
 - Margin Bottom: `16px`
 - Text Alignment: `center`
 
-
+To provide real-time feedback to Users notifying them of any changes they make to their data I used React's ['NotificationContainer' component](https://www.npmjs.com/package/react-notifications).
 
 ### [**Agile Development Process**](#agile-development-process)
 
