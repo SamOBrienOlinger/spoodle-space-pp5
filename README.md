@@ -19,7 +19,7 @@ This platform is intended to not only meet the demand for learning and interacti
 
  - **[User Stories](#user-stories)**
    
- - **[UX and UI Design](#ux-ui)**
+ - **[UX and UI Design](#ux-and-ui-design)**
 
  - **[Agile Development Process](#agile-development-process)**
 
@@ -109,7 +109,7 @@ This platform is intended to not only meet the demand for learning and interacti
     -  As a user, I can search for these details with keywords, so that I can find the details and user profiles I am most interested in.
     -  Infinite scroll: As a user I can keep scrolling through the images on the site, that are loaded for me automatically so that I don't have to click on "next page".
  
-  ## [**UX and UI Design](#ux-ui)**
+  ## **[UX and UI Design](#ux-and-ui-design)**
 
    ### **UX Design**
 
