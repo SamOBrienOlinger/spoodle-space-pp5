@@ -38,6 +38,7 @@ import NotFound from "./components/NotFound";
 
 import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import MaintenancePopup from './components/MaintenancePopup';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
 
   return (
     <div className={styles.App}>
+      <MaintenancePopup />
       <NavBar />
       <Container className={styles.Main}>
       <NotificationContainer/>
