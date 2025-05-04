@@ -15,6 +15,14 @@ This platform is intended to not only meet the demand for learning and interacti
 
 - View the backend repository on Github **[Here](https://github.com/SamOBrienOlinger/drf-spoodle-space)**. 
 
+# 🚧 Site Temporarily Unavailable Due to Database Migration 🚧
+
+**NB:** Users are currently experiencing temporary downtime as I migrate the database from **ElephantSQL** to a new hosting service. This transition is necessary to improve the **stability** and **performance** of the site.
+
+I am actively working to complete this migration and restore full functionality as quickly as possible. I am also evaluating options such as **AWS** to ensure a robust and scalable infrastructure for the future.
+
+**Thank you for your patience. I appreciate your understanding.**
+
 ## Contents
 
  - **[User Stories](#user-stories)**
