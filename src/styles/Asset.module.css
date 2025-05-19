@@ -14,3 +14,7 @@
   align-items: center;
 
 }
+
+.redIcon {
+  color: red !important;
+}
