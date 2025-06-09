@@ -28,15 +28,17 @@ function MaintenancePopup() {
       maxWidth: '400px',
       textAlign: 'center'
     }}>
-      <strong>This website is currently under construction due to migration of databases. To find out about all of SpoodleSpace's functionalites and features </strong><br /><br />
-    we are back up and running <a
+      <strong>This website is currently under construction due to migration of databases. <br/><br/>
+        
+        <strong></strong><a
   href="https://github.com/SamOBrienOlinger/spoodle-space-pp5/blob/main/README.md"
   target="_blank"
   rel="noopener noreferrer"
   style={{ color: "purple", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Click Here
-</a>. See you back here again soon!<br /><br />
+  Click Here!
+</a> to find out about all of SpoodleSpace's functionalites and features </strong><br/><br/>
+ See again soon!<br /><br />
       <button onClick={() => setShowPopup(false)} style={{
         padding: '8px 12px',
         backgroundColor: '#444',
