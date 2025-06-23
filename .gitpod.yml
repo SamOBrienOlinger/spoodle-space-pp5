@@ -4,4 +4,6 @@ tasks:
       nvm use
       npm install
       npm run build
-    command: npm run start
+    command: |
+      export NODE_OPTIONS=--openssl-legacy-provider
+      npm start
