@@ -1,14 +1,17 @@
 import axios from "axios";
 
-// Set the base URL to your deployed Django backend on Heroku
+// ✅ Base URL of your deployed Django REST API on Heroku
 const baseURL = "https://drf-spoodle-space-38208b5fae30.herokuapp.com/";
 
+// ✅ Global Axios config
 axios.defaults.baseURL = baseURL;
 axios.defaults.headers.post["Content-Type"] = "multipart/form-data";
 axios.defaults.withCredentials = true;
 
+// ✅ Separate Axios instances for request/response interceptors if needed later
 export const axiosReq = axios.create({ baseURL });
 export const axiosRes = axios.create({ baseURL });
+
 
 
 // import axios from "axios";
