@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // ✅ Base URL of your deployed Django REST API on Heroku
-const baseURL = "https://drf-spoodle-space-38208b5fae30.herokuapp.com/";
+const baseURL = "https://spoodlespace.herokuapp.com/";
 
 // ✅ Global Axios config
 axios.defaults.baseURL = baseURL;

@@ -23,7 +23,7 @@
   "scripts": {
     "heroku-prebuild": "npm install -g serve",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "msw": "^0.35.0",
     "serve": "^14.2.4"
   },
