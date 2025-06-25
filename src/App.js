@@ -17,12 +17,10 @@ import ProfilePage from "./pages/profiles/ProfilePage";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
-
 import DogProfileCreateForm from "./pages/dogprofiles/DogProfileCreateForm";
 import DogProfilePage from "./pages/dogprofiles/DogProfilePage";
 import DogProfilesPage from "./pages/dogprofiles/DogProfilesPage";
 import DogProfileEditForm from "./pages/dogprofiles/DogProfileEditForm";
-
 
 import DogHealthPage from "./pages/doghealth/DogHealthPage";
 import DogsHealthPage from "./pages/doghealth/DogsHealthPage";
@@ -38,7 +36,7 @@ import NotFound from "./components/NotFound";
 
 import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import MaintenancePopup from './components/MaintenancePopup';
+// import MaintenancePopup from './components/MaintenancePopup';
 
 
 function App() {
@@ -47,7 +45,7 @@ function App() {
 
   return (
     <div className={styles.App}>
-      <MaintenancePopup />
+      {/* <MaintenancePopup /> */}
       <NavBar />
       <Container className={styles.Main}>
       <NotificationContainer/>

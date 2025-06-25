@@ -5,5 +5,4 @@ tasks:
       npm install
       npm run build
     command: |
-      export NODE_OPTIONS=--openssl-legacy-provider
       npm start
