@@ -18,9 +18,9 @@ This platform is intended to not only meet the demand for learning and interacti
 ---
 > 🚧 **Site is Available on Desktop, but Temporarily Unavailable on Mobile Devices. This is due a necessary Database Migration as a result of ElephantSQL's End of Life. The website has since been moved to Heroku's PostgreSQL database service**  
 
-I am actively working to restore full functionality for use on mobile devices as quickly as possible. I am also evaluating a wide range of other relational database management systems to ensure the website has a robust and scalable infrastructure for the future.
+> I am actively working to restore full functionality for use on mobile devices as quickly as possible. I am also evaluating a wide range of other relational database management systems to ensure the website has a robust and scalable infrastructure for the future.
 
-**Thank you for your patience. I appreciate your understanding.**
+> **Thank you for your patience. I appreciate your understanding.**
 >
 ---
 
