@@ -13,3 +13,7 @@ axios.defaults.withCredentials = true;
 // ✅ Separate Axios instances for request/response interceptors if needed later
 export const axiosReq = axios.create({ baseURL });
 export const axiosRes = axios.create({ baseURL });
+
+// Ensure axios instances also send cookies when used directly
+axiosReq.defaults.withCredentials = true;
+axiosRes.defaults.withCredentials = true;
