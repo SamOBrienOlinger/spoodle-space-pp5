@@ -47,8 +47,28 @@ export const unfollowHelper = (profile, clickedProfile) => {
 };
 
 export const setTokenTimestamp = (data) => {
-  const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp;
-  localStorage.setItem("refreshTokenTimestamp", refreshTokenTimestamp);
+  try {
+    // If the backend returns a refresh_token in the JSON response (token-in-body flow)
+    if (data?.refresh_token) {
+      const refreshTokenTimestamp = jwtDecode(data.refresh_token).exp;
+      localStorage.setItem("refreshTokenTimestamp", refreshTokenTimestamp);
+      return;
+    }
+
+    // If the backend returns an access_token in the JSON response, use that as a fallback
+    if (data?.access_token) {
+      const accessTokenTimestamp = jwtDecode(data.access_token).exp;
+      localStorage.setItem("refreshTokenTimestamp", accessTokenTimestamp);
+      return;
+    }
+
+    // If tokens are handled via HttpOnly cookies (JWTCookieAuthentication), we can't read them from JS.
+    // Store a simple flag/timestamp so the client-side refresh logic knows the user authenticated.
+    localStorage.setItem("refreshTokenTimestamp", Date.now());
+  } catch (err) {
+    // If decoding fails for any reason, fall back to storing a timestamp flag so other code paths work.
+    localStorage.setItem("refreshTokenTimestamp", Date.now());
+  }
 };
 
 export const shouldRefreshToken = () => {
