@@ -1,7 +1,9 @@
 import axios from "axios";
 
 // ✅ Base URL of your deployed Django REST API on Heroku
-const baseURL = "https://spoodlespace.herokuapp.com/";
+// Keep API requests on the frontend origin so authentication cookies remain
+// first-party on browsers with cross-site tracking protection (notably iOS).
+const baseURL = "/api/";
 
 // ✅ Global Axios config
 axios.defaults.baseURL = baseURL;
