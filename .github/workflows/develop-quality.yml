@@ -1,0 +1,64 @@
+name: Frontend quality gate
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontend-quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Test, build, and smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Run tests
+        env:
+          CI: "true"
+        run: npm test -- --watchAll=false
+
+      - name: Create production build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+        run: npm run build
+
+      - name: Smoke-test frontend and API proxy
+        shell: bash
+        run: |
+          PORT=3100 node server.js > /tmp/spoodlespace-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+
+          for attempt in {1..15}; do
+            if curl --fail --silent http://127.0.0.1:3100/ > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
+          curl --fail --silent http://127.0.0.1:3100/ > /dev/null
+          curl --fail --silent http://127.0.0.1:3100/signin > /dev/null
+          curl --fail --silent http://127.0.0.1:3100/api/posts/ > /dev/null
