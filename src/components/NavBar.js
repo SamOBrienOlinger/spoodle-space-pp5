@@ -143,7 +143,7 @@ const NavBar = () => {
       <Container>
         <NavLink to="/">
           <Navbar.Brand>
-            <img src={logo} alt="logo" height="45" />
+            <img className={styles.Logo} src={logo} alt="SpoodleSpace" />
           </Navbar.Brand>
         </NavLink>
         {currentUser && addPostIcon}

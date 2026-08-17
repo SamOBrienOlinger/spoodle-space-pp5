@@ -2,6 +2,9 @@
     word-break: break-all;
   }
 
+.ProfileItem { color: #312538; padding-bottom: 12px; border-bottom: 1px solid #eee7f1; }
+.ProfileItem:last-child { border-bottom: 0; padding-bottom: 0; }
+
 #profile-text-center {
     color: indigo;
   }

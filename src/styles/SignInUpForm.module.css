@@ -1,22 +1,25 @@
   .Input {
     background: #ffffff;
-    border: 1px solid #f0f1f9;
+    border: 1px solid #ded3e9;
     box-sizing: border-box;
-    border-radius: 2px;
-    color: #7177a1;
-    text-align: center;
-    padding: 10px;
+    border-radius: 12px;
+    color: #302638;
+    text-align: left;
+    padding: 12px 14px;
+    min-height: 48px;
   }
   
   .Header {
     font-style: normal;
     font-weight: bold;
-    font-size: 16px;
-    line-height: 19px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 2rem;
+    line-height: 1.2;
     text-align: center;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #7177a1;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #2a1837;
+    margin-bottom: 24px;
   }
   
   .Link {
@@ -37,6 +40,8 @@
   .Container {
     padding: 30px 10px;
   }
+
+  .Row { min-height: calc(100vh - 170px); }
   
   .SignInCol {
     height: 320px;
@@ -44,6 +49,8 @@
   
   .SignUpCol {
     height: 375px;
+    overflow: hidden;
+    border-radius: 22px;
   }
 
   #home.image {
@@ -53,16 +60,16 @@
 
   .signin {
 
-    color: #7177a1;
+    color: #6d6675;
   }
 
   a:hover {
     text-decoration: none;
-    color: yellow;
+    color: #4b0f9f;
   }
   
   a:hover i {
-    color: yellow;
+    color: #4b0f9f;
     transition: color ease-in-out 0.3s;
   }
 
@@ -70,4 +77,8 @@
 
     margin-left: auto;
     margin-right: auto;
+  }
+
+  @media screen and (max-width: 767px) {
+    .Row { min-height: auto; padding: 20px 8px; }
   }

@@ -1,8 +1,11 @@
 .SearchBar input {
-    border-radius: 20px;
+    background: #fff;
+    border: 1px solid #ded3e9;
+    border-radius: 14px;
     color: #242a3d;
     padding-left: 40px;
     margin-bottom: 16px;
+    min-height: 48px;
   }
   
   .SearchIcon {
@@ -18,22 +21,78 @@
     color: #cfced3;
   }
 
-  #welcome {
-    width: -webkit-fill-available;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-    text-align: center;
-    margin-top: 1rem;    
-    position: sticky;
-    
-    top: 58px;
-    right: 0;
-    left: 0;
-    z-index: 200;
+  .Welcome {
+    align-items: center;
+    background: #f1e9ff;
+    border-radius: 26px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 8px 14px;
+    overflow: hidden;
+    padding: 30px 36px;
+    position: relative;
+    width: calc(100% - 16px);
   }
 
+  .WelcomeCopy { max-width: 700px; position: relative; z-index: 1; }
+
+  .Eyebrow {
+    color: #7112ee;
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .Header {
+    color: #2a1837;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.02;
+    margin: 0 0 12px;
+  }
+
+  .Lead { color: #3c3144; font-size: 1.08rem; font-weight: 700; margin-bottom: 7px; }
+  .Intro { color: #665c6d; line-height: 1.65; margin: 0; max-width: 680px; }
+
+  .WelcomeActions {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    min-width: 190px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .PrimaryAction {
+    background: #7112ee;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 800;
+    padding: 12px 18px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .PrimaryAction:hover { background: #4b0f9f; color: #fff; }
+  .SecondaryAction { color: #5f5069; font-size: 0.8rem; margin-top: 10px; text-align: center; width: 100%; }
   #search {
     margin-top: 15px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .Welcome {
+      align-items: flex-start;
+      border-radius: 20px;
+      flex-direction: column;
+      margin: 8px 0 12px;
+      padding: 24px 20px;
+      width: 100%;
+    }
+    .WelcomeActions { margin: 20px 0 0; width: 100%; }
+    .Header { font-size: 2.25rem; }
   }

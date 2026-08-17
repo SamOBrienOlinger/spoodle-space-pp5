@@ -10,6 +10,7 @@
 
 # production
 /build
+/.runtime-tmp/
 
 # misc
 .DS_Store

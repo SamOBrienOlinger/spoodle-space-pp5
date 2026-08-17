@@ -24,6 +24,10 @@ import NoResults from "../../assets/no-results.png";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  normalizeProfileImage,
+  useDefaultProfileImage,
+} from "../../utils/profileImages";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -73,7 +77,9 @@ function ProfilePage() {
           <Image
             className={styles.ProfileImage}
             roundedCircle
-            src={profile?.image}
+            src={normalizeProfileImage(profile?.image)}
+            alt={`${profile?.owner || "User"}'s profile picture`}
+            onError={useDefaultProfileImage}
           />
         </Col>
         <Col lg={6}>

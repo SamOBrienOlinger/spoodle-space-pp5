@@ -85,10 +85,14 @@ const Post = (props) => {
   return (
     <Card className={styles.Post}>
       <Card.Body>
-        <Media className="align-items-center justify-content-between">
+        <Media className={`align-items-center justify-content-between ${styles.PostHeader}`}>
           {currentUser && (
             <Link to={`/profiles/${profile_id}`}>
-              <Avatar src={profile_image} height={55} />
+              <Avatar
+                src={profile_image}
+                height={55}
+                alt={`${owner}'s profile picture`}
+              />
               {owner}
             </Link>
           )}
@@ -101,13 +105,17 @@ const Post = (props) => {
                 </Tooltip>
               }
             >
-              <Link to={`/`}>
-                <Avatar src={profile_image} height={55} />
+              <Link to={`/profiles/${profile_id}`}>
+                <Avatar
+                  src={profile_image}
+                  height={55}
+                  alt={`${owner}'s profile picture`}
+                />
                 {owner}
               </Link>
             </OverlayTrigger>
           )}
-          <div className="d-flex align-items-center">
+          <div className={`d-flex align-items-center ${styles.PostMeta}`}>
             <span>{updated_at}</span>
             {is_owner && postPage && (
               <MoreDropdown

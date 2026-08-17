@@ -1,7 +1,16 @@
 .MostPopularProfiles {
-    border-radius: 20px;
-    color: #7112ee;
-    padding-left: 40px;
-    margin-bottom: 16px;
-    margin-top: 25px;
+    color: #2a1837;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e7deed;
+  }
+
+  .PopularProfiles { background: #fffdf9; box-shadow: none; position: sticky; top: 96px; }
+
+  @media screen and (max-width: 991px) {
+    .PopularProfiles { overflow-x: auto; position: static; }
+    .MostPopularProfiles { text-align: left; }
   }

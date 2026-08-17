@@ -20,12 +20,16 @@ const Profile = (props) => {
 
   return (
     <div
-      className={`my-3 d-flex align-items-center ${mobile && "flex-column"}`}
+      className={`${styles.ProfileItem} my-3 d-flex align-items-center ${mobile && "flex-column"}`}
     >
       <div>
         {currentUser && (
           <Link className="align-self-center" to={`/profiles/${id}`}>
-            <Avatar src={image} height={imageSize} />
+            <Avatar
+              src={image}
+              height={imageSize}
+              alt={`${owner}'s profile picture`}
+            />
           </Link>
         )}
         {!currentUser && (
@@ -33,8 +37,12 @@ const Profile = (props) => {
             placement="bottom"
             overlay={<Tooltip>Sign in or Sign up to view more!</Tooltip>}
           >
-            <Link className="align-self-center" to={`/`}>
-              <Avatar src={image} height={imageSize} />
+            <Link className="align-self-center" to={`/profiles/${id}`}>
+              <Avatar
+                src={image}
+                height={imageSize}
+                alt={`${owner}'s profile picture`}
+              />
             </Link>
           </OverlayTrigger>
         )}

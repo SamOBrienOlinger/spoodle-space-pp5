@@ -18,6 +18,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { Link } from "react-router-dom";
 
 function PostsPage({ message, filter = "" }) {
   const [posts, setPosts] = useState({ results: [] });
@@ -52,18 +53,23 @@ function PostsPage({ message, filter = "" }) {
   return (
     <Row className="h-100">
       {!currentUser && (
-        <div id="welcome" className="px-3 text-center">
+        <section id="welcome" className={styles.Welcome}>
+          <div className={styles.WelcomeCopy}>
+          <span className={styles.Eyebrow}>A community for dogs and their people</span>
           <h1 className={styles.Header}>Welcome to SpoodleSpace</h1>
-          <p>The most Spoodley & Cockapoopy Space you're ever going to sniff out</p>
-          <br />
-          <p>
-            Our community is all about sharing ways of enjoying long ludicrous
-            lives with the lovliest little furrballs on Earth, probably the
-            Universe!
-            <br />
-            Labradoodles, Poodles, cavapoos, basically anyone is welcome
+          <p className={styles.Lead}>
+            The most Spoodley &amp; Cockapoopy space you're ever going to sniff out.
           </p>
-        </div>
+          <p className={styles.Intro}>
+            Share the joy of long, ludicrous lives with the loveliest little
+            furballs on Earth. Labradoodles, Poodles, Cavapoos—everyone is welcome.
+          </p>
+          </div>
+          <div className={styles.WelcomeActions}>
+            <Link className={styles.PrimaryAction} to="/signup">Join SpoodleSpace</Link>
+            <Link className={styles.SecondaryAction} to="/signin">Already a member? Sign in</Link>
+          </div>
+        </section>
       )}
 
       <Col className="py-2 p-0 p-lg-2" lg={8}>

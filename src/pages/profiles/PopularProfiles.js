@@ -11,7 +11,7 @@ const PopularProfiles = ({ mobile }) => {
 
   return (
     <Container
-      className={`${appStyles.Content} ${
+      className={`${appStyles.Content} ${styles.PopularProfiles} ${
         mobile && "d-lg-none text-center mb-3"
       }`}
     >

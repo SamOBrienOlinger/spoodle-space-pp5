@@ -1,28 +1,33 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Oswald&display=swap'); */
 .App {
-  font-family: "Lato", "DM Sans", "sans-serif";
-  background-color: #f8f8f8;
+  --brand-violet: #7112ee;
+  --brand-violet-dark: #4b0f9f;
+  --brand-lilac: #f1e9ff;
+  --brand-apricot: #ffad91;
+  --surface: #fffdf9;
+  --ink: #211b2b;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  background-color: var(--surface);
   min-height: 100vh;
-  color: #e9ebf2;
+  color: var(--ink);
 }
 
 #profile-text-center {
   color: #7112ee;
 }
 
-div {
-  background-color: #7112ee;
-}
-
 .Main {
-  padding-top: 81px;
+  max-width: 1240px;
+  padding-top: 104px;
+  padding-bottom: 48px;
 }
 
 .Content {
   background-color: #ffffff;
-  padding: 10px;
-  border-radius: 2px;
-  border: 1px solid #dadadf;
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid #ebe4f0;
+  box-shadow: 0 10px 30px rgba(70, 27, 104, 0.06);
 }
 
 .FillerImage {
@@ -42,7 +47,9 @@ div {
 }
 
 body {
-  font-family: "Oswald", "sans-serif";
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  background: #fffdf9;
+  color: #211b2b;
 }
 
 .styles.LinkContainer {
@@ -76,22 +83,22 @@ body {
 }
 
 a {
-  color: #e9ebf2;
+  color: #5e16c9;
   transition: color ease-in-out 0.3s;
 }
 
 a:hover {
   text-decoration: none;
-  color: yellow;
+  color: #3f0b91;
 }
 
 a:hover i {
-  color: yellow;
+  color: #3f0b91;
   transition: color ease-in-out 0.3s;
 }
 
 i {
-  color: #e9ebf2;
+  color: #7112ee;
   font-size: 1.6rem;
   padding: 7px;
   vertical-align: middle;
@@ -100,7 +107,7 @@ i {
 i:hover {
   cursor: pointer;
   transition: color ease-in-out 0.3s;
-  color: yellow;
+  color: #3f0b91;
 }
 
 figure {
@@ -109,7 +116,7 @@ figure {
 }
 
 *::-webkit-scrollbar {
-  width: 18px;
+  width: 12px;
 }
 
 *::-webkit-scrollbar-track {
@@ -117,5 +124,10 @@ figure {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #b99de1;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 991px) {
+  .Main { padding-top: 88px; }
 }

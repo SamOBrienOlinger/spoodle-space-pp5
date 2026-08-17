@@ -1,22 +1,47 @@
 .NavBar {
-    background-color: #f8f8f8;
-    padding-top: 0.1rem;
-    padding-right: 1rem;
-    padding-bottom: 0.1rem;
-    padding-left: 1rem;
+    background: #7112ee;
+    min-height: 76px;
+    padding: 0.55rem 1rem;
+    box-shadow: 0 8px 30px rgba(61, 7, 126, 0.16);
   }
 
   .NavLink {
-    padding: 5px;
-  }
-  
-  .Active i {
-    color: #dddfe4;
+    align-items: center;
+    border-radius: 12px;
+    color: #fff;
+    display: flex;
+    font-size: 0.95rem;
+    font-weight: 700;
+    gap: 2px;
+    margin: 0 2px;
+    padding: 9px 12px;
+    white-space: nowrap;
   }
 
-  @media screen and (max-width: 576px) {
+  .NavLink i { color: #fff; font-size: 1.05rem; }
+
+  .NavLink:hover,
+  .NavLink:hover i,
+  .Active,
+  .Active i {
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+  }
+
+  .Logo { display: block; height: 48px; max-width: 320px; object-fit: contain; }
+
+  .NavBar button { background: #fff; border: 0; }
+
+  @media screen and (max-width: 991px) {
     .NavBar {
-    padding-left: 0rem;
-    padding-right: 0rem;
+      min-height: 68px;
+      padding: 0.4rem 0.65rem;
     }
+
+    .Logo { height: 40px; max-width: 235px; }
+    .NavLink { margin: 3px 0; padding: 10px 12px; }
+  }
+
+  @media screen and (max-width: 420px) {
+    .Logo { height: 34px; max-width: 190px; }
   }
