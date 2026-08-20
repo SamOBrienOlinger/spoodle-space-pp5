@@ -1,7 +1,24 @@
 .MostPopularProfiles {
-    border-radius: 20px;
-    color: #7112ee;
-    padding-left: 40px;
-    margin-bottom: 16px;
-    margin-top: 25px;
+  background: #ffffff;
+  border: 1px solid #e2dfe7;
+  border-radius: 10px;
+  color: #24212b;
+  padding: 16px;
+  margin: 10px 0 16px;
+  box-shadow: 0 1px 3px rgba(36, 33, 43, 0.08);
+}
+
+.MostPopularProfiles a {
+  color: #24212b;
+}
+
+.MostPopularProfiles a:hover {
+  color: #7112ee;
+}
+
+@media screen and (max-width: 991px) {
+  .MostPopularProfiles {
+    border-radius: 8px;
+    padding: 12px;
   }
+}
