@@ -14,13 +14,9 @@ import axios from "axios";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle.js";
 import { removeTokenTimestamp } from "../utils/utils";
 
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
-
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
-
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
   const handleSignOut = async () => {
@@ -33,104 +29,17 @@ const NavBar = () => {
     }
   };
 
-  const addPostIcon = (
+  const navItem = (to, icon, label, exact = false) => (
     <NavLink
+      exact={exact}
       className={styles.NavLink}
       activeClassName={styles.Active}
-      to="/posts/create"
+      to={to}
+      onClick={() => setExpanded(false)}
     >
-      <i className="far fa-plus-square"></i>
-      <div>Add post</div>
+      <i className={icon}></i>
+      <span>{label}</span>
     </NavLink>
-  );
-  const loggedInIcons = (
-    <>
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/dogprofilespage"
-      >
-        <i className="fas fa-dog"></i>
-        <div>Doggy Profiles</div>
-      </NavLink>
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/dogshealthpage"
-      >
-        <i className="fas fa-dog"></i>
-        <div>Doggy Health</div>
-      </NavLink>
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/dogdangerspage"
-      >
-        <i className="fas fa-dog"></i>
-
-        <div>Doggy Danger</div>
-      </NavLink>
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/feed"
-      >
-        <i className="fas fa-stream"></i>
-        <div>Feed</div>
-      </NavLink>
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/liked"
-      >
-        <i className="fas fa-heart"></i>
-        <div>Liked</div>
-      </NavLink>
-      <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
-        <i className="fas fa-sign-out-alt"></i>
-        <div>Sign out</div>
-      </NavLink>
-      <NavLink
-        className={styles.NavLink}
-        to={`/profiles/${currentUser?.profile_id}`}
-      >
-        <Avatar
-          src={currentUser?.profile_image}
-          text={currentUser?.username}
-          height={40}
-        />
-      </NavLink>
-    </>
-  );
-  const loggedOutIcons = (
-    <>
-      <OverlayTrigger
-        placement="bottom"
-        overlay={<Tooltip>Sign in or Sign up to view more!</Tooltip>}
-      >
-        <NavLink
-          className={styles.NavLink}
-          activeClassName={styles.Active}
-          to="/"
-        >
-          <i className="fas fa-dog"></i>Doggy profiles
-        </NavLink>
-      </OverlayTrigger>
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/signin"
-      >
-        <i className="fas fa-sign-in-alt"></i>Sign in
-      </NavLink>
-      <NavLink
-        to="/signup"
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-      >
-        <i className="fas fa-user-plus"></i>Sign up
-      </NavLink>
-    </>
   );
 
   return (
@@ -140,31 +49,60 @@ const NavBar = () => {
       expand="lg"
       fixed="top"
     >
-      <Container>
-        <NavLink to="/">
-          <Navbar.Brand>
-            <img src={logo} alt="logo" height="45" />
+      <Container fluid="lg" className={styles.NavContainer}>
+        <NavLink to="/" className={styles.BrandLink}>
+          <Navbar.Brand className={styles.Brand}>
+            <img src={logo} alt="SpoodleSpace" height="45" />
           </Navbar.Brand>
         </NavLink>
-        {currentUser && addPostIcon}
+
         <Navbar.Toggle
           ref={ref}
           onClick={() => setExpanded(!expanded)}
-          aria-controls="basic-navbar-nav"
+          aria-controls="spoodlespace-navigation"
         />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto text-left">
-            <NavLink
-              exact
-              className={styles.NavLink}
-              activeClassName={styles.Active}
-              to="/"
-            >
-              <i className="fas fa-home"></i>
-              <div>Home</div>
-            </NavLink>
 
-            {currentUser ? loggedInIcons : loggedOutIcons}
+        <Navbar.Collapse id="spoodlespace-navigation">
+          <Nav className={`ml-auto ${styles.NavItems}`}>
+            {navItem("/", "fas fa-home", "Home", true)}
+
+            {currentUser ? (
+              <>
+                {navItem("/feed", "fas fa-stream", "Feed")}
+                {navItem("/posts/create", "far fa-plus-square", "Post")}
+                {navItem("/dogprofilespage", "fas fa-dog", "Dogs")}
+                {navItem("/dogshealthpage", "fas fa-heartbeat", "Health")}
+                {navItem("/dogdangerspage", "fas fa-exclamation-triangle", "Safety")}
+                {navItem("/liked", "fas fa-heart", "Liked")}
+
+                <NavLink
+                  className={`${styles.NavLink} ${styles.ProfileLink}`}
+                  activeClassName={styles.Active}
+                  to={`/profiles/${currentUser?.profile_id}`}
+                  onClick={() => setExpanded(false)}
+                >
+                  <Avatar
+                    src={currentUser?.profile_image}
+                    text={currentUser?.username}
+                    height={34}
+                  />
+                </NavLink>
+
+                <NavLink
+                  className={`${styles.NavLink} ${styles.SignOut}`}
+                  to="/"
+                  onClick={handleSignOut}
+                >
+                  <i className="fas fa-sign-out-alt"></i>
+                  <span>Sign out</span>
+                </NavLink>
+              </>
+            ) : (
+              <>
+                {navItem("/signin", "fas fa-sign-in-alt", "Sign in")}
+                {navItem("/signup", "fas fa-user-plus", "Sign up")}
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
