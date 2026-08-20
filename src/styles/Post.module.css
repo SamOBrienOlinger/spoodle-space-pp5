@@ -13,24 +13,78 @@ h5 {
   margin: 0;
 }
 
-.Post img {
-  max-width: 100%;
+.Post :global(.card-body) {
+  background: #ffffff;
+  color: #24212b;
+  padding: 14px 16px;
+}
+
+.Post :global(.media) a {
+  color: #24212b;
+  font-weight: 700;
+}
+
+.Post :global(.media) span {
+  color: #77717f;
+  font-size: 0.82rem;
+}
+
+.Post :global(.card-img) {
+  width: 100%;
+  max-height: 620px;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.Post :global(.card-title) {
+  color: #24212b;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: left !important;
+}
+
+.Post :global(.card-text) {
+  color: #3f3a46;
+  line-height: 1.5;
+}
+
+.PostBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #ece9f0;
+  color: #6f6a78;
+}
+
+.PostBar i {
+  color: #6f6a78;
+  font-size: 1.15rem;
+  padding: 7px;
+  border-radius: 6px;
+}
+
+.PostBar i:hover {
+  color: #7112ee;
+  background: #f1e9fd;
 }
 
 .Heart {
-  color: #e7435a;
+  color: #e7435a !important;
 }
 
 .Heart:hover {
-  color: #c52f47;
+  color: #c52f47 !important;
 }
 
 .HeartOutline {
-  color: #7112ee;
+  color: #7112ee !important;
 }
 
 .HeartOutline:hover {
-  color: #e7435a;
+  color: #e7435a !important;
 }
 
 @media screen and (max-width: 767px) {
@@ -39,5 +93,13 @@ h5 {
     border-right: 0;
     border-radius: 8px;
     margin-bottom: 10px;
+  }
+
+  .Post :global(.card-body) {
+    padding: 12px;
+  }
+
+  .Post :global(.card-img) {
+    max-height: 72vh;
   }
 }
