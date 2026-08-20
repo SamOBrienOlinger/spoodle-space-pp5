@@ -1,39 +1,63 @@
+.SearchBar {
+  position: relative;
+  margin: 4px 0 14px;
+}
+
 .SearchBar input {
-    border-radius: 20px;
-    color: #242a3d;
-    padding-left: 40px;
-    margin-bottom: 16px;
-  }
-  
-  .SearchIcon {
-    position: absolute;
-    font-size: 1.2rem;
-    padding: 9px;
-    padding-left: 15px;
-    color: #7112ee;
-  }
-  
-  .SearchIcon:hover {
-    cursor: default;
-    color: #cfced3;
+  height: 46px;
+  border: 1px solid #e2dfe7;
+  border-radius: 23px;
+  background: #ffffff;
+  color: #24212b;
+  padding: 0 18px 0 44px;
+  box-shadow: 0 1px 3px rgba(36, 33, 43, 0.06);
+}
+
+.SearchBar input:focus {
+  border-color: #7112ee;
+  box-shadow: 0 0 0 3px rgba(113, 18, 238, 0.12);
+}
+
+.SearchIcon {
+  position: absolute;
+  z-index: 2;
+  font-size: 1rem;
+  padding: 14px 0 0 16px;
+  color: #716b7b;
+}
+
+.SearchIcon:hover {
+  cursor: default;
+  color: #716b7b;
+}
+
+.Header {
+  color: #7112ee;
+  font-weight: 700;
+}
+
+#welcome {
+  width: 100%;
+  padding: 24px 18px;
+  margin: 1rem auto;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2dfe7;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(36, 33, 43, 0.08);
+}
+
+#search {
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .SearchBar input {
+    height: 44px;
   }
 
   #welcome {
-    width: -webkit-fill-available;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-    text-align: center;
-    margin-top: 1rem;    
-    position: sticky;
-    
-    top: 58px;
-    right: 0;
-    left: 0;
-    z-index: 200;
+    margin-top: 0.5rem;
+    border-radius: 8px;
   }
-
-  #search {
-    margin-top: 15px;
-  }
+}
