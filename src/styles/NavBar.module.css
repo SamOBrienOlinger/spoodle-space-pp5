@@ -1,22 +1,73 @@
 .NavBar {
-    background-color: #f8f8f8;
-    padding-top: 0.1rem;
-    padding-right: 1rem;
-    padding-bottom: 0.1rem;
-    padding-left: 1rem;
+  background: linear-gradient(90deg, #7112ee 0%, #5d14c8 100%);
+  min-height: 64px;
+  padding: 0.25rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 8px rgba(44, 20, 73, 0.16);
+}
+
+.NavBar img {
+  max-width: 210px;
+  object-fit: contain;
+}
+
+.NavLink {
+  color: #ffffff;
+  padding: 7px 9px;
+  margin: 0 1px;
+  border-radius: 7px;
+  font-size: 0.78rem;
+  text-align: center;
+  opacity: 0.92;
+}
+
+.NavLink i {
+  color: #ffffff;
+  display: block;
+  font-size: 1.15rem;
+  padding: 2px 7px;
+}
+
+.NavLink:hover,
+.NavLink:hover i,
+.Active,
+.Active i {
+  color: #ffffff;
+  opacity: 1;
+}
+
+.NavLink:hover,
+.Active {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.NavBar :global(.navbar-toggler) {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+@media screen and (max-width: 991px) {
+  .NavBar {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   .NavLink {
-    padding: 5px;
-  }
-  
-  .Active i {
-    color: #dddfe4;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 10px;
   }
 
-  @media screen and (max-width: 576px) {
-    .NavBar {
-    padding-left: 0rem;
-    padding-right: 0rem;
-    }
+  .NavLink i {
+    display: inline-block;
   }
+}
+
+@media screen and (max-width: 576px) {
+  .NavBar img {
+    max-width: 170px;
+    height: auto;
+  }
+}
