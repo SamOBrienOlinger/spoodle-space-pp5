@@ -1,25 +1,43 @@
 .Post {
-    background-color: #ffffff;
-    border: 1px solid #dadadf;
-    border-radius: 2px;
-    margin-bottom: 16px;
-    text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #e2dfe7;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  text-align: left;
+  box-shadow: 0 1px 3px rgba(36, 33, 43, 0.08);
+}
+
+.Post figure,
+h5 {
+  margin: 0;
+}
+
+.Post img {
+  max-width: 100%;
+}
+
+.Heart {
+  color: #e7435a;
+}
+
+.Heart:hover {
+  color: #c52f47;
+}
+
+.HeartOutline {
+  color: #7112ee;
+}
+
+.HeartOutline:hover {
+  color: #e7435a;
+}
+
+@media screen and (max-width: 767px) {
+  .Post {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 8px;
+    margin-bottom: 10px;
   }
-  
-  .Post figure,
-  h5 {
-    margin: 0 0;
-  }
-  
-  .Heart {
-    color: #f85032;
-  }
-  
-  .Heart:hover {
-    color: #2142b2;
-  }
-  
-  .HeartOutline:hover {
-    color: #f85032;
-  }
-  
+}
