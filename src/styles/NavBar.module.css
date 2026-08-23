@@ -90,6 +90,8 @@
   .NavItems {
     align-items: stretch;
     padding: 10px 0 12px;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
   }
 
   .NavLink {
@@ -111,11 +113,36 @@
     padding-top: 8px;
     padding-bottom: 8px;
   }
+
+  .NavBar :global(.navbar-collapse) {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 576px) {
+  .NavBar {
+    min-height: 60px;
+    padding: 0.2rem 0.625rem;
+  }
+
+  .NavContainer {
+    min-height: 52px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .Brand {
+    margin-right: 0.5rem;
+  }
+
   .NavBar img {
-    max-width: 170px;
+    max-width: min(160px, 52vw);
     height: auto;
   }
+
+  .NavLink {
+    min-height: 44px;
+    padding: 10px 8px;
+  }
 }
+

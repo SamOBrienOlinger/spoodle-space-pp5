@@ -46,6 +46,7 @@ h5 {
 .Post :global(.card-text) {
   color: #3f3a46;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .PostBar {
@@ -89,8 +90,6 @@ h5 {
 
 @media screen and (max-width: 767px) {
   .Post {
-    border-left: 0;
-    border-right: 0;
     border-radius: 8px;
     margin-bottom: 10px;
   }
@@ -102,4 +101,10 @@ h5 {
   .Post :global(.card-img) {
     max-height: 72vh;
   }
+
+  .PostBar {
+    justify-content: space-around;
+    gap: 4px;
+  }
 }
+

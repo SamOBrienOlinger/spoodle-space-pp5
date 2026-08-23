@@ -21,7 +21,7 @@ const PopularProfiles = ({ mobile }) => {
             Most Followed SpoodleSpacers
           </p>
           {mobile ? (
-            <div className="d-flex justify-content-around">
+            <div className={styles.MobileProfiles}>
               {popularProfiles.results.slice(0, 4).map((profile) => (
                 <Profile key={profile.id} profile={profile} mobile />
               ))}
@@ -40,3 +40,4 @@ const PopularProfiles = ({ mobile }) => {
 };
 
 export default PopularProfiles;
+

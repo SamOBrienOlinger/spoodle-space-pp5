@@ -52,7 +52,7 @@ function PostsPage({ message, filter = "" }) {
   return (
     <Row className="h-100">
       {!currentUser && (
-        <div id="welcome" className="px-3 text-center">
+        <div className={`${styles.Welcome} text-center`}>
           <h1 className={styles.Header}>Welcome to SpoodleSpace</h1>
           <p>The most Spoodley & Cockapoopy Space you're ever going to sniff out</p>
           <br />
@@ -70,7 +70,7 @@ function PostsPage({ message, filter = "" }) {
         <PopularProfiles mobile />
 
         {currentUser && (
-          <div id="search">
+          <div className={styles.SearchRegion}>
             <i className={`fas fa-search ${styles.SearchIcon}`} />
             <Form
               className={styles.SearchBar}
@@ -119,3 +119,4 @@ function PostsPage({ message, filter = "" }) {
 }
 
 export default PostsPage;
+
