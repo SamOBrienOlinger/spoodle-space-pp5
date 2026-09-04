@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 import Avatar from "./Avatar";
+import AccountLink from "./AccountLink";
 import {
   useCurrentUser,
   useSetCurrentUser,
@@ -61,28 +62,12 @@ const AppSidebar = () => {
           <>
             {navItem("/feed", "fas fa-stream", "Following feed")}
             {navItem("/posts/create", "far fa-plus-square", "Create post")}
-            {navItem(
-              `/profiles/${currentUser.profile_id}`,
-              "fas fa-user",
-              "My profile"
-            )}
+            {navItem(`/profiles/${currentUser.profile_id}`, "fas fa-user", "My profile")}
             {navItem("/dogprofilespage", "fas fa-dog", "Dog profiles")}
-            {navItem(
-              "/dogshealthpage",
-              "fas fa-heartbeat",
-              "Health records"
-            )}
-            {navItem(
-              "/dogdangerspage",
-              "fas fa-exclamation-triangle",
-              "Safety & dangers"
-            )}
+            {navItem("/dogshealthpage", "fas fa-heartbeat", "Health records")}
+            {navItem("/dogdangerspage", "fas fa-exclamation-triangle", "Safety & dangers")}
             {navItem("/liked", "fas fa-heart", "Liked posts")}
-            {navItem(
-              `/profiles/${currentUser.profile_id}/edit`,
-              "fas fa-cog",
-              "Profile settings"
-            )}
+            {navItem(`/profiles/${currentUser.profile_id}/edit`, "fas fa-cog", "Profile settings")}
 
             <button
               className={styles.SignOutButton}
@@ -95,8 +80,14 @@ const AppSidebar = () => {
           </>
         ) : (
           <>
-            {navItem("/signin", "fas fa-sign-in-alt", "Sign in")}
-            {navItem("/signup", "fas fa-user-plus", "Sign up")}
+            <AccountLink className={styles.NavItem} to="/signin">
+              <i className="fas fa-sign-in-alt" aria-hidden="true" />
+              <span>Sign in</span>
+            </AccountLink>
+            <AccountLink className={styles.NavItem} to="/signup">
+              <i className="fas fa-user-plus" aria-hidden="true" />
+              <span>Sign up</span>
+            </AccountLink>
           </>
         )}
       </nav>
