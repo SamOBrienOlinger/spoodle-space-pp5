@@ -20,7 +20,7 @@ jobs:
         with:
           ref: design/2018-2020-ui-refresh
 
-      - name: Use the declared Node version
+      - name: Use project Node version
         uses: actions/setup-node@v4
         with:
           node-version: 16.20.0
@@ -32,68 +32,105 @@ jobs:
       - name: Install locked dependencies
         id: install
         continue-on-error: true
-        run: npm ci 2>&1 | tee verification-artifacts/npm-ci.log
+        shell: bash
+        run: |
+          set -o pipefail
+          npm ci 2>&1 | tee verification-artifacts/npm-ci.log
 
       - name: Run full production npm build
         id: build
         if: steps.install.outcome == 'success'
         continue-on-error: true
+        shell: bash
         env:
           PUBLIC_URL: /spoodle-space-pp5
           CI: true
-        run: npm run build 2>&1 | tee verification-artifacts/npm-build.log
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee verification-artifacts/npm-build.log
 
-      - name: Install Playwright browser tooling
-        id: browser_setup
+      - name: Install current Chrome
+        id: chrome
         if: steps.build.outcome == 'success'
         continue-on-error: true
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Use Node 20 for browser verification
+        id: browser_node
+        if: steps.chrome.outcome == 'success'
+        continue-on-error: true
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright Core
+        id: browser_setup
+        if: steps.browser_node.outcome == 'success'
+        continue-on-error: true
+        shell: bash
         run: |
-          npm install --no-save --package-lock=false @playwright/test@1.40.1 2>&1 | tee verification-artifacts/playwright-install.log
-          npx playwright install --with-deps chromium 2>&1 | tee -a verification-artifacts/playwright-install.log
+          set -o pipefail
+          npm install --no-save --package-lock=false playwright-core@1.51.1 2>&1 | tee verification-artifacts/playwright-install.log
 
       - name: Start production build and run visual checks
         id: visual
         if: steps.browser_setup.outcome == 'success'
         continue-on-error: true
+        shell: bash
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
         run: |
+          set -euo pipefail
+          test -n "$CHROME_PATH"
+          test -x "$CHROME_PATH"
+
           mkdir -p preview-root/spoodle-space-pp5
           cp -a build/. preview-root/spoodle-space-pp5/
           npx serve -s preview-root -l 4173 > verification-artifacts/server.log 2>&1 &
           SERVER_PID=$!
           echo "$SERVER_PID" > verification-artifacts/server.pid
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
 
+          READY=false
           for attempt in {1..30}; do
             if curl --fail --silent http://127.0.0.1:4173/spoodle-space-pp5/ > /dev/null; then
+              READY=true
               break
             fi
             sleep 1
           done
+          if [ "$READY" != "true" ]; then
+            cat verification-artifacts/server.log
+            exit 1
+          fi
 
           cat > /tmp/verify-spoodlespace.js <<'EOF'
-          const { chromium } = require('playwright');
+          const { chromium } = require('playwright-core');
           const fs = require('fs');
 
           const baseUrl = 'http://127.0.0.1:4173/spoodle-space-pp5/';
           const outputDir = 'verification-artifacts';
-          const results = [];
           const failures = [];
+          const results = [];
           const unsupportedLabels = [
             'Calendar', 'Events', 'Marketplace', 'Stories',
             'Live Video', 'Messages', 'Notifications'
           ];
 
-          const avatarSvg = encodeURIComponent(`
-            <svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
-              <rect width="240" height="240" rx="36" fill="#f1e9fd"/>
-              <circle cx="120" cy="115" r="68" fill="#d9aa72"/>
-              <circle cx="93" cy="101" r="8" fill="#24212b"/>
-              <circle cx="147" cy="101" r="8" fill="#24212b"/>
-              <ellipse cx="120" cy="126" rx="15" ry="11" fill="#24212b"/>
-              <path d="M96 148 Q120 168 144 148" fill="none" stroke="#24212b" stroke-width="8" stroke-linecap="round"/>
-              <path d="M61 78 Q35 108 63 137" fill="#b77b45"/>
-              <path d="M179 78 Q205 108 177 137" fill="#b77b45"/>
+          const dogSvg = encodeURIComponent(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="300" height="240" viewBox="0 0 300 240">
+              <rect width="300" height="240" rx="24" fill="#f1e9fd"/>
+              <circle cx="150" cy="116" r="70" fill="#d9aa72"/>
+              <path d="M92 75 Q57 112 90 151" fill="#b77b45"/>
+              <path d="M208 75 Q243 112 210 151" fill="#b77b45"/>
+              <circle cx="124" cy="104" r="8" fill="#24212b"/>
+              <circle cx="176" cy="104" r="8" fill="#24212b"/>
+              <ellipse cx="150" cy="129" rx="15" ry="11" fill="#24212b"/>
+              <path d="M126 151 Q150 171 174 151" fill="none" stroke="#24212b" stroke-width="8" stroke-linecap="round"/>
             </svg>`);
-          const dogImage = `data:image/svg+xml,${avatarSvg}`;
+          const dogImage = `data:image/svg+xml,${dogSvg}`;
 
           const currentUser = {
             pk: 1,
@@ -156,7 +193,7 @@ jobs:
             ]
           };
 
-          async function installApiMocks(page) {
+          async function mockApi(page) {
             await page.route('**/api/**', async route => {
               const pathname = new URL(route.request().url()).pathname;
               let body;
@@ -182,7 +219,7 @@ jobs:
           }
 
           async function verifyViewport(browser, name, viewport) {
-            const page = await browser.newPage({ viewportSize: viewport });
+            const page = await browser.newPage({ viewport });
             const pageErrors = [];
             const consoleErrors = [];
             const failedRequests = [];
@@ -196,7 +233,7 @@ jobs:
               error: request.failure()?.errorText || 'unknown failure'
             }));
 
-            await installApiMocks(page);
+            await mockApi(page);
             const response = await page.goto(baseUrl, {
               waitUntil: 'domcontentloaded',
               timeout: 60000
@@ -204,24 +241,32 @@ jobs:
             await page.waitForTimeout(4500);
 
             const metrics = await page.evaluate(labels => {
+              const text = document.body.innerText;
               const root = document.getElementById('root');
               const logo = document.querySelector('img[alt="SpoodleSpace"]');
-              const text = document.body.innerText;
+              const visibleAsides = [...document.querySelectorAll('aside')].filter(element => {
+                const rect = element.getBoundingClientRect();
+                return rect.width > 0 && rect.height > 0;
+              }).length;
               return {
                 title: document.title,
                 bodyTextLength: text.trim().length,
-                bodyTextPreview: text.trim().slice(0, 800),
+                bodyTextPreview: text.trim().slice(0, 900),
                 rootChildCount: root ? root.childElementCount : 0,
                 logoVisible: Boolean(logo && logo.getBoundingClientRect().width > 0),
                 horizontalOverflow: document.documentElement.scrollWidth - window.innerWidth,
                 unsupportedLabelsFound: labels.filter(label => text.includes(label)),
-                hasCreatePost: text.includes('Create Post') || text.includes('Post'),
+                hasCreatePost: text.includes('Create Post'),
                 hasHealth: text.includes('Health'),
                 hasSafety: text.includes('Safety'),
                 hasLiked: text.includes('Liked'),
-                hasSearch: text.includes('Search posts by owner or title')
+                hasSearch: text.includes('Search posts by owner or title'),
+                hasPostContent: text.includes('Sunday strolls') && text.includes('Training progress'),
+                visibleAsides
               };
             }, unsupportedLabels);
+
+            await page.screenshot({ path: `${outputDir}/${name}.png`, fullPage: true });
 
             if (name === 'mobile') {
               const toggle = page.locator('.navbar-toggler');
@@ -234,23 +279,41 @@ jobs:
               }
             }
 
-            await page.screenshot({ path: `${outputDir}/${name}.png`, fullPage: true });
+            const localAssetFailures = failedRequests.filter(item =>
+              item.url.startsWith('http://127.0.0.1:4173/spoodle-space-pp5/static/')
+            );
 
             if (!response || response.status() >= 400) failures.push(`${name}: document response was not successful`);
             if (!metrics.logoVisible) failures.push(`${name}: original SpoodleSpace logo is not visible`);
             if (metrics.rootChildCount === 0 || metrics.bodyTextLength < 40) failures.push(`${name}: React rendered no meaningful content`);
             if (metrics.horizontalOverflow > 4) failures.push(`${name}: horizontal overflow is ${metrics.horizontalOverflow}px`);
             if (metrics.unsupportedLabelsFound.length) failures.push(`${name}: unsupported UI labels found: ${metrics.unsupportedLabelsFound.join(', ')}`);
-            if (!metrics.hasHealth || !metrics.hasSafety || !metrics.hasLiked) failures.push(`${name}: one or more supported feature links are missing`);
+            if (!metrics.hasCreatePost || !metrics.hasHealth || !metrics.hasSafety || !metrics.hasLiked) failures.push(`${name}: one or more supported feature links are missing`);
+            if (!metrics.hasPostContent) failures.push(`${name}: mocked post feed content did not render`);
             if (name === 'desktop' && !metrics.hasSearch) failures.push('desktop: accurate post search label is missing');
+            if (name === 'desktop' && metrics.visibleAsides < 2) failures.push(`desktop: expected sidebar and right rail; found ${metrics.visibleAsides} visible aside(s)`);
             if (pageErrors.length) failures.push(`${name}: ${pageErrors.length} unhandled page error(s)`);
+            if (localAssetFailures.length) failures.push(`${name}: ${localAssetFailures.length} local static asset request(s) failed`);
 
-            results.push({ name, status: response?.status() || null, metrics, pageErrors, consoleErrors, failedRequests });
+            results.push({
+              name,
+              status: response ? response.status() : null,
+              metrics,
+              pageErrors,
+              consoleErrors,
+              failedRequests,
+              localAssetFailures
+            });
             await page.close();
           }
 
           (async () => {
-            const browser = await chromium.launch({ headless: true });
+            if (!process.env.CHROME_PATH) throw new Error('CHROME_PATH was not supplied');
+            const browser = await chromium.launch({
+              headless: true,
+              executablePath: process.env.CHROME_PATH,
+              args: ['--no-sandbox', '--disable-dev-shm-usage']
+            });
             await verifyViewport(browser, 'desktop', { width: 1440, height: 1000 });
             await verifyViewport(browser, 'mobile', { width: 390, height: 844 });
             await browser.close();
@@ -284,6 +347,7 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           INSTALL_OUTCOME: ${{ steps.install.outcome }}
           BUILD_OUTCOME: ${{ steps.build.outcome }}
+          CHROME_OUTCOME: ${{ steps.chrome.outcome }}
           BROWSER_SETUP_OUTCOME: ${{ steps.browser_setup.outcome }}
           VISUAL_OUTCOME: ${{ steps.visual.outcome }}
           RUN_ID: ${{ github.run_id }}
@@ -293,11 +357,12 @@ jobs:
           ## SpoodleSpace verification result
 
           - Branch: \`design/2018-2020-ui-refresh\`
-          - Node: \`16.20.0\`
+          - Build Node: \`16.20.0\`
           - \`npm ci\`: **${INSTALL_OUTCOME}**
           - \`npm run build\`: **${BUILD_OUTCOME}**
+          - Chrome setup: **${CHROME_OUTCOME}**
           - Browser tooling: **${BROWSER_SETUP_OUTCOME}**
-          - Desktop/mobile visual verification: **${VISUAL_OUTCOME}**
+          - Desktop/mobile runtime and visual verification: **${VISUAL_OUTCOME}**
           - Workflow run ID: \`${RUN_ID}\`
           - Artifact: \`spoodlespace-full-verification\`
 
@@ -310,10 +375,12 @@ jobs:
         env:
           INSTALL_OUTCOME: ${{ steps.install.outcome }}
           BUILD_OUTCOME: ${{ steps.build.outcome }}
+          CHROME_OUTCOME: ${{ steps.chrome.outcome }}
           BROWSER_SETUP_OUTCOME: ${{ steps.browser_setup.outcome }}
           VISUAL_OUTCOME: ${{ steps.visual.outcome }}
         run: |
           test "$INSTALL_OUTCOME" = "success"
           test "$BUILD_OUTCOME" = "success"
+          test "$CHROME_OUTCOME" = "success"
           test "$BROWSER_SETUP_OUTCOME" = "success"
           test "$VISUAL_OUTCOME" = "success"
