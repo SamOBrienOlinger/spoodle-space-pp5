@@ -1,0 +1,143 @@
+.RightRail {
+  position: sticky;
+  top: 84px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.Panel {
+  padding: 16px;
+  border: 1px solid #e2dfe7;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(55, 24, 86, 0.08);
+}
+
+.PanelTitle {
+  margin: 0 0 13px;
+  color: #2a2134;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.QuickLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.QuickLink {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: #f6f1fd;
+  color: #33273f;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: border-color 0.18s ease, background-color 0.18s ease,
+    color 0.18s ease, transform 0.18s ease;
+}
+
+.QuickLink:hover {
+  border-color: #d8c5f7;
+  background: #efe6fc;
+  color: #5610b6;
+  transform: translateY(-1px);
+}
+
+.IconWrap {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #7112ee;
+  box-shadow: 0 1px 4px rgba(86, 16, 182, 0.12);
+}
+
+.IconWrap i {
+  padding: 0;
+  color: currentColor;
+  font-size: 0.95rem;
+}
+
+.QuickLink > i {
+  padding: 0;
+  color: #8a7c98;
+  font-size: 0.72rem;
+}
+
+.SupportingText {
+  margin-bottom: 14px;
+  color: #6f6a78;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.AuthLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.PrimaryLink,
+.SecondaryLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 13px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.PrimaryLink {
+  background: #7112ee;
+  color: #ffffff;
+}
+
+.PrimaryLink:hover {
+  background: #5610b6;
+  color: #ffffff;
+}
+
+.SecondaryLink {
+  border: 1px solid #d8c5f7;
+  background: #ffffff;
+  color: #7112ee;
+}
+
+.SecondaryLink:hover {
+  border-color: #7112ee;
+  color: #5610b6;
+}
+
+.SuggestedPeople {
+  scroll-margin-top: 92px;
+}
+
+@media screen and (max-width: 1199px) {
+  .Panel {
+    padding: 13px;
+  }
+
+  .QuickLink {
+    grid-template-columns: 30px 1fr auto;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 0.82rem;
+  }
+
+  .IconWrap {
+    width: 29px;
+    height: 29px;
+  }
+}
