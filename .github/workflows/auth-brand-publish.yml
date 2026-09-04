@@ -1,0 +1,126 @@
+name: Verify and publish auth and branding fixes
+on:
+  issues:
+    types: [opened, reopened]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  issues: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  verify-and-publish:
+    if: github.actor == github.repository_owner && (github.event_name == 'workflow_dispatch' || github.event.issue.title == '[publish-auth-brand] Verify and publish preview fix')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/2018-2020-ui-refresh
+          persist-credentials: false
+      - name: Record tested source
+        id: source
+        shell: bash
+        run: |
+          mkdir -p verification-artifacts
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git rev-parse HEAD > verification-artifacts/source-commit.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 16.20.0
+          cache: npm
+      - name: Locked dependency install and full production build
+        shell: bash
+        env:
+          CI: true
+          PUBLIC_URL: /spoodle-space-pp5
+        run: |
+          set -euo pipefail
+          npm ci 2>&1 | tee verification-artifacts/npm-ci.log
+          npm run build 2>&1 | tee verification-artifacts/npm-build.log
+          cp build/index.html build/404.html
+          printf '{"commit":"%s"}\n' "$(git rev-parse HEAD)" > build/preview-version.json
+      - uses: browser-actions/setup-chrome@v1
+        id: chrome
+        with:
+          chrome-version: stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install isolated browser tooling
+        run: npm install --prefix /tmp/spoodle-browser --no-save --package-lock=false playwright-core@1.51.1
+      - name: Test real compiled frontend with fixtures and live empty-request probes
+        shell: bash
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+          NODE_PATH: /tmp/spoodle-browser/node_modules
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          set -euo pipefail
+          node scripts/serve-preview.cjs > verification-artifacts/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/spoodle-space-pp5/ > /dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/verify-auth-brand.cjs 2>&1 | tee verification-artifacts/auth-brand.log
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+      - name: Publish verified preview
+        id: deploy
+        uses: actions/deploy-pages@v4
+      - name: Confirm the published revision and colour stylesheet over HTTPS
+        shell: bash
+        env:
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          python - <<'PY'
+          import urllib.request, json, os, time
+          base='https://samobrienolinger.github.io/spoodle-space-pp5/'
+          def get(path):
+              req=urllib.request.Request(base+path, headers={'Cache-Control':'no-cache'})
+              return urllib.request.urlopen(req,timeout=30).read().decode()
+          for attempt in range(18):
+              try:
+                  version=json.loads(get('preview-version.json?check='+str(time.time())))
+                  assert version['commit'] == os.environ['SOURCE_SHA'], version
+                  manifest=json.loads(get('asset-manifest.json?check='+str(time.time())))
+                  css_path=manifest['files']['main.css'].split('/spoodle-space-pp5/',1)[-1]
+                  js_path=manifest['files']['main.js'].split('/spoodle-space-pp5/',1)[-1]
+                  assert '#7111ee' in get(css_path)
+                  assert 'Continue to Heroku sign-in' in get(js_path)
+                  report={'published': True, 'url': base, 'commit': version['commit'], 'stylesheet': css_path, 'logoBackground': '#7111ee', 'liveAccountUrl': 'https://spoodle-space-pp5.herokuapp.com/signin'}
+                  open('verification-artifacts/deployed.json','w').write(json.dumps(report,indent=2))
+                  print(json.dumps(report))
+                  break
+              except Exception as error:
+                  if attempt == 17: raise
+                  time.sleep(5)
+          PY
+      - name: Upload verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spoodlespace-auth-brand-verification
+          path: verification-artifacts
+          retention-days: 14
+      - name: Report actual run status
+        if: always() && github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          RESULT: ${{ job.status }}
+          TESTED_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$REPOSITORY" --body "Auth/branding build, browser tests and Pages publication: $RESULT. Source: $TESTED_SHA. Run: https://github.com/$REPOSITORY/actions/runs/$RUN_ID . Evidence: spoodlespace-auth-brand-verification. Live endpoints were probed with empty JSON only; no user's credentials were tested."
