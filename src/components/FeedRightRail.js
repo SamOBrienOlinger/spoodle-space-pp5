@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import PopularProfiles from "../pages/profiles/PopularProfiles";
+import SuggestedProfiles from "./SuggestedProfiles";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import styles from "../styles/FeedRightRail.module.css";
 
@@ -70,11 +70,7 @@ const FeedRightRail = () => {
       )}
 
       <div id="suggested-people" className={styles.SuggestedPeople}>
-        <PopularProfiles
-          title="Suggested people"
-          limit={4}
-          compact
-        />
+        <SuggestedProfiles limit={4} />
       </div>
     </aside>
   );
