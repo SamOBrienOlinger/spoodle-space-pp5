@@ -1,91 +1,27 @@
-  .Input {
-    background: #ffffff;
-    border: 1px solid #f0f1f9;
-    box-sizing: border-box;
-    border-radius: 2px;
-    color: #7177a1;
-    text-align: center;
-    padding: 10px;
-  }
-  
-  .Header {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 19px;
-    text-align: center;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #7177a1;
-  }
-  
-  .Link {
-    text-decoration: none;
-    text-align: center;
-    display: block;
-    margin: auto;
-  }
-  
-  .SignInUpForm_Link__1BeMm span {
-    color: #7177a1;
-  }
-
-  .Link span {
-    color: #7112FB2;
-  }
-  
-  .Container {
-    padding: 30px 10px;
-  }
-  
-  .SignInCol {
-    min-height: 320px;
-    height: auto;
-  }
-  
-  .SignUpCol {
-    min-height: 375px;
-    height: auto;
-  }
-
-  #home.image {
-
-    background-image: src="https://res.cloudinary.com/dzhbg6go0/image/upload/v1670254218/CockapooClub/Benjiline1_qrxkoe.webp;";
-  }
-
-  .signin {
-
-    color: #7177a1;
-  }
-
-  a:hover {
-    text-decoration: none;
-    color: yellow;
-  }
-  
-  a:hover i {
-    color: yellow;
-    transition: color ease-in-out 0.3s;
-  }
-
-  #centreform {
-
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  @media screen and (max-width: 767px) {
-    .Container {
-      padding: 20px 6px;
-    }
-
-    .SignInCol,
-    .SignUpCol {
-      min-height: 0;
-    }
-
-    .Header {
-      letter-spacing: 0.12em;
-    }
-  }
-
+.Input {
+  background: #ffffff;
+  border: 1px solid #e2dfe7;
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #24212b;
+  text-align: left;
+  padding: 10px;
+  min-height: 48px;
+  font-size: 16px;
+}
+.Header { font-style: normal; font-weight: bold; font-size: 20px; line-height: 1.4; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; color: #5610b6; }
+.Link { text-decoration: none; text-align: center; display: block; margin: auto; color: #7112ee; }
+.Link span { color: #7112ee; }
+.Link:hover, .Link:hover i { text-decoration: none; color: #5610b6; }
+.Container { padding: 30px 10px; }
+.SignInCol { min-height: 320px; height: auto; }
+.SignUpCol { min-height: 375px; height: auto; }
+.signin { color: #5610b6; }
+#centreform { margin-left: auto; margin-right: auto; }
+.SubmitButton, .SubmitButton:disabled { width: 100%; min-height: 48px; padding: 10px 20px; border: 1px solid #7112ee; border-radius: 8px; background: #7112ee; color: #fff; }
+.SubmitButton:hover, .SubmitButton:focus, .SubmitButton:active { background: #5610b6 !important; border-color: #5610b6 !important; color: #fff !important; }
+@media screen and (max-width: 767px) {
+  .Container { padding: 20px 6px; }
+  .SignInCol, .SignUpCol { min-height: 0; }
+  .Header { letter-spacing: 0.1em; }
+}
