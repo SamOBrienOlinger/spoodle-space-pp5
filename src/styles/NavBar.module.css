@@ -1,117 +1,223 @@
 .NavBar {
-  background: linear-gradient(90deg, #7112ee 0%, #5d14c8 100%);
-  min-height: 64px;
-  padding: 0.25rem 1rem;
+  min-height: 68px;
+  padding: 0.35rem 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 2px 8px rgba(44, 20, 73, 0.16);
+  background: linear-gradient(90deg, #4f0aa5 0%, #7112ee 100%);
+  box-shadow: 0 3px 12px rgba(54, 6, 111, 0.2);
 }
 
 .NavContainer {
+  width: 100%;
+  max-width: 1540px;
   min-height: 56px;
+  margin: 0 auto;
 }
 
 .BrandLink,
 .BrandLink:hover {
+  flex: 0 0 auto;
   text-decoration: none;
 }
 
 .Brand {
+  display: flex;
+  align-items: center;
   margin-right: 1.25rem;
+  padding: 0;
 }
 
 .NavBar img {
-  max-width: 210px;
+  max-width: 215px;
   object-fit: contain;
 }
 
-.NavItems {
+.SearchForm,
+.MobileSearch {
+  position: relative;
   align-items: center;
 }
 
-.NavLink {
+.SearchForm {
+  flex: 1;
+  max-width: 610px;
+  margin: 0 1.25rem;
+}
+
+.SearchForm i,
+.MobileSearch i {
+  position: absolute;
+  left: 15px;
+  z-index: 2;
+  padding: 0;
+  color: #776e82;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.SearchForm input,
+.MobileSearch input {
+  height: 42px;
+  padding: 0 16px 0 42px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #24212b;
+  font-size: 0.9rem;
+  box-shadow: none;
+}
+
+.SearchForm input:focus,
+.MobileSearch input:focus {
+  border-color: #ffffff;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.22);
+}
+
+.DesktopAccount {
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.AccountLink,
+.SignInLink,
+.SignUpLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  border-radius: 9px;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.AccountLink {
+  padding: 4px 10px 4px 6px;
+  background: rgba(255, 255, 255, 0.12);
   color: #ffffff;
-  padding: 7px 8px;
-  margin: 0 1px;
-  border-radius: 7px;
-  font-size: 0.76rem;
+}
+
+.AccountLink:hover {
+  background: rgba(255, 255, 255, 0.19);
+  color: #ffffff;
+}
+
+.AccountLink :global(span) {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #ffffff;
+}
+
+.AccountLink :global(img) {
+  width: 34px;
+  height: 34px;
+  border: 2px solid rgba(255, 255, 255, 0.88);
+}
+
+.SignInLink {
+  padding: 8px 11px;
+  color: #ffffff;
+}
+
+.SignInLink:hover {
+  background: rgba(255, 255, 255, 0.13);
+  color: #ffffff;
+}
+
+.SignUpLink {
+  padding: 8px 14px;
+  background: #ffffff;
+  color: #5610b6;
+}
+
+.SignUpLink:hover {
+  background: #f1e9fd;
+  color: #4f0aa5;
+}
+
+.MobileCollapse {
+  width: 100%;
+}
+
+.MobileSearch {
+  display: flex;
+  width: 100%;
+  margin: 10px 0 7px;
+}
+
+.MobileSearch input {
+  width: 100%;
+}
+
+.MobileNav {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(100vh - 82px);
+  padding: 7px 0 10px;
+  overflow-y: auto;
+}
+
+.MobileNavLink,
+.MobileSignOut {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  gap: 8px;
+  padding: 9px 11px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+  font: inherit;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.MobileNavLink i,
+.MobileSignOut i {
+  width: 27px;
+  padding: 0 7px 0 0;
+  color: currentColor;
+  font-size: 1rem;
   text-align: center;
-  opacity: 0.92;
-  min-width: 52px;
 }
 
-.NavLink i {
-  color: #ffffff;
-  display: block;
-  font-size: 1.1rem;
-  padding: 2px 7px;
-}
-
-.NavLink span {
-  display: block;
-}
-
-.NavLink:hover,
-.NavLink:hover i,
-.Active,
-.Active i {
-  color: #ffffff;
-  opacity: 1;
-}
-
-.NavLink:hover,
+.MobileNavLink:hover,
+.MobileSignOut:hover,
 .Active {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
 }
 
-.ProfileLink {
-  min-width: auto;
-  padding: 5px 7px;
-}
-
-.ProfileLink img {
-  border: 2px solid rgba(255, 255, 255, 0.9);
-}
-
-.SignOut {
-  opacity: 0.78;
+.MobileSignOut {
+  cursor: pointer;
 }
 
 .NavBar :global(.navbar-toggler) {
-  border-color: rgba(255, 255, 255, 0.55);
-  background: rgba(255, 255, 255, 0.94);
+  min-width: 44px;
+  min-height: 44px;
+  border-color: rgba(255, 255, 255, 0.48);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.NavBar :global(.navbar-toggler:focus) {
+  outline: 3px solid rgba(255, 255, 255, 0.36);
+  outline-offset: 2px;
+}
+
+@media screen and (min-width: 992px) {
+  .MobileCollapse {
+    display: none !important;
+  }
 }
 
 @media screen and (max-width: 991px) {
   .NavBar {
-    padding-left: 0.75rem;
     padding-right: 0.75rem;
-  }
-
-  .NavItems {
-    align-items: stretch;
-    padding: 10px 0 12px;
-    max-height: calc(100vh - 64px);
-    overflow-y: auto;
-  }
-
-  .NavLink {
-    min-width: 0;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px;
-    font-size: 0.92rem;
-  }
-
-  .NavLink i,
-  .NavLink span {
-    display: inline-block;
-  }
-
-  .ProfileLink {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-left: 0.75rem;
   }
 
   .NavBar :global(.navbar-collapse) {
@@ -119,7 +225,18 @@
   }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 767px) {
+  .SearchForm {
+    margin-right: 0.7rem;
+    margin-left: 0.7rem;
+  }
+
+  .NavBar img {
+    max-width: 180px;
+  }
+}
+
+@media screen and (max-width: 575px) {
   .NavBar {
     min-height: 60px;
     padding: 0.2rem 0.625rem;
@@ -127,8 +244,8 @@
 
   .NavContainer {
     min-height: 52px;
-    padding-left: 0;
     padding-right: 0;
+    padding-left: 0;
   }
 
   .Brand {
@@ -136,13 +253,7 @@
   }
 
   .NavBar img {
-    max-width: min(160px, 52vw);
+    max-width: min(156px, 50vw);
     height: auto;
   }
-
-  .NavLink {
-    min-height: 44px;
-    padding: 10px 8px;
-  }
 }
-
