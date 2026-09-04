@@ -34,10 +34,8 @@ import DogDangerEditForm from "./pages/dogdanger/DogDangerEditForm";
 
 import NotFound from "./components/NotFound";
 
-import {NotificationContainer} from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
-// import MaintenancePopup from './components/MaintenancePopup';
-
+import { NotificationContainer } from "react-notifications";
+import "react-notifications/lib/notifications.css";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -45,10 +43,9 @@ function App() {
 
   return (
     <div className={styles.App}>
-      {/* <MaintenancePopup /> */}
       <NavBar />
-      <Container className={styles.Main}>
-      <NotificationContainer/>
+      <Container fluid className={styles.Main}>
+        <NotificationContainer />
         <Switch>
           <Route
             exact
@@ -57,7 +54,7 @@ function App() {
               <PostsPage message="No results found. Adjust the search keyword." />
             )}
           />
-           <Route
+          <Route
             exact
             path="/dogprofilespage"
             render={() => (
@@ -67,7 +64,6 @@ function App() {
               />
             )}
           />
-
           <Route
             exact
             path="/dogshealthpage"
@@ -78,7 +74,6 @@ function App() {
               />
             )}
           />
-
           <Route
             exact
             path="/dogdangerspage"
@@ -89,7 +84,6 @@ function App() {
               />
             )}
           />
-
           <Route
             exact
             path="/feed"
@@ -111,7 +105,6 @@ function App() {
             )}
           />
 
-          
           <Route exact path="/signin" render={() => <SignInForm />} />
           <Route exact path="/signup" render={() => <SignUpForm />} />
 
@@ -121,23 +114,69 @@ function App() {
 
           <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
 
-          <Route exact path="/dogprofiles/create" render={() => <DogProfileCreateForm />} />
-          <Route exact path="/dogprofiles/:id" render={() => <DogProfilePage />} />
-          <Route exact path="/dogprofiles/" render={() => <DogProfilesPage />} />
-          <Route exact path="/dogprofiles/:id/edit" render={() => <DogProfileEditForm />} />
+          <Route
+            exact
+            path="/dogprofiles/create"
+            render={() => <DogProfileCreateForm />}
+          />
+          <Route
+            exact
+            path="/dogprofiles/:id"
+            render={() => <DogProfilePage />}
+          />
+          <Route
+            exact
+            path="/dogprofiles/"
+            render={() => <DogProfilesPage />}
+          />
+          <Route
+            exact
+            path="/dogprofiles/:id/edit"
+            render={() => <DogProfileEditForm />}
+          />
 
-          <Route exact path="/doghealth/create" render={() => <DogHealthCreateForm />} />
-          <Route exact path="/doghealth/:id/" render={() => <DogHealthPage />} />
-          <Route exact path="/doghealth/" render={() => <DogsHealthPage />} />
+          <Route
+            exact
+            path="/doghealth/create"
+            render={() => <DogHealthCreateForm />}
+          />
+          <Route
+            exact
+            path="/doghealth/:id/"
+            render={() => <DogHealthPage />}
+          />
+          <Route
+            exact
+            path="/doghealth/"
+            render={() => <DogsHealthPage />}
+          />
+          <Route
+            exact
+            path="/doghealth/:id/edit"
+            render={() => <DogHealthEditForm />}
+          />
 
-          <Route exact path="/doghealth/:id/edit" render={() => <DogHealthEditForm />} />
+          <Route
+            exact
+            path="/dogdanger/create"
+            render={() => <DogDangerCreateForm />}
+          />
+          <Route
+            exact
+            path="/dogdanger/:id"
+            render={() => <DogDangerPage />}
+          />
+          <Route
+            exact
+            path="/dogdangers/"
+            render={() => <DogDangersPage />}
+          />
+          <Route
+            exact
+            path="/dogdanger/:id/edit"
+            render={() => <DogDangerEditForm />}
+          />
 
-          <Route exact path="/dogdanger/create" render={() => <DogDangerCreateForm />} />
-          <Route exact path="/dogdanger/:id" render={() => <DogDangerPage />} />
-
-          <Route exact path="/dogdangers/" render={() => <DogDangersPage />} />
-          <Route exact path="/dogdanger/:id/edit" render={() => <DogDangerEditForm />} />
-          
           <Route
             exact
             path="/profiles/:id/edit/username"
@@ -153,7 +192,7 @@ function App() {
             path="/profiles/:id/edit"
             render={() => <ProfileEditForm />}
           />
-          
+
           <Route render={() => <NotFound />} />
         </Switch>
       </Container>
