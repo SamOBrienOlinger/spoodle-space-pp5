@@ -44,3 +44,15 @@ figure { margin: 0; }
   .App *, .App *::before, .App *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 .App :global(.navbar-collapse.show) { animation: ss-enter 180ms var(--spoodle-ease) both; }
+/* Keep secondary information readable, including narrow discovery panels. */
+.App aside small { font-size: .73rem; color: #715a81; }
+.App aside > section > span:first-child { color: #75558b; font-size: .67rem; }
+.App aside nav a { font-size: .88rem; }
+.App aside button { font-size: .75rem; }
+.App article p { font-size: .92rem; }
+.App article header strong { font-size: .9rem; }
+.App article footer button, .App article footer a { font-size: .8rem; }
+.App article footer b { font-size: .75rem; }
+@media (max-width: 767px) {
+  .App nav input, .App label input, .App label select, .App form input, .App form textarea { font-size: 16px; }
+}
