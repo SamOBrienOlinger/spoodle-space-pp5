@@ -1,7 +1,9 @@
 :root {
   --spoodle-purple: #7112ee;
   --spoodle-purple-dark: #5610b6;
+  --spoodle-purple-deep: #4f0aa5;
   --spoodle-purple-soft: #f1e9fd;
+  --spoodle-lilac: #d8c5f7;
   --spoodle-bg: #f3f2f7;
   --spoodle-surface: #ffffff;
   --spoodle-text: #24212b;
@@ -10,10 +12,10 @@
 }
 
 .App {
-  font-family: "Lato", "DM Sans", Arial, sans-serif;
-  background-color: var(--spoodle-bg);
   min-height: 100vh;
+  background-color: var(--spoodle-bg);
   color: var(--spoodle-text);
+  font-family: "Lato", "DM Sans", Arial, sans-serif;
 }
 
 #profile-text-center {
@@ -21,28 +23,29 @@
 }
 
 .Main {
-  padding-top: 76px;
-  padding-left: 16px;
-  padding-right: 16px;
+  width: 100%;
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 82px 18px 28px;
 }
 
 .Content {
-  background-color: var(--spoodle-surface);
   padding: 16px;
-  border-radius: 10px;
   border: 1px solid var(--spoodle-border);
-  box-shadow: 0 1px 3px rgba(36, 33, 43, 0.08);
+  border-radius: 10px;
+  background-color: var(--spoodle-surface);
+  box-shadow: 0 2px 10px rgba(55, 24, 86, 0.07);
 }
 
 .FillerImage {
-  object-fit: cover;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .Image {
-  max-height: 50vh;
   max-width: 100%;
+  max-height: 50vh;
   object-fit: contain;
 }
 
@@ -61,6 +64,13 @@ body {
   background: var(--spoodle-bg);
   color: var(--spoodle-text);
   font-family: "Lato", "DM Sans", Arial, sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 .styles.LinkContainer,
@@ -87,18 +97,28 @@ body {
 
 a {
   color: var(--spoodle-purple);
-  transition: color 0.18s ease;
+  transition: color 0.18s ease, background-color 0.18s ease,
+    border-color 0.18s ease;
 }
 
 a:hover {
-  text-decoration: none;
   color: var(--spoodle-purple-dark);
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(113, 18, 238, 0.3);
+  outline-offset: 2px;
 }
 
 i {
+  padding: 7px;
   color: inherit;
   font-size: 1.35rem;
-  padding: 7px;
   vertical-align: middle;
 }
 
@@ -107,8 +127,8 @@ i:hover {
 }
 
 figure {
-  text-align: center;
   display: inline-block;
+  text-align: center;
 }
 
 *::-webkit-scrollbar {
@@ -120,31 +140,35 @@ figure {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #b8b3c0;
   border-radius: 10px;
+  background: #b8b3c0;
+}
+
+@media screen and (max-width: 1199px) {
+  .Main {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
 }
 
 @media screen and (max-width: 767px) {
   .Main {
-    padding-top: 72px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 72px 10px 22px;
   }
 
   .Content {
-    border-radius: 8px;
     padding: 12px;
+    border-radius: 8px;
   }
 }
 
 @media screen and (max-width: 359px) {
   .Main {
-    padding-left: 8px;
     padding-right: 8px;
+    padding-left: 8px;
   }
 
   .Content {
     padding: 10px;
   }
 }
-
