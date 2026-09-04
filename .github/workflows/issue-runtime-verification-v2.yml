@@ -1,0 +1,173 @@
+name: Final frontend build and visual verification
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  verify:
+    if: startsWith(github.event.issue.title, '[verify-ui-v2]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out latest redesign branch
+        uses: actions/checkout@v4
+        with:
+          ref: design/2018-2020-ui-refresh
+
+      - name: Record tested commit
+        id: revision
+        shell: bash
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git rev-parse HEAD | tee verification-commit.txt
+
+      - name: Use project Node version
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16.20.0
+          cache: npm
+
+      - name: Prepare verification output
+        run: |
+          mkdir -p verification-artifacts
+          cp verification-commit.txt verification-artifacts/
+
+      - name: Install locked dependencies
+        id: install
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          npm ci 2>&1 | tee verification-artifacts/npm-ci.log
+
+      - name: Run full production npm build
+        id: build
+        if: steps.install.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        env:
+          PUBLIC_URL: /spoodle-space-pp5
+          CI: true
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee verification-artifacts/npm-build.log
+
+      - name: Install current Chrome
+        id: chrome
+        if: steps.build.outcome == 'success'
+        continue-on-error: true
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Use Node 20 for browser verification
+        id: browser_node
+        if: steps.chrome.outcome == 'success'
+        continue-on-error: true
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright Core
+        id: browser_setup
+        if: steps.browser_node.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          npm install --no-save --package-lock=false playwright-core@1.51.1 2>&1 | tee verification-artifacts/playwright-install.log
+
+      - name: Start production build and run desktop/mobile checks
+        id: visual
+        if: steps.browser_setup.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: |
+          set -euo pipefail
+          test -n "$CHROME_PATH"
+          test -x "$CHROME_PATH"
+
+          node scripts/serve-preview.cjs > verification-artifacts/server.log 2>&1 &
+          SERVER_PID=$!
+          echo "$SERVER_PID" > verification-artifacts/server.pid
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+
+          READY=false
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/spoodle-space-pp5/ > /dev/null; then
+              READY=true
+              break
+            fi
+            sleep 1
+          done
+          if [ "$READY" != "true" ]; then
+            cat verification-artifacts/server.log
+            exit 1
+          fi
+
+          set -o pipefail
+          node scripts/verify-ui-v2.cjs 2>&1 | tee verification-artifacts/visual-verification.log
+
+      - name: Upload logs, report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spoodlespace-final-verification
+          path: verification-artifacts
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Report result to issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          TESTED_SHA: ${{ steps.revision.outputs.sha }}
+          INSTALL_OUTCOME: ${{ steps.install.outcome }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+          CHROME_OUTCOME: ${{ steps.chrome.outcome }}
+          BROWSER_SETUP_OUTCOME: ${{ steps.browser_setup.outcome }}
+          VISUAL_OUTCOME: ${{ steps.visual.outcome }}
+          RUN_ID: ${{ github.run_id }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          cat > /tmp/result.md <<EOF
+          ## Final SpoodleSpace verification result
+
+          - Branch: \`design/2018-2020-ui-refresh\`
+          - Tested commit: \`${TESTED_SHA}\`
+          - Build Node: \`16.20.0\`
+          - \`npm ci\`: **${INSTALL_OUTCOME}**
+          - \`npm run build\`: **${BUILD_OUTCOME}**
+          - Chrome setup: **${CHROME_OUTCOME}**
+          - Browser tooling: **${BROWSER_SETUP_OUTCOME}**
+          - Desktop/mobile runtime and visual verification: **${VISUAL_OUTCOME}**
+          - Workflow run ID: \`${RUN_ID}\`
+          - Artifact: \`spoodlespace-final-verification\`
+
+          Run: https://github.com/${REPOSITORY}/actions/runs/${RUN_ID}
+          EOF
+          gh issue comment "$ISSUE_NUMBER" --body-file /tmp/result.md
+
+      - name: Enforce verification result
+        if: always()
+        env:
+          INSTALL_OUTCOME: ${{ steps.install.outcome }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+          CHROME_OUTCOME: ${{ steps.chrome.outcome }}
+          BROWSER_SETUP_OUTCOME: ${{ steps.browser_setup.outcome }}
+          VISUAL_OUTCOME: ${{ steps.visual.outcome }}
+        run: |
+          test "$INSTALL_OUTCOME" = "success"
+          test "$BUILD_OUTCOME" = "success"
+          test "$CHROME_OUTCOME" = "success"
+          test "$BROWSER_SETUP_OUTCOME" = "success"
+          test "$VISUAL_OUTCOME" = "success"
