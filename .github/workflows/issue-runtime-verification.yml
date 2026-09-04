@@ -86,9 +86,7 @@ jobs:
           test -n "$CHROME_PATH"
           test -x "$CHROME_PATH"
 
-          mkdir -p preview-root/spoodle-space-pp5
-          cp -a build/. preview-root/spoodle-space-pp5/
-          npx serve -s preview-root -l 4173 > verification-artifacts/server.log 2>&1 &
+          node scripts/serve-preview.cjs > verification-artifacts/server.log 2>&1 &
           SERVER_PID=$!
           echo "$SERVER_PID" > verification-artifacts/server.pid
           trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
