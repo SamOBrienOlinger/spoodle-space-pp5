@@ -30,7 +30,7 @@ async function previewChecks(browser) {
       await route.fulfill({ response });
     });
     await page.goto(preview, { waitUntil: 'networkidle' });
-    await page.locator('text=Design preview.').waitFor();
+    await page.getByText('Design preview.', { exact: true }).waitFor();
     const metrics = await page.evaluate(() => {
       const nav = document.querySelector('nav.navbar');
       const logo = document.querySelector('img[alt="SpoodleSpace"]');
