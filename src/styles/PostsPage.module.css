@@ -1,15 +1,130 @@
+.Layout {
+  align-items: flex-start;
+  margin-right: -8px;
+  margin-left: -8px;
+}
+
+.LeftColumn,
+.FeedColumn,
+.RightColumn {
+  padding: 8px;
+}
+
+.FeedColumn {
+  min-width: 0;
+}
+
+.Composer,
+.Welcome {
+  margin-bottom: 16px;
+  padding: 15px 16px;
+  border: 1px solid #e2dfe7;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(55, 24, 86, 0.08);
+}
+
+.ComposerTop {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.ComposerTop :global(img) {
+  border: 2px solid #eadffc;
+}
+
+.ComposerPrompt {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 15px;
+  border: 1px solid #e2dfe7;
+  border-radius: 22px;
+  background: #f8f6fa;
+  color: #716b7b;
+  font-size: 0.92rem;
+}
+
+.ComposerPrompt:hover {
+  border-color: #d8c5f7;
+  background: #f3edfb;
+  color: #5610b6;
+}
+
+.ComposerActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 13px;
+  padding-top: 12px;
+  border-top: 1px solid #eeeaf2;
+}
+
+.ComposerAction,
+.CreatePostButton,
+.PrimaryAction,
+.SecondaryAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.ComposerAction {
+  gap: 5px;
+  padding: 7px 10px;
+  color: #5f5968;
+}
+
+.ComposerAction i {
+  padding: 0;
+  color: #7112ee;
+  font-size: 1rem;
+}
+
+.ComposerAction:hover {
+  background: #f1e9fd;
+  color: #5610b6;
+}
+
+.CreatePostButton,
+.PrimaryAction {
+  padding: 8px 16px;
+  background: #7112ee;
+  color: #ffffff;
+  box-shadow: 0 3px 9px rgba(113, 18, 238, 0.18);
+}
+
+.CreatePostButton:hover,
+.PrimaryAction:hover {
+  background: #5610b6;
+  color: #ffffff;
+}
+
+.SearchRegion {
+  position: relative;
+  margin-bottom: 12px;
+}
+
 .SearchBar {
   position: relative;
-  margin: 4px 0 14px;
+  margin: 0;
 }
 
 .SearchBar input {
-  height: 46px;
+  height: 44px;
+  padding: 0 16px 0 43px;
   border: 1px solid #e2dfe7;
-  border-radius: 23px;
+  border-radius: 22px;
   background: #ffffff;
   color: #24212b;
-  padding: 0 18px 0 44px;
   box-shadow: 0 1px 3px rgba(36, 33, 43, 0.06);
 }
 
@@ -20,59 +135,117 @@
 
 .SearchIcon {
   position: absolute;
+  top: 0;
+  left: 0;
   z-index: 2;
-  font-size: 1rem;
-  padding: 14px 0 0 16px;
+  padding: 13px 0 0 15px;
   color: #716b7b;
+  font-size: 1rem;
+  pointer-events: none;
 }
 
 .SearchIcon:hover {
-  cursor: default;
   color: #716b7b;
-}
-
-.Header {
-  color: #7112ee;
-  font-weight: 700;
+  cursor: default;
 }
 
 .Welcome {
-  width: 100%;
-  padding: 24px 18px;
-  margin: 1rem auto;
-  text-align: center;
+  text-align: left;
+}
+
+.Header {
+  margin-bottom: 8px;
+  color: #7112ee;
+  font-size: clamp(1.65rem, 3vw, 2.2rem);
+  font-weight: 700;
+}
+
+.Welcome p {
+  max-width: 660px;
+  margin-bottom: 15px;
+  color: #5f5968;
+  line-height: 1.55;
+}
+
+.WelcomeActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.SecondaryAction {
+  padding: 8px 15px;
+  border: 1px solid #d8c5f7;
   background: #ffffff;
-  border: 1px solid #e2dfe7;
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(36, 33, 43, 0.08);
+  color: #7112ee;
 }
 
-.SearchRegion {
-  margin-top: 10px;
+.SecondaryAction:hover {
+  border-color: #7112ee;
+  background: #f6f1fd;
+  color: #5610b6;
 }
 
-@media screen and (max-width: 767px) {
-  .SearchBar input {
-    height: 44px;
+@media screen and (max-width: 1199px) {
+  .LeftColumn,
+  .FeedColumn,
+  .RightColumn {
+    padding: 6px;
+  }
+
+  .Layout {
+    margin-right: -6px;
+    margin-left: -6px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .Layout {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .FeedColumn {
+    padding: 8px 0;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .Composer,
+  .Welcome {
+    margin-bottom: 10px;
+    padding: 13px 12px;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 9px;
+  }
+
+  .ComposerPrompt {
+    min-height: 42px;
+    padding-right: 12px;
+    padding-left: 12px;
+    font-size: 0.84rem;
+  }
+
+  .ComposerActions {
+    justify-content: space-between;
+  }
+
+  .CreatePostButton {
+    padding-right: 13px;
+    padding-left: 13px;
   }
 
   .Welcome {
-    margin-top: 0.5rem;
-    border-radius: 8px;
-    padding: 18px 14px;
-  }
-
-  .Welcome h1 {
-    font-size: clamp(1.65rem, 8vw, 2.1rem);
+    text-align: center;
   }
 
   .Welcome p {
-    margin-bottom: 0.75rem;
-    line-height: 1.5;
+    margin-right: auto;
+    margin-left: auto;
   }
 
-  .Welcome br:first-of-type {
-    display: none;
+  .WelcomeActions {
+    justify-content: center;
   }
 }
-
