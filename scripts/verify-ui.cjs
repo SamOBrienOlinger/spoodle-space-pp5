@@ -6,13 +6,13 @@ const outputDir = "verification-artifacts";
 const failures = [];
 const results = [];
 const unsupportedLabels = [
-  "Calendar",
-  "Events",
-  "Marketplace",
-  "Stories",
-  "Live Video",
-  "Messages",
-  "Notifications",
+  "calendar",
+  "events",
+  "marketplace",
+  "stories",
+  "live video",
+  "messages",
+  "notifications",
 ];
 
 const dogSvg = encodeURIComponent(`
@@ -147,6 +147,7 @@ async function verifyViewport(browser, name, viewport) {
   const pageErrors = [];
   const consoleErrors = [];
   const failedRequests = [];
+  const httpErrors = [];
 
   page.on("pageerror", (error) => pageErrors.push(error.message));
   page.on("console", (message) => {
@@ -158,6 +159,11 @@ async function verifyViewport(browser, name, viewport) {
       error: request.failure()?.errorText || "unknown failure",
     })
   );
+  page.on("response", (response) => {
+    if (response.status() >= 400) {
+      httpErrors.push({ url: response.url(), status: response.status() });
+    }
+  });
 
   await mockApi(page);
   const response = await page.goto(baseUrl, {
@@ -166,43 +172,19 @@ async function verifyViewport(browser, name, viewport) {
   });
   await page.waitForTimeout(4500);
 
-  const metrics = await page.evaluate((labels) => {
-    const text = document.body.innerText;
-    const root = document.getElementById("root");
-    const logo = document.querySelector('img[alt="SpoodleSpace"]');
-    const visibleAsides = [...document.querySelectorAll("aside")].filter(
-      (element) => {
-        const rect = element.getBoundingClientRect();
-        return rect.width > 0 && rect.height > 0;
-      }
-    ).length;
-
-    return {
-      title: document.title,
-      bodyTextLength: text.trim().length,
-      bodyTextPreview: text.trim().slice(0, 900),
-      rootChildCount: root ? root.childElementCount : 0,
-      logoVisible: Boolean(logo && logo.getBoundingClientRect().width > 0),
-      horizontalOverflow: document.documentElement.scrollWidth - window.innerWidth,
-      unsupportedLabelsFound: labels.filter((label) => text.includes(label)),
-      hasCreatePost: text.includes("Create Post"),
-      hasHealth: text.includes("Health"),
-      hasSafety: text.includes("Safety"),
-      hasLiked: text.includes("Liked"),
-      hasSearch: text.includes("Search posts by owner or title"),
-      hasPostContent:
-        text.includes("Sunday strolls") && text.includes("Training progress"),
-      visibleAsides,
-    };
-  }, unsupportedLabels);
-
   await page.screenshot({ path: `${outputDir}/${name}.png`, fullPage: true });
 
+  let mobileMenuOpened = false;
   if (name === "mobile") {
     const toggle = page.locator(".navbar-toggler");
     if (await toggle.count()) {
+      const toggleBox = await toggle.boundingBox();
+      if (!toggleBox || toggleBox.width < 44 || toggleBox.height < 44) {
+        failures.push("mobile: navigation toggle is smaller than 44px");
+      }
       await toggle.click();
       await page.waitForTimeout(600);
+      mobileMenuOpened = true;
       await page.screenshot({
         path: `${outputDir}/mobile-menu.png`,
         fullPage: true,
@@ -212,22 +194,91 @@ async function verifyViewport(browser, name, viewport) {
     }
   }
 
-  const localAssetFailures = failedRequests.filter((item) =>
-    item.url.startsWith(
-      "http://127.0.0.1:4173/spoodle-space-pp5/static/"
-    )
+  const metrics = await page.evaluate(
+    ({ labels, viewportName, menuOpened }) => {
+      const text = document.body.innerText;
+      const lowerText = text.toLowerCase();
+      const root = document.getElementById("root");
+      const logo = document.querySelector('img[alt="SpoodleSpace"]');
+      const search = document.querySelector(
+        'input[aria-label="Search posts by owner or title"]'
+      );
+      const navBar = document.querySelector("nav.navbar");
+      const visibleAsides = [...document.querySelectorAll("aside")].filter(
+        (element) => {
+          const rect = element.getBoundingClientRect();
+          const style = window.getComputedStyle(element);
+          return (
+            rect.width > 0 &&
+            rect.height > 0 &&
+            style.display !== "none" &&
+            style.visibility !== "hidden"
+          );
+        }
+      ).length;
+      const searchRect = search ? search.getBoundingClientRect() : null;
+      const logoRect = logo ? logo.getBoundingClientRect() : null;
+      const navRect = navBar ? navBar.getBoundingClientRect() : null;
+      const postCards = document.querySelectorAll(".card").length;
+
+      return {
+        title: document.title,
+        bodyTextLength: text.trim().length,
+        bodyTextPreview: text.trim().slice(0, 1000),
+        rootChildCount: root ? root.childElementCount : 0,
+        logoVisible: Boolean(
+          logoRect && logoRect.width > 0 && logoRect.height > 0
+        ),
+        searchVisible: Boolean(
+          searchRect && searchRect.width > 0 && searchRect.height > 0
+        ),
+        horizontalOverflow: document.documentElement.scrollWidth - window.innerWidth,
+        unsupportedLabelsFound: labels.filter((label) =>
+          lowerText.includes(label)
+        ),
+        hasCreatePost: lowerText.includes("create post"),
+        hasHealth: lowerText.includes("health records"),
+        hasSafety: lowerText.includes("safety & dangers"),
+        hasLiked: lowerText.includes("liked posts"),
+        hasPostContent:
+          lowerText.includes("sunday strolls") &&
+          lowerText.includes("training progress"),
+        visibleAsides,
+        postCards,
+        mobileMenuOpened: viewportName === "mobile" ? menuOpened : null,
+        navContainedInViewport: Boolean(
+          navRect && navRect.left >= -1 && navRect.right <= window.innerWidth + 1
+        ),
+      };
+    },
+    { labels: unsupportedLabels, viewportName: name, menuOpened: mobileMenuOpened }
   );
+
+  const localFailures = failedRequests.filter((item) =>
+    item.url.startsWith("http://127.0.0.1:4173/spoodle-space-pp5/")
+  );
+  const relevantHttpErrors = httpErrors.filter((item) => {
+    const url = new URL(item.url);
+    return (
+      item.url.startsWith("http://127.0.0.1:4173/spoodle-space-pp5/") &&
+      !url.pathname.endsWith("/favicon.ico")
+    );
+  });
 
   if (!response || response.status() >= 400)
     failures.push(`${name}: document response was not successful`);
   if (!metrics.logoVisible)
     failures.push(`${name}: original SpoodleSpace logo is not visible`);
+  if (!metrics.searchVisible)
+    failures.push(`${name}: accurate post search control is not visible`);
   if (metrics.rootChildCount === 0 || metrics.bodyTextLength < 40)
     failures.push(`${name}: React rendered no meaningful content`);
   if (metrics.horizontalOverflow > 4)
     failures.push(
       `${name}: horizontal overflow is ${metrics.horizontalOverflow}px`
     );
+  if (!metrics.navContainedInViewport)
+    failures.push(`${name}: top navigation is clipped outside the viewport`);
   if (metrics.unsupportedLabelsFound.length)
     failures.push(
       `${name}: unsupported UI labels found: ${metrics.unsupportedLabelsFound.join(
@@ -241,19 +292,23 @@ async function verifyViewport(browser, name, viewport) {
     !metrics.hasLiked
   )
     failures.push(`${name}: one or more supported feature links are missing`);
-  if (!metrics.hasPostContent)
-    failures.push(`${name}: mocked post feed content did not render`);
-  if (name === "desktop" && !metrics.hasSearch)
-    failures.push("desktop: accurate post search label is missing");
+  if (!metrics.hasPostContent || metrics.postCards < 2)
+    failures.push(`${name}: mocked post feed content did not render completely`);
   if (name === "desktop" && metrics.visibleAsides < 2)
     failures.push(
       `desktop: expected sidebar and right rail; found ${metrics.visibleAsides} visible aside(s)`
     );
+  if (name === "mobile" && !metrics.mobileMenuOpened)
+    failures.push("mobile: navigation menu did not open");
   if (pageErrors.length)
     failures.push(`${name}: ${pageErrors.length} unhandled page error(s)`);
-  if (localAssetFailures.length)
+  if (localFailures.length)
     failures.push(
-      `${name}: ${localAssetFailures.length} local static asset request(s) failed`
+      `${name}: ${localFailures.length} local request(s) failed before receiving a response`
+    );
+  if (relevantHttpErrors.length)
+    failures.push(
+      `${name}: ${relevantHttpErrors.length} local HTTP error response(s)`
     );
 
   results.push({
@@ -263,7 +318,8 @@ async function verifyViewport(browser, name, viewport) {
     pageErrors,
     consoleErrors,
     failedRequests,
-    localAssetFailures,
+    httpErrors,
+    relevantHttpErrors,
   });
   await page.close();
 }
