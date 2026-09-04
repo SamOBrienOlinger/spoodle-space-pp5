@@ -1,0 +1,193 @@
+name: Frontend build and visual verification
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, reopened, synchronize, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out pull-request branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Use project Node version
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16.20.0
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Create full production build
+        env:
+          PUBLIC_URL: /spoodle-space-pp5
+          CI: true
+        run: npm run build
+
+      - name: Install browser verification tooling
+        run: |
+          npm install --no-save --package-lock=false @playwright/test@1.40.1
+          npx playwright install --with-deps chromium
+
+      - name: Prepare GitHub Pages-shaped runtime
+        run: |
+          mkdir -p preview-root/spoodle-space-pp5 verification-artifacts
+          cp -a build/. preview-root/spoodle-space-pp5/
+
+      - name: Start production build
+        run: |
+          npx serve -s preview-root -l 4173 > verification-artifacts/server.log 2>&1 &
+          echo $! > verification-artifacts/server.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/spoodle-space-pp5/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat verification-artifacts/server.log
+          exit 1
+
+      - name: Run desktop and mobile browser checks
+        run: |
+          cat > /tmp/verify-spoodlespace.js <<'EOF'
+          const { chromium } = require('playwright');
+          const fs = require('fs');
+
+          const baseUrl = 'http://127.0.0.1:4173/spoodle-space-pp5/';
+          const outputDir = 'verification-artifacts';
+          const results = [];
+          const browserErrors = [];
+
+          async function verifyViewport(browser, name, viewport) {
+            const page = await browser.newPage({ viewportSize: viewport });
+            const pageErrors = [];
+            const consoleErrors = [];
+            const failedRequests = [];
+
+            page.on('pageerror', error => pageErrors.push(error.message));
+            page.on('console', message => {
+              if (message.type() === 'error') consoleErrors.push(message.text());
+            });
+            page.on('requestfailed', request => {
+              failedRequests.push({
+                url: request.url(),
+                error: request.failure()?.errorText || 'unknown failure'
+              });
+            });
+
+            const response = await page.goto(baseUrl, {
+              waitUntil: 'domcontentloaded',
+              timeout: 60000
+            });
+            await page.waitForTimeout(6000);
+
+            const metrics = await page.evaluate(() => {
+              const root = document.getElementById('root');
+              const logo = document.querySelector('img[alt="SpoodleSpace"]');
+              const bodyText = document.body.innerText.trim();
+              return {
+                title: document.title,
+                bodyTextLength: bodyText.length,
+                bodyTextPreview: bodyText.slice(0, 500),
+                rootChildCount: root ? root.childElementCount : 0,
+                logoVisible: Boolean(logo && logo.getBoundingClientRect().width > 0),
+                horizontalOverflow: document.documentElement.scrollWidth - window.innerWidth,
+                viewportWidth: window.innerWidth,
+                documentWidth: document.documentElement.scrollWidth
+              };
+            });
+
+            if (name === 'mobile') {
+              const toggle = page.locator('.navbar-toggler');
+              if (await toggle.count()) {
+                await toggle.click();
+                await page.waitForTimeout(500);
+                await page.screenshot({
+                  path: `${outputDir}/mobile-menu.png`,
+                  fullPage: true
+                });
+              }
+            }
+
+            await page.screenshot({
+              path: `${outputDir}/${name}.png`,
+              fullPage: true
+            });
+
+            const localAssetFailures = failedRequests.filter(item =>
+              item.url.startsWith('http://127.0.0.1:4173/spoodle-space-pp5/static/')
+            );
+
+            const result = {
+              name,
+              status: response ? response.status() : null,
+              metrics,
+              pageErrors,
+              consoleErrors,
+              failedRequests,
+              localAssetFailures
+            };
+            results.push(result);
+
+            if (!response || response.status() >= 400) {
+              browserErrors.push(`${name}: initial document did not return a successful status`);
+            }
+            if (metrics.rootChildCount === 0 || metrics.bodyTextLength < 20) {
+              browserErrors.push(`${name}: React rendered no meaningful page content`);
+            }
+            if (!metrics.logoVisible) {
+              browserErrors.push(`${name}: SpoodleSpace logo is not visibly rendered`);
+            }
+            if (metrics.horizontalOverflow > 4) {
+              browserErrors.push(`${name}: horizontal overflow is ${metrics.horizontalOverflow}px`);
+            }
+            if (pageErrors.length) {
+              browserErrors.push(`${name}: ${pageErrors.length} unhandled page error(s)`);
+            }
+            if (localAssetFailures.length) {
+              browserErrors.push(`${name}: ${localAssetFailures.length} local static asset request(s) failed`);
+            }
+
+            await page.close();
+          }
+
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            await verifyViewport(browser, 'desktop', { width: 1440, height: 1000 });
+            await verifyViewport(browser, 'mobile', { width: 390, height: 844 });
+            await browser.close();
+
+            fs.writeFileSync(
+              `${outputDir}/verification-report.json`,
+              JSON.stringify({ baseUrl, results, browserErrors }, null, 2)
+            );
+
+            console.log(JSON.stringify({ results, browserErrors }, null, 2));
+            if (browserErrors.length) process.exit(1);
+          })().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
+          EOF
+          node /tmp/verify-spoodlespace.js
+
+      - name: Upload screenshots and verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spoodlespace-runtime-verification
+          path: verification-artifacts
+          if-no-files-found: warn
+          retention-days: 14
