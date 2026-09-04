@@ -1,0 +1,15 @@
+.Profile { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-width: 0; padding: 8px 0; }
+.Person { display: flex; align-items: center; gap: 9px; min-width: 0; flex: 1; color: #473155; }
+.Person img { border: 2px solid #efe1fd; object-fit: cover; margin: 0; }
+.Person > span:first-child { flex-shrink: 0; }
+.Person > span:last-child { min-width: 0; }
+.Person strong { display: block; font-size: .75rem; overflow-wrap: anywhere; }
+.Person small { display: block; font-size: .58rem; color: #8a7497; margin-top: 4px; }
+.Follow { min-height: 44px; min-width: 62px; display: inline-flex; gap: 4px; justify-content: center; align-items: center; padding: 8px; background: #efe4fd; color: #7111ee; border: 1px solid #e7d6fb; border-radius: 10px; font-weight: 700; font-size: .63rem; transition: background 160ms, transform 160ms; }
+.Follow:hover { background: #e2cef9; }
+.Follow:active { transform: scale(.97); }
+.Following { color: #3d7254; background: #e6f4ec; border-color: #d1e6d9; }
+.Error { flex-basis: 100%; font-size: .65rem; color: #a02b3c; }
+.Mobile { flex-direction: column; text-align: center; }
+.Mobile .Person { flex-direction: column; }
+@media (max-width: 1199px) and (min-width: 992px) { .Following span { display: none; } .Following { min-width: 44px; } }

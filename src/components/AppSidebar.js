@@ -1,98 +1,48 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import axios from "axios";
-
 import Avatar from "./Avatar";
+import Icon from "./InterfaceIcon";
 import AccountLink from "./AccountLink";
-import {
-  useCurrentUser,
-  useSetCurrentUser,
-} from "../contexts/CurrentUserContext";
+import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
 import { removeTokenTimestamp } from "../utils/utils";
 import styles from "../styles/AppSidebar.module.css";
 
-const AppSidebar = () => {
+export default function AppSidebar() {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
-
-  const handleSignOut = async () => {
-    try {
-      await axios.post("dj-rest-auth/logout/");
-      setCurrentUser(null);
-      removeTokenTimestamp();
-    } catch (err) {
-      console.log(err.response);
-    }
+  const history = useHistory();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const item = (to, icon, label, exact = false) => <NavLink exact={exact} to={to} className={styles.NavItem} activeClassName={styles.Active}><Icon name={icon} /><span>{label}</span></NavLink>;
+  const signOut = async () => {
+    if (busy) return;
+    setBusy(true); setError("");
+    try { await axios.post("dj-rest-auth/logout/"); removeTokenTimestamp(); setCurrentUser(null); history.push("/"); }
+    catch (err) { setError("Sign-out did not complete. Please try again."); }
+    finally { setBusy(false); }
   };
-
-  const navItem = (to, icon, label, exact = false) => (
-    <NavLink
-      exact={exact}
-      className={styles.NavItem}
-      activeClassName={styles.Active}
-      to={to}
-    >
-      <i className={icon} aria-hidden="true" />
-      <span>{label}</span>
-    </NavLink>
-  );
-
-  return (
-    <aside className={styles.Sidebar} aria-label="SpoodleSpace navigation">
-      {currentUser && (
-        <div className={styles.ProfileSummary}>
-          <Avatar
-            src={currentUser.profile_image}
-            text={currentUser.username}
-            height={48}
-          />
-          <NavLink
-            className={styles.ProfileLink}
-            to={`/profiles/${currentUser.profile_id}`}
-          >
-            View my profile
-          </NavLink>
-        </div>
-      )}
-
-      <nav className={styles.Navigation}>
-        {navItem("/", "fas fa-home", "Home", true)}
-
-        {currentUser ? (
-          <>
-            {navItem("/feed", "fas fa-stream", "Following feed")}
-            {navItem("/posts/create", "far fa-plus-square", "Create post")}
-            {navItem(`/profiles/${currentUser.profile_id}`, "fas fa-user", "My profile")}
-            {navItem("/dogprofilespage", "fas fa-dog", "Dog profiles")}
-            {navItem("/dogshealthpage", "fas fa-heartbeat", "Health records")}
-            {navItem("/dogdangerspage", "fas fa-exclamation-triangle", "Safety & dangers")}
-            {navItem("/liked", "fas fa-heart", "Liked posts")}
-            {navItem(`/profiles/${currentUser.profile_id}/edit`, "fas fa-cog", "Profile settings")}
-
-            <button
-              className={styles.SignOutButton}
-              type="button"
-              onClick={handleSignOut}
-            >
-              <i className="fas fa-sign-out-alt" aria-hidden="true" />
-              <span>Sign out</span>
-            </button>
-          </>
-        ) : (
-          <>
-            <AccountLink className={styles.NavItem} to="/signin">
-              <i className="fas fa-sign-in-alt" aria-hidden="true" />
-              <span>Sign in</span>
-            </AccountLink>
-            <AccountLink className={styles.NavItem} to="/signup">
-              <i className="fas fa-user-plus" aria-hidden="true" />
-              <span>Sign up</span>
-            </AccountLink>
-          </>
-        )}
-      </nav>
-    </aside>
-  );
-};
-
-export default AppSidebar;
+  return <aside className={styles.Sidebar} aria-label="SpoodleSpace navigation">
+    <div className={styles.ProfileSummary}>
+      {currentUser ? <><Avatar src={currentUser.profile_image} height={46} /><div><strong>{currentUser.username}</strong><NavLink to={`/profiles/${currentUser.profile_id}`}>View my profile <span aria-hidden="true">↗</span></NavLink></div></> : <><span className={styles.BrandPaw}><Icon name="paw" size={26} /></span><div><strong>Your kind of people.</strong><span>The dog kind, of course.</span></div></>}
+    </div>
+    <nav className={styles.Navigation} aria-label="Main navigation">
+      <p className={styles.GroupLabel}>The community</p>
+      {item("/", "home", "Home", true)}
+      {currentUser && <>{item("/feed", "feed", "Following feed")}{item("/liked", "heart", "Liked posts")}</>}
+      {currentUser ? <>
+        <p className={styles.GroupLabel}>The dog corner</p>
+        {item("/dogprofilespage", "paw", "Dog profiles")}
+        {item("/dogshealthpage", "health", "Health records")}
+        {item("/dogdangerspage", "safety", "Safety & dangers")}
+        <p className={styles.GroupLabel}>Your space</p>
+        {item(`/profiles/${currentUser.profile_id}`, "user", "My profile", true)}
+        {item(`/profiles/${currentUser.profile_id}/edit`, "settings", "Profile settings")}
+        <button className={styles.SignOutButton} type="button" disabled={busy} onClick={signOut}><Icon name="logout" />{busy ? "Signing out…" : "Sign out"}</button>
+      </> : <div className={styles.GuestLinks}><AccountLink to="/signin">Sign in <Icon name="arrow" size={17} /></AccountLink><AccountLink to="/signup">Join SpoodleSpace</AccountLink></div>}
+    </nav>
+    {error && <p role="alert" className={styles.Error}>{error}</p>}
+    {currentUser && <NavLink to="/posts/create" className={styles.Create}><Icon name="plus" />Create post</NavLink>}
+    <div className={styles.SidebarNote}><Icon name="paw" size={22} /><p>A little space.<br /><em>A lot of dog love.</em></p></div>
+  </aside>;
+}

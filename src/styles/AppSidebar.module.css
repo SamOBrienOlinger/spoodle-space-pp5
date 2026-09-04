@@ -1,110 +1,25 @@
-.Sidebar {
-  position: sticky;
-  top: 84px;
-  min-height: calc(100vh - 104px);
-  padding: 18px 14px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, #4f0aa5 0%, #7112ee 100%);
-  color: #ffffff;
-  box-shadow: 0 10px 28px rgba(70, 8, 144, 0.2);
-}
-
-.ProfileSummary {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 4px 8px 18px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.ProfileSummary :global(img) {
-  border: 2px solid rgba(255, 255, 255, 0.88);
-  box-shadow: 0 4px 12px rgba(37, 4, 78, 0.22);
-}
-
-.ProfileSummary :global(span) {
-  color: #ffffff;
-  font-weight: 700;
-}
-
-.ProfileLink {
-  width: fit-content;
-  color: #efe7ff;
-  font-size: 0.82rem;
-}
-
-.ProfileLink:hover {
-  color: #ffffff;
-}
-
-.Navigation {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.NavItem,
-.SignOutButton {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  min-height: 44px;
-  padding: 9px 11px;
-  border: 0;
-  border-radius: 9px;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.9);
-  font: inherit;
-  font-size: 0.9rem;
-  text-align: left;
-  transition: background-color 0.18s ease, color 0.18s ease,
-    transform 0.18s ease;
-}
-
-.NavItem i,
-.SignOutButton i {
-  width: 30px;
-  padding: 0 8px 0 0;
-  color: currentColor;
-  font-size: 1rem;
-  text-align: center;
-}
-
-.NavItem:hover,
-.SignOutButton:hover,
-.Active {
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-  transform: translateX(2px);
-}
-
-.Active {
-  box-shadow: inset 3px 0 0 #ffffff;
-  font-weight: 700;
-}
-
-.SignOutButton {
-  cursor: pointer;
-}
-
-.SignOutButton:focus-visible,
-.NavItem:focus-visible,
-.ProfileLink:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.72);
-  outline-offset: 2px;
-}
-
-@media screen and (max-width: 1199px) {
-  .Sidebar {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .NavItem,
-  .SignOutButton {
-    padding-left: 8px;
-    padding-right: 8px;
-    font-size: 0.84rem;
-  }
-}
+.Sidebar { position: sticky; top: 92px; max-height: calc(100dvh - 110px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: #8b5eb9 #35135a; display: flex; flex-direction: column; background: linear-gradient(165deg, #4a1677, #2f104d); color: #fff; border-radius: 24px; padding: 20px 12px 16px; }
+.ProfileSummary { display: flex; gap: 10px; align-items: center; padding: 0 7px 19px; border-bottom: 1px solid #ffffff26; min-width: 0; }
+.ProfileSummary > div { min-width: 0; }
+.ProfileSummary strong { display: block; font-size: .87rem; overflow-wrap: anywhere; }
+.ProfileSummary a, .ProfileSummary div > span { display: block; color: #e3d2f7; font-size: .73rem; margin-top: 4px; }
+.ProfileSummary img { margin: 0; flex-shrink: 0; border: 2px solid #d3b2ff; }
+.BrandPaw { flex-shrink: 0; display: grid; place-items: center; width: 42px; height: 42px; background: #ffffff16; border-radius: 14px; color: #ddc3ff; }
+.Navigation { padding-top: 6px; }
+.GroupLabel { margin: 19px 12px 8px; color: #cfb7e6; font-size: .63rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.NavItem, .SignOutButton { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 45px; margin: 3px 0; padding: 11px 12px; border: 0; border-radius: 12px; font-size: .83rem; text-align: left; background: transparent; color: #f1e5ff; transition: background 160ms, color 160ms, transform 180ms; }
+.NavItem svg, .SignOutButton svg { flex-shrink: 0; opacity: .85; }
+.NavItem:hover, .SignOutButton:hover { background: #ffffff14; color: #fff; transform: translateX(2px); }
+.NavItem.Active { background: #eee2ff; color: #45117a; font-weight: 700; box-shadow: inset 3px 0 #bc90f9; }
+.SignOutButton { cursor: pointer; }
+.Create, .GuestLinks a { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px; border-radius: 12px; font-size: .85rem; font-weight: 700; background: #e1c8ff; color: #35135a; }
+.Create { margin: 22px 5px 0; }
+.Create:hover, .GuestLinks a:hover { background: #f4eaff; color: #35135a; }
+.SidebarNote { margin-top: 25px; padding: 21px 12px 4px; border-top: 1px solid #ffffff26; color: #dbc6ee; }
+.SidebarNote p { margin: 10px 0 0; line-height: 1.6; font-size: .8rem; }
+.SidebarNote em { font-family: Georgia, serif; font-size: 1.08rem; color: #fff4df; }
+.GuestLinks { display: grid; gap: 10px; margin: 24px 4px 5px; }
+.GuestLinks a:first-child { background: transparent; color: white; border: 1px solid #ffffff70; }
+.Error { margin: 10px; color: #fff4df; font-size: .8rem; }
+.Sidebar a:focus-visible, .Sidebar button:focus-visible { outline-color: #fff4df; }
+@media (max-width: 991px) { .Sidebar { display: none; } }
