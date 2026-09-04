@@ -124,6 +124,50 @@
   scroll-margin-top: 92px;
 }
 
+.SuggestedPanel {
+  padding-bottom: 8px;
+}
+
+.ProfileList {
+  display: flex;
+  flex-direction: column;
+}
+
+.ProfileList > div {
+  min-height: 54px;
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+  padding: 5px 0;
+  border-bottom: 1px solid #eeeaf2;
+}
+
+.ProfileList > div:last-child {
+  border-bottom: 0;
+}
+
+.ProfileList strong {
+  color: #33273f;
+  font-size: 0.86rem;
+}
+
+.ProfileList button {
+  min-width: 70px;
+  min-height: 34px;
+  padding: 5px 9px;
+  border-color: #7112ee;
+  border-radius: 7px;
+  background: #7112ee;
+  color: #ffffff;
+  font-size: 0.76rem;
+}
+
+.ProfileList button:hover,
+.ProfileList button:focus {
+  border-color: #5610b6;
+  background: #5610b6;
+  color: #ffffff;
+}
+
 @media screen and (max-width: 1199px) {
   .Panel {
     padding: 13px;
@@ -139,5 +183,11 @@
   .IconWrap {
     width: 29px;
     height: 29px;
+  }
+
+  .ProfileList button {
+    min-width: 62px;
+    padding-left: 7px;
+    padding-right: 7px;
   }
 }
