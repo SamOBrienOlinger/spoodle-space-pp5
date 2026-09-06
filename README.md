@@ -54,7 +54,7 @@ npm run start:dev
 
 Open [localhost:3000](http://localhost:3000). Use `localhost` for both services, rather than mixing it with `127.0.0.1`, so their cookies use the same site. This direct-API route does not depend on the production proxy. The local URL change is development-only: restore the original `/api/` value before committing or publishing the frontend.
 
-Review registration/sign-in, a text post and sign-out against your own local database. Upload checks additionally require your own development Cloudinary configuration as described in the backend README. These instructions are based on the current configuration; they are not a claim that a fresh end-to-end login test has passed.
+Configure your own development Cloudinary account as described in the backend README before reviewing registration, sign-in, a photo post and sign-out against your local database. The default backend storage is also used for profile-image URLs in authentication responses, so it is required even before you upload a file. The current create-post form sends an invalid image value when no file is selected; use a small valid image for its normal posting journey and record text-only submission as a known failure. These instructions are not a claim that a fresh browser login and posting test has passed.
 
 ### Understand the production proxy
 
@@ -87,7 +87,14 @@ Use Node.js `16.20.0` and npm for the package commands below. Install the packag
 | `npm run build` | Create the configured application build |
 | `npm test -- --watchAll=false` | Run the existing test suite |
 
-For a manual review, follow the main user journey, check keyboard navigation and narrow-screen layouts, and inspect the browser console for missing assets or failed requests.
+For a manual review, follow registration, sign-in, photo-post creation, detail-page reload, editing, deletion and sign-out. Check keyboard navigation and narrow-screen layouts, and inspect the browser console for missing assets or failed requests.
+
+### Known workflow findings · September 6, 2026
+
+- The [Heroku frontend](https://spoodle-space-pp5.herokuapp.com) loaded the public feed, displayed sign-in/sign-up validation, and redirected an anonymous visitor away from post creation. Authenticated live posting and Cloudinary upload were not completed during this check.
+- Opening a feed post produced a detail page with missing content and `/posts/undefined` links. [PostPage.js](src/pages/posts/PostPage.js) requests `/posts/${id}` without the API's trailing slash. Through the production proxy, `/api/posts/67` redirected to `/posts/67/` and returned frontend HTML; `/api/posts/67/` returned JSON. The detail request and proxy redirect handling need a runtime fix before this journey can pass.
+- [PostCreateForm.js](src/pages/posts/PostCreateForm.js) always appends `imageInput.current.files[0]`. Without a file, the multipart image value becomes the string `undefined`; the local API rejected the equivalent request with HTTP 400. Omitting the image field entirely succeeded through the API.
+- The checked-in `App.test.js` contains a test with its rendering and assertions commented out. A green result from that file does not verify login or posting.
 
 Generate fresh results from the revision you are working on; historical test reports describe earlier runs.
 
