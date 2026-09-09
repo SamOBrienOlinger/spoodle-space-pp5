@@ -2,42 +2,42 @@
 .LeftColumn, .RightColumn, .Main { min-width: 0; }
 .AuthLayout { width: 100%; max-width: 510px; margin: 24px auto; }
 .Card { background: var(--spoodle-surface); border: 1px solid var(--spoodle-border); border-radius: 16px; box-shadow: var(--spoodle-shadow); overflow: hidden; }
-.Header { display: flex; align-items: flex-start; gap: 14px; padding: 26px 28px 23px; border-bottom: 1px solid var(--spoodle-border); }
-.HeaderIcon { display: grid; place-items: center; flex-shrink: 0; width: 48px; height: 48px; border-radius: 14px; color: var(--spoodle-purple); background: var(--spoodle-purple-soft); }
-.Header h1 { font-size: 1.5rem; line-height: 1.25; letter-spacing: -.035em; font-weight: 700; margin: 0 0 7px; color: var(--spoodle-navy); }
+.Header { display: flex; align-items: flex-start; gap: 14px; padding: 26px 28px 23px; border-bottom: 1px solid var(--spoodle-border); background: var(--spoodle-surface-wash); }
+.HeaderIcon { display: grid; place-items: center; flex-shrink: 0; width: 48px; height: 48px; border-radius: 14px; color: var(--spoodle-purple-dark); background: linear-gradient(135deg, #e9daf8, #f4e3ed); box-shadow: inset 0 1px 0 #fff, 0 3px 8px #6633910a; }
+.Header h1 { font-size: 1.5rem; line-height: 1.25; letter-spacing: -.035em; font-weight: 700; margin: 0 0 7px; color: var(--spoodle-ink); }
 .Header p { margin: 0; color: var(--spoodle-muted); font-size: .9rem; line-height: 1.6; }
 .FormBody { display: grid; gap: 24px; padding: 26px 28px; min-width: 0; margin: 0; border: 0; }
 .Section { min-width: 0; padding: 0; border: 0; margin: 0; }
-.Section legend { width: 100%; font-size: 1rem; font-weight: 700; margin: 0 0 17px; color: var(--spoodle-navy); }
+.Section legend { width: 100%; font-size: 1rem; font-weight: 700; margin: 0 0 17px; color: var(--spoodle-ink); }
 .Stack { display: grid; gap: 20px; }
 .Columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .Field { min-width: 0; margin: 0; }
 .Field label, .PhotoLabel { display: block; margin: 0 0 8px; font-weight: 600; color: var(--spoodle-text); font-size: .88rem; }
-.Field input, .Field textarea { width: 100%; background: #fbfcfe; border: 1px solid #cbd4df; border-radius: 10px; padding: 12px 14px; line-height: 1.5; }
+.Field input, .Field textarea { width: 100%; background: var(--spoodle-surface-soft); border: 1px solid var(--spoodle-control-border); border-radius: 10px; padding: 12px 14px; line-height: 1.5; }
 .Field textarea { resize: vertical; min-height: 92px; }
-.Field input::placeholder, .Field textarea::placeholder { color: #69778a; }
-.Field [aria-invalid="true"] { border-color: #b43d51; }
+.Field input::placeholder, .Field textarea::placeholder { color: var(--spoodle-muted); }
+.Field [aria-invalid="true"] { border-color: var(--spoodle-danger); }
 .Required { color: var(--spoodle-muted); }
 .Hint, .UploadControl small { color: var(--spoodle-muted); font-size: .78rem; line-height: 1.6; margin: 7px 0 0; display: block; }
-.FieldError { padding: 10px 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #efc9ce; background: #fff3f4; color: #963047; font-size: .82rem; line-height: 1.5; overflow-wrap: anywhere; }
+.FieldError { padding: 10px 12px; margin-top: 8px; border-radius: 8px; border: 1px solid var(--spoodle-danger-border); background: var(--spoodle-danger-soft); color: var(--spoodle-danger); font-size: .82rem; line-height: 1.5; overflow-wrap: anywhere; }
 .FieldError p { margin: 0; }
 .PhotoField { min-width: 0; }
-.Upload { border: 1px dashed #b9b5d6; border-radius: 12px; padding: 20px; background: #faf9fd; text-align: center; }
-.UploadIcon { display: grid; place-items: center; width: 54px; height: 54px; margin: 0 auto 12px; border-radius: 16px; background: var(--spoodle-purple-soft); color: var(--spoodle-purple); }
+.Upload { border: 1px dashed var(--spoodle-control-border); border-radius: 12px; padding: 20px; background: var(--spoodle-surface-wash); text-align: center; }
+.UploadIcon { display: grid; place-items: center; width: 54px; height: 54px; margin: 0 auto 12px; border-radius: 16px; background: linear-gradient(135deg, #e9daf8, #f4e3ed); color: var(--spoodle-purple-dark); }
 .UploadControl { min-width: 0; }
 .UploadControl p { margin: 0 0 12px; color: var(--spoodle-text); font-size: .85rem; }
 .UploadControl input { width: 100%; min-height: 44px; color: var(--spoodle-muted); font-size: .8rem; border-radius: 8px; }
-.UploadControl input::file-selector-button { margin-right: 10px; padding: 10px 13px; min-height: 44px; border: 1px solid #cfc4e5; border-radius: 8px; background: #fff; color: var(--spoodle-purple-dark); font-weight: 700; cursor: pointer; }
+.UploadControl input::file-selector-button { margin-right: 10px; padding: 10px 13px; min-height: 44px; border: 1px solid var(--spoodle-control-border); border-radius: 8px; background: #fff; color: var(--spoodle-purple-dark); font-weight: 700; cursor: pointer; }
 .Photo { display: block; width: 100%; max-height: 240px; object-fit: contain; border-radius: 8px; margin: 0 auto 18px; }
 .PortraitUpload { display: flex; align-items: center; gap: 20px; text-align: left; }
 .Portrait { width: 90px; height: 90px; flex-shrink: 0; border-radius: 50%; object-fit: cover; }
 .PortraitUpload .UploadIcon { flex-shrink: 0; margin: 0; }
 .Actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--spoodle-border); padding-top: 22px; }
 .PrimaryButton, .SecondaryButton { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 11px 20px; border-radius: 10px; border: 1px solid transparent; font-weight: 700; font-size: .88rem; cursor: pointer; transition: background 160ms, box-shadow 160ms; }
-.PrimaryButton { background: var(--spoodle-purple); color: #fff; box-shadow: 0 3px 7px #6746ad22; }
-.PrimaryButton:hover { background: var(--spoodle-purple-dark); }
-.SecondaryButton { background: #fff; color: var(--spoodle-text); border-color: #cbd4df; }
-.SecondaryButton:hover { background: #f0f3f7; }
+.PrimaryButton { background-color: var(--spoodle-purple); background-image: var(--spoodle-primary-gradient); color: #fff; box-shadow: var(--spoodle-button-shadow); }
+.PrimaryButton:hover { background-color: var(--spoodle-purple-dark); background-image: var(--spoodle-primary-hover); }
+.SecondaryButton { background: var(--spoodle-surface); color: var(--spoodle-purple-dark); border-color: var(--spoodle-control-border); }
+.SecondaryButton:hover { background: var(--spoodle-purple-soft); }
 .PrimaryButton:disabled, fieldset:disabled .PrimaryButton, fieldset:disabled .SecondaryButton { cursor: wait; opacity: .7; }
 .AuthActions .PrimaryButton { width: 100%; }
 .Footer { margin: 20px 0; text-align: center; color: var(--spoodle-muted); font-size: .88rem; line-height: 1.7; }

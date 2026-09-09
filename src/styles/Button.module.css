@@ -2,7 +2,7 @@
 .Button:hover { cursor: pointer; }
 .Button:active { transform: scale(.98); }
 .Wide { width: calc(100% - 10px); }
-.Blue, .Bright, .Black { background: var(--spoodle-purple); border-color: var(--spoodle-purple); color: white; }
-.Blue:hover, .Bright:hover, .Black:hover, .Blue:focus, .Bright:focus, .Black:focus { background: var(--spoodle-purple-dark); border-color: var(--spoodle-purple-dark); color: white; }
-.BlueOutline, .BlackOutline { background: white; border-color: #b99bd7; color: var(--spoodle-purple-dark); }
-.BlueOutline:hover, .BlackOutline:hover { background: #f1e7fc; border-color: var(--spoodle-purple); color: var(--spoodle-purple-dark); }
+.Blue, .Bright, .Black { background-color: var(--spoodle-purple); background-image: var(--spoodle-primary-gradient); border-color: var(--spoodle-purple); color: white; box-shadow: var(--spoodle-button-shadow); }
+.Blue:hover, .Bright:hover, .Black:hover, .Blue:focus, .Bright:focus, .Black:focus { background-color: var(--spoodle-purple-dark); background-image: var(--spoodle-primary-hover); border-color: var(--spoodle-purple-dark); color: white; }
+.BlueOutline, .BlackOutline { background: var(--spoodle-surface); border-color: var(--spoodle-control-border); color: var(--spoodle-purple-dark); }
+.BlueOutline:hover, .BlackOutline:hover { background: var(--spoodle-purple-soft); border-color: var(--spoodle-purple); color: var(--spoodle-purple-dark); }

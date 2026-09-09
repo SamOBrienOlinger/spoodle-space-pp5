@@ -9,17 +9,17 @@
   min-height: 48px;
   font-size: 16px;
 }
-.Header { font-style: normal; font-weight: bold; font-size: 20px; line-height: 1.4; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; color: #5610b6; }
-.Link { text-decoration: none; text-align: center; display: block; margin: auto; color: #7112ee; }
-.Link span { color: #7112ee; }
-.Link:hover, .Link:hover i { text-decoration: none; color: #5610b6; }
+.Header { font-style: normal; font-weight: bold; font-size: 20px; line-height: 1.4; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; color: var(--spoodle-purple-dark); }
+.Link { text-decoration: none; text-align: center; display: block; margin: auto; color: var(--spoodle-purple); }
+.Link span { color: var(--spoodle-purple); }
+.Link:hover, .Link:hover i { text-decoration: none; color: var(--spoodle-purple-dark); }
 .Container { padding: 30px 10px; }
 .SignInCol { min-height: 320px; height: auto; }
 .SignUpCol { min-height: 375px; height: auto; }
-.signin { color: #5610b6; }
+.signin { color: var(--spoodle-purple-dark); }
 #centreform { margin-left: auto; margin-right: auto; }
-.SubmitButton, .SubmitButton:disabled { width: 100%; min-height: 48px; padding: 10px 20px; border: 1px solid #7112ee; border-radius: 8px; background: #7112ee; color: #fff; }
-.SubmitButton:hover, .SubmitButton:focus, .SubmitButton:active { background: #5610b6 !important; border-color: #5610b6 !important; color: #fff !important; }
+.SubmitButton, .SubmitButton:disabled { width: 100%; min-height: 48px; padding: 10px 20px; border: 1px solid var(--spoodle-purple); border-radius: 8px; background: var(--spoodle-purple); color: #fff; }
+.SubmitButton:hover, .SubmitButton:focus, .SubmitButton:active { background: var(--spoodle-purple-dark) !important; border-color: var(--spoodle-purple-dark) !important; color: #fff !important; }
 @media screen and (max-width: 767px) {
   .Container { padding: 20px 6px; }
   .SignInCol, .SignUpCol { min-height: 0; }

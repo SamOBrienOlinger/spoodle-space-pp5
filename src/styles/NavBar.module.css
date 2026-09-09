@@ -2,8 +2,9 @@
   min-height: 68px;
   padding: 0.35rem 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  background: var(--spoodle-navy);
-  box-shadow: 0 3px 12px rgba(25, 47, 70, 0.16);
+  background-color: var(--spoodle-header);
+  background-image: var(--spoodle-nav-gradient);
+  box-shadow: 0 4px 18px #3e20552b, inset 0 1px 0 #ffffff18;
 }
 .NavContainer { width: 100%; max-width: 1540px; min-height: 56px; margin: 0 auto; }
 .BrandLink, .BrandLink:hover { flex: 0 0 auto; text-decoration: none; }
@@ -11,28 +12,28 @@
 .NavBar img { max-width: 215px; object-fit: contain; }
 .SearchForm, .MobileSearch { position: relative; align-items: center; }
 .SearchForm { flex: 1 1 420px; min-width: 220px; max-width: 610px; margin: 0 1.25rem; }
-.SearchForm i, .MobileSearch i { position: absolute; left: 15px; z-index: 2; padding: 0; color: #776e82; font-size: 0.95rem; pointer-events: none; }
-.SearchForm input, .MobileSearch input { width: 100%; height: 42px; padding: 0 16px 0 42px; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 22px; background: rgba(255, 255, 255, 0.96); color: #24212b; font-size: 0.9rem; box-shadow: none; }
+.SearchForm i, .MobileSearch i { position: absolute; left: 15px; z-index: 2; padding: 0; color: var(--spoodle-muted); font-size: 0.95rem; pointer-events: none; }
+.SearchForm input, .MobileSearch input { width: 100%; height: 42px; padding: 0 16px 0 42px; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 22px; background: var(--spoodle-surface-soft); color: var(--spoodle-text); font-size: 0.9rem; box-shadow: none; }
 .SearchForm input:focus, .MobileSearch input:focus { border-color: #ffffff; background: #ffffff; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.22); }
 .DesktopAccount { flex: 0 0 auto; align-items: center; gap: 8px; }
 .AccountLink, .SignInLink, .SignUpLink { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border-radius: 9px; font-size: 0.88rem; font-weight: 700; }
-.AccountLink { padding: 4px 10px 4px 6px; background: rgba(255, 255, 255, 0.12); color: #ffffff; }
-.AccountLink:hover { background: rgba(255, 255, 255, 0.19); color: #ffffff; }
+.AccountLink { padding: 4px 10px 4px 6px; background: rgba(255, 255, 255, 0.04); color: #ffffff; }
+.AccountLink:hover { background: rgba(255, 255, 255, 0.08); color: #ffffff; }
 .AccountLink :global(span) { display: flex; align-items: center; gap: 7px; color: #ffffff; }
 .AccountLink :global(img) { width: 34px; height: 34px; border: 2px solid rgba(255, 255, 255, 0.88); }
 .SignInLink { padding: 8px 11px; color: #ffffff; }
-.SignInLink:hover { background: rgba(255, 255, 255, 0.13); color: #ffffff; }
-.SignUpLink { padding: 8px 14px; background: #ffffff; color: #5610b6; }
-.SignUpLink:hover { background: #f1e9fd; color: #4f0aa5; }
+.SignInLink:hover { background: rgba(0, 0, 0, 0.08); color: #ffffff; }
+.SignUpLink { padding: 8px 14px; background: #ffffff; color: var(--spoodle-purple-dark); }
+.SignUpLink:hover { background: var(--spoodle-purple-soft); color: var(--spoodle-purple-dark); }
 .MobileCollapse { width: 100%; }
 .MobileSearch { display: flex; width: 100%; margin: 10px 0 7px; }
 .MobileSearch input { width: 100%; }
 .MobileNav { display: flex; flex-direction: column; width: 100%; max-height: calc(100vh - 82px); padding: 7px 0 10px; overflow-y: auto; }
-.MobileNavLink, .MobileSignOut { display: flex; align-items: center; width: 100%; min-height: 44px; gap: 8px; padding: 9px 11px; border: 0; border-radius: 8px; background: transparent; color: rgba(255, 255, 255, 0.92); font: inherit; font-size: 0.9rem; text-align: left; }
+.MobileNavLink, .MobileSignOut { display: flex; align-items: center; width: 100%; min-height: 44px; gap: 8px; padding: 9px 11px; border: 0; border-radius: 8px; background: transparent; color: #ffffff; font: inherit; font-size: 0.9rem; text-align: left; }
 .MobileNavLink i, .MobileSignOut i { width: 27px; padding: 0 7px 0 0; color: currentColor; font-size: 1rem; text-align: center; }
-.MobileNavLink:hover, .MobileSignOut:hover, .Active { background: rgba(255, 255, 255, 0.15); color: #ffffff; }
+.MobileNavLink:hover, .MobileSignOut:hover, .Active { background: #00000014; color: #ffffff; }
 .MobileSignOut { cursor: pointer; }
-.NavBar :global(.navbar-toggler) { min-width: 44px; min-height: 44px; border-color: rgba(255, 255, 255, 0.48); background: rgba(255, 255, 255, 0.96); }
+.NavBar :global(.navbar-toggler) { min-width: 44px; min-height: 44px; border-color: rgba(255, 255, 255, 0.48); background: var(--spoodle-surface-soft); }
 .NavBar :global(.navbar-toggler:focus) { outline: 3px solid rgba(255, 255, 255, 0.36); outline-offset: 2px; }
 @media screen and (min-width: 992px) {
   .NavBar .MobileCollapse { display: none !important; flex: 0 0 0 !important; width: 0 !important; min-width: 0 !important; overflow: hidden !important; }
@@ -52,6 +53,6 @@
   .NavBar img { max-width: min(156px, 50vw); height: auto; }
 }
 
-/* Preserve the original logo artwork; blend its darkened backing into navy. */
+/* Preserve the original logo artwork; blend its darkened backing into the purple header. */
 .Brand img { filter: grayscale(1) contrast(5); mix-blend-mode: screen; }
-.NavBar a:focus-visible { outline-color: #fff; }
+.NavBar a:focus-visible, .NavBar input:focus-visible, .NavBar button:focus-visible { outline-color: #fff; }

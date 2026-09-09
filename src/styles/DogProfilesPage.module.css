@@ -1,2 +1,2 @@
-.SearchBar input { min-height: 46px; border: 1px solid #cbd4df; border-radius: 10px; color: var(--spoodle-text); background: #fff; padding-left: 42px; margin-bottom: 18px; }
+.SearchBar input { min-height: 46px; border: 1px solid var(--spoodle-control-border); border-radius: 10px; color: var(--spoodle-text); background: #fff; padding-left: 42px; margin-bottom: 18px; }
 .SearchIcon { position: absolute; font-size: 1rem; padding: 15px; color: var(--spoodle-muted); pointer-events: none; }

@@ -4,7 +4,7 @@
 }
  
  #ProfilePostsHeading{
-    color: #7112ee;
+    color: var(--spoodle-purple);
   }
   
   .ProfileImage {
