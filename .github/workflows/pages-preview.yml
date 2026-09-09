@@ -1,9 +1,9 @@
-name: Deploy UI preview to GitHub Pages
+name: Deploy SpoodleSpace UI preview
 
 on:
   push:
     branches:
-      - design/2018-2020-ui-refresh
+      - main
   workflow_dispatch:
 
 permissions:
@@ -12,15 +12,17 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-preview
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout redesign branch
         uses: actions/checkout@v4
+        with:
+          ref: design/2018-2020-ui-refresh
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -31,13 +33,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build preview
         env:
           PUBLIC_URL: /spoodle-space-pp5
           CI: false
         run: npm run build
 
-      - name: Configure Pages
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact

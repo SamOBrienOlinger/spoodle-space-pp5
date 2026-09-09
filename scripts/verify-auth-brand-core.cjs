@@ -38,7 +38,7 @@ async function previewChecks(browser) {
       const rect = logo.getBoundingClientRect();
       return { background: style.backgroundColor, backgroundImage: style.backgroundImage, logoLoaded: logo.complete && logo.naturalWidth === 754, overflow: document.documentElement.scrollWidth - innerWidth, logoBounds: { x: rect.x, y: rect.y, width: rect.width, height: rect.height } };
     });
-    assert.equal(metrics.background, 'rgb(113, 17, 238)');
+    assert.equal(metrics.background, 'rgb(25, 47, 70)');
     assert.equal(metrics.backgroundImage, 'none');
     assert.equal(metrics.logoLoaded, true);
     assert(metrics.overflow <= 1, `Overflow at ${width}px`);
@@ -47,7 +47,7 @@ async function previewChecks(browser) {
     if (width < 992) {
       await page.getByRole('button', { name: 'Toggle navigation' }).click();
       await page.waitForTimeout(350);
-      assert.equal(await page.locator('nav.navbar').evaluate(n => getComputedStyle(n).backgroundColor), 'rgb(113, 17, 238)');
+      assert.equal(await page.locator('nav.navbar').evaluate(n => getComputedStyle(n).backgroundColor), 'rgb(25, 47, 70)');
       assert.equal(await page.locator('nav a').filter({ hasText: /^Sign in$/ }).last().getAttribute('href'), `${live}/signin`);
       if (width === 390) await page.screenshot({ path: `${output}/mobile-menu.png`, fullPage: true });
     }

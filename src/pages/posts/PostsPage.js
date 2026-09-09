@@ -75,7 +75,7 @@ export default function PostsPage({ message, filter = "" }) {
   return <div className={styles.Layout}>
     <div className={styles.LeftColumn}><AppSidebar /></div>
     <div className={styles.FeedColumn}>
-      <section className={`${styles.Welcome} ss-enter`} aria-labelledby="feed-welcome-title">
+      {!currentUser && <section className={`${styles.Welcome} ss-enter`} aria-labelledby="feed-welcome-title">
         <div className={styles.WelcomeCopy}>
           <span className={styles.Eyebrow}><Icon name="paw" size={16} />A space for dog people</span>
           <h1 id="feed-welcome-title">{currentUser ? <>Good dogs.<br /><em>Great company.</em></> : <>Little paws.<br /><em>Big connections.</em></>}</h1>
@@ -83,8 +83,8 @@ export default function PostsPage({ message, filter = "" }) {
           {!currentUser && <div className={styles.WelcomeActions}><AccountLink className={styles.PrimaryAction} to="/signup">Find your people <Icon name="arrow" size={17} /></AccountLink><AccountLink className={styles.SecondaryAction} to="/signin">Sign in</AccountLink></div>}
         </div>
         <div className={styles.WelcomeArt} aria-hidden="true"><span className={styles.Orbit} /><img src={dogPhoto} alt="" /><span className={styles.Sticker}><Icon name="heart" size={16} />100% dog people</span><span className={styles.ArtPaw}><Icon name="paw" size={27} /></span></div>
-      </section>
-      {currentUser && <section className={styles.Composer} aria-label="Create a post"><div className={styles.ComposerTop}><Avatar src={currentUser.profile_image} height={44} /><Link className={styles.ComposerPrompt} to="/posts/create">What’s making tails wag?</Link><Link className={styles.CreatePostButton} to="/posts/create" aria-label="Create post"><Icon name="plus" size={19} /><span>Create post</span></Link></div><div className={styles.ComposerBottom}><span>A photo, a thought, a little update.</span><Link to="/posts/create"><Icon name="photo" size={16} />Add photo</Link></div></section>}
+      </section>}
+      {currentUser && <section className={styles.Composer} aria-label="Create a post"><div className={styles.ComposerTop}><Avatar src={currentUser.profile_image} height={44} /><Link className={styles.ComposerPrompt} to="/posts/create">Share with the SpoodleSpace community…</Link><Link className={styles.CreatePostButton} to="/posts/create" aria-label="Create post"><Icon name="plus" size={19} /><span>Post</span></Link></div><div className={styles.ComposerBottom}><span>A photo, a thought, a little update.</span><Link to="/posts/create"><Icon name="photo" size={16} />Add photo</Link></div></section>}
       <div className={styles.FeedHeading}><div><span className={styles.Eyebrow}>Around the community</span><h2>{liked ? "Your favourites" : following ? "From your people" : "The latest tail-waggers"}</h2></div><Icon name={liked ? "heart" : "paw"} size={27} /></div>
       {currentUser && <>
         <nav className={styles.FeedTabs} aria-label="Post feeds"><NavLink exact to="/" activeClassName={styles.Selected}>All posts</NavLink><NavLink to="/feed" activeClassName={styles.Selected}>Following</NavLink><NavLink to="/liked" activeClassName={styles.Selected}>Liked</NavLink></nav>

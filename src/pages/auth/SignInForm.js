@@ -1,15 +1,7 @@
+import FormPage, { FormField } from "../../components/FormPage";
 import React, { useState } from "react";
 import axios from "axios";
-import Form from "react-bootstrap/Form";
-import Alert from "react-bootstrap/Alert";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Image from "react-bootstrap/Image";
-import Container from "react-bootstrap/Container";
 import { Link, useHistory } from "react-router-dom";
-import styles from "../../styles/SignInUpForm.module.css";
-import appStyles from "../../App.module.css";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { useRedirect } from "../../hooks/useRedirect";
 import { setTokenTimestamp } from "../../utils/utils";
@@ -76,38 +68,10 @@ export default function SignInForm() {
   const handleChange = (event) => {
     setSignInData({ ...signInData, [event.target.name]: event.target.value });
   };
-  const messages = (field) => (errors[field] || []).map((message, index) => (
-    <Alert key={`${field}-${index}`} variant="danger">{message}</Alert>
-  ));
   return (
-    <Row className={styles.Row}>
-      <Col className="my-auto p-0 p-md-2" md={6}>
-        <Container className={`${appStyles.Content} p-4`}>
-          <h1 className={styles.Header}>Sign in</h1>
-          <Form onSubmit={handleSubmit} aria-busy={submitting}>
-            <Form.Group controlId="username">
-              <Form.Label>Username</Form.Label>
-              <Form.Control type="text" autoComplete="username" autoCapitalize="none" autoCorrect="off" spellCheck={false} required placeholder="Enter your username" name="username" className={styles.Input} value={signInData.username} onChange={handleChange} disabled={submitting} />
-            </Form.Group>
-            {messages("username")}
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" autoComplete="current-password" required placeholder="Enter your password" name="password" className={styles.Input} value={signInData.password} onChange={handleChange} disabled={submitting} />
-            </Form.Group>
-            {messages("password")}
-            <Button className={styles.SubmitButton} type="submit" disabled={submitting}>
-              {submitting ? "Signing in..." : "Sign in"}
-            </Button>
-            <div className="mt-3" aria-live="polite">{messages("non_field_errors")}</div>
-          </Form>
-        </Container>
-        <Container className={`mt-3 ${appStyles.Content}`}>
-          <Link className={styles.Link} to="/signup">Not a SpoodleSpacer yet? Sign up</Link>
-        </Container>
-      </Col>
-      <Col md={6} className={`my-auto d-none d-md-block p-2 ${styles.SignUpCol}`}>
-        <Image className={appStyles.FillerImage} alt="A dog enjoying the outdoors" src="https://res.cloudinary.com/dzhbg6go0/image/upload/v1670254218/CockapooClub/furry-fun_gsmi28.webp" />
-      </Col>
-    </Row>
+    <FormPage title="Welcome back" description="Sign in to your SpoodleSpace community." icon="paw" onSubmit={handleSubmit} errors={errors} submitLabel="Sign in" busyLabel="Signing in…" auth footer={<>New to SpoodleSpace? <Link to="/signup">Sign up</Link></>}>
+      <FormField label="Username" name="username" value={signInData.username} onChange={handleChange} error={errors?.username} type="text" autoComplete="username" autoCapitalize="none" autoCorrect="off" spellCheck={false} required placeholder="Enter your username" />
+      <FormField label="Password" name="password" value={signInData.password} onChange={handleChange} error={errors?.password} type="password" autoComplete="current-password" required placeholder="Enter your password" />
+    </FormPage>
   );
 }

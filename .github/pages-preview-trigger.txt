@@ -1,0 +1,1 @@
+Triggers the existing GitHub Pages workflow after Pages was confirmed to use GitHub Actions.

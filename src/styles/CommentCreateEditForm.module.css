@@ -1,0 +1,9 @@
+.CommentForm { padding: 20px 0 8px; margin-top: 12px; border-top: 1px solid var(--spoodle-border); }
+.Composer { display: flex; align-items: flex-start; gap: 12px; }
+.Composer > a { flex-shrink: 0; margin-top: 26px; }
+.Composer img { margin: 0; }
+.Content { flex: 1; min-width: 0; }
+.Actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.PrimaryButton { composes: PrimaryButton from "./FormPage.module.css"; }
+.SecondaryButton { composes: SecondaryButton from "./FormPage.module.css"; }
+@media (max-width: 575px) { .Composer { gap: 9px; } .Actions button { padding-right: 14px; padding-left: 14px; } }

@@ -252,7 +252,7 @@ function ProfilePage() {
                             <p
                               className={`${btnStyles.ButtonText} ${styles.ButtonText}`}
                             >
-                              {profile?.owner}, Create your Doggy Danger details
+                              {profile?.owner}, Create your Doggy danger details
                               now
                             </p>
                           </Link>

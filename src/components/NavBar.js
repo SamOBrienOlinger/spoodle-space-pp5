@@ -82,14 +82,11 @@ const NavBar = () => {
             {navItem("/", "fas fa-home", "Home", true)}
             {currentUser ? (
               <>
-                {navItem("/feed", "fas fa-stream", "Following feed")}
-                {navItem("/posts/create", "far fa-plus-square", "Create post")}
                 {navItem(`/profiles/${currentUser.profile_id}`, "fas fa-user", "My profile")}
-                {navItem("/dogprofilespage", "fas fa-dog", "Dog profiles")}
-                {navItem("/dogshealthpage", "fas fa-heartbeat", "Health records")}
-                {navItem("/dogdangerspage", "fas fa-exclamation-triangle", "Safety & dangers")}
+                {navItem("/dogprofilespage", "fas fa-dog", "Doggy profile")}
+                {navItem("/dogshealthpage", "fas fa-heartbeat", "Doggy health")}
+                {navItem("/dogdangerspage", "fas fa-exclamation-triangle", "Doggy danger")}
                 {navItem("/liked", "fas fa-heart", "Liked posts")}
-                {navItem(`/profiles/${currentUser.profile_id}/edit`, "fas fa-cog", "Profile settings")}
                 <button className={styles.MobileSignOut} type="button" onClick={handleSignOut}>
                   <i className="fas fa-sign-out-alt" aria-hidden="true" /><span>Sign out</span>
                 </button>

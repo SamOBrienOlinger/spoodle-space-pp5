@@ -58,9 +58,10 @@ function DogProfilesPage({ message, filter = "" }) {
           <Form.Control
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            type="text"
+            type="search"
+            aria-label="Search Doggy profile by owner or dog name"
             className="mr-sm-2"
-            placeholder="Search Doggy Profiles by Spoodlers' Name or their Dog's Name"
+            placeholder="Search Doggy profile by owner or dog name"
           />
         </Form>
 
@@ -69,7 +70,7 @@ function DogProfilesPage({ message, filter = "" }) {
         activeClassName={styles.Active}
         to="/dogprofiles/create"
       >
-      <i className="far fa-plus-square"></i><i className="fas fa-dog"></i>Create your Doggy Profiles
+      <i className="far fa-plus-square"></i><i className="fas fa-dog"></i>Create your Doggy profile
       </Link>
 
         {hasLoaded ? (

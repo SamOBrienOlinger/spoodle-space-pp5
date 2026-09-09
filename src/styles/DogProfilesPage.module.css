@@ -1,19 +1,2 @@
-.SearchBar input {
-    border-radius: 20px;
-    color: #242a3d;
-    padding-left: 40px;
-    margin-bottom: 16px;
-  }
-  
-  .SearchIcon {
-    position: absolute;
-    font-size: 1.2rem;
-    padding: 9px;
-    padding-left: 15px;
-    color: #7112ee;
-  }
-  
-  .SearchIcon:hover {
-    cursor: default;
-    color: #cfced3;
-  }
+.SearchBar input { min-height: 46px; border: 1px solid #cbd4df; border-radius: 10px; color: var(--spoodle-text); background: #fff; padding-left: 42px; margin-bottom: 18px; }
+.SearchIcon { position: absolute; font-size: 1rem; padding: 15px; color: var(--spoodle-muted); pointer-events: none; }

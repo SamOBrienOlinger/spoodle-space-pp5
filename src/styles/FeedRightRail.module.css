@@ -1,27 +1,7 @@
 .RightRail { position: sticky; top: 92px; display: grid; gap: 20px; }
-.Panel { padding: 21px 17px; border: 1px solid #e6dfee; border-radius: 22px; background: #fff; box-shadow: var(--spoodle-shadow); }
-.Eyebrow { color: #9474a8; font-size: .54rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
-.PanelTitle { color: #351d48; font-size: 1.08rem; font-weight: 700; letter-spacing: -.035em; margin: 9px 0 17px; }
-.QuickLinks { display: grid; gap: 8px; }
-.QuickLink { display: flex; align-items: center; gap: 9px; min-height: 62px; padding: 8px 5px; border-radius: 13px; color: #563b6b; transition: background 180ms, transform 180ms; }
-.QuickLink:hover { color: #7111ee; background: #f8f4fd; transform: translateX(2px); }
-.IconWrap { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 42px; border-radius: 13px; }
-.Lilac { color: #7525be; background: #eee2fd; }
-.Mint { color: #276d4c; background: #e6f4ec; }
-.Peach { color: #a25b33; background: #ffecdf; }
-.ShortcutText { flex: 1; min-width: 0; }
-.ShortcutText strong { display: block; font-size: .73rem; }
-.ShortcutText small { display: block; font-size: .57rem; color: #84718f; margin-top: 4px; line-height: 1.4; }
-.QuickLink > svg { flex-shrink: 0; color: #a78aba; }
-.SupportingText { font-size: .74rem; color: #7c668a; line-height: 1.65; margin: 15px 0 0; }
-.WarmPanel { background: #fff6ec; border-color: #efdfd0; }
-.WarmPanel > svg { color: #8f5e32; }
-.JoinLink { display: flex; align-items: center; gap: 9px; margin-top: 15px; font-size: .75rem; min-height: 44px; font-weight: 700; }
-.Note { padding: 19px 18px; color: #9c78b5; }
-.Note > svg { transform: rotate(-14deg); }
-.Note p { color: #67447e; font-size: .85rem; line-height: 1.6; margin: 12px 0 7px; }
-.Note em { font-family: Georgia, serif; color: #35135a; font-size: 1.12rem; }
-.Note > span { font-size: .61rem; line-height: 1.5; }
-.ProfileList { display: grid; gap: 6px; }
-.EmptyProfiles { color: #7c668a; font-size: .78rem; line-height: 1.6; }
-@media (max-width: 1199px) { .Panel { padding: 18px 13px; } .IconWrap { width: 32px; height: 38px; } .ShortcutText small { font-size: .56rem; } }
+.Panel { padding: 22px 18px; border: 1px solid var(--spoodle-border); border-radius: 16px; background: #fff; box-shadow: var(--spoodle-shadow); }
+.PanelTitle { color: var(--spoodle-navy); font-size: 1rem; font-weight: 700; margin: 0 0 18px; }
+.SupportingText, .EmptyProfiles { font-size: .84rem; color: var(--spoodle-muted); line-height: 1.65; margin: 12px 0 0; }
+.JoinLink { display: flex; align-items: center; gap: 9px; margin-top: 15px; min-height: 44px; font-size: .85rem; font-weight: 700; }
+.ProfileList { display: grid; gap: 10px; }
+@media (max-width: 1199px) { .Panel { padding: 18px 13px; } }

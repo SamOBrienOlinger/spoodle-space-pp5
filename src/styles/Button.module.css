@@ -2,7 +2,7 @@
 .Button:hover { cursor: pointer; }
 .Button:active { transform: scale(.98); }
 .Wide { width: calc(100% - 10px); }
-.Blue, .Bright, .Black { background: #7111ee; border-color: #7111ee; color: white; }
-.Blue:hover, .Bright:hover, .Black:hover, .Blue:focus, .Bright:focus, .Black:focus { background: #5610b6; border-color: #5610b6; color: white; }
-.BlueOutline, .BlackOutline { background: white; border-color: #b99bd7; color: #5610b6; }
-.BlueOutline:hover, .BlackOutline:hover { background: #f1e7fc; border-color: #7111ee; color: #5610b6; }
+.Blue, .Bright, .Black { background: var(--spoodle-purple); border-color: var(--spoodle-purple); color: white; }
+.Blue:hover, .Bright:hover, .Black:hover, .Blue:focus, .Bright:focus, .Black:focus { background: var(--spoodle-purple-dark); border-color: var(--spoodle-purple-dark); color: white; }
+.BlueOutline, .BlackOutline { background: white; border-color: #b99bd7; color: var(--spoodle-purple-dark); }
+.BlueOutline:hover, .BlackOutline:hover { background: #f1e7fc; border-color: var(--spoodle-purple); color: var(--spoodle-purple-dark); }
