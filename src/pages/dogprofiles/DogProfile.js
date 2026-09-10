@@ -44,7 +44,7 @@ const DogProfile = (props) => {
     NotificationManager.warning('Are you sure you want to delete?', 'Click to delete', 5000,() => {
       try {
         axiosRes.delete(`/dogprofiles/${id}/`);
-        NotificationManager.success('Dog Profile Deleted!', 'Success');
+        NotificationManager.success('Doggy profile deleted!', 'Success');
         history.push(`/profiles/${profileId}/`);
       } catch (err) {
         NotificationManager.error('Please try again', 'Oopsadoodle!')
@@ -65,7 +65,7 @@ const DogProfile = (props) => {
           <Link to="/dogprofilespage">
             <span>
               <i className="fas fa-dog"></i>
-              <p>Doggy Profiles</p>
+              <p>Doggy profile</p>
             </span>
           </Link>
           <div className={`d-flex align-items-center ${styles.iconText}`}>

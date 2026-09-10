@@ -1,13 +1,5 @@
+import FormPage, { FormField, FormSection, formErrors } from "../../components/FormPage";
 import React, { useEffect, useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Alert from "react-bootstrap/Alert";
-import styles from "../../styles/DogHealthCreateEditForm.module.css";
-import appStyles from "../../App.module.css";
-import btnStyles from "../../styles/Button.module.css";
 import { useHistory, useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import {NotificationManager} from 'react-notifications';
@@ -71,6 +63,7 @@ function DogHealthEditForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setErrors({});
     const formData = new FormData();
 
     formData.append("vet_name", vet_name);
@@ -82,149 +75,32 @@ function DogHealthEditForm() {
 
     try {
       await axiosReq.put(`/doghealth/${id}/`, formData);
-      NotificationManager.success('Dog Health Edited!', 'Success');
+      NotificationManager.success('Doggy health updated!', 'Success');
       history.push(`/doghealth/${id}`);
     } catch (err) {
       
       if (err.response?.status !== 401) {
-        setErrors(err.response?.data);
+        setErrors(formErrors(err));
         NotificationManager.error('Please try again', 'Oopsadoodle!')
       }
     }
   };
 
-  const textFields = (
-    <div className="text-center">
-      <Form.Group>
-        <Form.Label>Vet Name</Form.Label>
-        <Form.Control
-          type="text"
-          name="vet_name"
-          value={vet_name}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-      {errors?.vet_name?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Label>Vet Phone</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={6}
-          name="vet_phone"
-          value={vet_phone}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-      {errors?.vet_phone?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Label>Vet Email</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={6}
-          name="vet_email"
-          value={vet_email}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-      {errors?.vet_email?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Label>Kennel Cough</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={6}
-          name="kennel_cough"
-          value={kennel_cough}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-      {errors?.kennel_cough?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Label>Rabies</Form.Label>
-        <Form.Control
-          type="text"
-          name="rabies"
-          value={rabies}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-      {errors?.rabies?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Label>Allergies</Form.Label>
-        <Form.Control
-          type="text"
-          name="allergies"
-          value={allergies}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-      {errors?.allergies?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Button
-        className={`${btnStyles.Button} ${btnStyles.Blue}`}
-        onClick={() => history.goBack()}
-      >
-        cancel
-      </Button>
-      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-        save
-      </Button>
-    </div>
-  );
-
   return (
-    <Form onSubmit={handleSubmit}>
-      <div className={`d-flex align-items-center ${styles.iconText}`}>
-        <span>
-          <i className="fas fa-dog"></i>
-          Doggy Health
-        </span>
-      </div>
-      <Row>
-        <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
-          <div className="d-md-none">{textFields}</div>
-        </Col>
-        <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
-          <Container className={`Container ${appStyles.Content}`}>
-            {textFields}
-          </Container>
-        </Col>
-      </Row>
-    </Form>
+    <FormPage title="Doggy health" description="Keep vet contacts and your dog’s health notes together." icon="health" onSubmit={handleSubmit} errors={errors} submitLabel="Save changes" busyLabel="Saving…" onCancel={() => history.goBack()}>
+      <FormSection title="Vet details">
+        <FormField label="Vet name" name="vet_name" value={vet_name} onChange={handleChange} error={errors?.vet_name} type="text" required />
+        <FormSection columns>
+          <FormField label="Vet phone" name="vet_phone" value={vet_phone} onChange={handleChange} error={errors?.vet_phone} type="tel" required />
+          <FormField label="Vet email" name="vet_email" value={vet_email} onChange={handleChange} error={errors?.vet_email} type="email" required />
+        </FormSection>
+      </FormSection>
+      <FormSection title="Health notes">
+        <FormField label="Kennel cough" name="kennel_cough" value={kennel_cough} onChange={handleChange} error={errors?.kennel_cough} as="textarea" rows={3} required />
+        <FormField label="Rabies" name="rabies" value={rabies} onChange={handleChange} error={errors?.rabies} as="textarea" rows={3} required />
+        <FormField label="Allergies" name="allergies" value={allergies} onChange={handleChange} error={errors?.allergies} as="textarea" rows={3} required />
+      </FormSection>
+    </FormPage>
   );
 }
 

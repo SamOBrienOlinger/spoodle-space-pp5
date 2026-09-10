@@ -1,69 +1,26 @@
-import React from "react";
-import styles from "../../styles/Profile.module.css";
-import btnStyles from "../../styles/Button.module.css";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
-import Button from "react-bootstrap/Button";
+import Icon from "../../components/InterfaceIcon";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useSetProfileData } from "../../contexts/ProfileDataContext";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
-
-const Profile = (props) => {
-  const { profile, mobile, imageSize = 55 } = props;
+import styles from "../../styles/FollowProfile.module.css";
+export default function Profile({ profile, mobile, imageSize = 44 }) {
   const { id, following_id, image, owner } = profile;
-
   const currentUser = useCurrentUser();
-  const is_owner = currentUser?.username === owner;
-
   const { handleFollow, handleUnfollow } = useSetProfileData();
-
-  return (
-    <div
-      className={`my-3 d-flex align-items-center ${mobile && "flex-column"}`}
-    >
-      <div>
-        {currentUser && (
-          <Link className="align-self-center" to={`/profiles/${id}`}>
-            <Avatar src={image} height={imageSize} />
-          </Link>
-        )}
-        {!currentUser && (
-          <OverlayTrigger
-            placement="bottom"
-            overlay={<Tooltip>Sign in or Sign up to view more!</Tooltip>}
-          >
-            <Link className="align-self-center" to={`/`}>
-              <Avatar src={image} height={imageSize} />
-            </Link>
-          </OverlayTrigger>
-        )}
-      </div>
-      <div className={`mx-2 ${styles.WordBreak}`}>
-        <strong>{owner}</strong>
-      </div>
-      <div className={`text-right ${!mobile && "ml-auto"}`}>
-        {!mobile &&
-          currentUser &&
-          !is_owner &&
-          (following_id ? (
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
-              onClick={() => handleUnfollow(profile)}
-            >
-              unfollow
-            </Button>
-          ) : (
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.Black}`}
-              onClick={() => handleFollow(profile)}
-            >
-              follow
-            </Button>
-          ))}
-      </div>
-    </div>
-  );
-};
-
-export default Profile;
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState(false);
+  const follow = async () => {
+    if (pending) return;
+    setPending(true); setError(false);
+    try { const ok = await (following_id ? handleUnfollow(profile) : handleFollow(profile)); if (ok === false) setError(true); }
+    catch (err) { setError(true); }
+    finally { setPending(false); }
+  };
+  return <div className={`${styles.Profile} ${mobile ? styles.Mobile : ""}`}>
+    <Link className={styles.Person} to={currentUser ? `/profiles/${id}` : "/signin"}><Avatar src={image} height={imageSize} /><span><strong>{owner}</strong><small>Dog person</small></span></Link>
+    {currentUser && currentUser.username !== owner && <button type="button" onClick={follow} disabled={pending} aria-pressed={Boolean(following_id)} aria-label={`${following_id ? "Unfollow" : "Follow"} ${owner}`} className={`${styles.Follow} ${following_id ? styles.Following : ""}`}>{pending ? "…" : following_id ? <><Icon name="check" size={14} /><span>Following</span></> : "Follow"}</button>}
+    {error && <small role="alert" className={styles.Error}>Couldn’t update. Try again.</small>}
+  </div>;
+}

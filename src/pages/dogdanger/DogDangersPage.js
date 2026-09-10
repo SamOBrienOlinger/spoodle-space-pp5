@@ -57,9 +57,10 @@ function DogDangersPage({ message, filter = "" }) {
           <Form.Control
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            type="text"
+            type="search"
+            aria-label="Search Doggy danger by owner or dangerously cute details"
             className="mr-sm-2"
-            placeholder="Search Doggy Danger Details by Spoodlers' Name or if they are Dangerously Cute"
+            placeholder="Search Doggy danger by owner or dangerously cute details"
           />
         </Form>
 

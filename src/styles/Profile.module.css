@@ -3,5 +3,5 @@
   }
 
 #profile-text-center {
-    color: indigo;
+    color: var(--spoodle-purple-dark);
   }

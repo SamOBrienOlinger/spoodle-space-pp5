@@ -1,21 +1,20 @@
 import axios from "axios";
+import { isPagesPreview } from "../config/deployment";
 
-// ✅ Base URL of your deployed Django REST API on Heroku
-// Keep API requests on the frontend origin so authentication cookies remain
-// first-party on browsers with cross-site tracking protection (notably iOS).
+// Heroku runs server.js, which proxies /api/ to Django using first-party cookies.
 const baseURL = "/api/";
-
-// ✅ Global Axios config
 axios.defaults.baseURL = baseURL;
-// Do NOT force multipart/form-data globally — let JSON requests use the default application/json
-// and use FormData only for file uploads.
-// axios.defaults.headers.post["Content-Type"] = "multipart/form-data";
 axios.defaults.withCredentials = true;
+export const axiosReq = axios.create({ baseURL, withCredentials: true });
+export const axiosRes = axios.create({ baseURL, withCredentials: true });
 
-// ✅ Separate Axios instances for request/response interceptors if needed later
-export const axiosReq = axios.create({ baseURL });
-export const axiosRes = axios.create({ baseURL });
-
-// Ensure axios instances also send cookies when used directly
-axiosReq.defaults.withCredentials = true;
-axiosRes.defaults.withCredentials = true;
+// GitHub Pages cannot run the proxy. Never submit credentials to a static host.
+if (isPagesPreview) {
+  [axios, axiosReq, axiosRes].forEach((client) => {
+    client.interceptors.request.use(() => {
+      const error = new Error("Live accounts and data are available on the Heroku frontend, not this design preview.");
+      error.code = "STATIC_PREVIEW";
+      return Promise.reject(error);
+    });
+  });
+}

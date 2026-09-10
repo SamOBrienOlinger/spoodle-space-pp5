@@ -1,19 +1,11 @@
+import FormPage, { FormField, PhotoField, formErrors } from "../../components/FormPage";
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Alert from "react-bootstrap/Alert";
 import { axiosReq } from "../../api/axiosDefaults";
 import {
   useCurrentUser,
   useSetCurrentUser,
 } from "../../contexts/CurrentUserContext";
-import btnStyles from "../../styles/Button.module.css";
-import appStyles from "../../App.module.css";
 import {NotificationManager} from 'react-notifications';
 
 const ProfileEditForm = () => {
@@ -65,6 +57,7 @@ const ProfileEditForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setErrors({});
     const formData = new FormData();
     formData.append("name", name);
     formData.append("content", content);
@@ -83,87 +76,16 @@ const ProfileEditForm = () => {
       history.goBack();
     } catch (err) {
       
-      setErrors(err.response?.data);
+      setErrors(formErrors(err));
       NotificationManager.error('Please try again', 'Oopsadoodle!')
     }
   };
 
-  const textFields = (
-    <>
-      <Form.Group>
-        <Form.Label>Bio</Form.Label>
-        <Form.Control
-          as="textarea"
-          value={content}
-          onChange={handleChange}
-          name="content"
-          rows={7}
-        />
-      </Form.Group>
-
-      {errors?.content?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-      <Button
-        className={`${btnStyles.Button} ${btnStyles.Blue}`}
-        onClick={() => history.goBack()}
-      >
-        Cancel
-      </Button>
-      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-        Save
-      </Button>
-    </>
-  );
-
   return (
-    <Form onSubmit={handleSubmit}>
-      <Row className="flex-row-reverse">
-        <Col md={7} lg={6} className="p-0 p-md-2">
-          <Container className={appStyles.Content}>
-            <Form.Group>
-              {image && (
-                <figure>
-                  <Image src={image} fluid />
-                </figure>
-              )}
-              {errors?.image?.map((message, idx) => (
-                <Alert variant="warning" key={idx}>
-                  {message}
-                </Alert>
-              ))}
-              <div>
-                <Form.Label
-                  className={`${btnStyles.Button} ${btnStyles.Blue} btn my-auto`}
-                  htmlFor="image-upload"
-                >
-                  Change the image
-                </Form.Label>
-              </div>
-              <Form.File
-                id="image-upload"
-                ref={imageFile}
-                accept="image/*"
-                onChange={(e) => {
-                  if (e.target.files.length) {
-                    setProfileData({
-                      ...profileData,
-                      image: URL.createObjectURL(e.target.files[0]),
-                    });
-                  }
-                }}
-              />
-            </Form.Group>
-            <div className="d-md-none">{textFields}</div>
-          </Container>
-        </Col>
-        <Col md={5} lg={6} className="d-none d-md-block p-0 p-md-2 text-center">
-          <Container className={appStyles.Content}>{textFields}</Container>
-        </Col>
-      </Row>
-    </Form>
+    <FormPage title="Edit my profile" description="Add a photo and tell the community a little about yourself." icon="user" onSubmit={handleSubmit} errors={errors} submitLabel="Save changes" busyLabel="Saving…" onCancel={() => history.goBack()}>
+      <PhotoField name="image" label="Profile photo" value={image} inputRef={imageFile} onChange={event => { if (event.target.files.length) { URL.revokeObjectURL(image); setProfileData({ ...profileData, image: URL.createObjectURL(event.target.files[0]) }); } }} error={errors?.image} portrait />
+      <FormField label="Bio" name="content" value={content} onChange={handleChange} error={errors?.content} as="textarea" rows={5} />
+    </FormPage>
   );
 };
 

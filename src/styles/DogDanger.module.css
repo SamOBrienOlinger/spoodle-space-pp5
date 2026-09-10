@@ -1,20 +1,16 @@
 .Post {
-    background-color: #ffffff;
-    border: 1px solid #dadadf;
-    border-radius: 2px;
+    background: var(--spoodle-surface);
+    box-shadow: var(--spoodle-shadow);
+    border: 1px solid var(--spoodle-border);
+    border-radius: 16px;
     margin-bottom: 16px;
     text-align: center;
   }
   
   .Post figure,
-  h5 {
+  .Post h5 {
     margin: 0 0;
   }
-  
-    a:hover i {
-      color: yellow;
-      transition: color ease-in-out 0.3s;
-    }
 
 .iconText {
     display: flex;

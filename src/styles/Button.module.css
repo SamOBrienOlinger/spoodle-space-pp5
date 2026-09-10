@@ -1,63 +1,8 @@
-.Button {
-    font-size: 0.8rem;
-    align-self: center;
-    border-radius: 100px;
-    border-color: transparent;
-    padding: 4px 10px;
-    margin-left: 2px;
-    margin-right: 2px;
-    min-width: 75px;
-  }
-  
-  .Button:hover {
-    opacity: 0.8;
-    border-color: transparent;
-    cursor: pointer;
-  }
-  
-  .Button:hover:active {
-    background-color: #7112FB2 !important;
-  }
-  
-  .Button:active {
-    background-color: #7112FB2 !important;
-  }
-  
-  .Button:focus {
-    background-color: #7112FB2;
-  }
-  
-  .Wide {
-    padding: 10px 50px;
-    width: 100%;
-  }
-  
-  .Blue,
-  .BlueOutline:hover,
-  .Bright:hover {
-    background-color: #7112FB2;
-    color: #ffffff;
-  }
-  
-  .BlueOutline,
-  .Blue:hover {
-    background-color: #ffffff;
-    color: #7112FB2;
-  }
-  
-  .Black,
-  .BlackOutline:hover {
-    background-color: #242a3d;
-    color: aliceblue;
-  }
-  
-  .Black:hover,
-  .BlackOutline {
-    background-color: aliceblue;
-    color: #3b3d24;
-  }
-  
-  .Bright {
-    background-color: mediumpurple;
-    color: #ffffff;   
-    }
+.Button { font-size: .85rem; min-height: 44px; font-weight: 700; align-self: center; border-radius: 12px; border: 1px solid transparent; padding: 10px 18px; margin: 5px; min-width: 75px; transition: background 160ms, transform 160ms; }
+.Button:hover { cursor: pointer; }
+.Button:active { transform: scale(.98); }
+.Wide { width: calc(100% - 10px); }
+.Blue, .Bright, .Black { background-color: var(--spoodle-purple); background-image: var(--spoodle-primary-gradient); border-color: var(--spoodle-purple); color: white; box-shadow: var(--spoodle-button-shadow); }
+.Blue:hover, .Bright:hover, .Black:hover, .Blue:focus, .Bright:focus, .Black:focus { background-color: var(--spoodle-purple-dark); background-image: var(--spoodle-primary-hover); border-color: var(--spoodle-purple-dark); color: white; }
+.BlueOutline, .BlackOutline { background: var(--spoodle-surface); border-color: var(--spoodle-control-border); color: var(--spoodle-purple-dark); }
+.BlueOutline:hover, .BlackOutline:hover { background: var(--spoodle-purple-soft); border-color: var(--spoodle-purple); color: var(--spoodle-purple-dark); }

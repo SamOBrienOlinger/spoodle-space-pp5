@@ -18,7 +18,7 @@ function DogDangerPage() {
       try {
         const { data } = await axiosReq.get(`/dogdanger/${id}`);
         console.info(
-          `Hello here's the User's Doggy Danger details Page${JSON.stringify(
+          `Hello here's the User's Doggy danger details Page${JSON.stringify(
             data
           )}`
         );

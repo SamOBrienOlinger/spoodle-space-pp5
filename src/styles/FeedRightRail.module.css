@@ -1,0 +1,7 @@
+.RightRail { position: sticky; top: 92px; display: grid; gap: 20px; }
+.Panel { padding: 22px 18px; border: 1px solid var(--spoodle-border); border-radius: 16px; background: var(--spoodle-surface-wash); box-shadow: var(--spoodle-shadow); }
+.PanelTitle { color: var(--spoodle-ink); font-size: 1rem; font-weight: 700; margin: 0 0 18px; padding-bottom: 14px; border-bottom: 1px solid var(--spoodle-border); }
+.SupportingText, .EmptyProfiles { font-size: .84rem; color: var(--spoodle-muted); line-height: 1.65; margin: 12px 0 0; }
+.JoinLink { display: flex; align-items: center; gap: 9px; margin-top: 15px; min-height: 44px; font-size: .85rem; font-weight: 700; }
+.ProfileList { display: grid; gap: 10px; }
+@media (max-width: 1199px) { .Panel { padding: 18px 13px; } }

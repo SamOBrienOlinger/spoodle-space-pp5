@@ -57,9 +57,10 @@ function DogsHealthPage({ message, filter = "" }) {
           <Form.Control
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            type="text"
+            type="search"
+            aria-label="Search Doggy health by owner or vet name"
             className="mr-sm-2"
-            placeholder="Search Doggy Health details by Spoodlers' Name or Vet's Name"
+            placeholder="Search Doggy health by owner or vet name"
           />
         </Form>
 
