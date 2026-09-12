@@ -8,3 +8,9 @@
     font-weight: normal;
     color: var(--spoodle-muted);
   }
+.Comment { min-width: 0; align-items: flex-start; gap: 4px; }
+.Comment > a, .Comment > :global(.dropdown) { flex-shrink: 0; }
+.Body { min-width: 0; overflow-wrap: anywhere; }
+.Body p { margin: 8px 0 0; white-space: pre-wrap; }
+.Owner, .Date { display: block; overflow-wrap: anywhere; }
+.Date { font-size: .8rem; }

@@ -14,15 +14,16 @@
 .Photo > img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .PhotoHint { position: absolute; bottom: 12px; right: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 9px 12px; border-radius: 22px; background: #fff; color: #56227e; font-weight: 700; font-size: .68rem; box-shadow: 0 2px 12px #0000000c; opacity: 0; transform: translateY(5px); transition: opacity 180ms, transform 180ms; }
 a.Photo:hover .PhotoHint, a.Photo:focus-visible .PhotoHint { opacity: 1; transform: none; }
-.PostBar { display: flex; align-items: center; gap: 6px; padding: 12px 16px; min-height: 69px; }
-.Action { display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 0; border-radius: 11px; min-height: 44px; background: transparent; color: #6e5b7c; font-size: .73rem; padding: 9px 11px; cursor: pointer; transition: background 140ms, transform 160ms; }
+.PostBar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 12px 16px; min-height: 69px; }
+.Action { display: inline-flex; max-width: 100%; flex-wrap: wrap; align-items: center; justify-content: center; gap: 7px; border: 0; border-radius: 11px; min-height: 44px; background: transparent; color: #6e5b7c; font-size: .73rem; padding: 9px 11px; cursor: pointer; transition: background 140ms, transform 160ms; }
 .Action:hover { background: var(--spoodle-purple-soft); color: var(--spoodle-purple-dark); }
 .Action:active { transform: scale(.96); }
+.Action svg { flex-shrink: 0; }
 .Action b { font-size: .68rem; font-variant-numeric: tabular-nums; min-width: 10px; }
 .Action:disabled { color: #84778d; cursor: default; }
 .Liked { background: var(--spoodle-peach); color: var(--spoodle-rose); }
 .Liked svg { fill: var(--spoodle-rose); stroke: var(--spoodle-rose); }
-.OpenPost { display: grid; place-items: center; margin-left: auto; width: 44px; height: 44px; border-radius: 50%; color: var(--spoodle-purple); background: var(--spoodle-purple-soft); }
+.OpenPost { display: grid; flex: 0 0 44px; place-items: center; margin-left: auto; width: 44px; height: 44px; border-radius: 50%; color: var(--spoodle-purple); background: var(--spoodle-purple-soft); }
 .OpenPost:hover { background: #e6d4f5; color: var(--spoodle-purple-dark); }
 .HeartPop { animation: heart-pop 380ms cubic-bezier(.2,.8,.4,1) both; }
 @keyframes heart-pop { 0% { transform: scale(.85); } 50% { transform: scale(1.25) rotate(-9deg); } 100% { transform: scale(1); } }

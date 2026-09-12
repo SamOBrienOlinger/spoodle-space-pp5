@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/DogDanger.module.css";
+import styles from "../../styles/DogDetails.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
@@ -56,21 +56,21 @@ const DogDanger = (props) => {
   }
 
   return (
-    <Card className={styles.DogDanger}>
+    <Card className={styles.Card}>
       <Card.Body>
-        <Media className="align-items-center justify-content-between">
-          <Link to={`/profiles/${owner_id}`}>
+        <Media className={styles.Header}>
+          <Link className={styles.Owner} to={`/profiles/${owner_id}`}>
             <Avatar src={profile_image} height={55} />
-            {owner}
+            <span className={styles.OwnerName}>{owner}</span>
           </Link>
-          <Link to="/dogdangerspage">
+          <Link className={styles.SectionLink} to="/dogdangerspage">
             <span>
               <i className="fas fa-dog"></i>
               <p>Doggy danger</p>
             </span>
           </Link>
 
-          <div className={`d-flex align-items-center ${styles.iconText}`}>
+          <div className={styles.Meta}>
             <span>{updated_at}</span>
 
             {is_owner && dogDangerPage && (

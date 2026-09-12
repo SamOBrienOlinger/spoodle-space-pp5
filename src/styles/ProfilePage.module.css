@@ -1,29 +1,22 @@
-#linksContainer {
-  display: flex;
-  justify-content: space-between;
+.ProfileCard { position: relative; min-width: 0; }
+.ProfileHeader { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: 18px; text-align: center; }
+.ProfileImage { display: block; width: min(250px, 100%); height: auto; aspect-ratio: 1; object-fit: cover; margin: 0 auto; }
+.ProfileInfo { min-width: 0; }
+.ProfileName { max-width: 100%; margin: 0; font-size: clamp(1.4rem, 3vw, 1.875rem); line-height: 1.25; font-weight: 700; color: var(--spoodle-ink); overflow-wrap: anywhere; }
+.Stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 18px 0 0; }
+.Stats > div { display: flex; flex: 1 1 4.5rem; min-width: 0; flex-direction: column; align-items: center; }
+.Stats dt { font-size: .85rem; font-weight: 400; color: var(--spoodle-muted); }
+.Stats dd { order: -1; margin: 0 0 4px; font-size: 1.125rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ProfileBio { margin: 22px 0 0; line-height: 1.6; text-align: center; white-space: pre-line; overflow-wrap: anywhere; }
+.FollowControls { min-width: 0; }
+#linksContainer { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 12px; margin: 24px 0; }
+.NavLink { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; min-width: 0; min-height: 44px; max-width: 100%; padding: 16px; border: 1px solid var(--spoodle-border); border-radius: 14px; background: var(--spoodle-surface-wash); color: var(--spoodle-purple-dark); font-size: .9rem; font-weight: 700; overflow-wrap: anywhere; }
+a.NavLink:hover { border-color: var(--spoodle-control-border); background: var(--spoodle-purple-soft); }
+.NavLink i { padding: 0; }
+.ButtonText { margin: 0; line-height: 1.5; }
+#ProfilePostsHeading { color: var(--spoodle-purple); overflow-wrap: anywhere; }
+@media (min-width: 1200px) {
+  .ProfileHeader { grid-template-columns: 120px minmax(0, 1fr); gap: 20px; text-align: left; padding-right: 36px; }
+  .ProfileImage { width: 120px; }
+  .FollowControls { grid-column: 2; }
 }
- 
- #ProfilePostsHeading{
-    color: var(--spoodle-purple);
-  }
-  
-  .ProfileImage {
-    object-fit: cover;
-    height: 120px;
-    width: 120px;
-    margin: 4px;
-  }
-  
-  @media screen and (max-width: 991px) {
-    .ProfileImage {
-      width: min(250px, 70vw);
-      height: min(250px, 70vw);
-    }
-
-    .linksContainer,
-    #linksContainer {
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-  }
-

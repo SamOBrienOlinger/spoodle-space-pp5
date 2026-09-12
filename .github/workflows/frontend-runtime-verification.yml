@@ -213,6 +213,9 @@ jobs:
           EOF
           NODE_PATH="$GITHUB_WORKSPACE/node_modules" node /tmp/verify-spoodlespace.js
 
+      - name: Check long-name layouts and enlarged text across pages
+        run: node scripts/verify-responsive.cjs
+
       - name: Upload screenshots and verification report
         if: always()
         uses: actions/upload-artifact@v4
