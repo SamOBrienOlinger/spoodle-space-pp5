@@ -45,7 +45,7 @@ const SignUpForm = () => {
 
   return (
     <FormPage title="Join SpoodleSpace" description="A space for you, your dog and your community." icon="paw" onSubmit={handleSubmit} errors={errors} submitLabel="Create account" busyLabel="Creating account…" auth footer={<>Already have an account? <Link to="/signin">Sign in</Link></>}>
-      <FormField label="Username" name="username" value={username} onChange={handleChange} error={errors?.username} type="text" autoComplete="username" autoCapitalize="none" autoCorrect="off" spellCheck={false} required placeholder="Choose a username" />
+      <FormField label="Username" name="username" value={username} onChange={handleChange} error={errors?.username} type="text" autoComplete="username" autoCapitalize="none" autoCorrect="off" spellCheck={false} hint="Spaces, numbers, special characters and emojis are welcome. Use a unique name, up to 150 characters." required placeholder="Choose a username" />
       <FormField label="Password" name="password1" value={password1} onChange={handleChange} error={errors?.password1} type="password" autoComplete="new-password" required placeholder="Create a password" />
       <FormField label="Confirm password" name="password2" value={password2} onChange={handleChange} error={errors?.password2} type="password" autoComplete="new-password" required placeholder="Repeat your password" />
     </FormPage>
