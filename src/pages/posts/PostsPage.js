@@ -75,10 +75,16 @@ export default function PostsPage({ message, filter = "" }) {
   return <div className={styles.Layout}>
     <div className={styles.LeftColumn}><AppSidebar /></div>
     <div className={styles.FeedColumn}>
-      <h1 className="sr-only">{liked ? "Liked posts" : following ? "Following posts" : "Community posts"}</h1>
-      {!currentUser && <figure className={`${styles.Welcome} ss-enter`}>
+      {currentUser && <h1 className="sr-only">{liked ? "Liked posts" : following ? "Following posts" : "Community posts"}</h1>}
+      {!currentUser && <section className={`${styles.Welcome} ss-enter`} aria-labelledby="feed-welcome-title">
         <img className={styles.WelcomePhoto} src={dogPhoto} alt="A happy cockapoo running on the grass" width="1170" height="780" />
-      </figure>}
+        <div className={styles.WelcomeCopy}>
+          <h1 id="feed-welcome-title">Welcome to SpoodleSpace</h1>
+          <p className={styles.WelcomeLead}>The most Spoodley &amp; Cockapoopy Space you're ever going to sniff out</p>
+          <p>Our community is all about sharing ways of enjoying long ludicrous lives with the lovliest little furrballs on Earth, probably the Universe!</p>
+          <p>Labradoodles, Poodles, cavapoos, basically anyone is welcome</p>
+        </div>
+      </section>}
       {currentUser && <section className={styles.Composer} aria-label="Create a post"><div className={styles.ComposerTop}><Avatar src={currentUser.profile_image} height={44} /><Link className={styles.ComposerPrompt} to="/posts/create">Share with the SpoodleSpace community…</Link><Link className={styles.CreatePostButton} to="/posts/create" aria-label="Create post"><Icon name="plus" size={19} /><span>Post</span></Link></div><div className={styles.ComposerBottom}><span>A photo, a thought, a little update.</span><Link to="/posts/create"><Icon name="photo" size={16} />Add photo</Link></div></section>}
       {currentUser && <>
         <nav className={styles.FeedTabs} aria-label="Post feeds"><NavLink exact to="/" activeClassName={styles.Selected}>All posts</NavLink><NavLink to="/feed" activeClassName={styles.Selected}>Following</NavLink><NavLink to="/liked" activeClassName={styles.Selected}>Liked</NavLink></nav>
