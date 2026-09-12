@@ -32,12 +32,12 @@ const UsernameForm = () => {
     event.preventDefault();
     setErrors({});
     try {
-      await axiosRes.put("/dj-rest-auth/user/", {
+      const { data } = await axiosRes.put("/dj-rest-auth/user/", {
         username,
       });
       setCurrentUser((prevUser) => ({
         ...prevUser,
-        username,
+        username: data.username,
       }));
       history.goBack();
     } catch (err) {
@@ -48,7 +48,7 @@ const UsernameForm = () => {
 
   return (
     <FormPage title="Change username" description="Choose the name other SpoodleSpacers will see." icon="user" onSubmit={handleSubmit} errors={errors} submitLabel="Save changes" busyLabel="Saving…" onCancel={() => history.goBack()}>
-      <FormField label="Username" name="username" value={username} onChange={event => setUsername(event.target.value)} error={errors?.username} type="text" autoComplete="username" autoCapitalize="none" autoCorrect="off" spellCheck={false} required />
+      <FormField label="Username" name="username" value={username} onChange={event => setUsername(event.target.value)} error={errors?.username} type="text" autoComplete="username" autoCapitalize="none" autoCorrect="off" spellCheck={false} hint="Spaces, numbers, special characters and emojis are welcome. Use a unique name, up to 150 characters." required />
     </FormPage>
   );
 };
