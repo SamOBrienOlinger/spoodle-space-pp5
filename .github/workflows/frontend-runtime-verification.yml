@@ -41,14 +41,12 @@ jobs:
           npm install --no-save --package-lock=false @playwright/test@1.40.1
           npx playwright install --with-deps chromium webkit
 
-      - name: Prepare GitHub Pages-shaped runtime
-        run: |
-          mkdir -p preview-root/spoodle-space-pp5 verification-artifacts
-          cp -a build/. preview-root/spoodle-space-pp5/
+      - name: Prepare browser verification output
+        run: mkdir -p verification-artifacts
 
       - name: Start production build
         run: |
-          npx serve -s preview-root -l 4173 > verification-artifacts/server.log 2>&1 &
+          node scripts/serve-preview.cjs > verification-artifacts/server.log 2>&1 &
           echo $! > verification-artifacts/server.pid
           for attempt in {1..30}; do
             if curl --fail --silent http://127.0.0.1:4173/spoodle-space-pp5/ > /dev/null; then
