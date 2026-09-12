@@ -5,11 +5,13 @@
 .Person > span:last-child { min-width: 0; }
 .Person strong { display: block; font-size: .75rem; overflow-wrap: anywhere; }
 .Person small { display: block; font-size: .58rem; color: var(--spoodle-muted); margin-top: 4px; }
-.Follow { min-height: 44px; min-width: 62px; display: inline-flex; gap: 4px; justify-content: center; align-items: center; padding: 8px; background: var(--spoodle-purple-soft); color: var(--spoodle-purple-dark); border: 1px solid var(--spoodle-control-border); border-radius: 10px; font-weight: 700; font-size: .63rem; transition: background 160ms, transform 160ms; }
-.Follow:hover { background: #e6d4f5; }
-.Follow:active { transform: scale(.97); }
-.Following { color: var(--spoodle-success); background: var(--spoodle-mint); border-color: #77988a; }
-.Following:hover { background: #d6e7dc; }
+.Follow { min-height: 44px; min-width: 62px; display: inline-flex; gap: 4px; justify-content: center; align-items: center; padding: 8px; background-color: var(--spoodle-purple); background-image: var(--spoodle-primary-gradient); color: #fff; border: 1px solid var(--spoodle-purple-dark); border-radius: 10px; box-shadow: var(--spoodle-button-shadow); font-weight: 700; font-size: .63rem; transition: background-color 160ms, border-color 160ms, box-shadow 160ms, transform 160ms; }
+.Follow:hover:not(:disabled) { background-image: var(--spoodle-primary-hover); box-shadow: 0 4px 10px #66339138, inset 0 1px 0 #ffffff30; }
+.Follow:active:not(:disabled) { transform: scale(.97); }
+.Follow:focus-visible { outline: 3px solid var(--spoodle-purple); outline-offset: 3px; }
+.Follow:disabled { cursor: wait; }
+.Following { color: var(--spoodle-purple-dark); background-color: var(--spoodle-purple-soft); background-image: linear-gradient(135deg, #f0e7f8, #e5d4f3); border-color: var(--spoodle-control-border); box-shadow: inset 0 1px 0 #ffffffb3, 0 2px 5px #54278112; }
+.Following:hover:not(:disabled) { background-image: linear-gradient(135deg, #e5d4f3, #d9c4ed); border-color: var(--spoodle-purple); box-shadow: inset 0 1px 0 #ffffffb3, 0 3px 8px #54278124; }
 .Error { flex-basis: 100%; font-size: .65rem; color: var(--spoodle-danger); }
 .Mobile { flex-direction: column; text-align: center; }
 .Mobile .Person { flex-direction: column; }

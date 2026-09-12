@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 25
 
     steps:
@@ -39,16 +39,14 @@ jobs:
       - name: Install browser verification tooling
         run: |
           npm install --no-save --package-lock=false @playwright/test@1.40.1
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium webkit
 
-      - name: Prepare GitHub Pages-shaped runtime
-        run: |
-          mkdir -p preview-root/spoodle-space-pp5 verification-artifacts
-          cp -a build/. preview-root/spoodle-space-pp5/
+      - name: Prepare browser verification output
+        run: mkdir -p verification-artifacts
 
       - name: Start production build
         run: |
-          npx serve -s preview-root -l 4173 > verification-artifacts/server.log 2>&1 &
+          node scripts/serve-preview.cjs > verification-artifacts/server.log 2>&1 &
           echo $! > verification-artifacts/server.pid
           for attempt in {1..30}; do
             if curl --fail --silent http://127.0.0.1:4173/spoodle-space-pp5/ > /dev/null; then
@@ -62,7 +60,7 @@ jobs:
       - name: Run desktop and mobile browser checks
         run: |
           cat > /tmp/verify-spoodlespace.js <<'EOF'
-          const { chromium } = require('playwright');
+          const { chromium, webkit } = require('playwright');
           const fs = require('fs');
 
           const baseUrl = 'http://127.0.0.1:4173/spoodle-space-pp5/';
@@ -71,7 +69,7 @@ jobs:
           const browserErrors = [];
 
           async function verifyViewport(browser, name, viewport) {
-            const page = await browser.newPage({ viewportSize: viewport });
+            const page = await browser.newPage({ viewport });
             const pageErrors = [];
             const consoleErrors = [];
             const failedRequests = [];
@@ -85,6 +83,23 @@ jobs:
                 url: request.url(),
                 error: request.failure()?.errorText || 'unknown failure'
               });
+            });
+
+            // Use local fixtures so signed-in controls can be reviewed without live accounts.
+            const avatar = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" rx="40" fill="#d9c4ed"/><circle cx="40" cy="30" r="14" fill="#7040b7"/><path d="M15 72a25 25 0 0 1 50 0" fill="#7040b7"/></svg>');
+            await page.route('**/api/**', async route => {
+              const pathname = new URL(route.request().url()).pathname;
+              let body = { count: 0, next: null, previous: null, results: [] };
+              if (pathname.endsWith('/dj-rest-auth/user/')) {
+                body = { pk: 1, username: 'preview', profile_id: 1, profile_image: avatar };
+              } else if (pathname.includes('/profiles/')) {
+                body = { count: 3, next: null, previous: null, results: [
+                  { id: 2, owner: 'River', image: avatar, following_id: 12 },
+                  { id: 3, owner: 'Skye', image: avatar, following_id: 13 },
+                  { id: 4, owner: 'Moss', image: avatar, following_id: null }
+                ] };
+              }
+              await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(body) });
             });
 
             const response = await page.goto(baseUrl, {
@@ -109,13 +124,18 @@ jobs:
               };
             });
 
-            if (name === 'mobile') {
+            await page.screenshot({
+              path: `${outputDir}/${name}-feed.png`,
+              fullPage: true
+            });
+
+            if (name.endsWith('mobile')) {
               const toggle = page.locator('.navbar-toggler');
               if (await toggle.count()) {
                 await toggle.click();
                 await page.waitForTimeout(500);
                 await page.screenshot({
-                  path: `${outputDir}/mobile-menu.png`,
+                  path: `${outputDir}/${name}-menu.png`,
                   fullPage: true
                 });
               }
@@ -168,6 +188,9 @@ jobs:
             await verifyViewport(browser, 'desktop', { width: 1440, height: 1000 });
             await verifyViewport(browser, 'mobile', { width: 390, height: 844 });
             await browser.close();
+            const safariEngine = await webkit.launch({ headless: true });
+            await verifyViewport(safariEngine, 'webkit-mobile', { width: 390, height: 844 });
+            await safariEngine.close();
 
             fs.writeFileSync(
               `${outputDir}/verification-report.json`,
@@ -181,7 +204,7 @@ jobs:
             process.exit(1);
           });
           EOF
-          node /tmp/verify-spoodlespace.js
+          NODE_PATH="$GITHUB_WORKSPACE/node_modules" node /tmp/verify-spoodlespace.js
 
       - name: Upload screenshots and verification report
         if: always()

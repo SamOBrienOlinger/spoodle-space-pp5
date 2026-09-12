@@ -53,6 +53,7 @@
   .NavBar img { max-width: min(156px, 50vw); height: auto; }
 }
 
-/* Preserve the original logo artwork; blend its darkened backing into the purple header. */
-.Brand img { filter: grayscale(1) contrast(5); mix-blend-mode: screen; }
+/* Use true transparency so the full navigation gradient shows behind the original artwork. */
+.LogoFilter { position: absolute; pointer-events: none; }
+.Brand img { display: block; filter: url("#spoodlespace-logo-white"); }
 .NavBar a:focus-visible, .NavBar input:focus-visible, .NavBar button:focus-visible { outline-color: #fff; }
