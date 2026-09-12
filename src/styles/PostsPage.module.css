@@ -28,9 +28,11 @@
 .FeedHeading > svg { color: #b49aca; transform: rotate(13deg); }
 .FeedHeading h2 { color: var(--spoodle-ink); font-size: 1.25rem; letter-spacing: -.04em; margin: 7px 0 0; }
 .FeedTabs { display: flex; gap: 5px; padding: 5px; border: 1px solid var(--spoodle-border); border-radius: 14px; background: linear-gradient(110deg, #eadef4, #f3e7ef); }
-.FeedTabs a { min-height: 42px; flex: 1; display: flex; align-items: center; justify-content: center; padding: 9px; border-radius: 10px; color: #6b587c; font-size: .78rem; font-weight: 700; }
-.FeedTabs a:hover { color: var(--spoodle-purple-dark); background: #f7f3fc; }
-.FeedTabs .Selected { background: var(--spoodle-surface); color: var(--spoodle-purple-dark); box-shadow: inset 0 -2px var(--spoodle-purple), 0 2px 6px #54278112; }
+.FeedTabs a { min-height: 44px; flex: 1; display: flex; align-items: center; justify-content: center; padding: 9px; border: 1px solid var(--spoodle-control-border); border-radius: 10px; color: var(--spoodle-purple-dark); background: linear-gradient(135deg, #faf6fd, #eee1f7); box-shadow: inset 0 1px 0 #fff; font-size: .78rem; font-weight: 700; }
+.FeedTabs a:hover { color: var(--spoodle-purple-dark); border-color: var(--spoodle-purple); background: linear-gradient(135deg, #f0e7f8, #e5d4f3); }
+.FeedTabs a:focus-visible { outline: 3px solid var(--spoodle-purple); outline-offset: 3px; }
+.FeedTabs .Selected { background-color: var(--spoodle-purple); background-image: var(--spoodle-primary-gradient); color: #fff; border-color: var(--spoodle-purple-dark); box-shadow: var(--spoodle-button-shadow); }
+.FeedTabs .Selected:hover { background-image: var(--spoodle-primary-hover); color: #fff; }
 .FeedControls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 12px 0 18px; }
 .SortLabel { margin: 0; display: flex; align-items: center; gap: 8px; color: #685875; font-size: .68rem; }
 .SortLabel select { min-height: 44px; border: 1px solid var(--spoodle-control-border); border-radius: 10px; color: #563571; font-weight: 700; padding: 8px; background: #fff; max-width: 160px; font-size: .73rem; }

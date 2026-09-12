@@ -60,7 +60,17 @@ const NavBar = () => {
     <Navbar expanded={expanded} className={styles.NavBar} expand="lg" fixed="top">
       <Container fluid className={styles.NavContainer}>
         <NavLink to="/" className={styles.BrandLink}>
-          <Navbar.Brand className={styles.Brand}><img src={logo} alt="SpoodleSpace" height="45" /></Navbar.Brand>
+          <Navbar.Brand className={styles.Brand}>
+            <svg className={styles.LogoFilter} width="0" height="0" aria-hidden="true" focusable="false">
+              <defs>
+                <filter id="spoodlespace-logo-white" x="0" y="0" width="100%" height="100%" colorInterpolationFilters="sRGB">
+                  {/* The original white artwork stays intact; its purple backing becomes transparent. */}
+                  <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 1.25 0 0 -0.25" />
+                </filter>
+              </defs>
+            </svg>
+            <img src={logo} alt="SpoodleSpace" height="45" />
+          </Navbar.Brand>
         </NavLink>
         {searchForm(`${styles.SearchForm} d-none d-md-flex`)}
         <div className={`${styles.DesktopAccount} d-none d-lg-flex`}>
