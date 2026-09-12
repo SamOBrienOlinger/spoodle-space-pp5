@@ -1,0 +1,14 @@
+.Card { min-width: 0; margin-bottom: 20px; border: 1px solid var(--spoodle-border); border-radius: 18px; background: var(--spoodle-surface); box-shadow: var(--spoodle-shadow); overflow-wrap: anywhere; }
+.Header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; min-width: 0; }
+.Owner { display: flex; flex: 1 1 11rem; align-items: center; gap: 10px; min-width: 0; color: var(--spoodle-purple-dark); font-weight: 700; }
+.Owner > span:first-child { flex-shrink: 0; }
+.Owner img { width: 55px; height: 55px; margin: 0; }
+.OwnerName { min-width: 0; overflow-wrap: anywhere; }
+.SectionLink { max-width: 100%; font-size: .85rem; font-weight: 700; }
+.SectionLink > span { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.SectionLink i { padding: 0; }
+.SectionLink p { margin: 0; }
+.Meta { display: flex; flex-basis: 100%; align-items: center; justify-content: space-between; gap: 10px; min-width: 0; color: var(--spoodle-muted); font-size: .8rem; }
+.Meta > span { min-width: 0; }
+.Card :global(.card-text) { white-space: pre-line; }
+.Card :global(.card-img) { display: block; width: 100%; max-height: 65vh; object-fit: contain; }

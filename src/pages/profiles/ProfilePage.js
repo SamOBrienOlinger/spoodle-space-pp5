@@ -68,35 +68,24 @@ function ProfilePage() {
   const mainProfile = (
     <>
       {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
-      <Row noGutters className="px-3 text-center">
-        <Col lg={3} className="text-lg-left">
-          <Image
-            className={styles.ProfileImage}
-            roundedCircle
-            src={profile?.image}
-          />
-        </Col>
-        <Col lg={6}>
-          <h3 className="m-2">{profile?.owner}</h3>
-          <Row className="justify-content-center no-gutters">
-            <Col xs={3} className="my-2">
-              <div>{profile?.posts_count}</div>
-              <div>posts</div>
-            </Col>
-            <Col xs={3} className="my-2">
-              <div>{profile?.followers_count}</div>
-              <div>followers</div>
-            </Col>
-            <Col xs={3} className="my-2">
-              <div>{profile?.following_count}</div>
-              <div>following</div>
-            </Col>
-          </Row>
-        </Col>
-        <Col lg={3} className="text-lg-right">
-          {currentUser &&
-            !is_owner &&
-            (profile?.following_id ? (
+      <div className={styles.ProfileHeader}>
+        <Image
+          className={styles.ProfileImage}
+          roundedCircle
+          src={profile?.image}
+          alt={`${profile?.owner || "Community member"}'s profile`}
+        />
+        <div className={styles.ProfileInfo}>
+          <h1 className={styles.ProfileName}>{profile?.owner}</h1>
+          <dl className={styles.Stats} aria-label="Profile statistics">
+            <div><dt>posts</dt><dd>{profile?.posts_count}</dd></div>
+            <div><dt>followers</dt><dd>{profile?.followers_count}</dd></div>
+            <div><dt>following</dt><dd>{profile?.following_count}</dd></div>
+          </dl>
+        </div>
+        {currentUser && !is_owner && (
+          <div className={styles.FollowControls}>
+            {profile?.following_id ? (
               <Button
                 className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
                 onClick={() => handleUnfollow(profile)}
@@ -110,10 +99,11 @@ function ProfilePage() {
               >
                 follow
               </Button>
-            ))}
-        </Col>
-        {profile?.content && <Col className="p-3">{profile.content}</Col>}
-      </Row>
+            )}
+          </div>
+        )}
+      </div>
+      {profile?.content && <p className={styles.ProfileBio}>{profile.content}</p>}
     </>
   );
 
@@ -169,7 +159,7 @@ function ProfilePage() {
       <Row>
         <Col className="py-2 p-0 p-lg-2" lg={8}>
           <PopularProfiles mobile />
-          <Container className={appStyles.Content}>
+          <Container className={`${appStyles.Content} ${styles.ProfileCard}`}>
             {hasLoaded ? (
               <>
                 {mainProfile}
@@ -180,7 +170,7 @@ function ProfilePage() {
                       <div id={styles.linksContainer}>
                         {profile.dog_profile && (
                           <Link
-                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            className={styles.NavLink}
                             to={`/dogprofiles/${profile.dog_profile}`}
                           >
                             <i className="fas fa-dog purple-icon" />
@@ -192,12 +182,12 @@ function ProfilePage() {
 
                         {!profile.dog_profile && is_owner && (
                           <Link
-                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            className={styles.NavLink}
                             to={`/dogprofiles/create`}
                           >
                             <i className="fas fa-dog" />
                             <p
-                              className={`${btnStyles.ButtonText} ${styles.ButtonText}`}
+                              className={styles.ButtonText}
                             >
                               {profile?.owner}, Create your doggy profile now
                             </p>
@@ -206,7 +196,7 @@ function ProfilePage() {
 
                         {profile.dog_health && (
                           <Link
-                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            className={styles.NavLink}
                             to={`/doghealth/${profile.dog_health}`}
                           >
                             <i className="fas fa-dog purple-icon" />
@@ -218,12 +208,12 @@ function ProfilePage() {
 
                         {!profile.dog_health && is_owner && (
                           <Link
-                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            className={styles.NavLink}
                             to={`/doghealth/create`}
                           >
                             <i className="fas fa-dog" />
                             <p
-                              className={`${btnStyles.ButtonText} ${styles.ButtonText}`}
+                              className={styles.ButtonText}
                             >
                               {profile?.owner}, Create your doggy health details
                               now
@@ -233,7 +223,7 @@ function ProfilePage() {
 
                         {profile.dog_danger && (
                           <Link
-                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            className={styles.NavLink}
                             to={`/dogdanger/${profile.dog_danger}`}
                           >
                             <i className="fas fa-dog purple-icon" />
@@ -245,12 +235,12 @@ function ProfilePage() {
 
                         {!profile.dog_danger && is_owner && (
                           <Link
-                            className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                            className={styles.NavLink}
                             to={`/dogdanger/create`}
                           >
                             <i className="fas fa-dog" />
                             <p
-                              className={`${btnStyles.ButtonText} ${styles.ButtonText}`}
+                              className={styles.ButtonText}
                             >
                               {profile?.owner}, Create your Doggy danger details
                               now
@@ -273,7 +263,7 @@ function ProfilePage() {
                         <div id={styles.linksContainer}>
                           {profile.dog_profile && (
                             <span
-                              className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                              className={styles.NavLink}
                             >
                               <i className="fas fa-dog purple-icon" />
                               <p className={styles.ButtonText}>
@@ -283,11 +273,11 @@ function ProfilePage() {
                           )}
                           {profile.dog_health && (
                             <span
-                              className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                              className={styles.NavLink}
                             >
                               <i className="fas fa-dog" />
                               <p
-                                className={`${btnStyles.ButtonText} ${styles.ButtonText}`}
+                                className={styles.ButtonText}
                               >
                                 {profile?.owner}'s doggy health details
                               </p>
@@ -295,11 +285,11 @@ function ProfilePage() {
                           )}
                           {profile.dog_danger && (
                             <span
-                              className={`${styles.NavLink} ${btnStyles.Button} ${styles["App-purple-Links"]} link`}
+                              className={styles.NavLink}
                             >
                               <i className="fas fa-dog" />
                               <p
-                                className={`${btnStyles.ButtonText} ${styles.ButtonText}`}
+                                className={styles.ButtonText}
                               >
                                 {profile?.owner}'s doggy danger details
                               </p>

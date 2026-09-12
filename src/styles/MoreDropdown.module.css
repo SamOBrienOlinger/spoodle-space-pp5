@@ -1,11 +1,5 @@
-.DropdownItem {
-    display: inline-block;
-    max-width: 50%;
-    padding: 0px;
-  }
-  
-  .Absolute {
-    position: absolute;
-    right: 0;
-    z-index: 99;
-  }
+.Menu { flex-shrink: 0; }
+.DropdownItem { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; max-width: 50%; padding: 0; }
+.ProfileMenu { position: absolute; right: 8px; top: 8px; z-index: 99; }
+.ProfileMenu :global(.dropdown-menu) { width: max-content; min-width: min(10rem, calc(100vw - 32px)); max-width: calc(100vw - 32px); }
+.ProfileMenu :global(.dropdown-item) { min-height: 44px; padding: 8px 12px; white-space: normal; overflow-wrap: anywhere; }

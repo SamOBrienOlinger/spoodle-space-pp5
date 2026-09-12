@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -15,6 +15,31 @@ import useClickOutsideToggle from "../hooks/useClickOutsideToggle.js";
 import { removeTokenTimestamp } from "../utils/utils";
 
 const NavBar = () => {
+  const navbarRef = useRef(null);
+  useEffect(() => {
+    const navbar = navbarRef.current;
+    if (!navbar) return;
+    const updateHeight = () => {
+      const container = navbar.querySelector('[class*="NavContainer"]');
+      if (!container) return;
+      const style = getComputedStyle(navbar);
+      const bottom = Math.max(...Array.from(container.children)
+        .filter(element => element.id !== "spoodlespace-navigation")
+        .map(element => element.getBoundingClientRect().bottom));
+      const height = Math.ceil(bottom - navbar.getBoundingClientRect().top
+        + parseFloat(style.paddingBottom) + parseFloat(style.borderBottomWidth));
+      document.documentElement.style.setProperty("--spoodle-nav-height", `${height}px`);
+    };
+    updateHeight();
+    const observer = window.ResizeObserver ? new ResizeObserver(updateHeight) : null;
+    observer?.observe(navbar);
+    window.addEventListener("resize", updateHeight);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", updateHeight);
+      document.documentElement.style.removeProperty("--spoodle-nav-height");
+    };
+  }, []);
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
   const [searchTerm, setSearchTerm] = useState("");
@@ -57,7 +82,7 @@ const NavBar = () => {
     </Form>
   );
   return (
-    <Navbar expanded={expanded} className={styles.NavBar} expand="lg" fixed="top">
+    <Navbar ref={navbarRef} expanded={expanded} className={styles.NavBar} expand="lg" fixed="top">
       <Container fluid className={styles.NavContainer}>
         <NavLink to="/" className={styles.BrandLink}>
           <Navbar.Brand className={styles.Brand}>
@@ -75,8 +100,9 @@ const NavBar = () => {
         {searchForm(`${styles.SearchForm} d-none d-md-flex`)}
         <div className={`${styles.DesktopAccount} d-none d-lg-flex`}>
           {currentUser ? (
-            <NavLink className={styles.AccountLink} to={`/profiles/${currentUser.profile_id}`}>
-              <Avatar src={currentUser.profile_image} text={currentUser.username} height={34} />
+            <NavLink className={styles.AccountLink} title={currentUser.username} to={`/profiles/${currentUser.profile_id}`}>
+              <Avatar src={currentUser.profile_image} height={34} />
+              <span className={styles.AccountName}>{currentUser.username}</span>
             </NavLink>
           ) : (
             <>

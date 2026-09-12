@@ -44,7 +44,10 @@ async function runScenario(browser, scenario) {
     if (pathname === '/dj-rest-auth/user') {
       status = signedIn ? 200 : 401;
       body = signedIn ? user : { detail: 'No active test session' };
-    } else if (pathname === '/dj-rest-auth/token/refresh') body = {};
+    } else if (pathname === '/dj-rest-auth/token/refresh') {
+      status = signedIn ? 200 : 401;
+      body = signedIn ? {} : { detail: 'No active test session' };
+    }
     else if (pathname === '/profiles/1') body = profile;
     else if (pathname === '/profiles') body = list([
       profile,
@@ -89,6 +92,7 @@ async function runScenario(browser, scenario) {
     if (signedIn) await page.locator('#spoodlespace-navigation a[href$="/profiles/1"]').waitFor({ state: 'attached' });
     await page.evaluate(() => document.fonts.ready);
     if (scenario.largeText) await page.addStyleTag({ content: 'html { font-size: 200% !important; }' });
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   }
 
   async function measure(name) {
@@ -147,6 +151,14 @@ async function runScenario(browser, scenario) {
         await page.screenshot({ path: path.join(outputDir, scenario.name + '-' + name + '.png'), fullPage: true });
       }
       if (name === 'profile' && scenario.name === 'reported-390') {
+        await page.evaluate(() => {
+          const card = document.querySelector('[class*="ProfilePage_ProfileCard"]');
+          if (card) window.scrollTo(0, card.getBoundingClientRect().top + window.scrollY - parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--spoodle-nav-height')) - 12);
+        });
+        const screenshot = await page.screenshot({ type: 'jpeg', quality: 70 });
+        console.log('RESPONSIVE_IMAGE ' + JSON.stringify({ name: 'profile-mobile', data: screenshot.toString('base64') }));
+      }
+      if (name === 'profile') {
         await page.getByRole('button', { name: 'More options' }).first().click();
         await page.getByLabel('edit-username', { exact: true }).waitFor();
         await measure('profile-menu');
@@ -157,7 +169,7 @@ async function runScenario(browser, scenario) {
         await page.getByRole('button', { name: 'Sign out', exact: true }).waitFor();
         // The expanded menu may overlay the content intentionally.
         const menu = await page.locator('#spoodlespace-navigation').boundingBox();
-        if (!menu || menu.x < -2 || menu.x + menu.width > scenario.viewport.width + 2) failures.push(scenario.name + ': navigation menu overflows');
+        if (!menu || menu.x < -2 || menu.x + menu.width > scenario.viewport.width + 2 || menu.y + menu.height > scenario.viewport.height + 2) failures.push(scenario.name + ': navigation menu overflows');
         await page.getByRole('button', { name: 'Toggle navigation' }).click();
       }
     } catch (error) {
@@ -174,6 +186,7 @@ async function runScenario(browser, scenario) {
     for (const width of [320, 390, 768, 1024, 1440]) {
       await runScenario(chrome, { name: 'chromium-' + width, viewport: { width, height: 900 } });
     }
+    await runScenario(chrome, { name: 'landscape-844', viewport: { width: 844, height: 390 }, only: ['profile', 'feed'] });
     await runScenario(chrome, { name: 'reported-390', viewport: { width: 390, height: 844 }, username: reportedName, only: ['profile'] });
     await runScenario(chrome, { name: 'large-text-390', viewport: { width: 390, height: 900 }, largeText: true, only: ['profile', 'feed', 'post-comments', 'dog-health', 'edit-profile', 'username-form', 'create-post', 'signup'] });
   } finally { await chrome.close(); }
