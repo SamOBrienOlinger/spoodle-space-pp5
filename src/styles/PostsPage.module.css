@@ -1,7 +1,7 @@
 .Layout { display: grid; grid-template-columns: 218px minmax(0, 1fr) 270px; gap: 24px; align-items: start; }
 .LeftColumn, .FeedColumn, .RightColumn { min-width: 0; }
-.Welcome { height: clamp(170px, 19vw, 250px); margin: 0 0 18px; padding: 5px; overflow: hidden; border: 1px solid var(--spoodle-border); border-radius: 22px; background: var(--spoodle-surface-wash); box-shadow: var(--spoodle-shadow); }
-.WelcomePhoto { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; border-radius: 17px; }
+.Welcome { height: clamp(180px, 21vw, 280px); margin: 0 0 18px; padding: 5px; overflow: hidden; border: 1px solid var(--spoodle-border); border-radius: 22px; background: var(--spoodle-surface-wash); box-shadow: var(--spoodle-shadow); }
+.WelcomePhoto { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; border-radius: 17px; }
 
 .PrimaryAction, .CreatePostButton { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 11px 16px; border: 0; border-radius: 12px; background-color: var(--spoodle-purple); background-image: var(--spoodle-primary-gradient); color: #fff; font-size: .78rem; font-weight: 700; cursor: pointer; box-shadow: var(--spoodle-button-shadow); transition: background 150ms, transform 180ms; }
 .PrimaryAction:hover, .CreatePostButton:hover { background-color: var(--spoodle-purple-dark); background-image: var(--spoodle-primary-hover); color: #fff; transform: translateY(-2px); }
