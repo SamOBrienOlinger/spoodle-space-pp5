@@ -68,7 +68,7 @@ jobs:
           const results = [];
           const browserErrors = [];
 
-          async function verifyViewport(browser, name, viewport) {
+          async function verifyViewport(browser, name, viewport, signedIn = true) {
             const page = await browser.newPage({ viewport });
             const pageErrors = [];
             const consoleErrors = [];
@@ -91,6 +91,10 @@ jobs:
               const pathname = new URL(route.request().url()).pathname;
               let body = { count: 0, next: null, previous: null, results: [] };
               if (pathname.endsWith('/dj-rest-auth/user/')) {
+                if (!signedIn) {
+                  await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ detail: 'No active test session' }) });
+                  return;
+                }
                 body = { pk: 1, username: 'preview', profile_id: 1, profile_image: avatar };
               } else if (pathname.includes('/profiles/')) {
                 body = { count: 3, next: null, previous: null, results: [
@@ -187,9 +191,12 @@ jobs:
             const browser = await chromium.launch({ headless: true });
             await verifyViewport(browser, 'desktop', { width: 1440, height: 1000 });
             await verifyViewport(browser, 'mobile', { width: 390, height: 844 });
+            await verifyViewport(browser, 'guest-desktop', { width: 1440, height: 1000 }, false);
+            await verifyViewport(browser, 'guest-mobile', { width: 390, height: 844 }, false);
             await browser.close();
             const safariEngine = await webkit.launch({ headless: true });
             await verifyViewport(safariEngine, 'webkit-mobile', { width: 390, height: 844 });
+            await verifyViewport(safariEngine, 'guest-webkit-mobile', { width: 390, height: 844 }, false);
             await safariEngine.close();
 
             fs.writeFileSync(

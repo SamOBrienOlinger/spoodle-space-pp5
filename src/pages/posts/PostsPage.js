@@ -75,17 +75,11 @@ export default function PostsPage({ message, filter = "" }) {
   return <div className={styles.Layout}>
     <div className={styles.LeftColumn}><AppSidebar /></div>
     <div className={styles.FeedColumn}>
-      {!currentUser && <section className={`${styles.Welcome} ss-enter`} aria-labelledby="feed-welcome-title">
-        <div className={styles.WelcomeCopy}>
-          <span className={styles.Eyebrow}><Icon name="paw" size={16} />A space for dog people</span>
-          <h1 id="feed-welcome-title">{currentUser ? <>Good dogs.<br /><em>Great company.</em></> : <>Little paws.<br /><em>Big connections.</em></>}</h1>
-          <p>{currentUser ? "Share a moment. Find your people. Make yourself at home." : "Photos, friendships and your dog’s world, all in one happy place."}</p>
-          {!currentUser && <div className={styles.WelcomeActions}><AccountLink className={styles.PrimaryAction} to="/signup">Find your people <Icon name="arrow" size={17} /></AccountLink><AccountLink className={styles.SecondaryAction} to="/signin">Sign in</AccountLink></div>}
-        </div>
-        <div className={styles.WelcomeArt} aria-hidden="true"><span className={styles.Orbit} /><img src={dogPhoto} alt="" /><span className={styles.Sticker}><Icon name="heart" size={16} />100% dog people</span><span className={styles.ArtPaw}><Icon name="paw" size={27} /></span></div>
-      </section>}
+      <h1 className="sr-only">{liked ? "Liked posts" : following ? "Following posts" : "Community posts"}</h1>
+      {!currentUser && <figure className={`${styles.Welcome} ss-enter`}>
+        <img className={styles.WelcomePhoto} src={dogPhoto} alt="A happy cockapoo running on the grass" width="1170" height="780" />
+      </figure>}
       {currentUser && <section className={styles.Composer} aria-label="Create a post"><div className={styles.ComposerTop}><Avatar src={currentUser.profile_image} height={44} /><Link className={styles.ComposerPrompt} to="/posts/create">Share with the SpoodleSpace community…</Link><Link className={styles.CreatePostButton} to="/posts/create" aria-label="Create post"><Icon name="plus" size={19} /><span>Post</span></Link></div><div className={styles.ComposerBottom}><span>A photo, a thought, a little update.</span><Link to="/posts/create"><Icon name="photo" size={16} />Add photo</Link></div></section>}
-      <div className={styles.FeedHeading}><div><span className={styles.Eyebrow}>Around the community</span><h2>{liked ? "Your favourites" : following ? "From your people" : "The latest tail-waggers"}</h2></div><Icon name={liked ? "heart" : "paw"} size={27} /></div>
       {currentUser && <>
         <nav className={styles.FeedTabs} aria-label="Post feeds"><NavLink exact to="/" activeClassName={styles.Selected}>All posts</NavLink><NavLink to="/feed" activeClassName={styles.Selected}>Following</NavLink><NavLink to="/liked" activeClassName={styles.Selected}>Liked</NavLink></nav>
         <div className={styles.FeedControls}><label className={styles.MobileSearch}><Icon name="search" size={18} /><input aria-label="Search posts by owner or title" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search owner or title" /></label><label className={styles.SortLabel}>Sort<select aria-label="Sort posts" value={order} onChange={e => setOrder(e.target.value)}><option value="">{liked ? "Recently liked" : "Latest first"}</option><option value="-likes_count">Most liked</option><option value="-comments_count">Most discussed</option></select></label></div>
