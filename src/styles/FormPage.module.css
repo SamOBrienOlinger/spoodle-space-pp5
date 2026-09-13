@@ -46,3 +46,9 @@
 @media (max-width: 1199px) { .Layout { grid-template-columns: 195px minmax(0, 1fr); gap: 20px; max-width: 980px; margin: auto; } .RightColumn { display: none; } }
 @media (max-width: 991px) { .Layout { grid-template-columns: minmax(0, 1fr); max-width: 680px; } .LeftColumn { display: none; } }
 @media (max-width: 575px) { .AuthLayout { margin-top: 4px; } .Header { padding: 21px 18px; gap: 12px; } .HeaderIcon { width: 40px; height: 40px; border-radius: 12px; } .Header h1 { font-size: 1.3rem; } .Header p { font-size: .84rem; } .FormBody { padding: 22px 18px; gap: 22px; } .Columns { grid-template-columns: minmax(0, 1fr); } .PortraitUpload { flex-direction: column; text-align: center; } .Actions > button { flex: 1 1 8rem; } .Upload { padding: 16px; } }
+
+.PhotoCard { padding: 5px; border-radius: 22px; background: var(--spoodle-surface-wash); }
+.CoverPhoto { display: block; width: 100%; height: auto; border-radius: 17px; }
+.PhotoCard .Header { padding: clamp(18px, 3vw, 28px); background: transparent; border-bottom: 0; }
+.PhotoCard .Header h1 { color: var(--spoodle-purple-dark); font-size: clamp(1.5rem, 2.5vw, 2rem); }
+.PhotoCard .FormBody { padding-top: 0; padding-inline: clamp(18px, 3vw, 28px); }

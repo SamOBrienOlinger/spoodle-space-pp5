@@ -1,4 +1,5 @@
 import FormPage, { FormField } from "../../components/FormPage";
+import signInPhoto from "../../assets/sign-in-cockapoo.jpeg";
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
@@ -69,7 +70,7 @@ export default function SignInForm() {
     setSignInData({ ...signInData, [event.target.name]: event.target.value });
   };
   return (
-    <FormPage title="Welcome back" description="Sign in to your SpoodleSpace community." icon="paw" onSubmit={handleSubmit} errors={errors} submitLabel="Sign in" busyLabel="Signing in…" auth footer={<>New to SpoodleSpace? <Link to="/signup">Sign up</Link></>}>
+    <FormPage coverImage={{ src: signInPhoto, alt: "A cockapoo wearing a purple coat standing on grass", width: 947, height: 616 }} title="Welcome back" description="Sign in to your SpoodleSpace community." icon="paw" onSubmit={handleSubmit} errors={errors} submitLabel="Sign in" busyLabel="Signing in…" auth footer={<>New to SpoodleSpace? <Link to="/signup">Sign up</Link></>}>
       <FormField label="Username" name="username" value={signInData.username} onChange={handleChange} error={errors?.username} type="text" autoComplete="username" autoCapitalize="none" autoCorrect="off" spellCheck={false} required placeholder="Enter your username" />
       <FormField label="Password" name="password" value={signInData.password} onChange={handleChange} error={errors?.password} type="password" autoComplete="current-password" required placeholder="Enter your password" />
     </FormPage>

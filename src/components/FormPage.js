@@ -55,7 +55,7 @@ export function PhotoField({ name = "image", label = "Photo", value, inputRef, o
   </div>;
 }
 
-export default function FormPage({ title, description, icon = "paw", onSubmit, onCancel, submitLabel = "Save changes", busyLabel = "Saving…", errors, children, auth = false, footer }) {
+export default function FormPage({ title, description, icon = "paw", onSubmit, onCancel, submitLabel = "Save changes", busyLabel = "Saving…", errors, children, auth = false, footer, coverImage }) {
   const [busy, setBusy] = useState(false);
   const pending = useRef(false);
   const mounted = useRef(true);
@@ -71,7 +71,8 @@ export default function FormPage({ title, description, icon = "paw", onSubmit, o
   return <div className={auth ? styles.AuthLayout : styles.Layout}>
     {!auth && <div className={styles.LeftColumn}><AppSidebar /></div>}
     <main className={styles.Main}>
-      <section className={styles.Card} aria-labelledby="form-page-title">
+      <section className={`${styles.Card} ${coverImage ? styles.PhotoCard : ""}`} aria-labelledby="form-page-title">
+        {coverImage && <img className={styles.CoverPhoto} src={coverImage.src} alt={coverImage.alt} width={coverImage.width} height={coverImage.height} decoding="async" />}
         <header className={styles.Header}>
           <span className={styles.HeaderIcon}><Icon name={icon} size={24} /></span>
           <div><h1 id="form-page-title">{title}</h1><p>{description}</p></div>
