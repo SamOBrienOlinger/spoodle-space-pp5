@@ -52,3 +52,4 @@
 .PhotoCard .Header { padding: clamp(18px, 3vw, 28px); background: transparent; border-bottom: 0; }
 .PhotoCard .Header h1 { color: var(--spoodle-purple-dark); font-size: clamp(1.5rem, 2.5vw, 2rem); }
 .PhotoCard .FormBody { padding-top: 0; padding-inline: clamp(18px, 3vw, 28px); }
+.PhotoField > input[type="file"] { display: block; min-width: 0; width: 100%; max-width: 100%; }

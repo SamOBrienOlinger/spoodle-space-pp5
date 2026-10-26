@@ -1,8 +1,6 @@
 name: Mobile dog hub regression checks
 on:
   pull_request:
-  push:
-    branches: [feature/mobile-dog-hub-ux]
 permissions:
   contents: read
 jobs:
