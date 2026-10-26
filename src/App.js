@@ -1,4 +1,6 @@
 import styles from "./App.module.css";
+import MobileNavigation from "./components/MobileNavigation";
+import MyDogPage from "./pages/doghub/MyDogPage";
 import NavBar from "./components/NavBar";
 import Container from "react-bootstrap/Container";
 import { Route, Switch } from "react-router-dom";
@@ -43,6 +45,8 @@ function App() {
         <NotificationContainer />
         {isPagesPreview && <PreviewBanner />}
         <Switch>
+          <Route exact path="/my-dog" component={MyDogPage} />
+          <Route exact path="/search" render={() => <PostsPage searchPage />} />
           <Route exact path="/" render={() => <PostsPage message="No results found. Adjust the search keyword." />} />
           <Route exact path="/dogprofilespage" render={() => <DogProfilesPage message="No results found. Adjust the search keyword or follow a user." filter={`owner__followed__owner__profile=${profile_id}&`} />} />
           <Route exact path="/dogshealthpage" render={() => <DogsHealthPage message="No results found. Adjust the search keyword or follow a user." filter={`owner__followed__owner__profile=${profile_id}&`} />} />
@@ -73,6 +77,7 @@ function App() {
           <Route render={() => <NotFound />} />
         </Switch>
       </Container>
+      <MobileNavigation />
     </div>
   );
 }

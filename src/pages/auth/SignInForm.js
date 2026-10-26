@@ -2,7 +2,7 @@ import FormPage, { FormField } from "../../components/FormPage";
 import signInPhoto from "../../assets/sign-in-cockapoo.jpeg";
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { useRedirect } from "../../hooks/useRedirect";
 import { setTokenTimestamp } from "../../utils/utils";
@@ -39,6 +39,7 @@ export default function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
   useRedirect("loggedIn");
   const history = useHistory();
+  const location = useLocation();
   const [signInData, setSignInData] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
@@ -60,7 +61,8 @@ export default function SignInForm() {
       setCurrentUser(user);
       setSubmitting(false);
       // goBack() could take a user straight back to the GitHub Pages preview.
-      history.replace("/feed");
+      const destination = location.state?.from;
+      history.replace(typeof destination === "string" && destination.startsWith("/") && !destination.startsWith("//") ? destination : "/feed");
     } catch (error) {
       setErrors(loginErrors(error));
       setSubmitting(false);

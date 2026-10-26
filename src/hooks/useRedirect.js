@@ -1,26 +1,18 @@
-import axios from "axios";
 import { useEffect } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router-dom";
+import { useAuthReady, useCurrentUser } from "../contexts/CurrentUserContext";
 
-export const useRedirect = (userAuthStatus) => {
+export function useRedirect(status) {
+  const user = useCurrentUser();
+  const ready = useAuthReady();
   const history = useHistory();
-
+  const location = useLocation();
   useEffect(() => {
-    const handleMount = async () => {
-      try {
-        await axios.post("/dj-rest-auth/token/refresh/");
-       
-        if (userAuthStatus === "loggedIn") {
-          history.push("/");
-        }
-      } catch (err) {
-        
-        if (userAuthStatus === "loggedOut") {
-          history.push("/");
-        }
-      }
-    };
-
-    handleMount();
-  }, [history, userAuthStatus]);
-};
+    if (!ready) return;
+    if (status === "loggedOut" && !user) history.replace("/signin", { from: location.pathname + location.search });
+    if (status === "loggedIn" && user) {
+      const from = location.state?.from;
+      history.replace(typeof from === "string" && from.startsWith("/") && !from.startsWith("//") ? from : "/feed");
+    }
+  }, [ready, user, status, history, location.pathname, location.search, location.state]);
+}

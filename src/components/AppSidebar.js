@@ -26,9 +26,7 @@ export default function AppSidebar() {
       {item("/", "home", "Home", true)}
       {currentUser ? <>
         {item(`/profiles/${currentUser.profile_id}`, "user", "My profile")}
-        {item("/dogprofilespage", "paw", "Doggy profile", false, /^\/dogprofiles/)}
-        {item("/dogshealthpage", "health", "Doggy health", false, /^\/(doghealth|dogshealthpage)/)}
-        {item("/dogdangerspage", "safety", "Doggy danger", false, /^\/dogdanger/)}
+        {item("/my-dog", "paw", "My dog")}
         {item("/liked", "heart", "Liked posts")}
         <button className={styles.SignOutButton} type="button" disabled={busy} onClick={signOut}><Icon name="logout" />{busy ? "Signing out…" : "Sign out"}</button>
       </> : <div className={styles.GuestLinks}><AccountLink to="/signin">Sign in <Icon name="arrow" size={17} /></AccountLink><AccountLink to="/signup">Join SpoodleSpace</AccountLink></div>}

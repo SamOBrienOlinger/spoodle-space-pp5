@@ -7,6 +7,9 @@ import {NotificationManager} from 'react-notifications';
 
 const DogDangerEditForm = () => {
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
+  const [attempt, setAttempt] = useState(0);
 
   const [dogDangerData, setDogDangerData] = useState({
     bites_babies: "",
@@ -29,6 +32,7 @@ const DogDangerEditForm = () => {
 
   useEffect(() => {
     const handleMount = async () => {
+      setLoading(true); setLoadError(null);
       try {
         const { data } = await axiosReq.get(`/dogdanger/${id}/`);
         const {
@@ -50,12 +54,12 @@ const DogDangerEditForm = () => {
             })
           : history.push("/");
       } catch (err) {
-        
-      }
+        setLoadError(err);
+      } finally { setLoading(false); }
     };
 
     handleMount();
-  }, [history, id]);
+  }, [history, id, attempt]);
 
   const handleChange = (event) => {
     setDogDangerData({
@@ -78,18 +82,17 @@ const DogDangerEditForm = () => {
     try {
       await axiosReq.put(`/dogdanger/${id}/`, formData);
       NotificationManager.success('Doggy danger updated!', 'Success');
-      history.push(`/dogdanger/${id}`);
+      history.push("/my-dog?dogTab=behaviour");
     } catch (err) {
-      
-      if (err.response?.status !== 401) {
+
+
         setErrors(formErrors(err));
         NotificationManager.error('Please try again', 'Oopsadoodle!')
-      }
     }
   };
 
   return (
-    <FormPage title="Doggy danger" description="Share the behaviour details others should know about your dog." icon="safety" onSubmit={handleSubmit} errors={errors} submitLabel="Save changes" busyLabel="Saving…" onCancel={() => history.goBack()}>
+    <FormPage loading={loading} loadError={loadError} onRetry={() => setAttempt(n => n + 1)} title="Doggy danger" description="Share the behaviour details others should know about your dog." icon="safety" onSubmit={handleSubmit} errors={errors} submitLabel="Save changes" busyLabel="Saving…" onCancel={() => history.goBack()}>
       <FormSection title="Behaviour details">
         <FormField label="Bites babies?" name="bites_babies" value={bites_babies} onChange={handleChange} error={errors?.bites_babies} as="textarea" rows={2} required />
         <FormField label="Bites kids?" name="bites_kids" value={bites_kids} onChange={handleChange} error={errors?.bites_kids} as="textarea" rows={2} required />

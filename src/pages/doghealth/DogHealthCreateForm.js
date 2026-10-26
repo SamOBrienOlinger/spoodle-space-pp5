@@ -23,7 +23,7 @@ function DogHealthCreateForm() {
 
   const { vet_name, vet_phone, vet_email, kennel_cough, rabies, allergies } =
     dogHealthData;
- 
+
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -46,14 +46,13 @@ function DogHealthCreateForm() {
     formData.append("allergies", allergies);
 
     try {
-      const { data } = await axiosReq.post("/doghealth/", formData);
+      await axiosReq.post("/doghealth/", formData);
       NotificationManager.success('Doggy health created!', 'Success');
-      history.push(`/doghealth/${data.id}`);
+      history.push("/my-dog?dogTab=health");
     } catch (err) {
-      if (err.response?.status !== 401) {
+
         setErrors(formErrors(err));
         NotificationManager.error('Please try again', 'Oopsadoodle!')
-      }
     }
   };
 

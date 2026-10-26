@@ -3,13 +3,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import {
-  useCurrentUser,
   useSetCurrentUser,
 } from "../../contexts/CurrentUserContext";
 import {NotificationManager} from 'react-notifications';
 
 const ProfileEditForm = () => {
-  const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
   const { id } = useParams();
   const history = useHistory();
@@ -23,30 +21,19 @@ const ProfileEditForm = () => {
   const { name, content, image } = profileData;
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
-    const handleMount = async () => {
-      if (currentUser?.profile_id?.toString() === id) {
-        if (currentUser?.dog_profile_id) {
-          history.push(`/dogprofiles/${currentUser.dog_profile_id}/edit`);
-          return;
-        }
-
-        try {
-          const { data } = await axiosReq.get(`/profiles/${id}/`);
-          const { name, content, image } = data;
-          setProfileData({ name, content, image });
-        } catch (err) {
-          
-          history.push("/");
-        }
-      } else {
-        history.push("/");
-      }
-    };
-
-    handleMount();
-  }, [currentUser, history, id]);
+    let active = true;
+    setLoading(true); setLoadError(null);
+    axiosReq.get(`/profiles/${id}/`, { timeout: 20000 }).then(({ data }) => {
+      if (!data || !data.is_owner) throw Object.assign(new Error("Not permitted"), { response: { status: 403 } });
+      if (active) setProfileData({ name: data.name || "", content: data.content || "", image: data.image || "" });
+    }).catch(error => { if (active) setLoadError(error); }).finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [id, attempt]);
 
   const handleChange = (event) => {
     setProfileData({
@@ -82,7 +69,7 @@ const ProfileEditForm = () => {
   };
 
   return (
-    <FormPage title="Edit my profile" description="Add a photo and tell the community a little about yourself." icon="user" onSubmit={handleSubmit} errors={errors} submitLabel="Save changes" busyLabel="Saving…" onCancel={() => history.goBack()}>
+    <FormPage loading={loading} loadError={loadError} onRetry={() => setAttempt(n => n + 1)} title="Edit my profile" description="Add a photo and tell the community a little about yourself." icon="user" onSubmit={handleSubmit} errors={errors} submitLabel="Save changes" busyLabel="Saving…" onCancel={() => history.goBack()}>
       <PhotoField name="image" label="Profile photo" value={image} inputRef={imageFile} onChange={event => { if (event.target.files.length) { URL.revokeObjectURL(image); setProfileData({ ...profileData, image: URL.createObjectURL(event.target.files[0]) }); } }} error={errors?.image} portrait />
       <FormField label="Bio" name="content" value={content} onChange={handleChange} error={errors?.content} as="textarea" rows={5} />
     </FormPage>

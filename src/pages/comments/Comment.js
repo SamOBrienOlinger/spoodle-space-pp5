@@ -7,8 +7,7 @@ import CommentEditForm from "./CommentEditForm";
 
 import styles from "../../styles/Comment.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { axiosRes } from "../../api/axiosDefaults";
-import {NotificationManager} from 'react-notifications';
+import DeleteDialog from "../../components/DeleteDialog";
 
 
 const Comment = (props) => {
@@ -27,32 +26,15 @@ const Comment = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
 
-  const handleDelete = async () => {
-    NotificationManager.warning('Are you sure you want to delete?', 'Click to delete', 5000,() => {
-      try {
-        axiosRes.delete(`/comments/${id}/`);
-        NotificationManager.success('Comment Deleted!', 'Success');
-        setPost((prevPost) => ({
-          results: [
-            {
-              ...prevPost.results[0],
-              comments_count: prevPost.results[0].comments_count - 1,
-            },
-          ],
-        }));
-
-        setComments((prevComments) => ({
-          ...prevComments,
-          results: prevComments.results.filter((comment) => comment.id !== id),
-        }));
-      } catch (err) {
-        NotificationManager.error('Please try again', 'Oopsadoodle!')
-      }
-    });
+  const [confirm, setConfirm] = useState(false);
+  const deleted = () => {
+    setPost(prev => ({ ...prev, results: [{ ...prev.results[0], comments_count: Math.max(0, prev.results[0].comments_count - 1) }] }));
+    setComments(prev => ({ ...prev, results: prev.results.filter(comment => comment.id !== id) }));
   };
 
   return (
     <>
+      <DeleteDialog show={confirm} onClose={() => setConfirm(false)} url={`/comments/${id}/`} label="comment" onDeleted={deleted} />
       <hr />
       <Media className={styles.Comment}>
         <Link to={`/profiles/${profile_id}`}>
@@ -77,7 +59,7 @@ const Comment = (props) => {
         {is_owner && !showEditForm && (
           <MoreDropdown
             handleEdit={() => setShowEditForm(true)}
-            handleDelete={handleDelete}
+            handleDelete={() => setConfirm(true)}
           />
         )}
       </Media>

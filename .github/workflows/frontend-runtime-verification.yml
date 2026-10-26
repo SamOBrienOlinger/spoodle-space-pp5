@@ -10,6 +10,9 @@ on:
 permissions:
   contents: read
 
+env:
+  NODE_PATH: /tmp/spoodle-browser/node_modules
+
 jobs:
   verify:
     runs-on: ubuntu-22.04
@@ -36,10 +39,24 @@ jobs:
           CI: true
         run: npm run build
 
+      - name: Use Node 20 for browser tooling
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Install browser verification tooling
+        timeout-minutes: 3
+        run: npm install --prefix /tmp/spoodle-browser --no-package-lock --fetch-timeout=60000 --fetch-retries=1 playwright@1.51.1
+
+      - name: Install browser system dependencies
+        timeout-minutes: 4
         run: |
-          npm install --no-save --package-lock=false @playwright/test@1.40.1
-          npx playwright install --with-deps chromium webkit
+          printf '%s\n' 'Acquire::Retries "1";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99-spoodle-ci-timeouts
+          /tmp/spoodle-browser/node_modules/.bin/playwright install-deps chromium webkit
+
+      - name: Download browser engines
+        timeout-minutes: 5
+        run: /tmp/spoodle-browser/node_modules/.bin/playwright install chromium webkit
 
       - name: Prepare browser verification output
         run: mkdir -p verification-artifacts
@@ -211,7 +228,7 @@ jobs:
             process.exit(1);
           });
           EOF
-          NODE_PATH="$GITHUB_WORKSPACE/node_modules" node /tmp/verify-spoodlespace.js
+          node /tmp/verify-spoodlespace.js
 
       - name: Check long-name layouts and enlarged text across pages
         run: node scripts/verify-responsive.cjs

@@ -34,3 +34,8 @@ a.Photo:hover .PhotoHint, a.Photo:focus-visible .PhotoHint { opacity: 1; transfo
 .Cancel { border: 1px solid #cfbce2; color: #56227e; background: #fff; }
 .Delete { border: 0; color: #fff; background: var(--spoodle-danger); }
 @media (max-width: 575px) { .AuthorRow { padding: 17px 16px 10px; } .Copy { padding: 2px 16px 15px; } .Copy h3 { font-size: 1.05rem; } .Photo { margin: 0 8px; border-radius: 13px; } .PostBar { padding: 8px; gap: 3px; } .Action { padding: 9px; font-size: .7rem; } .Post { border-radius: 20px; } }
+
+.PhotoFrame { position: relative; }
+.FullPhotoButton { position: absolute; left: 24px; bottom: 12px; min-height: 44px; padding: 8px 14px; border: 1px solid var(--spoodle-control-border); border-radius: 12px; color: var(--spoodle-purple-dark); background: var(--spoodle-surface); font-weight: 700; }
+.FullPhoto { display: block; width: 100%; max-height: 78vh; object-fit: contain; }
+.ReadMore { min-height: 44px; border: 0; padding: 8px 0; background: transparent; color: var(--spoodle-purple-dark); font-weight: 700; }

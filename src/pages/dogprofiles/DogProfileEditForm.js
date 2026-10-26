@@ -7,6 +7,9 @@ import {NotificationManager} from 'react-notifications';
 
 const DogProfileEditForm = () => {
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
+  const [attempt, setAttempt] = useState(0);
 
   const [dogProfileData, setDogProfileData] = useState({
     dog_name: "",
@@ -25,6 +28,7 @@ const DogProfileEditForm = () => {
 
   useEffect(() => {
     const handleMount = async () => {
+      setLoading(true); setLoadError(null);
       try {
         const { data } = await axiosReq.get(`/dogprofiles/${id}/`);
         const {
@@ -46,12 +50,12 @@ const DogProfileEditForm = () => {
             })
           : history.push("/");
       } catch (err) {
-        
-      }
+        setLoadError(err);
+      } finally { setLoading(false); }
     };
 
     handleMount();
-  }, [history, id]);
+  }, [history, id, attempt]);
 
   const handleChange = (event) => {
     setDogProfileData({
@@ -87,19 +91,17 @@ const DogProfileEditForm = () => {
     try {
       await axiosReq.put(`/dogprofiles/${id}/`, formData);
       NotificationManager.success('Doggy profile updated!', 'Success');
-      history.push(`/dogprofiles/${id}`);
+      history.push("/my-dog?dogTab=profile");
     } catch (err) {
-      
-      if (err.response?.status !== 401) {
+
+
         setErrors(formErrors(err));
         NotificationManager.error('Error', 'Click me!')
-
-      }
     }
   };
 
   return (
-    <FormPage title="Doggy profile" description="Keep your dog’s photo and details up to date." icon="paw" onSubmit={handleSubmit} errors={errors} submitLabel="Save changes" busyLabel="Saving…" onCancel={() => history.goBack()}>
+    <FormPage loading={loading} loadError={loadError} onRetry={() => setAttempt(n => n + 1)} title="Doggy profile" description="Keep your dog’s photo and details up to date." icon="paw" onSubmit={handleSubmit} errors={errors} submitLabel="Save changes" busyLabel="Saving…" onCancel={() => history.goBack()}>
       <PhotoField name="dog_profile_image" label="Dog photo" value={dog_profile_image} inputRef={imageInput} onChange={handleChangeImage} error={errors?.dog_profile_image} portrait />
       <FormField label="Dog name" name="dog_name" value={dog_name} onChange={handleChange} error={errors?.dog_name} type="text" required />
       <FormSection columns>
