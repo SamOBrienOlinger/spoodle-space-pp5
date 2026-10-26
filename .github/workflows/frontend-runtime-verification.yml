@@ -45,9 +45,18 @@ jobs:
           node-version: 20
 
       - name: Install browser verification tooling
+        timeout-minutes: 3
+        run: npm install --prefix /tmp/spoodle-browser --no-package-lock --fetch-timeout=60000 --fetch-retries=1 playwright@1.51.1
+
+      - name: Install browser system dependencies
+        timeout-minutes: 4
         run: |
-          npm install --prefix /tmp/spoodle-browser --no-package-lock playwright@1.51.1
-          /tmp/spoodle-browser/node_modules/.bin/playwright install --with-deps chromium webkit
+          printf '%s\n' 'Acquire::Retries "1";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99-spoodle-ci-timeouts
+          /tmp/spoodle-browser/node_modules/.bin/playwright install-deps chromium webkit
+
+      - name: Download browser engines
+        timeout-minutes: 5
+        run: /tmp/spoodle-browser/node_modules/.bin/playwright install chromium webkit
 
       - name: Prepare browser verification output
         run: mkdir -p verification-artifacts
