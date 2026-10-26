@@ -1,88 +1,29 @@
-import React, { useEffect, useState } from "react";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-import appStyles from "../../App.module.css";
-import { useParams } from "react-router";
+import React, { useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import useResource from "../../hooks/useResource";
+import CommunityLayout from "../../components/CommunityLayout";
+import RequestState from "../../components/RequestState";
 import Post from "./Post";
 import Comment from "../comments/Comment";
 import CommentCreateForm from "../comments/CommentCreateForm";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Asset from "../../components/Asset";
-import { fetchMoreData } from "../../utils/utils";
-import PopularProfiles from "../profiles/PopularProfiles";
+import styles from "../../styles/Hub.module.css";
 
-function PostPage() {
+export default function PostPage() {
   const { id } = useParams();
-  const [post, setPost] = useState({ results: [] });
-
-  const currentUser = useCurrentUser();
-  const profile_image = currentUser?.profile_image;
-  const [comments, setComments] = useState({ results: [] });
-
-  useEffect(() => {
-    const handleMount = async () => {
-      try {
-        const [{ data: post }, { data: comments }] = await Promise.all([
-          axiosReq.get(`/posts/${id}`),
-          axiosReq.get(`/comments/?post=${id}`),
-        ]);
-        setPost({ results: [post] });
-        setComments(comments);
-      } catch (err) {
-        
-      }
-    };
-
-    handleMount();
-  }, [id]);
-
-  return (
-    <Row className="h-100">
-      <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <PopularProfiles mobile />
-        <Post {...post.results[0]} setPosts={setPost} postPage />
-        <Container className={appStyles.Content}>
-          {currentUser ? (
-            <CommentCreateForm
-              profile_id={currentUser.profile_id}
-              profileImage={profile_image}
-              post={id}
-              setPost={setPost}
-              setComments={setComments}
-            />
-          ) : comments.results.length ? (
-            "Comments"
-          ) : null}
-          {comments.results.length ? (
-            <InfiniteScroll
-              children={comments.results.map((comment) => (
-                <Comment
-                  key={comment.id}
-                  {...comment}
-                  setPost={setPost}
-                  setComments={setComments}
-                />
-              ))}
-              dataLength={comments.results.length}
-              loader={<Asset spinner />}
-              hasMore={!!comments.next}
-              next={() => fetchMoreData(comments, setComments)}
-            />
-          ) : currentUser ? (
-            <span>No comments yet, be the first to comment!</span>
-          ) : (
-            <span>No comments... yet</span>
-          )}
-        </Container>
-      </Col>
-      <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-        <PopularProfiles />
-      </Col>
-    </Row>
-  );
+  const location = useLocation();
+  const user = useCurrentUser();
+  const post = useResource(`/posts/${id}/`);
+  const comments = useResource(`/comments/?post=${id}`, true);
+  const [busy, setBusy] = useState(false);
+  const [moreError, setMoreError] = useState(null);
+  const updatePost = updater => post.setData(prev => updater({ results: [prev] }).results[0]);
+  const more = async () => {
+    if (busy) return;
+    setBusy(true); setMoreError(null);
+    try { const { data } = await axiosReq.get(comments.data.next, { timeout: 20000 }); if (!Array.isArray(data.results)) throw new Error("Invalid comments"); comments.setData(prev => ({ ...data, results: [...prev.results, ...data.results.filter(item => !prev.results.some(old => old.id === item.id))] })); }
+    catch (error) { setMoreError(error); } finally { setBusy(false); }
+  };
+  return <CommunityLayout><p><Link to={location.state?.from || "/"}>Back to posts</Link></p>{post.loading || post.error ? <RequestState {...post} subject="this post" /> : post.data && <><Post {...post.data} setPosts={updatePost} postPage /><section className={styles.Card}><h2>Comments</h2>{comments.loading || comments.error ? <RequestState {...comments} subject="comments" /> : comments.data && <>{user && <CommentCreateForm post={id} profile_id={user.profile_id} profileImage={user.profile_image} setPost={updatePost} setComments={comments.setData} />}{comments.data.results.length ? comments.data.results.map(comment => <Comment key={comment.id} {...comment} setPost={updatePost} setComments={comments.setData} />) : <p>No comments yet. Start the conversation.</p>}{!user && <Link to={{ pathname: "/signin", state: { from: location.pathname } }}>Sign in to comment</Link>}{moreError && <RequestState error={moreError} retry={more} subject="more comments" />}{comments.data.next && <button className={styles.Button} disabled={busy} onClick={more}>{busy ? "Loading…" : "Load more comments"}</button>}</>}</section></>}</CommunityLayout>;
 }
-
-export default PostPage;

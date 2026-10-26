@@ -1,83 +1,40 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
-import { useHistory } from "react-router";
-import { removeTokenTimestamp, shouldRefreshToken } from "../utils/utils";
+import { isPagesPreview } from "../config/deployment";
 
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
-
+const AuthReadyContext = createContext(false);
 export const useCurrentUser = () => useContext(CurrentUserContext);
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
+export const useAuthReady = () => useContext(AuthReadyContext);
 
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const history = useHistory();
-
-  const handleMount = async () => {
-    try {
-      const { data } = await axiosRes.get("dj-rest-auth/user/");
-      setCurrentUser(data);
-    } catch (err) {
-
-    }
-  };
-
+  const [ready, setReady] = useState(false);
   useEffect(() => {
-    handleMount();
+    let active = true;
+    let refresh;
+    const clients = [axiosReq, axiosRes];
+    const interceptors = clients.map(client => client.interceptors.response.use(response => response, async error => {
+      const config = error.config;
+      if (!config || error.response?.status !== 401 || config._retried || isPagesPreview) return Promise.reject(error);
+      config._retried = true;
+      try {
+        if (!refresh) refresh = axios.post("/dj-rest-auth/token/refresh/", {}, { timeout: 20000 }).finally(() => { refresh = null; });
+        await refresh;
+      } catch (_) {
+        // Stay on the form so a failed refresh cannot throw away a draft.
+        return Promise.reject(error);
+      }
+      return client(config);
+    }));
+    if (isPagesPreview) setReady(true);
+    else axiosRes.get("/dj-rest-auth/user/", { timeout: 20000 }).then(({ data }) => {
+      if (active && typeof data?.username === "string") setCurrentUser(data);
+    }).catch(() => {}).finally(() => { if (active) setReady(true); });
+    return () => { active = false; clients.forEach((client, i) => client.interceptors.response.eject(interceptors[i])); };
   }, []);
-
-  useMemo(() => {
-    axiosReq.interceptors.request.use(
-      async (config) => {
-        if (shouldRefreshToken()) {
-          try {
-            await axios.post("/dj-rest-auth/token/refresh/");
-          } catch (err) {
-            setCurrentUser((prevCurrentUser) => {
-              if (prevCurrentUser) {
-                history.push("/signin");
-              }
-              return null;
-            });
-            removeTokenTimestamp();
-            return config;
-          }
-        }
-        return config;
-      },
-      (err) => {
-        return Promise.reject(err);
-      }
-    );
-
-    axiosRes.interceptors.response.use(
-      (response) => response,
-      async (err) => {
-        if (err.response?.status === 401) {
-          try {
-            await axios.post("/dj-rest-auth/token/refresh/");
-          } catch (err) {
-            setCurrentUser((prevCurrentUser) => {
-              if (prevCurrentUser) {
-                history.push("/signin");
-              }
-              return null;
-            });
-            removeTokenTimestamp();
-          }
-          return axios(err.config);
-        }
-        return Promise.reject(err);
-      }
-    );
-  }, [history]);
-
-  return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <SetCurrentUserContext.Provider value={setCurrentUser}>
-        {children}
-      </SetCurrentUserContext.Provider>
-    </CurrentUserContext.Provider>
-  );
+  return <CurrentUserContext.Provider value={currentUser}><SetCurrentUserContext.Provider value={setCurrentUser}><AuthReadyContext.Provider value={ready}>{children}</AuthReadyContext.Provider></SetCurrentUserContext.Provider></CurrentUserContext.Provider>;
 };

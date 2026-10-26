@@ -53,13 +53,11 @@ function DogProfileCreateForm() {
     }
 
     try {
-      const { data } = await axiosReq.post("/dogprofiles/", formData);
+      await axiosReq.post("/dogprofiles/", formData);
       NotificationManager.success('Doggy profile created!', 'Success');
-      history.push(`/dogprofiles/${data.id}`);
+      history.push("/my-dog?dogTab=profile");
     } catch (err) {
-      if (err.response?.status !== 401) {
-        setErrors(formErrors(err));
-        NotificationManager.error('Please check the form and try again', 'Oopsadoodle!')      }
+      setErrors(formErrors(err));
     }
   };
 

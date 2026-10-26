@@ -7,6 +7,9 @@ import {NotificationManager} from 'react-notifications';
 
 function DogHealthEditForm() {
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
+  const [attempt, setAttempt] = useState(0);
 
   const [dogHealthData, setDogHealthData] = useState({
     vet_name: "",
@@ -24,6 +27,7 @@ function DogHealthEditForm() {
 
   useEffect(() => {
     const handleMount = async () => {
+      setLoading(true); setLoadError(null);
       try {
         const { data } = await axiosReq.get(`/doghealth/${id}/`);
         const {
@@ -47,12 +51,12 @@ function DogHealthEditForm() {
             })
           : history.push("/");
       } catch (err) {
-        
-      }
+        setLoadError(err);
+      } finally { setLoading(false); }
     };
 
     handleMount();
-  }, [history, id]);
+  }, [history, id, attempt]);
 
   const handleChange = (event) => {
     setDogHealthData({
@@ -76,18 +80,17 @@ function DogHealthEditForm() {
     try {
       await axiosReq.put(`/doghealth/${id}/`, formData);
       NotificationManager.success('Doggy health updated!', 'Success');
-      history.push(`/doghealth/${id}`);
+      history.push("/my-dog?dogTab=health");
     } catch (err) {
-      
-      if (err.response?.status !== 401) {
+
+
         setErrors(formErrors(err));
         NotificationManager.error('Please try again', 'Oopsadoodle!')
-      }
     }
   };
 
   return (
-    <FormPage title="Doggy health" description="Keep vet contacts and your dog’s health notes together." icon="health" onSubmit={handleSubmit} errors={errors} submitLabel="Save changes" busyLabel="Saving…" onCancel={() => history.goBack()}>
+    <FormPage loading={loading} loadError={loadError} onRetry={() => setAttempt(n => n + 1)} title="Doggy health" description="Keep vet contacts and your dog’s health notes together." icon="health" onSubmit={handleSubmit} errors={errors} submitLabel="Save changes" busyLabel="Saving…" onCancel={() => history.goBack()}>
       <FormSection title="Vet details">
         <FormField label="Vet name" name="vet_name" value={vet_name} onChange={handleChange} error={errors?.vet_name} type="text" required />
         <FormSection columns>

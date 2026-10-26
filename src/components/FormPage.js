@@ -2,19 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import AppSidebar from "./AppSidebar";
 import FeedRightRail from "./FeedRightRail";
+import RequestState, { SessionLink } from "./RequestState";
 import Icon from "./InterfaceIcon";
 import styles from "../styles/FormPage.module.css";
 
 const messages = value => (Array.isArray(value) ? value : [value]).filter(item => typeof item === "string" && item.trim());
 
-export const formErrors = error => {
-  const data = error.response?.data;
-  if (data && typeof data === "object" && !Array.isArray(data)) {
-    const errors = Object.fromEntries(Object.entries(data).map(([key, value]) => [key, messages(value)]));
-    if (Object.values(errors).some(value => value.length)) return errors;
-  }
-  return { non_field_errors: ["Your changes couldn’t be saved. Please try again."] };
-};
+export { formErrors } from "../utils/errors";
 
 export function FieldError({ error, id }) {
   const items = messages(error);
@@ -47,15 +41,15 @@ export function PhotoField({ name = "image", label = "Photo", value, inputRef, o
       {value ? <img className={portrait ? styles.Portrait : styles.Photo} src={value} alt={`${label} preview`} /> : <span className={styles.UploadIcon}><Icon name="photo" size={28} /></span>}
       <div className={styles.UploadControl}>
         <p>{value ? "Choose a new photo to replace this one." : "Add a favourite photo."}</p>
-        <input id={id} name={name} type="file" accept="image/*" ref={inputRef} onChange={onChange} aria-describedby={`${id}-hint${messages(error).length ? ` ${id}-error` : ""}`} aria-invalid={messages(error).length > 0 || undefined} />
-        <small id={`${id}-hint`}>Choose an image from your device.</small>
+        <input id={id} name={name} type="file" accept="image/jpeg,image/png,image/webp,image/gif" ref={inputRef} onChange={onChange} aria-describedby={`${id}-hint${messages(error).length ? ` ${id}-error` : ""}`} aria-invalid={messages(error).length > 0 || undefined} />
+        <small id={`${id}-hint`}>Optional. JPEG, PNG, WebP or GIF. Maximum 2 MB and 4096 × 4096 pixels.</small>
       </div>
     </div>
     <FieldError id={`${id}-error`} error={error} />
   </div>;
 }
 
-export default function FormPage({ title, description, icon = "paw", onSubmit, onCancel, submitLabel = "Save changes", busyLabel = "Saving…", errors, children, auth = false, footer, coverImage }) {
+export default function FormPage({ title, description, icon = "paw", onSubmit, onCancel, submitLabel = "Save changes", busyLabel = "Saving…", errors, children, loading = false, loadError, onRetry, submitDisabled = false, auth = false, footer, coverImage }) {
   const [busy, setBusy] = useState(false);
   const pending = useRef(false);
   const mounted = useRef(true);
@@ -77,17 +71,18 @@ export default function FormPage({ title, description, icon = "paw", onSubmit, o
           <span className={styles.HeaderIcon}><Icon name={icon} size={24} /></span>
           <div><h1 id="form-page-title">{title}</h1><p>{description}</p></div>
         </header>
-        <Form onSubmit={submit} aria-labelledby="form-page-title" aria-busy={busy}>
+        {loading || loadError ? <RequestState loading={loading} error={loadError} retry={onRetry} subject="your details" /> : <Form onSubmit={submit} aria-labelledby="form-page-title" aria-busy={busy}>
           <fieldset className={styles.FormBody} disabled={busy}>
             {children}
             <FieldError error={errors?.non_field_errors} />
             <FieldError error={errors?.detail} />
+            {errors?.session && <p><SessionLink /></p>}
             <div className={`${styles.Actions} ${auth ? styles.AuthActions : ""}`}>
               {onCancel && <button className={styles.SecondaryButton} type="button" onClick={onCancel}>Cancel</button>}
-              <button className={styles.PrimaryButton} type="submit" disabled={busy}>{busy ? busyLabel : submitLabel}</button>
+              <button className={styles.PrimaryButton} type="submit" disabled={busy || submitDisabled}>{busy ? busyLabel : submitLabel}</button>
             </div>
           </fieldset>
-        </Form>
+        </Form>}
       </section>
       {footer && <p className={styles.Footer}>{footer}</p>}
     </main>

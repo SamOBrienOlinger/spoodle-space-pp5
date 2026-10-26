@@ -1,0 +1,22 @@
+.Card, .State { padding: clamp(16px, 3vw, 26px); margin-bottom: 18px; border: 1px solid var(--spoodle-border); border-radius: 20px; background: var(--spoodle-surface); box-shadow: var(--spoodle-shadow); }
+.Card h1 { font-size: clamp(1.5rem, 4vw, 2rem); }
+.Card h2, .State h2 { font-size: 1.2rem; }
+.Card p, .State p { line-height: 1.6; color: var(--spoodle-muted); }
+.Tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 18px 0; }
+.Tabs a, .Button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 16px; border-radius: 12px; border: 1px solid var(--spoodle-control-border); background: var(--spoodle-surface); color: var(--spoodle-purple-dark); font-weight: 700; }
+.Tabs a[aria-current="page"], .Button { background: var(--spoodle-primary-gradient); color: white; }
+.Button:hover { color: white; background: var(--spoodle-primary-hover); }
+.Summary { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.Summary img { width: 76px; height: 76px; border-radius: 20px; object-fit: cover; }
+.Summary > div { min-width: 0; flex: 1; }
+.Summary p { margin: 4px 0; }
+.Actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; align-items: center; }
+.Stats { display: flex; gap: 18px; flex-wrap: wrap; margin: 16px 0; }
+.Stats div { display: flex; gap: 6px; }
+.Stats dt { font-weight: 400; }
+.Stats dd { font-weight: 700; margin: 0; }
+.Search { display: flex; gap: 8px; margin: 16px 0; }
+.Search input { min-width: 0; width: 100%; min-height: 48px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--spoodle-control-border); font-size: 16px; }
+.DetailList { display: grid; grid-template-columns: minmax(100px, 1fr) minmax(0, 2fr); gap: 12px; }
+.DetailList dd { white-space: pre-wrap; margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 400px) { .Tabs a { flex: 1; padding: 10px; } .DetailList { grid-template-columns: 1fr; gap: 4px; } .DetailList dd { margin-bottom: 12px; } }

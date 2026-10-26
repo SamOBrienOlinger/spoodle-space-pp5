@@ -1,18 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import { NavLink, useHistory, useLocation } from "react-router-dom";
-import axios from "axios";
 import logo from "../assets/logo2-spoodlespace.png";
 import Avatar from "./Avatar";
 import AccountLink from "./AccountLink";
-import { isPagesPreview, liveAccountUrl } from "../config/deployment";
 import styles from "../styles/NavBar.module.css";
-import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
-import useClickOutsideToggle from "../hooks/useClickOutsideToggle.js";
-import { removeTokenTimestamp } from "../utils/utils";
+import { useCurrentUser } from "../contexts/CurrentUserContext";
 
 const NavBar = () => {
   const navbarRef = useRef(null);
@@ -41,9 +36,7 @@ const NavBar = () => {
     };
   }, []);
   const currentUser = useCurrentUser();
-  const setCurrentUser = useSetCurrentUser();
   const [searchTerm, setSearchTerm] = useState("");
-  const { expanded, setExpanded, ref } = useClickOutsideToggle();
   const history = useHistory();
   const location = useLocation();
   useEffect(() => {
@@ -52,29 +45,11 @@ const NavBar = () => {
   const handleSearch = (event) => {
     event.preventDefault();
     const cleanedSearch = searchTerm.trim();
-    history.push(cleanedSearch ? `/?q=${encodeURIComponent(cleanedSearch)}` : "/");
-    setExpanded(false);
+    const feedPath = ["/", "/feed", "/liked", "/search"].includes(location.pathname) ? location.pathname : "/search";
+    const params = new URLSearchParams(location.search);
+    if (cleanedSearch) params.set("q", cleanedSearch); else params.delete("q");
+    history.push({ pathname: feedPath, search: params.toString() });
   };
-  const handleSignOut = async () => {
-    try {
-      await axios.post("dj-rest-auth/logout/");
-      setCurrentUser(null);
-      removeTokenTimestamp();
-      setExpanded(false);
-      history.push("/");
-    } catch (err) {
-      console.log(err.response);
-    }
-  };
-  const navItem = (to, icon, label, exact = false) => isPagesPreview && (to === "/signin" || to === "/signup") ? (
-    <a className={styles.MobileNavLink} href={liveAccountUrl(to === "/signup" ? "signup" : "signin")}>
-      <i className={icon} aria-hidden="true" /><span>{label}</span>
-    </a>
-  ) : (
-    <NavLink exact={exact} className={styles.MobileNavLink} activeClassName={styles.Active} to={to} onClick={() => setExpanded(false)}>
-      <i className={icon} aria-hidden="true" /><span>{label}</span>
-    </NavLink>
-  );
   const searchForm = (className) => (
     <Form className={className} onSubmit={handleSearch} role="search">
       <i className="fas fa-search" aria-hidden="true" />
@@ -82,7 +57,7 @@ const NavBar = () => {
     </Form>
   );
   return (
-    <Navbar ref={navbarRef} expanded={expanded} className={styles.NavBar} expand="lg" fixed="top">
+    <Navbar ref={navbarRef} className={styles.NavBar} expand="lg" fixed="top">
       <Container fluid className={styles.NavContainer}>
         <NavLink to="/" className={styles.BrandLink}>
           <Navbar.Brand className={styles.Brand}>
@@ -111,30 +86,6 @@ const NavBar = () => {
             </>
           )}
         </div>
-        <Navbar.Toggle ref={ref} onClick={() => setExpanded(!expanded)} aria-controls="spoodlespace-navigation" aria-label="Toggle navigation" />
-        <Navbar.Collapse id="spoodlespace-navigation" className={styles.MobileCollapse}>
-          {searchForm(`${styles.MobileSearch} d-md-none`)}
-          <Nav className={styles.MobileNav}>
-            {navItem("/", "fas fa-home", "Home", true)}
-            {currentUser ? (
-              <>
-                {navItem(`/profiles/${currentUser.profile_id}`, "fas fa-user", "My profile")}
-                {navItem("/dogprofilespage", "fas fa-dog", "Doggy profile")}
-                {navItem("/dogshealthpage", "fas fa-heartbeat", "Doggy health")}
-                {navItem("/dogdangerspage", "fas fa-exclamation-triangle", "Doggy danger")}
-                {navItem("/liked", "fas fa-heart", "Liked posts")}
-                <button className={styles.MobileSignOut} type="button" onClick={handleSignOut}>
-                  <i className="fas fa-sign-out-alt" aria-hidden="true" /><span>Sign out</span>
-                </button>
-              </>
-            ) : (
-              <>
-                {navItem("/signin", "fas fa-sign-in-alt", "Sign in")}
-                {navItem("/signup", "fas fa-user-plus", "Sign up")}
-              </>
-            )}
-          </Nav>
-        </Navbar.Collapse>
       </Container>
     </Navbar>
   );

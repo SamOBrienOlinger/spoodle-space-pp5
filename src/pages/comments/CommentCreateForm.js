@@ -1,3 +1,4 @@
+import { SessionLink } from "../../components/RequestState";
 import { FormField, FieldError, formErrors } from "../../components/FormPage";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -55,6 +56,7 @@ function CommentCreateForm(props) {
         <div className={styles.Content}>
           <FormField id={`comment-create-${post}`} label="Add a comment" name="content" as="textarea" value={content} onChange={handleChange} rows={2} placeholder="Join the conversation…" disabled={busy} error={errors.content} />
           <FieldError error={errors.non_field_errors || errors.detail} />
+          {errors.session && <p><SessionLink /></p>}
         </div>
       </div>
       <div className={styles.Actions}><button className={styles.PrimaryButton} disabled={busy || !content.trim()} type="submit">{busy ? "Posting…" : "Post comment"}</button></div>

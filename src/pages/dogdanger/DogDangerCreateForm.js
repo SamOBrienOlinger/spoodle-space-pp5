@@ -45,15 +45,14 @@ function DogDangerCreateForm() {
     formData.append("bites_burglars", bites_burglars);
     formData.append("dangerously_cute", dangerously_cute);
     try {
-      const { data } = await axiosReq.post("/dogdanger/", formData);
+      await axiosReq.post("/dogdanger/", formData);
       NotificationManager.success('Doggy danger created!', 'Success');
-      history.push(`/dogdanger/${data.id}`);
+      history.push("/my-dog?dogTab=behaviour");
     } catch (err) {
-      
-      if (err.response?.status !== 401) {
+
+
         setErrors(formErrors(err));
         NotificationManager.error('Please try again', 'Oopsadoodle!')
-      }
     }
   };
 

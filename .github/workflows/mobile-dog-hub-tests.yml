@@ -1,0 +1,53 @@
+name: Mobile dog hub regression checks
+on:
+  pull_request:
+  push:
+    branches: [feature/mobile-dog-hub-ux]
+permissions:
+  contents: read
+jobs:
+  experience:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 16.20.0
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Component regression tests
+        run: npm test -- --watchAll=false --runInBand
+        env:
+          CI: true
+      - name: Production build
+        run: npm run build
+        env:
+          CI: true
+      - uses: browser-actions/setup-chrome@v1
+        id: chrome
+        with:
+          chrome-version: stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Browser testing dependencies
+        run: npm install --prefix /tmp/spoodle-browser --no-package-lock playwright-core@1.51.1
+      - name: Check mobile and desktop journeys with isolated API fixtures
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+          NODE_PATH: /tmp/spoodle-browser/node_modules
+          SOURCE_SHA: ${{ github.sha }}
+          PORT: 4173
+        run: |
+          mkdir -p verification-artifacts
+          node server.js > verification-artifacts/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          node scripts/verify-dog-hub.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-dog-hub-browser-checks
+          path: verification-artifacts
+          retention-days: 14

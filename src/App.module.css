@@ -80,3 +80,5 @@ figure { margin: 0; }
   .App [aria-current="page"], .App [aria-pressed="true"] { outline: 2px solid Highlight; outline-offset: -3px; }
   .App button, .App input, .App textarea, .App select { border-color: ButtonText; }
 }
+
+@media (max-width: 991px) { .Main { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); } }
