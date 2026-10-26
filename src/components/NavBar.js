@@ -15,14 +15,8 @@ const NavBar = () => {
     const navbar = navbarRef.current;
     if (!navbar) return;
     const updateHeight = () => {
-      const container = navbar.querySelector('[class*="NavContainer"]');
-      if (!container) return;
-      const style = getComputedStyle(navbar);
-      const bottom = Math.max(...Array.from(container.children)
-        .filter(element => element.id !== "spoodlespace-navigation")
-        .map(element => element.getBoundingClientRect().bottom));
-      const height = Math.ceil(bottom - navbar.getBoundingClientRect().top
-        + parseFloat(style.paddingBottom) + parseFloat(style.borderBottomWidth));
+      // With mobile navigation below the page, reserve the complete fixed header height.
+      const height = Math.ceil(navbar.getBoundingClientRect().height);
       document.documentElement.style.setProperty("--spoodle-nav-height", `${height}px`);
     };
     updateHeight();

@@ -115,10 +115,11 @@ const goto = (page, path = '/') => page.goto(base + path, { waitUntil: 'networki
     await current.screenshot({ path: `${out}/profile-mobile.png`, fullPage: false });
     report.checks.push('Profile retry, dog-first summary, tabs and account settings');
     await goto(current, '/posts/create');
-    await current.getByLabel('Title', { exact: false }).fill('My preserved draft');
+    await current.getByRole('textbox', { name: 'Title', exact: true }).fill('My preserved draft');
     const png = await current.evaluate(() => { const c = document.createElement('canvas'); c.width = 5000; c.height = 200; c.getContext('2d').fillRect(0, 0, 5000, 200); return c.toDataURL('image/png').split(',')[1]; });
     await current.getByLabel('Post photo', { exact: false }).setInputFiles({ name: 'phone.png', mimeType: 'image/png', buffer: Buffer.from(png, 'base64') });
     await current.getByText('Photo resized and prepared for upload. Review the preview before posting.', { exact: true }).waitFor();
+    await current.getByAltText('Selected upload preview').evaluate(image => image.decode());
     const dimensions = await current.getByAltText('Selected upload preview').evaluate(image => [image.naturalWidth, image.naturalHeight]);
     assert(Math.max(...dimensions) <= 4096 && dimensions[0] > 0);
     await current.getByRole('button', { name: 'Remove photo', exact: true }).click();
@@ -128,11 +129,11 @@ const goto = (page, path = '/') => page.goto(base + path, { waitUntil: 'networki
     state.expired = true;
     await current.getByRole('button', { name: 'Post', exact: true }).click();
     await current.getByRole('link', { name: /Sign in in a new tab/ }).waitFor();
-    assert.equal(await current.getByLabel('Title', { exact: false }).inputValue(), 'My preserved draft');
+    assert.equal(await current.getByRole('textbox', { name: 'Title', exact: true }).inputValue(), 'My preserved draft');
     assert(state.upload.includes(Buffer.from('filename="phone.png"')));
     await current.screenshot({ path: `${out}/post-session-recovery.png`, fullPage: true });
     await current.reload({ waitUntil: 'networkidle' });
-    assert.equal(await current.getByLabel('Title', { exact: false }).inputValue(), 'My preserved draft');
+    assert.equal(await current.getByRole('textbox', { name: 'Title', exact: true }).inputValue(), 'My preserved draft');
     report.checks.push('Real canvas resizes a large phone image; remove/replace and expired-session recovery retain draft text, including reload');
     await current.close();
     current = await browser.newPage({ viewport: { width: 390, height: 844 } });
