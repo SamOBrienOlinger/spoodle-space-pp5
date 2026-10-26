@@ -51,3 +51,41 @@ jobs:
           name: mobile-dog-hub-browser-checks
           path: verification-artifacts
           retention-days: 14
+
+  companion-api:
+    name: Companion API on Python 3.10 and PostgreSQL
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: spoodle_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: [5432:5432]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      TEST_DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/spoodle_test
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: SamOBrienOlinger/drf-spoodle-space
+          # Pin the companion release so this check never needs production credentials.
+          ref: 2305cddb8861485de10b9923538246cdcc4a19ec
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: pip
+      - name: Install locked API dependencies
+        run: |
+          python -m pip install "setuptools<81"
+          python -m pip install -r requirements.txt
+      - name: Validate the companion API and migration
+        run: |
+          git rev-parse HEAD
+          python manage.py test --settings=spoodle_space.test_settings --noinput
+          python manage.py makemigrations --check --dry-run --settings=spoodle_space.test_settings

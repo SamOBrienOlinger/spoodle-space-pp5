@@ -67,9 +67,9 @@ async function runScenario(browser, scenario) {
     if (name === 'edit-profile' || name === 'username-form') {
       await page.goto(baseUrl + '/profiles/1');
       await page.getByRole('heading', { name: username, exact: true }).waitFor();
-      await page.locator('#spoodlespace-navigation a[href$="/profiles/1"]').waitFor({ state: 'attached' });
-      await page.getByRole('button', { name: 'More options' }).first().click();
-      await page.getByLabel(name === 'edit-profile' ? 'edit-profile' : 'edit-username', { exact: true }).click();
+      await page.locator('nav[aria-label="Mobile navigation"] a[href$="/profiles/1"]').waitFor({ state: 'attached' });
+      await page.getByText('Account settings', { exact: true }).click();
+      await page.getByRole('link', { name: name === 'edit-profile' ? 'Edit profile' : 'Change username', exact: true }).click();
     } else if (name === 'create-post') {
       await page.goto(baseUrl + '/');
       await page.getByRole('link', { name: 'Create post', exact: true }).click();
@@ -80,16 +80,16 @@ async function runScenario(browser, scenario) {
       profile: () => page.getByRole('heading', { name: username, exact: true }).waitFor(),
       feed: () => page.getByLabel('Sort posts').waitFor(),
       'post-comments': () => page.getByLabel('Add a comment', { exact: true }).waitFor(),
-      'dog-profile': () => page.getByText('Dog Name', { exact: true }).waitFor(),
-      'dog-health': () => page.getByText('Vet Name', { exact: true }).waitFor(),
-      'dog-danger': () => page.getByText('Dangeroulsy Cute?', { exact: true }).waitFor(),
+      'dog-profile': () => page.getByText('Name', { exact: true }).waitFor(),
+      'dog-health': () => page.getByText('Vet', { exact: true }).waitFor(),
+      'dog-danger': () => page.getByText('Personality', { exact: true }).waitFor(),
       'edit-profile': () => page.getByRole('heading', { name: 'Edit my profile', exact: true }).waitFor(),
       'username-form': () => page.getByRole('heading', { name: 'Change username', exact: true }).waitFor(),
       'create-post': () => page.locator('form').filter({ has: page.locator('input[type="file"]') }).waitFor(),
       signup: () => page.getByRole('heading', { name: 'Join SpoodleSpace', exact: true }).waitFor(),
     };
     await ready[name]();
-    if (signedIn) await page.locator('#spoodlespace-navigation a[href$="/profiles/1"]').waitFor({ state: 'attached' });
+    if (signedIn) await page.locator('nav[aria-label="Mobile navigation"] a[href$="/profiles/1"]').waitFor({ state: 'attached' });
     await page.evaluate(() => document.fonts.ready);
     if (scenario.largeText) await page.addStyleTag({ content: 'html { font-size: 200% !important; }' });
     await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
@@ -159,18 +159,16 @@ async function runScenario(browser, scenario) {
         console.log('RESPONSIVE_IMAGE ' + JSON.stringify({ name: 'profile-mobile', data: screenshot.toString('base64') }));
       }
       if (name === 'profile') {
-        await page.getByRole('button', { name: 'More options' }).first().click();
-        await page.getByLabel('edit-username', { exact: true }).waitFor();
-        await measure('profile-menu');
-        await page.getByRole('button', { name: 'More options' }).first().click();
+        await page.getByText('Account settings', { exact: true }).click();
+        await page.getByRole('link', { name: 'Change username', exact: true }).waitFor();
+        await measure('profile-settings');
+        await page.getByText('Account settings', { exact: true }).click();
       }
       if (name === 'feed' && scenario.viewport.width < 992) {
-        await page.getByRole('button', { name: 'Toggle navigation' }).click();
-        await page.getByRole('button', { name: 'Sign out', exact: true }).waitFor();
-        // The expanded menu may overlay the content intentionally.
-        const menu = await page.locator('#spoodlespace-navigation').boundingBox();
-        if (!menu || menu.x < -2 || menu.x + menu.width > scenario.viewport.width + 2 || menu.y + menu.height > scenario.viewport.height + 2) failures.push(scenario.name + ': navigation menu overflows');
-        await page.getByRole('button', { name: 'Toggle navigation' }).click();
+        const nav = page.getByRole('navigation', { name: 'Mobile navigation' });
+        await nav.waitFor();
+        const bounds = await nav.boundingBox();
+        if (!bounds || bounds.x < -2 || bounds.x + bounds.width > scenario.viewport.width + 2 || bounds.y + bounds.height > scenario.viewport.height + 2) failures.push(scenario.name + ': bottom navigation overflows');
       }
     } catch (error) {
       failures.push(scenario.name + '/' + name + ': ' + error.message);

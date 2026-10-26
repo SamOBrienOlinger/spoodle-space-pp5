@@ -94,7 +94,7 @@ const goto = (page, path = '/') => page.goto(base + path, { waitUntil: 'networki
     const dialog = current.getByRole('dialog');
     await dialog.getByRole('button', { name: 'Delete dog profile', exact: true }).click();
     await dialog.getByRole('alert').waitFor();
-    assert(await current.getByRole('heading', { name: 'Riley', exact: true }).isVisible());
+    assert(await current.getByRole('heading', { name: 'Riley', exact: true, includeHidden: true }).isVisible());
     state.deleteError = false;
     await dialog.getByRole('button', { name: 'Delete dog profile', exact: true }).click();
     await current.getByRole('link', { name: 'Add dog profile', exact: true }).waitFor();
