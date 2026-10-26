@@ -81,6 +81,16 @@ test("post failure shows retry instead of an empty post", async () => {
   expect(document.querySelector('a[href*="undefined"]')).toBeNull();
 });
 
+test("retrying an edit load fills the saved post without creating a blank draft", async () => {
+  axiosReq.get.mockRejectedValueOnce(new Error("offline")).mockResolvedValueOnce({ data: post });
+  mount(<Route path="/posts/:id/edit"><PostForm edit /></Route>, "/posts/7/edit");
+  await screen.findByRole("alert");
+  expect(sessionStorage.getItem("spoodle-post:50:7")).toBeNull();
+  fireEvent.click(screen.getByRole("button", { name: "Try again" }));
+  expect(await screen.findByLabelText(/Title/)).toHaveValue("A good walk");
+  expect(screen.getByLabelText(/Content/)).toHaveValue("A story");
+});
+
 test("dog hub uses profile record IDs and distinguishes an absent section", async () => {
   axiosReq.get.mockImplementation(url => Promise.resolve({ data: url === "/profiles/50/" ? profile : { id: 20, owner: "sam", dog_name: "Riley" } }));
   mount(<MyDogPage />, "/my-dog");

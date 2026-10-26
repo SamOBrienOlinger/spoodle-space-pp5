@@ -34,8 +34,8 @@ function PostEditor({ user, id, edit }) {
   const [attempt, setAttempt] = useState(0);
   const [progress, setProgress] = useState(null);
   // Read the original text once; subsequent renders must not overwrite an edited draft.
-  const initialDraft = useRef(null);
-  if (initialDraft.current === null) {
+  const initialDraft = useRef(undefined);
+  if (initialDraft.current === undefined) {
     try { initialDraft.current = sessionStorage.getItem(draftKey); } catch (_) { initialDraft.current = ""; }
   }
   useEffect(() => {
