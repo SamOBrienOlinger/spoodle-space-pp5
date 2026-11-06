@@ -4,7 +4,7 @@ A React social application for dog owners, with a feed, member profiles and dedi
 
 **React · JavaScript**
 
-[UI preview — accounts and API disabled](https://samobrienolinger.github.io/spoodle-space-pp5/) · [Getting started](#getting-started) · [Repository guide](#repository-guide) · [Checks](#checks-and-review) · [Credits](#credits-and-reuse)
+[UI preview — accounts and API disabled](https://samobrienolinger.github.io/spoodle-space-pp5/) · [Getting started](#getting-started) · [Data model](#entity-relationship-diagram) · [Repository guide](#repository-guide) · [Checks](#checks-and-review) · [Credits](#credits-and-reuse)
 
 **Paired API:** [drf-spoodle-space](https://github.com/SamOBrienOlinger/drf-spoodle-space).
 
@@ -24,6 +24,39 @@ The Pages link is a design preview from `design/2018-2020-ui-refresh`. It delibe
 3. Create or edit a post, explore profiles, and check comment and like interactions.
 
 > **Project notes:** These features require a compatible SpoodleSpace API. Configure the Axios base URL and matching backend origin/cookie settings before testing sign-in or data changes.
+
+## Entity relationship diagram
+
+This is the React app's view of the API data. Posts and comments use `profile_id` to link to their author's member profile. The My Dog hub reads three optional dog record IDs from the profile response. The backend resolves those IDs through the shared user account. [Post view](src/pages/posts/Post.js) · [Comment view](src/pages/comments/Comment.js) · [My Dog hub](src/pages/doghub/MyDogPage.js) · [Database diagrams](https://github.com/SamOBrienOlinger/drf-spoodle-space#entity-relationship-diagrams)
+
+```mermaid
+erDiagram
+    accTitle: SpoodleSpace API data used by the frontend
+    accDescr: Profiles link to their posts and comments in the feed. A profile response can also point to dog profile, health and behaviour records.
+    Post }o..|| Profile : "authored by"
+    Comment }o..|| Profile : "authored by"
+    Post ||..o{ Comment : receives
+    Profile ||..o| "Dog Profile" : "links to"
+    Profile ||..o| "Dog Health" : "links to"
+    Profile ||..o| "Dog Danger" : "links to"
+
+    Profile {
+        number id
+        number dog_profile "Optional ID"
+        number dog_health "Optional ID"
+        number dog_danger "Optional ID"
+    }
+    Post {
+        number id
+        number profile_id
+        string title
+    }
+    Comment {
+        number id
+        number post
+        number profile_id
+    }
+```
 
 ## Getting started
 
