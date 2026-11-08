@@ -120,16 +120,14 @@ export default function PostsPage({ message, filter = "", searchPage = false }) 
         <div className={styles.WelcomeCopy}>
           <h1 id="feed-welcome-title">Welcome to SpoodleSpace</h1>
           <p className={styles.WelcomeLead}>The most Spoodley &amp; Cockapoopy Space you're ever going to sniff out</p>
-          {isPagesPreview ? <>
-            <p>Our community is all about sharing ways of enjoying long ludicrous lives with the lovliest little furrballs on Earth, probably the Universe!</p>
-            <p>Labradoodles, Poodles, cavapoos, basically anyone is welcome</p>
-          </> : <>
-            <p>Share everyday moments, meet fellow dog owners and keep your dog’s details together.</p>
+          <p>Our community is all about sharing ways of enjoying long ludicrous lives with the lovliest little furrballs on Earth, probably the Universe!</p>
+          <p>Labradoodles, Poodles, cavapoos, basically anyone is welcome</p>
+          {!isPagesPreview && (
             <div className={styles.WelcomeActions}>
               <a className={styles.PrimaryAction} href="#community-posts">Explore posts</a>
               <AccountLink className={styles.PrimaryAction} to="/signup">Join SpoodleSpace</AccountLink>
             </div>
-          </>}
+          )}
         </div>
       </section>}
       {searchPage && <section className={styles.WelcomeCopy}><h1>Search posts</h1><p>{isPagesPreview ? "Filter the sample posts by username or title." : "Find community posts by username or title."}</p></section>}
