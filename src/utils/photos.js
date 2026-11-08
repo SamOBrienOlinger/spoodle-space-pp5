@@ -15,7 +15,7 @@ export async function preparePhoto(file) {
       image.src = url;
     });
     if (file.size <= MAX_IMAGE_BYTES && Math.max(img.naturalWidth, img.naturalHeight) <= MAX_IMAGE_DIMENSION) return file;
-    if (["image/gif", "image/webp"].includes(file.type)) throw new Error("Resize this GIF or WebP to 2 MB and 4096 × 4096 pixels before uploading, to preserve any animation.");
+    if (["image/gif", "image/webp"].includes(file.type)) throw new Error("Resize this GIF or WebP to 2 MB and 4096 × 4096 pixels to preserve any animation.");
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
     if (!context) throw new Error("Photo resizing is unavailable. Choose an image up to 2 MB and 4096 × 4096 pixels.");

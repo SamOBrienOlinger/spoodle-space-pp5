@@ -9,6 +9,8 @@ import { useRedirect } from "../../hooks/useRedirect";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import useDraft from "../../hooks/useDraft";
 import { invalidateFeed } from "../../utils/feedMemory";
+import Post from "./Post";
+import styles from "../../styles/FormPage.module.css";
 
 export default function PostForm({ edit = false }) {
   useRedirect("loggedOut");
@@ -19,9 +21,13 @@ export default function PostForm({ edit = false }) {
   return <PostEditor key={`${user.profile_id}:${edit ? id : "new"}`} user={user} id={id} edit={edit} />;
 }
 
-function PostEditor({ user, id, edit }) {
+export function PreviewPostForm() {
+  return <PostEditor demo />;
+}
+
+function PostEditor({ user, id, edit = false, demo = false }) {
   const history = useHistory();
-  const draftKey = `spoodle-post:${user?.profile_id || "guest"}:${edit ? id : "new"}`;
+  const draftKey = demo ? "spoodle-preview-post" : `spoodle-post:${user?.profile_id || "guest"}:${edit ? id : "new"}`;
   const [fields, setFields, clearDraft] = useDraft(draftKey, { title: "", content: "" });
   const [photo, setPhoto] = useState("");
   const file = useRef(null);
@@ -33,6 +39,8 @@ function PostEditor({ user, id, edit }) {
   const [loaded, setLoaded] = useState(!edit);
   const [attempt, setAttempt] = useState(0);
   const [progress, setProgress] = useState(null);
+  const [showPreview, setShowPreview] = useState(false);
+  const previewResult = useRef(null);
   // Read the original text once; subsequent renders must not overwrite an edited draft.
   const initialDraft = useRef(undefined);
   if (initialDraft.current === undefined) {
@@ -55,6 +63,9 @@ function PostEditor({ user, id, edit }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [edit, id, attempt]);
   useEffect(() => () => { if (preview.current) URL.revokeObjectURL(preview.current); }, []);
+  useEffect(() => {
+    if (showPreview) previewResult.current?.focus();
+  }, [showPreview]);
   const changePhoto = next => {
     if (preview.current) URL.revokeObjectURL(preview.current);
     file.current = next; removed.current = !next;
@@ -64,6 +75,11 @@ function PostEditor({ user, id, edit }) {
   const submit = async event => {
     event.preventDefault();
     if (preparing) return;
+    if (demo) {
+      if (showPreview) previewResult.current?.focus();
+      else setShowPreview(true);
+      return;
+    }
     setErrors({}); setProgress(file.current ? 0 : null);
     const body = new FormData(); body.append("title", fields.title); body.append("content", fields.content);
     if (file.current) body.append("image", file.current);
@@ -76,8 +92,24 @@ function PostEditor({ user, id, edit }) {
     } catch (error) { setErrors(formErrors(error)); setProgress(null); }
   };
   if (edit && !loaded) return <CommunityLayout><RequestState loading={!loadError} error={loadError} retry={() => setAttempt(n => n + 1)} subject="your post" /></CommunityLayout>;
-  return <FormPage title={edit ? "Edit post" : "Create post"} description="Share a moment with the SpoodleSpace community." icon="photo" onSubmit={submit} errors={errors} submitLabel={edit ? "Save changes" : "Post"} busyLabel="Saving…" submitDisabled={preparing} onCancel={() => history.goBack()}>
-    <PhotoPicker value={photo} onChange={changePhoto} onBusyChange={setPreparing} error={errors.image} />
+  const result = showPreview && <section className={styles.PreviewResult} aria-labelledby="post-preview-title" tabIndex={-1} ref={previewResult}>
+    <h2 id="post-preview-title">Your local preview</h2>
+    <p>Only you can see this post preview.</p>
+    <Post key={photo} id="local-draft" owner="Demo draft" {...fields} image={photo} photoAlt="Photo selected for this preview" preview />
+  </section>;
+  return <FormPage
+    title={demo ? "Create a demo post" : edit ? "Edit post" : "Create post"}
+    description={demo ? "Try the composer here. Text stays in this browser tab. Photos stay on this screen until you leave." : "Share a moment with the SpoodleSpace community."}
+    icon="photo"
+    onSubmit={submit}
+    errors={errors}
+    submitLabel={demo ? "Preview post" : edit ? "Save changes" : "Post"}
+    busyLabel={demo ? "Preparing preview…" : "Saving…"}
+    submitDisabled={preparing}
+    onCancel={() => demo ? history.push("/") : history.goBack()}
+    result={result}
+  >
+    <PhotoPicker value={photo} onChange={changePhoto} onBusyChange={setPreparing} error={errors.image} demo={demo} />
     <FormField label="Title" name="title" required maxLength={255} value={fields.title} onChange={event => setFields({ ...fields, title: event.target.value })} error={errors.title} />
     <FormField label="Content" name="content" hint="Optional. Share the story behind the moment." as="textarea" rows={5} value={fields.content} onChange={event => setFields({ ...fields, content: event.target.value })} error={errors.content} />
     {progress !== null && <div role="status"><label htmlFor="photo-upload-progress">{progress === 100 ? "Upload complete. Saving your post…" : `Uploading photo: ${progress}%`}</label><progress id="photo-upload-progress" value={progress} max="100" /></div>}

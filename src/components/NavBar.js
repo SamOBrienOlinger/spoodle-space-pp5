@@ -3,9 +3,11 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import { NavLink, useHistory, useLocation } from "react-router-dom";
+import { isPagesPreview } from "../config/deployment";
 import logo from "../assets/logo2-spoodlespace.png";
 import Avatar from "./Avatar";
 import AccountLink from "./AccountLink";
+import MobileNavigation from "./MobileNavigation";
 import styles from "../styles/NavBar.module.css";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 
@@ -15,7 +17,7 @@ const NavBar = () => {
     const navbar = navbarRef.current;
     if (!navbar) return;
     const updateHeight = () => {
-      // With mobile navigation below the page, reserve the complete fixed header height.
+      // Reserve space for the whole fixed header as its rows resize.
       const height = Math.ceil(navbar.getBoundingClientRect().height);
       document.documentElement.style.setProperty("--spoodle-nav-height", `${height}px`);
     };
@@ -39,7 +41,7 @@ const NavBar = () => {
   const handleSearch = (event) => {
     event.preventDefault();
     const cleanedSearch = searchTerm.trim();
-    const feedPath = ["/", "/feed", "/liked", "/search"].includes(location.pathname) ? location.pathname : "/search";
+    const feedPath = isPagesPreview ? "/search/" : ["/", "/feed", "/liked", "/search"].includes(location.pathname) ? location.pathname : "/search";
     const params = new URLSearchParams(location.search);
     if (cleanedSearch) params.set("q", cleanedSearch); else params.delete("q");
     history.push({ pathname: feedPath, search: params.toString() });
@@ -51,8 +53,15 @@ const NavBar = () => {
     </Form>
   );
   return (
-    <Navbar ref={navbarRef} className={styles.NavBar} expand="lg" fixed="top">
-      <Container fluid className={styles.NavContainer}>
+    <Navbar
+      as={isPagesPreview ? "header" : "nav"}
+      role={isPagesPreview ? "banner" : undefined}
+      ref={navbarRef}
+      className={styles.NavBar}
+      expand="lg"
+      fixed="top"
+    >
+      <Container fluid className={isPagesPreview ? `${styles.NavContainer} ${styles.PreviewContainer}` : styles.NavContainer}>
         <NavLink to="/" className={styles.BrandLink}>
           <Navbar.Brand className={styles.Brand}>
             <svg className={styles.LogoFilter} width="0" height="0" aria-hidden="true" focusable="false">
@@ -67,7 +76,7 @@ const NavBar = () => {
           </Navbar.Brand>
         </NavLink>
         {searchForm(`${styles.SearchForm} d-none d-md-flex`)}
-        <div className={`${styles.DesktopAccount} d-none d-lg-flex`}>
+        {!isPagesPreview && <div className={`${styles.DesktopAccount} d-none d-lg-flex`}>
           {currentUser ? (
             <NavLink className={styles.AccountLink} title={currentUser.username} to={`/profiles/${currentUser.profile_id}`}>
               <Avatar src={currentUser.profile_image} height={34} />
@@ -79,8 +88,9 @@ const NavBar = () => {
               <AccountLink className={styles.SignUpLink} to="/signup">Sign up</AccountLink>
             </>
           )}
-        </div>
+        </div>}
       </Container>
+      {isPagesPreview && <MobileNavigation />}
     </Navbar>
   );
 };

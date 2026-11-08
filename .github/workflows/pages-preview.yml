@@ -17,12 +17,13 @@ concurrency:
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout redesign branch
+      - name: Checkout the triggering main commit
         uses: actions/checkout@v4
         with:
-          ref: design/2018-2020-ui-refresh
+          persist-credentials: false
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -36,8 +37,16 @@ jobs:
       - name: Build preview
         env:
           PUBLIC_URL: /spoodle-space-pp5
-          CI: false
-        run: npm run build
+          REACT_APP_PAGES_PREVIEW: "true"
+          CI: "true"
+        run: |
+          npm run build
+          for route in search posts/create my-dog profile signin signup; do
+            mkdir -p "build/$route"
+            cp build/index.html "build/$route/index.html"
+          done
+          cp build/index.html build/404.html
+          printf '{"commit":"%s"}\n' "$(git rev-parse HEAD)" > build/preview-version.json
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

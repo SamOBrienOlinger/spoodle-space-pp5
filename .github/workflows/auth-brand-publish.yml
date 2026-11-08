@@ -1,24 +1,19 @@
-name: Verify and publish auth and branding fixes
+name: Verify historical auth and branding
 on:
   issues:
     types: [opened, reopened]
   workflow_dispatch:
 permissions:
   contents: read
-  pages: write
-  id-token: write
   issues: write
 concurrency:
-  group: pages
+  group: historical-auth-brand-verification
   cancel-in-progress: false
 jobs:
-  verify-and-publish:
+  verify:
     if: github.actor == github.repository_owner && (github.event_name == 'workflow_dispatch' || github.event.issue.title == '[publish-auth-brand] Verify and publish preview fix')
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,8 +39,6 @@ jobs:
           set -euo pipefail
           npm ci 2>&1 | tee verification-artifacts/npm-ci.log
           npm run build 2>&1 | tee verification-artifacts/npm-build.log
-          cp build/index.html build/404.html
-          printf '{"commit":"%s"}\n' "$(git rev-parse HEAD)" > build/preview-version.json
       - uses: browser-actions/setup-chrome@v1
         id: chrome
         with:
@@ -71,41 +64,6 @@ jobs:
             sleep 1
           done
           node scripts/verify-auth-brand.cjs 2>&1 | tee verification-artifacts/auth-brand.log
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: build
-      - name: Publish verified preview
-        id: deploy
-        uses: actions/deploy-pages@v4
-      - name: Confirm the published revision and colour stylesheet over HTTPS
-        shell: bash
-        env:
-          SOURCE_SHA: ${{ steps.source.outputs.sha }}
-        run: |
-          python - <<'PY'
-          import urllib.request, json, os, time
-          base='https://samobrienolinger.github.io/spoodle-space-pp5/'
-          def get(path):
-              req=urllib.request.Request(base+path, headers={'Cache-Control':'no-cache'})
-              return urllib.request.urlopen(req,timeout=30).read().decode()
-          for attempt in range(18):
-              try:
-                  version=json.loads(get('preview-version.json?check='+str(time.time())))
-                  assert version['commit'] == os.environ['SOURCE_SHA'], version
-                  manifest=json.loads(get('asset-manifest.json?check='+str(time.time())))
-                  css_path=manifest['files']['main.css'].split('/spoodle-space-pp5/',1)[-1]
-                  js_path=manifest['files']['main.js'].split('/spoodle-space-pp5/',1)[-1]
-                  assert '#7111ee' in get(css_path)
-                  assert 'Continue to Heroku sign-in' in get(js_path)
-                  report={'published': True, 'url': base, 'commit': version['commit'], 'stylesheet': css_path, 'logoBackground': '#7111ee', 'liveAccountUrl': 'https://spoodle-space-pp5.herokuapp.com/signin'}
-                  open('verification-artifacts/deployed.json','w').write(json.dumps(report,indent=2))
-                  print(json.dumps(report))
-                  break
-              except Exception as error:
-                  if attempt == 17: raise
-                  time.sleep(5)
-          PY
       - name: Upload verification evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -123,4 +81,4 @@ jobs:
           RESULT: ${{ job.status }}
           TESTED_SHA: ${{ steps.source.outputs.sha }}
         run: |
-          gh issue comment "$ISSUE_NUMBER" --repo "$REPOSITORY" --body "Auth/branding build, browser tests and Pages publication: $RESULT. Source: $TESTED_SHA. Run: https://github.com/$REPOSITORY/actions/runs/$RUN_ID . Evidence: spoodlespace-auth-brand-verification. Live endpoints were probed with empty JSON only; no user's credentials were tested."
+          gh issue comment "$ISSUE_NUMBER" --repo "$REPOSITORY" --body "Historical auth and branding verification finished with status $RESULT. Source $TESTED_SHA. Run https://github.com/$REPOSITORY/actions/runs/$RUN_ID ."

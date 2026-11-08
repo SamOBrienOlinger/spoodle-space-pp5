@@ -28,7 +28,7 @@
 .UploadControl { flex: 1; min-width: 0; width: 100%; }
 .UploadControl p { margin: 0 0 12px; color: var(--spoodle-text); font-size: .85rem; }
 .UploadControl input { width: 100%; min-width: 0; max-width: 100%; min-height: 44px; color: var(--spoodle-muted); font-size: .8rem; border-radius: 8px; }
-.UploadControl input::file-selector-button { margin-right: 10px; padding: 10px 13px; min-height: 44px; border: 1px solid var(--spoodle-control-border); border-radius: 8px; background: #fff; color: var(--spoodle-purple-dark); font-weight: 700; cursor: pointer; }
+.UploadControl input::file-selector-button, .PhotoField > input[type="file"]::file-selector-button { margin-right: 10px; padding: 10px 13px; min-height: 44px; border: 1px solid var(--spoodle-control-border); border-radius: 8px; background: #fff; color: var(--spoodle-purple-dark); font-weight: 700; cursor: pointer; }
 .Photo { display: block; width: 100%; max-height: 240px; object-fit: contain; border-radius: 8px; margin: 0 auto 18px; }
 .PortraitUpload { display: flex; align-items: center; gap: 20px; text-align: left; }
 .Portrait { width: 90px; height: 90px; flex-shrink: 0; border-radius: 50%; object-fit: cover; }
@@ -52,4 +52,7 @@
 .PhotoCard .Header { padding: clamp(18px, 3vw, 28px); background: transparent; border-bottom: 0; }
 .PhotoCard .Header h1 { color: var(--spoodle-purple-dark); font-size: clamp(1.5rem, 2.5vw, 2rem); }
 .PhotoCard .FormBody { padding-top: 0; padding-inline: clamp(18px, 3vw, 28px); }
-.PhotoField > input[type="file"] { display: block; min-width: 0; width: 100%; max-width: 100%; }
+.PhotoField > input[type="file"] { display: block; min-width: 0; width: 100%; max-width: 100%; min-height: 44px; border-radius: 8px; color: var(--spoodle-muted); }
+.PreviewResult { margin-top: 24px; }
+.PreviewResult h2 { font-size: 1.35rem; }
+.PreviewResult:focus { outline: 3px solid var(--spoodle-purple); outline-offset: 4px; border-radius: 10px; }
