@@ -1,23 +1,19 @@
 .DogIcon { width: 20px; height: 20px; flex: 0 0 auto; }
-.Toggle::after { margin-left: auto; }
+.Toggle { position: relative; height: 100%; white-space: normal; }
+.Toggle::after { position: absolute; top: 16px; left: calc(50% + 12px); margin-left: 0; }
 .Toggle[aria-expanded="true"]::after { transform: rotate(180deg); }
-.Header .Toggle { position: relative; height: 100%; white-space: normal; }
-.Header .Toggle::after { position: absolute; top: 16px; left: calc(50% + 12px); margin-left: 0; }
 
 .Menu {
+  width: min(12rem, 74vw);
   min-width: 0;
+  max-height: calc(100dvh - var(--spoodle-nav-height, 120px) - 12px);
+  overflow-y: auto;
   padding: 4px;
   border: 1px solid var(--spoodle-border);
   border-radius: 12px;
   background: var(--spoodle-surface);
   box-shadow: 0 12px 26px #3e205535;
 }
-.HeaderMenu {
-  width: min(12rem, 74vw);
-  max-height: calc(100dvh - var(--spoodle-nav-height, 120px) - 12px);
-  overflow-y: auto;
-}
-.SidebarMenu { position: static; float: none; width: 100%; }
 .Menu .MenuItem {
   display: flex;
   align-items: center;

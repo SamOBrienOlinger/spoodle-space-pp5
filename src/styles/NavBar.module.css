@@ -1,27 +1,25 @@
 .NavBar {
   min-height: 68px;
+  flex-direction: column;
   padding: 0.35rem 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   background-color: var(--spoodle-header);
   background-image: var(--spoodle-nav-gradient);
   box-shadow: 0 4px 18px #3e20552b, inset 0 1px 0 #ffffff18;
 }
-.NavContainer { width: 100%; max-width: 1540px; min-height: 56px; margin: 0 auto; }
-.NavBar .PreviewContainer { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
-.PreviewContainer .BrandLink { grid-column: 2; justify-self: center; }
-.PreviewContainer .Brand { margin-right: 0; }
-.PreviewContainer .SearchForm { grid-column: 3; justify-self: end; width: 100%; min-width: 0; margin: 0; }
-.BrandLink, .BrandLink:hover { flex: 0 0 auto; text-decoration: none; }
-.Brand { display: flex; align-items: center; margin-right: 1.25rem; padding: 0; }
+.NavBar .NavContainer { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); width: 100%; max-width: 1540px; min-height: 56px; margin: 0 auto; }
+.BrandLink { grid-column: 2; grid-row: 1; justify-self: center; }
+.BrandLink, .BrandLink:hover { text-decoration: none; }
+.Brand { display: flex; align-items: center; margin: 0; padding: 0; }
 .NavBar img { max-width: 215px; object-fit: contain; }
-.SearchForm, .MobileSearch { position: relative; align-items: center; }
-.SearchForm { flex: 1 1 420px; min-width: 220px; max-width: 610px; margin: 0 1.25rem; }
-.SearchForm i, .MobileSearch i { position: absolute; left: 15px; z-index: 2; padding: 0; color: var(--spoodle-muted); font-size: 0.95rem; pointer-events: none; }
-.SearchForm input, .MobileSearch input { width: 100%; height: 42px; padding: 0 16px 0 42px; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 22px; background: var(--spoodle-surface-soft); color: var(--spoodle-text); font-size: 0.9rem; box-shadow: none; }
-.SearchForm input:focus, .MobileSearch input:focus { border-color: #ffffff; background: #ffffff; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.22); }
-.DesktopAccount { flex: 0 1 240px; min-width: 0; max-width: 26%; align-items: center; justify-content: flex-end; gap: 8px; }
+.SearchForm { position: relative; grid-column: 3; grid-row: 1; justify-self: end; align-items: center; width: 100%; min-width: 0; max-width: 610px; }
+.SearchForm i { position: absolute; left: 15px; z-index: 2; padding: 0; color: var(--spoodle-muted); font-size: 0.95rem; pointer-events: none; }
+.SearchForm input { width: 100%; height: 42px; padding: 0 16px 0 42px; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 22px; background: var(--spoodle-surface-soft); color: var(--spoodle-text); font-size: 0.9rem; box-shadow: none; }
+.SearchForm input:focus { border-color: #ffffff; background: #ffffff; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.22); }
+.DesktopAccount { position: relative; grid-column: 1; grid-row: 1; justify-self: start; min-width: 0; max-width: 100%; align-items: center; gap: 8px; }
+.DesktopAccount > :global(.dropdown) { min-width: 0; }
 .AccountLink, .SignInLink, .SignUpLink { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border-radius: 9px; font-size: 0.88rem; font-weight: 700; }
-.AccountLink { min-width: 0; max-width: 100%; gap: 7px; padding: 4px 10px 4px 6px; background: rgba(255, 255, 255, 0.04); color: #ffffff; }
+.AccountLink { min-width: 0; max-width: 100%; gap: 7px; padding: 4px 10px 4px 6px; border: 0; background: rgba(255, 255, 255, 0.04); color: #ffffff; }
 .AccountLink:hover { background: rgba(255, 255, 255, 0.08); color: #ffffff; }
 .AccountLink > span:first-child { display: flex; flex-shrink: 0; align-items: center; color: #ffffff; }
 .AccountName { display: block; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: #fff; }
@@ -30,31 +28,20 @@
 .SignInLink:hover { background: rgba(0, 0, 0, 0.08); color: #ffffff; }
 .SignUpLink { padding: 8px 14px; background: #ffffff; color: var(--spoodle-purple-dark); }
 .SignUpLink:hover { background: var(--spoodle-purple-soft); color: var(--spoodle-purple-dark); }
-.MobileCollapse { width: 100%; }
-.MobileSearch { display: flex; width: 100%; margin: 10px 0 7px; }
-.MobileSearch input { width: 100%; }
-.MobileNav { display: flex; flex-direction: column; width: 100%; padding: 7px 0 10px; }
-.MobileNavLink, .MobileSignOut { display: flex; align-items: center; width: 100%; min-height: 44px; gap: 8px; padding: 9px 11px; border: 0; border-radius: 8px; background: transparent; color: #ffffff; font: inherit; font-size: 0.9rem; text-align: left; }
-.MobileNavLink i, .MobileSignOut i { width: 27px; padding: 0 7px 0 0; color: currentColor; font-size: 1rem; text-align: center; }
-.MobileNavLink:hover, .MobileSignOut:hover, .Active { background: #00000014; color: #ffffff; }
-.MobileSignOut { cursor: pointer; }
-.NavBar :global(.navbar-toggler) { min-width: 44px; min-height: 44px; border-color: rgba(255, 255, 255, 0.48); background: var(--spoodle-surface-soft); }
-.NavBar :global(.navbar-toggler:focus) { outline: 3px solid rgba(255, 255, 255, 0.36); outline-offset: 2px; }
-@media screen and (min-width: 992px) {
-  .NavBar .MobileCollapse { display: none !important; flex: 0 0 0 !important; width: 0 !important; min-width: 0 !important; overflow: hidden !important; }
-}
+.AccountMenu { padding: 4px; border: 1px solid var(--spoodle-border); border-radius: 12px; background: var(--spoodle-surface); box-shadow: 0 12px 26px #3e205535; }
+.AccountMenu .AccountItem { display: flex; align-items: center; min-height: 44px; padding: 8px 12px; border-radius: 8px; color: var(--spoodle-text); font-size: .875rem; }
+.AccountMenu .AccountItem:hover, .AccountMenu .AccountItem:focus { color: var(--spoodle-purple-dark); background: var(--spoodle-purple-soft); }
+.AccountMenu .AccountItem:focus-visible { outline: 2px solid var(--spoodle-purple); outline-offset: -2px; }
+.AccountError { position: absolute; z-index: 2; top: calc(100% + 8px); left: 0; width: 200px; margin: 0; padding: 8px 12px; border: 1px solid var(--spoodle-danger-border); border-radius: 8px; background: var(--spoodle-danger-soft); color: var(--spoodle-danger); font-size: .85rem; }
 @media screen and (max-width: 991px) {
   .NavBar { padding-right: 0.75rem; padding-left: 0.75rem; }
-  .NavBar :global(.navbar-collapse) { width: 100%; max-height: calc(100dvh - var(--spoodle-nav-height, 68px) - 8px); overflow-y: auto; overscroll-behavior: contain; }
 }
 @media screen and (max-width: 767px) {
-  .SearchForm { margin-right: 0.7rem; margin-left: 0.7rem; }
   .NavBar img { max-width: 180px; }
 }
 @media screen and (max-width: 575px) {
   .NavBar { min-height: 60px; padding: 0.2rem 0.625rem; }
-  .NavContainer { min-height: 52px; padding-right: 0; padding-left: 0; }
-  .Brand { margin-right: 0.5rem; }
+  .NavBar .NavContainer { min-height: 52px; padding-right: 0; padding-left: 0; }
   .NavBar img { max-width: min(156px, 50vw); height: auto; }
 }
 

@@ -10,7 +10,7 @@ import PostForm from "../pages/posts/PostForm";
 import ProfilePage from "../pages/profiles/ProfilePage";
 import MyDogPage from "../pages/doghub/MyDogPage";
 import DeleteDialog from "./DeleteDialog";
-import MobileNavigation from "./MobileNavigation";
+import NavBar from "./NavBar";
 import { feedMemory } from "../utils/feedMemory";
 import { preparePhoto } from "../utils/photos";
 
@@ -19,20 +19,26 @@ jest.mock("../hooks/useRedirect", () => ({ useRedirect: jest.fn() }));
 jest.mock("../contexts/CurrentUserContext", () => { const user = { username: "sam", profile_id: 50 }; return { useCurrentUser: () => user, useSetCurrentUser: () => jest.fn() }; });
 jest.mock("./FeedRightRail", () => () => null);
 jest.mock("../pages/profiles/PopularProfiles", () => () => null);
-jest.mock("../utils/photos", () => ({ IMAGE_HELP: "JPEG, PNG, WebP or GIF. Maximum 2 MB and 4096 × 4096 pixels.", preparePhoto: jest.fn() }));
+jest.mock("../utils/photos", () => ({ preparePhoto: jest.fn() }));
 const post = { id: 7, owner: "sam", profile_id: 50, title: "A good walk", content: "A story", image: null, comments_count: 0, likes_count: 0, is_owner: true };
 const profile = { id: 50, owner: "sam", image: "profile.jpg", content: "About Sam", dog_profile: 20, dog_health: 21, dog_danger: null };
 const page = results => ({ results, next: null });
 const mount = (ui, route = "/") => { const history = createMemoryHistory({ initialEntries: [route] }); return { history, ...render(<Router history={history}>{ui}</Router>) }; };
 beforeEach(() => { jest.resetAllMocks(); feedMemory.clear(); sessionStorage.clear(); window.scrollTo = jest.fn(); URL.createObjectURL = jest.fn(() => "blob:prepared"); URL.revokeObjectURL = jest.fn(); preparePhoto.mockImplementation(file => Promise.resolve(file)); });
 
-test("mobile navigation exposes five labelled destinations", () => {
-  mount(<MobileNavigation />);
-  const nav = screen.getByRole("navigation", { name: "Mobile navigation" });
-  expect(within(nav).getAllByRole("link").map(link => link.textContent)).toEqual(["Home", "Search", "Post", "My dog", "Profile"]);
-  expect(within(nav).getByRole("link", { name: "My dog" })).toHaveAttribute("href", "/my-dog");
-  expect(within(nav).getByRole("link", { name: "Profile" })).toHaveAttribute("href", "/profiles/50");
-  expect(within(nav).queryByText("Sign out")).not.toBeInTheDocument();
+test("the shared header exposes the main navigation and dog record destinations", () => {
+  mount(<NavBar />);
+  const nav = within(screen.getByRole("banner")).getByRole("navigation", { name: "Main navigation" });
+  [["Home", "/"], ["Search", "/search"], ["Post", "/posts/create"], ["Profile", "/profiles/50"]].forEach(([name, href]) => {
+    expect(within(nav).getByRole("link", { name })).toHaveAttribute("href", href);
+  });
+  const dogMenu = within(nav).getByRole("button", { name: "Doggy data" });
+  expect(dogMenu).toHaveAttribute("aria-expanded", "false");
+  fireEvent.click(dogMenu);
+  expect(dogMenu).toHaveAttribute("aria-expanded", "true");
+  [["Doggy profile", "profile"], ["Doggy health", "health"], ["Doggy danger", "behaviour"]].forEach(([name, key]) => {
+    expect(within(nav).getByRole("link", { name })).toHaveAttribute("href", `/my-dog?dogTab=${key}`);
+  });
 });
 
 test("text-only posts omit the photo panel; long captions expand", () => {
@@ -144,7 +150,7 @@ test("photo preparation, remove/replace, progress and expired-session drafts", a
   let rejectUpload;
   axiosReq.post.mockImplementation((url, body, config) => { config.onUploadProgress({ loaded: 35, total: 100 }); return new Promise((resolve, reject) => { rejectUpload = reject; }); });
   mount(<PostForm />);
-  expect(screen.getByText(/Maximum 2 MB/)).toBeInTheDocument();
+  expect(screen.queryByText(/Maximum 2 MB/)).not.toBeInTheDocument();
   const file = new File(["photo"], "dog.png", { type: "image/png" });
   fireEvent.change(screen.getByLabelText(/Post photo/), { target: { files: [file] } });
   await screen.findByText("Photo ready.");

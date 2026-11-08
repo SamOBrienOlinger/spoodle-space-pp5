@@ -5,8 +5,8 @@ export const isPagesPreview =
     (window.location.hostname === "github.io" ||
       window.location.hostname.endsWith(".github.io")));
 
-export const previewDogData = {
-  path: "/my-dog/",
+export const doggyData = {
+  path: isPagesPreview ? "/my-dog/" : "/my-dog",
   label: "Doggy data",
   records: [
     ["profile", "Doggy profile"],
@@ -14,14 +14,6 @@ export const previewDogData = {
     ["behaviour", "Doggy danger"],
   ],
 };
-
-export const previewNavigation = [
-  ["/", "home", "Home"],
-  ["/search/", "search", "Search"],
-  ["/posts/create/", "plus", "Post"],
-  [previewDogData.path, "dog", previewDogData.label],
-  ["/profile/", "user", "Profile"],
-];
 
 // This is the frontend, not the Django API hostname. Never pass credentials in a URL.
 export const liveAppOrigin = "https://spoodle-space-pp5.herokuapp.com";

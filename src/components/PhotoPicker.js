@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { IMAGE_HELP, preparePhoto } from "../utils/photos";
+import { preparePhoto } from "../utils/photos";
 import { FieldError } from "./FormPage";
 import styles from "../styles/FormPage.module.css";
 
@@ -31,10 +31,9 @@ export default function PhotoPicker({ value, onChange, onBusyChange, error, demo
     input.current.focus();
   };
   return <div className={styles.PhotoField}>
-    <label className={styles.PhotoLabel} htmlFor="post-photo">Post photo <span>(optional)</span></label>
-    <p id="post-photo-hint">{IMAGE_HELP} Large JPEG and PNG photos are automatically resized or compressed {demo ? "on this device." : "before upload."}</p>
+    <label className="sr-only" htmlFor="post-photo">Post photo</label>
     {value && <img className={styles.Photo} src={value} alt={demo ? "Selected photo preview" : "Selected upload preview"} />}
-    <input ref={input} id="post-photo" type="file" name="image" accept="image/jpeg,image/png,image/webp,image/gif" onChange={select} disabled={busy} aria-describedby={`post-photo-hint${localError || error ? " post-photo-error" : ""}`} aria-invalid={Boolean(localError || error) || undefined} />
+    <input ref={input} id="post-photo" type="file" name="image" accept="image/jpeg,image/png,image/webp,image/gif" onChange={select} disabled={busy} aria-describedby={localError || error ? "post-photo-error" : undefined} aria-invalid={Boolean(localError || error) || undefined} />
     {value && <div className={styles.Actions}><button className={styles.SecondaryButton} type="button" disabled={busy} onClick={() => input.current.click()}>Replace photo</button><button className={styles.SecondaryButton} type="button" disabled={busy} onClick={remove}>Remove photo</button></div>}
     <p role="status">{busy ? "Preparing photo…" : note}</p><FieldError id="post-photo-error" error={localError || error} />
   </div>;

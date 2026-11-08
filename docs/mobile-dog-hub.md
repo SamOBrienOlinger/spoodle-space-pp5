@@ -1,6 +1,6 @@
 # Mobile navigation and dog hub
 
-Mobile layouts use labelled Home, Search, Post, My dog and Profile tabs. Desktop layouts keep the sidebar. Profile contains account settings and sign-out; the member's dog summary appears above Posts, About and My dog tabs. The shared dog hub links existing profile, health and behaviour records without changing the one-dog account model.
+The shared header provides Home, Search, Post, Doggy data and Profile on mobile and desktop. The Doggy data menu opens the profile, health and behaviour records. Profile contains account settings and sign-out. The desktop account menu also offers Liked posts and Sign out.
 
 The post composer explains the optional photo and common API limits before selection. Large JPEG/PNG photos are resized or compressed locally; GIF/WebP files outside the limits are rejected with instructions, preserving animation. HEIC must be exported as JPEG. The local preparation ceiling is 25 MiB; uploaded output must fit 2 MiB and 4096 pixels per side. Remove, Replace and upload progress are available. Text drafts persist in session storage per account and form; files remain in memory and must be selected again after a reload. Failed requests retain the current text and photo, including expired sessions, and offer sign-in in a separate tab before retry.
 

@@ -1,5 +1,4 @@
 import styles from "./App.module.css";
-import MobileNavigation from "./components/MobileNavigation";
 import MyDogPage from "./pages/doghub/MyDogPage";
 import NavBar from "./components/NavBar";
 import Container from "react-bootstrap/Container";
@@ -43,7 +42,7 @@ function App() {
     <div className={styles.App}>
       {isPagesPreview && <a className={styles.SkipLink} href="#main-content">Skip to content</a>}
       <NavBar />
-      <Container fluid className={isPagesPreview ? styles.Main : `${styles.Main} ${styles.WithBottomNavigation}`}>
+      <Container fluid className={styles.Main}>
         <NotificationContainer />
         {isPagesPreview && <PreviewBanner />}
         {isPagesPreview ? <PreviewPages /> : <Switch>
@@ -79,7 +78,6 @@ function App() {
           <Route render={() => <NotFound />} />
         </Switch>}
       </Container>
-      {!isPagesPreview && <MobileNavigation />}
     </div>
   );
 }

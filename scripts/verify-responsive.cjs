@@ -27,6 +27,8 @@ const routes = [
 async function runScenario(browser, scenario) {
   const page = await browser.newPage({ viewport: scenario.viewport, reducedMotion: 'reduce' });
   page.setDefaultTimeout(10000);
+  const navigation = page.getByRole('banner').getByRole('navigation', { name: 'Main navigation', exact: true });
+  const memberShortcut = navigation.locator('a[href$="/profiles/1"]');
   const username = scenario.username || longName;
   let signedIn = true;
   const pageErrors = [];
@@ -67,7 +69,7 @@ async function runScenario(browser, scenario) {
     if (name === 'edit-profile' || name === 'username-form') {
       await page.goto(baseUrl + '/profiles/1');
       await page.getByRole('heading', { name: username, exact: true }).waitFor();
-      await page.locator('nav[aria-label="Mobile navigation"] a[href$="/profiles/1"]').waitFor({ state: 'attached' });
+      await memberShortcut.waitFor({ state: 'visible' });
       await page.getByText('Account settings', { exact: true }).click();
       await page.getByRole('link', { name: name === 'edit-profile' ? 'Edit profile' : 'Change username', exact: true }).click();
     } else if (name === 'create-post') {
@@ -89,7 +91,7 @@ async function runScenario(browser, scenario) {
       signup: () => page.getByRole('heading', { name: 'Join SpoodleSpace', exact: true }).waitFor(),
     };
     await ready[name]();
-    if (signedIn) await page.locator('nav[aria-label="Mobile navigation"] a[href$="/profiles/1"]').waitFor({ state: 'attached' });
+    if (signedIn) await memberShortcut.waitFor({ state: 'visible' });
     await page.evaluate(() => document.fonts.ready);
     if (scenario.largeText) await page.addStyleTag({ content: 'html { font-size: 200% !important; }' });
     await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
@@ -108,7 +110,8 @@ async function runScenario(browser, scenario) {
         // This strip deliberately scrolls horizontally to show more people.
         if (element.closest('[class*="MobileProfiles"]')) continue;
         // A compact account label is allowed to ellipsize if its full name is exposed.
-        if (style.textOverflow === 'ellipsis' && element.closest('[title]')) continue;
+        const accountLabel = element.closest('button[aria-label]')?.getAttribute('aria-label');
+        if (style.textOverflow === 'ellipsis' && (element.closest('[title]') || accountLabel?.includes(element.textContent.trim()))) continue;
         const outside = rect.left < -2 || rect.right > width + 2;
         const internallyWide = !/^(INPUT|TEXTAREA|SELECT|IMG)$/.test(element.tagName)
           && element.scrollWidth > element.clientWidth + 2;
@@ -124,7 +127,7 @@ async function runScenario(browser, scenario) {
           outside,
         });
       }
-      const navbar = document.querySelector('nav.navbar');
+      const navbar = document.querySelector('header.navbar');
       const main = document.querySelector('[class*="App_Main"]');
       return {
         viewportWidth: width,
@@ -164,11 +167,10 @@ async function runScenario(browser, scenario) {
         await measure('profile-settings');
         await page.getByText('Account settings', { exact: true }).click();
       }
-      if (name === 'feed' && scenario.viewport.width < 992) {
-        const nav = page.getByRole('navigation', { name: 'Mobile navigation' });
-        await nav.waitFor();
-        const bounds = await nav.boundingBox();
-        if (!bounds || bounds.x < -2 || bounds.x + bounds.width > scenario.viewport.width + 2 || bounds.y + bounds.height > scenario.viewport.height + 2) failures.push(scenario.name + ': bottom navigation overflows');
+      if (name === 'feed') {
+        await navigation.waitFor();
+        const bounds = await navigation.boundingBox();
+        if (!bounds || bounds.x < -2 || bounds.x + bounds.width > scenario.viewport.width + 2 || bounds.y < -2 || bounds.y + bounds.height > scenario.viewport.height + 2) failures.push(scenario.name + ': header navigation overflows');
       }
     } catch (error) {
       failures.push(scenario.name + '/' + name + ': ' + error.message);
