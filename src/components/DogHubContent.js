@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { previewDogData } from "../config/deployment";
+import { doggyData } from "../config/deployment";
 import useResource from "../hooks/useResource";
 import RequestState from "./RequestState";
 import DogRecordCard, { dogSections } from "./DogRecordCard";
@@ -20,7 +20,7 @@ export default function DogHubContent({ profile, own, onChanged, sampleRecords }
   const requested = new URLSearchParams(location.search).get("dogTab");
   const kind = Object.prototype.hasOwnProperty.call(dogSections, requested) ? requested : "profile";
   const linkFor = key => { const params = new URLSearchParams(location.search); params.set("dogTab", key); return { pathname: location.pathname, search: params.toString() }; };
-  const tabs = sampleRecords ? previewDogData.records :
+  const tabs = sampleRecords ? doggyData.records :
     Object.entries(dogSections).map(([key, section]) => [key, key === "profile" ? "Profile" : section.title]);
   return <>
     <nav className={styles.Tabs} aria-label="Dog records">

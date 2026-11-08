@@ -1,5 +1,5 @@
-.Layout { display: grid; grid-template-columns: 218px minmax(0, 1fr) 270px; gap: 24px; align-items: start; }
-.LeftColumn, .RightColumn, .Main { min-width: 0; }
+.Layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 24px; align-items: start; max-width: 1140px; margin: auto; }
+.RightColumn, .Main { min-width: 0; }
 .AuthLayout { width: 100%; max-width: 510px; margin: 24px auto; }
 .Card { background: var(--spoodle-surface); border: 1px solid var(--spoodle-border); border-radius: 16px; box-shadow: var(--spoodle-shadow); overflow: hidden; }
 .Header { display: flex; align-items: flex-start; gap: 14px; padding: 26px 28px 23px; border-bottom: 1px solid var(--spoodle-border); background: var(--spoodle-surface-wash); }
@@ -43,8 +43,8 @@
 .AuthActions .PrimaryButton { width: 100%; }
 .Footer { margin: 20px 0; text-align: center; color: var(--spoodle-muted); font-size: .88rem; line-height: 1.7; }
 .Footer a { font-weight: 700; }
-@media (max-width: 1199px) { .Layout { grid-template-columns: 195px minmax(0, 1fr); gap: 20px; max-width: 980px; margin: auto; } .RightColumn { display: none; } }
-@media (max-width: 991px) { .Layout { grid-template-columns: minmax(0, 1fr); max-width: 680px; } .LeftColumn { display: none; } }
+@media (max-width: 1199px) { .Layout { grid-template-columns: minmax(0, 1fr); max-width: 765px; } .RightColumn { display: none; } }
+@media (max-width: 991px) { .Layout { max-width: 680px; } }
 @media (max-width: 575px) { .AuthLayout { margin-top: 4px; } .Header { padding: 21px 18px; gap: 12px; } .HeaderIcon { width: 40px; height: 40px; border-radius: 12px; } .Header h1 { font-size: 1.3rem; } .Header p { font-size: .84rem; } .FormBody { padding: 22px 18px; gap: 22px; } .Columns { grid-template-columns: minmax(0, 1fr); } .PortraitUpload { flex-direction: column; text-align: center; } .Actions > button { flex: 1 1 8rem; } .Upload { padding: 16px; } }
 
 .PhotoCard { padding: 5px; border-radius: 22px; background: var(--spoodle-surface-wash); }

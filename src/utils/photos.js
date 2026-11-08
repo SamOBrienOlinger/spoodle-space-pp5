@@ -1,6 +1,5 @@
 export const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
 export const MAX_IMAGE_DIMENSION = 4096;
-export const IMAGE_HELP = "JPEG, PNG, WebP or GIF. Maximum 2 MB and 4096 × 4096 pixels.";
 const allowed = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 
 export async function preparePhoto(file) {

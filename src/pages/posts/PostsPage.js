@@ -8,7 +8,6 @@ import { feedMemory } from "../../utils/feedMemory";
 import Post from "./Post";
 import Avatar from "../../components/Avatar";
 import Icon from "../../components/InterfaceIcon";
-import AppSidebar from "../../components/AppSidebar";
 import FeedRightRail from "../../components/FeedRightRail";
 import FeedSkeleton from "../../components/FeedSkeleton";
 import PopularProfiles from "../profiles/PopularProfiles";
@@ -112,7 +111,6 @@ export default function PostsPage({ message, filter = "", searchPage = false }) 
   const visibleSamples = samplePosts.filter(({ owner, title }) =>
     owner.toLowerCase().includes(sampleQuery) || title.toLowerCase().includes(sampleQuery));
   return <div className={styles.Layout}>
-    <div className={styles.LeftColumn}><AppSidebar /></div>
     <main id="main-content" tabIndex={-1} className={styles.FeedColumn}>
       {currentUser && !searchPage && <h1 className="sr-only">{liked ? "Liked posts" : following ? "Following posts" : "Community posts"}</h1>}
       {!currentUser && !searchPage && <section className={`${styles.Welcome} ss-enter`} aria-labelledby="feed-welcome-title">

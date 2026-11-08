@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
-import AppSidebar from "./AppSidebar";
 import FeedRightRail from "./FeedRightRail";
 import RequestState, { SessionLink } from "./RequestState";
 import Icon from "./InterfaceIcon";
@@ -63,7 +62,6 @@ export default function FormPage({ title, description, icon = "paw", onSubmit, o
     finally { pending.current = false; if (mounted.current) setBusy(false); }
   };
   return <div className={auth ? styles.AuthLayout : styles.Layout}>
-    {!auth && <div className={styles.LeftColumn}><AppSidebar /></div>}
     <main id="main-content" tabIndex={-1} className={styles.Main}>
       <section className={`${styles.Card} ${coverImage ? styles.PhotoCard : ""}`} aria-labelledby="form-page-title">
         {coverImage && <img className={styles.CoverPhoto} src={coverImage.src} alt={coverImage.alt} width={coverImage.width} height={coverImage.height} decoding="async" />}

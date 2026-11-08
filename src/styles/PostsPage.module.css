@@ -1,5 +1,5 @@
-.Layout { display: grid; grid-template-columns: 218px minmax(0, 1fr) 270px; gap: 24px; align-items: start; }
-.LeftColumn, .FeedColumn, .RightColumn { min-width: 0; }
+.Layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 24px; align-items: start; max-width: 1140px; margin: auto; }
+.FeedColumn, .RightColumn { min-width: 0; }
 .Welcome { margin: 0 0 18px; padding: 5px; overflow: hidden; border: 1px solid var(--spoodle-border); border-radius: 22px; background: var(--spoodle-surface-wash); box-shadow: var(--spoodle-shadow); }
 .WelcomePhoto { display: block; width: 100%; height: auto; border-radius: 17px; }
 .WelcomeCopy { min-width: 0; padding: clamp(18px, 3vw, 28px); overflow-wrap: anywhere; }
@@ -53,9 +53,8 @@
 .SkeletonPhoto { aspect-ratio: 4/3; border-radius: 15px; }
 .SkeletonHeader > span, .SkeletonHeader b, .SkeletonLine, .SkeletonPhoto { background: linear-gradient(100deg, #f0eaf5 30%, #f9f7fc 50%, #f0eaf5 70%); background-size: 220% 100%; animation: skeleton-pass 1300ms ease-in-out 3; }
 @keyframes skeleton-pass { from { background-position: 120% 0; } to { background-position: -120% 0; } }
-@media (min-width: 1600px) { .Layout { grid-template-columns: 228px minmax(0, 1fr) 280px; gap: 28px; } }
-@media (max-width: 1199px) { .Layout { grid-template-columns: 195px minmax(0, 1fr) 234px; gap: 16px; } }
-@media (max-width: 991px) { .Layout { grid-template-columns: minmax(0, 1fr); max-width: 680px; margin: auto; } .LeftColumn, .RightColumn { display: none; } .MobilePeople { display: block; margin-top: 22px; } .MobileSearch { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; padding: 0 10px; border: 1px solid var(--spoodle-control-border); border-radius: 10px; background: #fff; margin: 0; } .MobileSearch input { border: 0; min-width: 0; width: 100%; min-height: 44px; color: var(--spoodle-ink); background: transparent; font-size: .78rem; } .MobileSearch svg { flex-shrink: 0; color: #89669e; } }
+@media (max-width: 1199px) { .Layout { grid-template-columns: minmax(0, 1fr) 234px; gap: 16px; } }
+@media (max-width: 991px) { .Layout { grid-template-columns: minmax(0, 1fr); max-width: 680px; } .RightColumn { display: none; } .MobilePeople { display: block; margin-top: 22px; } .MobileSearch { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; padding: 0 10px; border: 1px solid var(--spoodle-control-border); border-radius: 10px; background: #fff; margin: 0; } .MobileSearch input { border: 0; min-width: 0; width: 100%; min-height: 44px; color: var(--spoodle-ink); background: transparent; font-size: .78rem; } .MobileSearch svg { flex-shrink: 0; color: #89669e; } }
 @media (max-width: 575px) { .Composer { padding: 14px; } .ComposerPrompt { font-size: .8rem; } .CreatePostButton span { display: none; } .CreatePostButton { min-width: 44px; } .FeedControls { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; } .MobileSearch { width: 100%; } .SortLabel { justify-content: flex-end; gap: 8px; font-size: .75rem; } .SortLabel select { max-width: none; min-width: 185px; font-size: 1rem; } .ComposerBottom { font-size: .6rem; } }
 
 .WelcomeActions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
