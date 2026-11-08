@@ -8,7 +8,7 @@ A React social application for dog owners, with a feed, member profiles and dedi
 
 **Paired API:** [drf-spoodle-space](https://github.com/SamOBrienOlinger/drf-spoodle-space).
 
-The Pages link is a design preview from `design/2018-2020-ui-refresh`. It deliberately blocks API requests and replaces account forms with a notice. The features below describe the application when connected to its backend.
+The Pages link opens an interface-only preview built from `main`. Browse sample posts, the dog hub and a member profile, or try the local post composer. The preview blocks API requests and provides no account forms. The features below describe the application when connected to its backend.
 
 ## What you can explore
 
@@ -106,7 +106,7 @@ Generate fresh results from the revision you are working on; historical test rep
 
 ## Deployment
 
-The [Pages workflow](.github/workflows/pages-preview.yml) responds to pushes on `main` but explicitly checks out `design/2018-2020-ui-refresh`. It publishes that branch as a static UI preview. Its [preview API configuration](https://github.com/SamOBrienOlinger/spoodle-space-pp5/blob/design/2018-2020-ui-refresh/src/api/axiosDefaults.js) disables API requests; Pages cannot run `server.js`.
+The [Pages workflow](.github/workflows/pages-preview.yml) builds the triggering commit on `main` with `REACT_APP_PAGES_PREVIEW=true`. It adds static entry points for direct links and refreshes, and records the source commit in `preview-version.json`. The [API configuration](src/api/axiosDefaults.js) blocks requests in preview mode. Draft text stays in the visitor’s browser tab and photos are used locally while the composer is open. The historical auth and branding workflow runs verification only.
 
 A full application deployment needs a host that runs the frontend proxy and a separately configured Django backend. Generate the frontend assets before starting the proxy, and verify authentication and media with your own environment before advertising a full-application URL.
 

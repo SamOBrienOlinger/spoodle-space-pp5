@@ -10,7 +10,7 @@ import { MoreDropdown } from "../../components/MoreDropdown";
 import { invalidateFeed, updateFeedPost } from "../../utils/feedMemory";
 import styles from "../../styles/Post.module.css";
 
-export default function Post({ id, owner, profile_id, profile_image, comments_count = 0, likes_count = 0, like_id, title, content, image, updated_at, postPage, setPosts, preview = false }) {
+export default function Post({ id, owner, profile_id, profile_image, comments_count = 0, likes_count = 0, like_id, title, content, image, photoAlt, updated_at, postPage, setPosts, preview = false }) {
   const currentUser = useCurrentUser();
   const isOwner = Boolean(currentUser && currentUser.username === owner);
   const history = useHistory();
@@ -44,8 +44,9 @@ export default function Post({ id, owner, profile_id, profile_image, comments_co
     catch (err) { setError("The post wasn’t deleted. Please try again."); }
     finally { pendingRef.current = false; setPending(false); }
   };
-  const author = <><Avatar src={profile_image} height={42} /><div><strong>{owner}</strong><span>{updated_at}</span></div></>;
-  const photo = image && !imageFailed ? <img src={image} alt={title || `Photo posted by ${owner}`} loading="lazy" decoding="async" onError={() => setImageFailed(true)} /> : <span className={styles.ImageFallback}><Icon name="photo" size={32} /><span>Photo unavailable</span></span>;
+  const author = <>{profile_image && <Avatar src={profile_image} height={42} />}<div><strong>{owner}</strong>{updated_at && <span>{updated_at}</span>}</div></>;
+  const imageAlt = photoAlt || title || `Photo posted by ${owner}`;
+  const photo = image && !imageFailed ? <img src={image} alt={imageAlt} loading="lazy" decoding="async" onError={() => setImageFailed(true)} /> : <span className={styles.ImageFallback}><Icon name="photo" size={32} /><span>Photo unavailable</span></span>;
   return <>
     <Card as="article" className={styles.Post} aria-labelledby={`post-title-${id}`}>
       <header className={styles.AuthorRow}>
@@ -54,16 +55,16 @@ export default function Post({ id, owner, profile_id, profile_image, comments_co
       </header>
       <div className={styles.Copy}><h3 id={`post-title-${id}`}>{preview || postPage ? title || "A community moment" : <Link to={postLink}>{title || "A community moment"}</Link>}</h3>{content && <p id={`caption-${id}`}>{!expanded && content.length > 280 ? `${content.slice(0, 280)}…` : content}</p>}{content?.length > 280 && <button className={styles.ReadMore} aria-expanded={expanded} aria-controls={`caption-${id}`} onClick={() => setExpanded(value => !value)}>{expanded ? "Show less" : "Read more"}</button>}</div>
       {image && <div className={styles.PhotoFrame}>{preview ? <div className={styles.Photo}>{photo}</div> : <Link className={styles.Photo} to={postLink} aria-label={`Open post: ${title || "community moment"}`}>{photo}<span className={styles.PhotoHint}>View post <Icon name="arrow" size={15} /></span></Link>}{!imageFailed && <button className={styles.FullPhotoButton} onClick={() => setFullPhoto(true)} aria-label={`Open full photo: ${title || "post"}`}>Full photo</button>}</div>}
-      <footer className={styles.PostBar}>
-        {currentUser && !preview ? <button type="button" className={`${styles.Action} ${like_id ? styles.Liked : ""}`} onClick={toggleLike} disabled={pending || isOwner} aria-pressed={Boolean(like_id)} aria-label={`${like_id ? "Unlike" : "Like"} ${title || "post"}`} title={isOwner ? "You cannot like your own post" : undefined}><Icon name="heart" className={celebrate ? styles.HeartPop : ""} /><span>{pending ? "Updating…" : like_id ? "Liked" : "Like"}</span><b aria-live="polite">{likes_count}</b></button> : preview ? <button className={styles.Action} disabled title="Likes are available on the live app"><Icon name="heart" /><span>Like</span></button> : <Link className={styles.Action} to="/signin"><Icon name="heart" /><span>Like</span><b>{likes_count}</b></Link>}
-        {preview ? <button className={styles.Action} disabled title="Comments are available on the live app"><Icon name="comment" /><span>Comment</span></button> : <Link className={styles.Action} to={postLink}><Icon name="comment" /><span>Comment</span><b>{comments_count}</b></Link>}
-        {!preview && <Link to={postLink} className={styles.OpenPost} aria-label={`View ${title || "post"}`}><Icon name="arrow" size={18} /></Link>}
-      </footer>
+      {!preview && <footer className={styles.PostBar}>
+        {currentUser ? <button type="button" className={`${styles.Action} ${like_id ? styles.Liked : ""}`} onClick={toggleLike} disabled={pending || isOwner} aria-pressed={Boolean(like_id)} aria-label={`${like_id ? "Unlike" : "Like"} ${title || "post"}`} title={isOwner ? "You cannot like your own post" : undefined}><Icon name="heart" className={celebrate ? styles.HeartPop : ""} /><span>{pending ? "Updating…" : like_id ? "Liked" : "Like"}</span><b aria-live="polite">{likes_count}</b></button> : <Link className={styles.Action} to="/signin"><Icon name="heart" /><span>Like</span><b>{likes_count}</b></Link>}
+        <Link className={styles.Action} to={postLink}><Icon name="comment" /><span>Comment</span><b>{comments_count}</b></Link>
+        <Link to={postLink} className={styles.OpenPost} aria-label={`View ${title || "post"}`}><Icon name="arrow" size={18} /></Link>
+      </footer>}
       {error && !confirmDelete && <p className={styles.Error} role="alert">{error}</p>}
     </Card>
     <Modal show={fullPhoto} onHide={() => setFullPhoto(false)} centered size="lg" aria-labelledby={`full-photo-title-${id}`}>
       <Modal.Header closeButton><Modal.Title id={`full-photo-title-${id}`}>{title || "Post photo"}</Modal.Title></Modal.Header>
-      <Modal.Body><img className={styles.FullPhoto} src={image} alt={title || `Photo posted by ${owner}`} /></Modal.Body>
+      <Modal.Body><img className={styles.FullPhoto} src={image} alt={imageAlt} /></Modal.Body>
     </Modal>
     <Modal show={confirmDelete} onHide={() => { if (!pending) setConfirmDelete(false); }} centered aria-labelledby={`delete-title-${id}`}>
       <Modal.Header closeButton={!pending}><Modal.Title id={`delete-title-${id}`}>Delete this post?</Modal.Title></Modal.Header>

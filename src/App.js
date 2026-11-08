@@ -6,7 +6,8 @@ import Container from "react-bootstrap/Container";
 import { Route, Switch } from "react-router-dom";
 import "./api/axiosDefaults";
 import { isPagesPreview } from "./config/deployment";
-import LiveAccountNotice, { PreviewBanner } from "./components/LiveAccountNotice";
+import { PreviewBanner } from "./components/LiveAccountNotice";
+import PreviewPages from "./pages/preview/PreviewPages";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 
 import SignUpForm from "./pages/auth/SignUpForm";
@@ -40,11 +41,12 @@ function App() {
   const profile_id = currentUser?.profile_id || "";
   return (
     <div className={styles.App}>
+      {isPagesPreview && <a className={styles.SkipLink} href="#main-content">Skip to content</a>}
       <NavBar />
-      <Container fluid className={styles.Main}>
+      <Container fluid className={isPagesPreview ? styles.Main : `${styles.Main} ${styles.WithBottomNavigation}`}>
         <NotificationContainer />
         {isPagesPreview && <PreviewBanner />}
-        <Switch>
+        {isPagesPreview ? <PreviewPages /> : <Switch>
           <Route exact path="/my-dog" component={MyDogPage} />
           <Route exact path="/search" render={() => <PostsPage searchPage />} />
           <Route exact path="/" render={() => <PostsPage message="No results found. Adjust the search keyword." />} />
@@ -53,8 +55,8 @@ function App() {
           <Route exact path="/dogdangerspage" render={() => <DogDangersPage message="No results found. Adjust the search keyword or follow a user." filter={`owner__followed__owner__profile=${profile_id}&`} />} />
           <Route exact path="/feed" render={() => <PostsPage message="No results found. Adjust the search keyword or follow a user." filter={`owner__followed__owner__profile=${profile_id}&`} />} />
           <Route exact path="/liked" render={() => <PostsPage message="No results found. Adjust the search keyword or like a post." filter={`likes__owner__profile=${profile_id}&ordering=-likes__created_at&`} />} />
-          <Route exact path="/signin" render={() => isPagesPreview ? <LiveAccountNotice /> : <SignInForm />} />
-          <Route exact path="/signup" render={() => isPagesPreview ? <LiveAccountNotice action="signup" /> : <SignUpForm />} />
+          <Route exact path="/signin" component={SignInForm} />
+          <Route exact path="/signup" component={SignUpForm} />
           <Route exact path="/posts/create" render={() => <PostCreateForm />} />
           <Route exact path="/posts/:id" render={() => <PostPage />} />
           <Route exact path="/posts/:id/edit" render={() => <PostEditForm />} />
@@ -75,9 +77,9 @@ function App() {
           <Route exact path="/profiles/:id/edit/password" render={() => <UserPasswordForm />} />
           <Route exact path="/profiles/:id/edit" render={() => <ProfileEditForm />} />
           <Route render={() => <NotFound />} />
-        </Switch>
+        </Switch>}
       </Container>
-      <MobileNavigation />
+      {!isPagesPreview && <MobileNavigation />}
     </div>
   );
 }

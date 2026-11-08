@@ -8,6 +8,7 @@ import useResource from "../../hooks/useResource";
 import CommunityLayout from "../../components/CommunityLayout";
 import RequestState from "../../components/RequestState";
 import DogHubContent from "../../components/DogHubContent";
+import ProfileTabs, { profileView } from "../../components/ProfileTabs";
 import Post from "../posts/Post";
 import styles from "../../styles/Hub.module.css";
 
@@ -30,10 +31,8 @@ export default function ProfilePage() {
   const [actionError, setActionError] = useState("");
   const [moreError, setMoreError] = useState(null);
   const [moreBusy, setMoreBusy] = useState(false);
-  const params = new URLSearchParams(location.search);
-  const selected = ["posts", "about", "dog"].includes(params.get("view")) ? params.get("view") : "posts";
+  const selected = profileView(location.search);
   const own = Boolean(user && user.username === profile.data?.owner);
-  const tabLink = view => { const next = new URLSearchParams(location.search); next.set("view", view); return { pathname: location.pathname, search: next.toString() }; };
   const follow = async () => {
     if (busy) return;
     setBusy(true); setActionError("");
@@ -65,7 +64,7 @@ export default function ProfilePage() {
       {actionError && <p role="alert">{actionError}</p>}
     </header>
     <DogSummary id={profile.data.dog_profile} own={own} />
-    <nav className={styles.Tabs} aria-label="Profile sections">{[["posts", "Posts"], ["about", "About"], ["dog", "My dog"]].map(([key, label]) => <Link key={key} to={tabLink(key)} aria-current={selected === key ? "page" : undefined}>{label}</Link>)}</nav>
+    <ProfileTabs selected={selected} />
     {selected === "about" && <section className={styles.Card}><h2>About {profile.data.owner}</h2><p>{profile.data.content || "No introduction yet."}</p>{own && <Link to={`/profiles/${id}/edit`}>Edit your introduction</Link>}</section>}
     {selected === "dog" && <DogHubContent profile={profile.data} own={own} onChanged={profile.retry} />}
     {selected === "posts" && (posts.loading || posts.error ? <RequestState {...posts} subject="profile posts" /> : posts.data && <>{posts.data.results.length ? posts.data.results.map(post => <Post key={post.id} {...post} setPosts={posts.setData} />) : <section className={styles.State}><h2>No posts yet</h2>{own ? <Link to="/posts/create">Share your first moment</Link> : <p>This member hasn’t posted yet.</p>}</section>}{moreError && <RequestState error={moreError} retry={more} subject="more posts" />}{posts.data.next && <button className={styles.Button} disabled={moreBusy} onClick={more}>{moreBusy ? "Loading…" : "Load more posts"}</button>}</>)}
