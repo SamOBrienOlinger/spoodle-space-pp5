@@ -120,11 +120,16 @@ export default function PostsPage({ message, filter = "", searchPage = false }) 
         <div className={styles.WelcomeCopy}>
           <h1 id="feed-welcome-title">Welcome to SpoodleSpace</h1>
           <p className={styles.WelcomeLead}>The most Spoodley &amp; Cockapoopy Space you're ever going to sniff out</p>
-          <p>Share everyday moments, meet fellow dog owners and keep your dog’s details together.</p>
-          <div className={styles.WelcomeActions}>
-            <a className={styles.PrimaryAction} href="#community-posts">{isPagesPreview ? "Explore sample posts" : "Explore posts"}</a>
-            {isPagesPreview ? <Link className={styles.PrimaryAction} to="/posts/create/">Try the post composer</Link> : <AccountLink className={styles.PrimaryAction} to="/signup">Join SpoodleSpace</AccountLink>}
-          </div>
+          {isPagesPreview ? <>
+            <p>Our community is all about sharing ways of enjoying long ludicrous lives with the lovliest little furrballs on Earth, probably the Universe!</p>
+            <p>Labradoodles, Poodles, cavapoos, basically anyone is welcome</p>
+          </> : <>
+            <p>Share everyday moments, meet fellow dog owners and keep your dog’s details together.</p>
+            <div className={styles.WelcomeActions}>
+              <a className={styles.PrimaryAction} href="#community-posts">Explore posts</a>
+              <AccountLink className={styles.PrimaryAction} to="/signup">Join SpoodleSpace</AccountLink>
+            </div>
+          </>}
         </div>
       </section>}
       {searchPage && <section className={styles.WelcomeCopy}><h1>Search posts</h1><p>{isPagesPreview ? "Filter the sample posts by username or title." : "Find community posts by username or title."}</p></section>}
@@ -140,7 +145,7 @@ export default function PostsPage({ message, filter = "", searchPage = false }) 
       </>}
       {!isPagesPreview && <div id="community-posts" tabIndex="-1" />}
       {isPagesPreview ? <section id="community-posts" aria-labelledby="sample-posts-title" tabIndex={-1}>
-        <header className={styles.PreviewLabel}>
+        <header className={searchPage ? styles.PreviewLabel : "sr-only"}>
           <h2 id="sample-posts-title">Sample posts</h2>
           {searchPage && <p role="status">{visibleSamples.length} {visibleSamples.length === 1 ? "match" : "matches"}</p>}
         </header>
