@@ -8,6 +8,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 import { useRedirect } from "../../hooks/useRedirect";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import useDraft from "../../hooks/useDraft";
+import { readDraft } from "../../privacy";
 import { invalidateFeed } from "../../utils/feedMemory";
 import Post from "./Post";
 import styles from "../../styles/FormPage.module.css";
@@ -41,11 +42,9 @@ function PostEditor({ user, id, edit = false, demo = false }) {
   const [progress, setProgress] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
   const previewResult = useRef(null);
-  // Read the original text once; subsequent renders must not overwrite an edited draft.
+  // Reading a saved draft must follow the same consent check as writing one.
   const initialDraft = useRef(undefined);
-  if (initialDraft.current === undefined) {
-    try { initialDraft.current = sessionStorage.getItem(draftKey); } catch (_) { initialDraft.current = ""; }
-  }
+  if (initialDraft.current === undefined) initialDraft.current = readDraft(draftKey) || "";
   useEffect(() => {
     let active = true;
     if (edit) {
@@ -109,6 +108,7 @@ function PostEditor({ user, id, edit = false, demo = false }) {
     onCancel={() => demo ? history.push("/") : history.goBack()}
     result={result}
   >
+    <p>Optional draft-saving is controlled by Cookie settings below. {demo ? "This demonstration does not publish a post." : "Published posts are visible to others. Do not include private contact details, sensitive information or photographs you do not have permission to share."} <a href={`${process.env.PUBLIC_URL || ""}/privacy.html`}>Privacy policy</a>.</p>
     <PhotoPicker value={photo} onChange={changePhoto} onBusyChange={setPreparing} error={errors.image} demo={demo} />
     <FormField label="Title" name="title" required maxLength={255} value={fields.title} onChange={event => setFields({ ...fields, title: event.target.value })} error={errors.title} />
     <FormField label="Content" name="content" hint="Optional. Share the story behind the moment." as="textarea" rows={5} value={fields.content} onChange={event => setFields({ ...fields, content: event.target.value })} error={errors.content} />
