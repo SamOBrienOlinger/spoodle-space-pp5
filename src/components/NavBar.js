@@ -13,6 +13,7 @@ import SiteNavigation from "./SiteNavigation";
 import styles from "../styles/NavBar.module.css";
 import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
 import { removeTokenTimestamp } from "../utils/utils";
+import { clearSavedDrafts } from "../privacy";
 
 const NavBar = () => {
   const navbarRef = useRef(null);
@@ -59,6 +60,7 @@ const NavBar = () => {
     try {
       await axios.post("/dj-rest-auth/logout/");
       removeTokenTimestamp();
+      clearSavedDrafts();
       setCurrentUser(null);
       history.push("/");
     } catch (_) {
@@ -112,7 +114,7 @@ const NavBar = () => {
           </Navbar.Brand>
         </NavLink>
         <Form className={`${styles.SearchForm} d-none d-md-flex`} onSubmit={handleSearch} role="search">
-          <i className="fas fa-search" aria-hidden="true" />
+          <i aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M16 16l5 5" /></svg></i>
           <Form.Control value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} type="search" aria-label="Search posts by owner or title" placeholder="Search posts by owner or title..." />
         </Form>
       </Container>
