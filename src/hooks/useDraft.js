@@ -1,14 +1,30 @@
 import { useEffect, useRef, useState } from "react";
-// Only non-secret text is retained, scoped to this tab, account and form.
+import { PRIVACY_KEY, PRIVACY_EVENT, readDraft, writeDraft, removeDraft, draftsAllowed } from "../privacy";
+// Only consented, non-secret post text is retained, scoped to this tab/account/form.
 export default function useDraft(key, initial) {
-  const read = () => { try { return JSON.parse(sessionStorage.getItem(key)) || initial; } catch (_) { return initial; } };
+  const read = () => {
+    try {
+      const value = JSON.parse(readDraft(key));
+      return value && typeof value === "object" && !Array.isArray(value) ? value : initial;
+    } catch (_) { return initial; }
+  };
   const [value, setValue] = useState(read);
   const mounted = useRef(false);
   useEffect(() => {
     // Do not save an empty placeholder while an edit is still loading.
     if (!mounted.current) { mounted.current = true; return; }
-    try { sessionStorage.setItem(key, JSON.stringify(value)); } catch (_) {}
+    writeDraft(key, value);
   }, [key, value]);
-  const clear = () => { try { sessionStorage.removeItem(key); } catch (_) {} };
+  useEffect(() => {
+    const changed = () => { if (!draftsAllowed()) removeDraft(key); };
+    const storage = event => { if (event.key === PRIVACY_KEY || event.key === null) changed(); };
+    window.addEventListener(PRIVACY_EVENT, changed);
+    window.addEventListener("storage", storage);
+    return () => {
+      window.removeEventListener(PRIVACY_EVENT, changed);
+      window.removeEventListener("storage", storage);
+    };
+  }, [key]);
+  const clear = () => removeDraft(key);
   return [value, setValue, clear];
 }
