@@ -39,7 +39,13 @@ async function fixtures(page, state) {
     throw new Error(`Unexpected fixture request: ${req.method()} ${path}`);
   });
 }
-const goto = (page, path = '/') => page.goto(base + path, { waitUntil: 'networkidle' });
+const goto = async (page, path = '/') => {
+  const response = await page.goto(base + path, { waitUntil: 'networkidle' });
+  // These isolated journeys opt into draft storage, which is needed for draft-recovery checks.
+  const consent = page.getByRole('button', { name: 'Accept optional', exact: true });
+  if (await consent.isVisible()) await consent.click();
+  return response;
+};
 (async () => {
   fs.mkdirSync(out, { recursive: true });
   const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH, headless: true, args: ['--no-sandbox'] });
@@ -95,10 +101,12 @@ const goto = (page, path = '/') => page.goto(base + path, { waitUntil: 'networki
     await current.getByRole('button', { name: 'Read more', exact: true }).click();
     await current.getByRole('button', { name: 'Show less', exact: true }).waitFor();
     assert.equal(await current.getByText('Photo unavailable', { exact: true }).count(), 0);
-    await current.getByRole('button', { name: 'Open full photo: Walk 2', exact: true }).click();
-    await current.getByRole('dialog').waitFor();
-    await current.getByRole('button', { name: 'Close', exact: true }).click();
-    report.checks.push('Text-only posts, expandable captions and full-photo dialog');
+    const photoPost = current.getByRole('article', { name: 'Walk 2' });
+    await photoPost.getByRole('img', { name: 'Walk 2' }).waitFor();
+    assert(await photoPost.getByRole('link', { name: 'Open post: Walk 2' }).isVisible());
+    assert.equal(await current.getByRole('button', { name: /full photo/i }).count(), 0);
+    assert.equal(await current.getByRole('dialog').count(), 0);
+    report.checks.push('Text-only posts, expandable captions and visible post photos without a full-photo dialog');
     await goto(current, '/my-dog');
     await current.getByRole('button', { name: 'Delete dog profile', exact: true }).click();
     const dialog = current.getByRole('dialog');

@@ -8,6 +8,6 @@ Profiles, dog records and comments distinguish loading, empty and failed respons
 
 ## Verification and release
 
-Use Node 16.20.0, `npm ci`, `CI=true npm test -- --watchAll=false --runInBand` and `CI=true npm run build`. The mobile dog hub workflow additionally runs the production build in Chrome at 320, 390, 768 and 1440 pixels. `scripts/verify-dog-hub.cjs` uses isolated API fixtures for navigation, retry, deletion, full images, search return, real canvas resizing and draft recovery. It uploads screenshots and a machine-readable report. These browser checks do not verify a live account or production integration.
+Use Node 16.20.0, `npm ci`, `CI=true npm test -- --watchAll=false --runInBand` and `CI=true npm run build`. The mobile dog hub workflow additionally runs the production build in Chrome at 320, 390, 768 and 1440 pixels. `scripts/verify-dog-hub.cjs` uses isolated API fixtures for navigation, retry, deletion, inline post photos without a separate dialog, search return, real canvas resizing and draft recovery. It uploads screenshots and a machine-readable report. These browser checks do not verify a live account or production integration.
 
 For an API-backed release, deploy the companion API changes and run `python manage.py migrate` so new text-only posts have no stock image and shared validation is enforced. Existing records are retained. The separate GitHub Pages build uses sample content and a local composer and blocks API requests.
