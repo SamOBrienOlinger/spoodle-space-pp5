@@ -49,12 +49,15 @@ test("text-only posts omit the photo panel; long captions expand", () => {
   expect(screen.getByRole("button", { name: "Show less" })).toHaveAttribute("aria-expanded", "true");
 });
 
-test("full image opens in an accessible dismissible dialog", async () => {
-  mount(<Post {...post} image="dog.jpg" />);
-  fireEvent.click(screen.getByRole("button", { name: /Open full photo/ }));
-  expect(await screen.findByRole("dialog")).toHaveAttribute("aria-labelledby", "full-photo-title-7");
-  fireEvent.click(screen.getByRole("button", { name: /close/i }));
-  await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+test("post photos remain visible and open posts without a full-photo control", () => {
+  const { history } = mount(<Post {...post} image="dog.jpg" />);
+  expect(screen.getByRole("img", { name: "A good walk" })).toHaveAttribute("src", "dog.jpg");
+  const photoLink = screen.getByRole("link", { name: "Open post: A good walk" });
+  expect(photoLink).toHaveAttribute("href", "/posts/7");
+  expect(screen.queryByRole("button", { name: /full photo/i })).not.toBeInTheDocument();
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  fireEvent.click(photoLink);
+  expect(history.location.pathname).toBe("/posts/7");
 });
 
 test("a failed deletion keeps the record and dialog; success waits for the API", async () => {
