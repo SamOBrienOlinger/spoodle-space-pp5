@@ -17,7 +17,6 @@ export default function Post({ id, owner, profile_id, profile_image, comments_co
   const location = useLocation();
   const postLink = { pathname: `/posts/${id}`, state: { from: postPage ? location.state?.from || "/" : location.pathname + location.search } };
   const [expanded, setExpanded] = useState(false);
-  const [fullPhoto, setFullPhoto] = useState(false);
   const [pending, setPending] = useState(false);
   const pendingRef = useRef(false);
   const [error, setError] = useState("");
@@ -54,7 +53,7 @@ export default function Post({ id, owner, profile_id, profile_image, comments_co
         {preview ? <span className={styles.SampleBadge}>Design sample</span> : isOwner && postPage ? <MoreDropdown handleEdit={() => history.push(`/posts/${id}/edit`)} handleDelete={() => setConfirmDelete(true)} /> : <Icon name="paw" className={styles.PostMark} size={18} />}
       </header>
       <div className={styles.Copy}><h3 id={`post-title-${id}`}>{preview || postPage ? title || "A community moment" : <Link to={postLink}>{title || "A community moment"}</Link>}</h3>{content && <p id={`caption-${id}`}>{!expanded && content.length > 280 ? `${content.slice(0, 280)}…` : content}</p>}{content?.length > 280 && <button className={styles.ReadMore} aria-expanded={expanded} aria-controls={`caption-${id}`} onClick={() => setExpanded(value => !value)}>{expanded ? "Show less" : "Read more"}</button>}</div>
-      {image && <div className={styles.PhotoFrame}>{preview ? <div className={styles.Photo}>{photo}</div> : <Link className={styles.Photo} to={postLink} aria-label={`Open post: ${title || "community moment"}`}>{photo}<span className={styles.PhotoHint}>View post <Icon name="arrow" size={15} /></span></Link>}{!imageFailed && <button className={styles.FullPhotoButton} onClick={() => setFullPhoto(true)} aria-label={`Open full photo: ${title || "post"}`}>Full photo</button>}</div>}
+      {image && (preview ? <div className={styles.Photo}>{photo}</div> : <Link className={styles.Photo} to={postLink} aria-label={`Open post: ${title || "community moment"}`}>{photo}<span className={styles.PhotoHint}>View post <Icon name="arrow" size={15} /></span></Link>)}
       {!preview && <footer className={styles.PostBar}>
         {currentUser ? <button type="button" className={`${styles.Action} ${like_id ? styles.Liked : ""}`} onClick={toggleLike} disabled={pending || isOwner} aria-pressed={Boolean(like_id)} aria-label={`${like_id ? "Unlike" : "Like"} ${title || "post"}`} title={isOwner ? "You cannot like your own post" : undefined}><Icon name="heart" className={celebrate ? styles.HeartPop : ""} /><span>{pending ? "Updating…" : like_id ? "Liked" : "Like"}</span><b aria-live="polite">{likes_count}</b></button> : <Link className={styles.Action} to="/signin"><Icon name="heart" /><span>Like</span><b>{likes_count}</b></Link>}
         <Link className={styles.Action} to={postLink}><Icon name="comment" /><span>Comment</span><b>{comments_count}</b></Link>
@@ -62,10 +61,6 @@ export default function Post({ id, owner, profile_id, profile_image, comments_co
       </footer>}
       {error && !confirmDelete && <p className={styles.Error} role="alert">{error}</p>}
     </Card>
-    <Modal show={fullPhoto} onHide={() => setFullPhoto(false)} centered size="lg" aria-labelledby={`full-photo-title-${id}`}>
-      <Modal.Header closeButton><Modal.Title id={`full-photo-title-${id}`}>{title || "Post photo"}</Modal.Title></Modal.Header>
-      <Modal.Body><img className={styles.FullPhoto} src={image} alt={imageAlt} /></Modal.Body>
-    </Modal>
     <Modal show={confirmDelete} onHide={() => { if (!pending) setConfirmDelete(false); }} centered aria-labelledby={`delete-title-${id}`}>
       <Modal.Header closeButton={!pending}><Modal.Title id={`delete-title-${id}`}>Delete this post?</Modal.Title></Modal.Header>
       <Modal.Body>This removes your post and cannot be undone.{error && <p className={styles.Error} role="alert">{error}</p>}</Modal.Body>
