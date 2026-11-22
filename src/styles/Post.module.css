@@ -21,6 +21,13 @@ a.Photo:hover .PhotoHint, a.Photo:focus-visible .PhotoHint { opacity: 1; transfo
 .Action svg { flex-shrink: 0; }
 .Action b { font-size: .68rem; font-variant-numeric: tabular-nums; min-width: 10px; }
 .Action:disabled { color: #84778d; cursor: default; }
+/* Guests see a quiet prompt above each action, without obscuring its label or count. */
+.GuestAction { position: relative; flex: 1 1 112px; max-width: 182px; min-width: 0; flex-direction: column; gap: 5px; padding: 6px 7px 8px; background: #faf7fc; border: 1px solid #e8dced; }
+.GuestPrompt { display: block; width: 100%; padding: 3px 5px; border-radius: 7px; background: #f0e7f7; color: #55376d; font-size: .61rem; line-height: 1.25; font-weight: 700; text-align: center; pointer-events: none; overflow-wrap: anywhere; }
+.GuestActionContent { display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 7px; }
+.GuestAction:hover, .GuestAction:focus-visible { background: #f5edf9; border-color: #d3b9e7; color: var(--spoodle-purple-dark); }
+.GuestAction:focus-visible { outline: 3px solid var(--spoodle-purple); outline-offset: 2px; }
+@media (max-width: 575px) { .GuestAction { flex: 1 1 92px; max-width: none; padding: 6px 4px 8px; } .GuestPrompt { font-size: .57rem; padding: 3px; } }
 .Liked { background: var(--spoodle-peach); color: var(--spoodle-rose); }
 .Liked svg { fill: var(--spoodle-rose); stroke: var(--spoodle-rose); }
 .OpenPost { display: grid; flex: 0 0 44px; place-items: center; margin-left: auto; width: 44px; height: 44px; border-radius: 50%; color: var(--spoodle-purple); background: var(--spoodle-purple-soft); }
