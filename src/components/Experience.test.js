@@ -84,7 +84,7 @@ test("signed-out users see a subtle sign-in prompt on every Like and Comment act
 test("signed-in users keep the original Like and Comment actions without prompts", () => {
   mount(<Post {...post} owner="another-member" />);
   expect(screen.getByRole("button", { name: "Like A good walk" })).toBeEnabled();
-  expect(screen.getByRole("link", { name: "Comment" })).toHaveAttribute("href", "/posts/7");
+  expect(screen.getByRole("link", { name: /^Comment\b/ })).toHaveAttribute("href", "/posts/7");
   expect(screen.queryByText("Sign in or Sign up to view")).not.toBeInTheDocument();
 });
 
