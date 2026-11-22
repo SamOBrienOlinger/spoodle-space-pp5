@@ -13,10 +13,11 @@ import DeleteDialog from "./DeleteDialog";
 import NavBar from "./NavBar";
 import { feedMemory } from "../utils/feedMemory";
 import { preparePhoto } from "../utils/photos";
+import { useCurrentUser } from "../contexts/CurrentUserContext";
 
 jest.mock("../api/axiosDefaults", () => ({ axiosReq: { get: jest.fn(), post: jest.fn(), put: jest.fn() }, axiosRes: { get: jest.fn(), post: jest.fn(), put: jest.fn(), delete: jest.fn() } }));
 jest.mock("../hooks/useRedirect", () => ({ useRedirect: jest.fn() }));
-jest.mock("../contexts/CurrentUserContext", () => { const user = { username: "sam", profile_id: 50 }; return { useCurrentUser: () => user, useSetCurrentUser: () => jest.fn() }; });
+jest.mock("../contexts/CurrentUserContext", () => ({ useCurrentUser: jest.fn(), useSetCurrentUser: () => jest.fn() }));
 jest.mock("./FeedRightRail", () => () => null);
 jest.mock("../pages/profiles/PopularProfiles", () => () => null);
 jest.mock("../utils/photos", () => ({ preparePhoto: jest.fn() }));
@@ -24,7 +25,7 @@ const post = { id: 7, owner: "sam", profile_id: 50, title: "A good walk", conten
 const profile = { id: 50, owner: "sam", image: "profile.jpg", content: "About Sam", dog_profile: 20, dog_health: 21, dog_danger: null };
 const page = results => ({ results, next: null });
 const mount = (ui, route = "/") => { const history = createMemoryHistory({ initialEntries: [route] }); return { history, ...render(<Router history={history}>{ui}</Router>) }; };
-beforeEach(() => { jest.resetAllMocks(); feedMemory.clear(); sessionStorage.clear(); window.scrollTo = jest.fn(); URL.createObjectURL = jest.fn(() => "blob:prepared"); URL.revokeObjectURL = jest.fn(); preparePhoto.mockImplementation(file => Promise.resolve(file)); });
+beforeEach(() => { jest.resetAllMocks(); useCurrentUser.mockReturnValue({ username: "sam", profile_id: 50 }); feedMemory.clear(); sessionStorage.clear(); window.scrollTo = jest.fn(); URL.createObjectURL = jest.fn(() => "blob:prepared"); URL.revokeObjectURL = jest.fn(); preparePhoto.mockImplementation(file => Promise.resolve(file)); });
 
 test("the shared header exposes the main navigation and dog record destinations", () => {
   mount(<NavBar />);
@@ -58,6 +59,33 @@ test("post photos remain visible and open posts without a full-photo control", (
   expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   fireEvent.click(photoLink);
   expect(history.location.pathname).toBe("/posts/7");
+});
+
+test("signed-out users see a subtle sign-in prompt on every Like and Comment action", () => {
+  useCurrentUser.mockReturnValue(null);
+  const { history } = mount(<><Post {...post} /><Post {...post} id={8} title="Another walk" /></>);
+  expect(screen.getAllByText("Sign in or Sign up to view")).toHaveLength(4);
+  for (const title of ["A good walk", "Another walk"]) {
+    const like = screen.getByRole("link", { name: `Sign in or sign up to like ${title}` });
+    const comment = screen.getByRole("link", { name: `Sign in or sign up to comment on ${title}` });
+    for (const action of [like, comment]) {
+      expect(action).toHaveAttribute("href", "/signin");
+      expect(within(action).getByText("Sign in or Sign up to view")).toBeVisible();
+    }
+    expect(like).toHaveTextContent("Like");
+    expect(comment).toHaveTextContent("Comment");
+  }
+  fireEvent.click(screen.getByRole("link", { name: "Sign in or sign up to comment on A good walk" }));
+  expect(history.location.pathname).toBe("/signin");
+  expect(history.location.state.from).toBe("/posts/7");
+  expect(axiosRes.post).not.toHaveBeenCalled();
+});
+
+test("signed-in users keep the original Like and Comment actions without prompts", () => {
+  mount(<Post {...post} owner="another-member" />);
+  expect(screen.getByRole("button", { name: "Like A good walk" })).toBeEnabled();
+  expect(screen.getByRole("link", { name: "Comment" })).toHaveAttribute("href", "/posts/7");
+  expect(screen.queryByText("Sign in or Sign up to view")).not.toBeInTheDocument();
 });
 
 test("a failed deletion keeps the record and dialog; success waits for the API", async () => {
