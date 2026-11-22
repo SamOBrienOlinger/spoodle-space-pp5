@@ -160,8 +160,20 @@ const goto = async (page, path = '/') => {
     await fixtures(current, { guest: true }); await goto(current);
     await current.getByRole('link', { name: 'Explore posts', exact: true }).waitFor();
     await current.getByRole('link', { name: 'Join SpoodleSpace', exact: true }).waitFor();
+    await current.getByRole('heading', { name: 'Walk 2', exact: true }).waitFor();
+    const guestLike = current.getByRole('link', { name: 'Sign in or sign up to like Walk 2', exact: true });
+    const guestComment = current.getByRole('link', { name: 'Sign in or sign up to comment on Walk 2', exact: true });
+    for (const action of [guestLike, guestComment]) {
+      assert.equal(await action.getAttribute('href'), '/signin');
+      assert.equal(await action.getByText('Sign in or Sign up to view', { exact: true }).count(), 1);
+      assert(await action.isVisible());
+    }
+    assert((await current.evaluate(() => document.documentElement.scrollWidth - innerWidth)) <= 1, 'Guest post layout overflows');
     await current.screenshot({ path: `${out}/welcome-mobile.png`, fullPage: false });
-    report.checks.push('Concise guest welcome with both entry actions');
+    await guestComment.click();
+    await current.getByRole('heading', { name: 'Welcome back', exact: true }).waitFor();
+    await current.getByRole('link', { name: 'Sign up', exact: true }).waitFor();
+    report.checks.push('Guest Like/Comment prompts remain visible and lead to sign-in, with sign-up available');
     report.result = 'passed';
   } catch (error) {
     report.result = 'failed'; report.error = String(error.stack || error); process.exitCode = 1;
