@@ -39,7 +39,13 @@ async function fixtures(page, state) {
     throw new Error(`Unexpected fixture request: ${req.method()} ${path}`);
   });
 }
-const goto = (page, path = '/') => page.goto(base + path, { waitUntil: 'networkidle' });
+const goto = async (page, path = '/') => {
+  const response = await page.goto(base + path, { waitUntil: 'networkidle' });
+  // These isolated journeys opt into draft storage, which is needed for draft-recovery checks.
+  const consent = page.getByRole('button', { name: 'Accept optional', exact: true });
+  if (await consent.isVisible()) await consent.click();
+  return response;
+};
 (async () => {
   fs.mkdirSync(out, { recursive: true });
   const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH, headless: true, args: ['--no-sandbox'] });
